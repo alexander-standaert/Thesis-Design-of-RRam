@@ -1,4 +1,4 @@
-function [ output ] = bus( name, indices )
+function [ output ] = grid( name, indices1, indices2)
 % function [ output ] = bus( name, indices )
 % 
 % example:
@@ -9,12 +9,15 @@ function [ output ] = bus( name, indices )
 
 text = '';
 firstEntry = 1;
-for i=indices
-  if( firstEntry==1 ) 
-    firstEntry=0;
-    text = sprintf( '%s_%d', name, i ); 
-  else
-    text = sprintf( '%s %s_%d', text, name, i ); 
+for i=indices1
+  for h=indices2
+      k = strcat(num2str(i),'_',num2str(h));
+      if( firstEntry==1 ) 
+        firstEntry=0;
+        text = sprintf( '%s_%s', name, k); 
+      else
+        text = sprintf( '%s %s_%s', text, name, k); 
+      end
   end
 end 
   
