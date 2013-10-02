@@ -1,0 +1,62 @@
+"_O_V_E_R_V_I_E_W.txt"  Commented List of all files for Common11, with one line descriptions.
+"BigDate.class"  compiled Java byte code
+"BigDate.java"  Handles Dates without times, simpler than Calendar
+"Build.class"  compiled Java byte code
+"Build.java"  Tracks build number of CMP releases
+"build.xml"  Complex ANT build script for Common11
+"CMPAboutBox$1.class"  compiled Java byte code
+"CMPAboutBox$2.class"  compiled Java byte code
+"CMPAboutBox$3.class"  compiled Java byte code
+"CMPAboutBox$4.class"  compiled Java byte code
+"CMPAboutBox.class"  compiled Java byte code
+"CMPAboutBox.java"  Generic About box for AWT
+"Common11.class"  compiled Java byte code
+"common11.icon128.png"  roughly 128x128 icon for the Common11 project
+"common11.icon16.png"  16x16 icon for the Common11 project
+"common11.icon32.png"  32x32 icon for the Common11 project
+"common11.icon48.png"  roughly 48x48 icon for the Common11 project
+"common11.icon64.png"  roughly 64x64 icon for the Common11 project
+"common11.jar"  Common11 jarred class files: Common utility classes that work under Java 1.1+ using no ArrayLists/Swing
+"Common11.java"  Common utility classes for JDK 1.1+
+"common11.look"  complete but uncommented manifest for common11.jar
+"common11.paddesc.html"  HTML ASP PAD description of the Common11 project
+"common11.screenshot.png"  screenshot for the Common11 project
+"common11.use"  precis(summary) of the Common11 project: Common utility classes that work under Java 1.1+ using no ArrayLists/Swing Generated
+"common11.xml"  ASP PAD desc of the Common11 project: Common utility classes that work under Java 1.1+ using no ArrayLists/Swing
+"common1125.zip"  Common11 2.5 distribute zip: Common utility classes that work under Java 1.1+ using no ArrayLists/Swing
+"desc.btm"  creates 4NT file descriptions
+"DESCRIPT.ION"  4NT file descriptions
+"FontFactory.class"  compiled Java byte code
+"FontFactory.java"  Efficiently provides common Fonts
+"Hybrid$1.class"  compiled Java byte code
+"Hybrid.class"  compiled Java byte code
+"Hybrid.java"  Allows code to run as Applet or Application
+"ImageInfo.class"  compiled Java byte code
+"ImageInfo.java"  Gets information about an image
+"ImageViewer.class"  compiled Java byte code
+"ImageViewer.java"  Component to display an Image
+"Limiter.class"  compiled Java byte code
+"Limiter.java"  Methods for corralling values into bounds
+"Localise.class"  compiled Java byte code
+"Localise.java"  convert newline char embedded in strings to platorm convention
+"MasterDistribution.site"  URL to get the master copy of the Common11 project files
+"Misc.class"  compiled Java byte code
+"Misc.java"  Misc utility methods
+"package-info.java"  Dummy Java source with JavaDoc describing the entire package.
+"rebuild.xml"  Simplified ANT build script for Common11
+"ResizingImageViewer.class"  compiled Java byte code
+"ResizingImageViewer.java"  Component that resizes to fit image
+"Shuffle.class"  compiled Java byte code
+"Shuffle.java"  High quality array shuffle
+"StoppableThread.class"  compiled Java byte code
+"StoppableThread.java"  Gracefully stop threads
+"StringTools.class"  compiled Java byte code
+"StringTools.java"  Misc string methods
+"TestDate.class"  compiled Java byte code
+"TestDate.java"  Test BigDate, examples of use.
+"untouch.digest"  generated: enables untouching (set date back) unchanged but redated files.
+"use.txt"  key facts about the Common11 project. Generates common11.use
+"version.txt"  key version info about the Common11 project. Generates common11.use
+"VersionCheck.class"  compiled Java byte code
+"VersionCheck.java"  Check JRE version ok.
+"zip.look"  complete but uncommented manifest for common1125.zip

@@ -1,0 +1,10 @@
+
+at global scope, static means the variable can be bound locally (cannot be overruled by external stuffies).
+
+inside a function, static means that the variable is placed on the heap
+and so the value is "remembered between different calls"
+
+I have the impression that both unqualified and static are acceptable for
+the global variables for UWI
+
+problem was that it is not allowed to return 0 as wave number to ultrasim ( it is allowed for spectre )

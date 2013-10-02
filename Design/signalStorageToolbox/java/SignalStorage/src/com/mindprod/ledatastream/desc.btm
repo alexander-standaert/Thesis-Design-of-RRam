@@ -1,0 +1,78 @@
+@echo off
+@echo °±²Û desc.btm: add 4NT descriptions to all ledatastream files Û²±° 
+
+rem Update the 4NT/TakeCommand file descriptions in descript.ion and _O_V_E_R_V_I_E_W.txt
+Rem adjust drive letter before use:
+E:
+cd com\mindprod\ledatastream
+rem -- *.bat and *.btm files --
+if exist desc.btm describe "desc.btm" /D"creates 4NT file descriptions"
+rem -- *.class files --
+rem Generic description to all class files, overridden later
+for %i in (*.class ) do describe %i "compiled Java byte code"
+if exist ledatastream.manual.html describe "ledatastream.manual.html" /D"detailed HTML manual for the LEDataStream project"
+if exist ledatastream.paddesc.html describe "ledatastream.paddesc.html" /D"HTML ASP PAD description of the LEDataStream project"
+if exist E:\mindprod\pad\ledatastream.html describe "E:\mindprod\pad\ledatastream.html" /D"HTML ASP PAD description of the LEDataStream project: little Endian read/write"
+rem -- *.jar files --
+if exist ledatastream.jar describe "ledatastream.jar" /D"LEDataStream jarred class files: little Endian read/write"
+if exist ledatastream.look describe "ledatastream.look" /D"complete but uncommented manifest for ledatastream.jar"
+if exist E:\mindprod\application\ledatastreamicon32.gif describe "E:\mindprod\application\ledatastreamicon32.gif" /D"ledatastream 32x32 icon gif"
+if exist E:\mindprod\application\ledatastreamicon64.gif describe "E:\mindprod\application\ledatastreamicon64.gif" /D"ledatastream 64x64 icon gif"
+if exist E:\mindprod\application\ledatastreamsplash.gif describe "E:\mindprod\application\ledatastreamsplash.gif" /D"ledatastream splash gif"
+if exist E:\mindprod\application\ledatastream.jnlp describe "E:\mindprod\application\ledatastream.jnlp" /D"ledatastream jnlp Java Web Start launch"
+if exist ledatastream.jnlp describe "ledatastream.jnlp" /D"ledatastream jnlp Java Web Start launch"
+rem -- java files --
+rem -- *.misc files --
+if exist mindprod.css describe "mindprod.css" /D"cascading style sheet for general HTML"
+if exist jdisplay.css describe "jdisplay.css" /D"cascading style sheet for displaying source code in HTML"
+if exist package-info.java describe "package-info.java" /D"Dummy Java source with JavaDoc describing the entire package."
+if exist untouch.digest describe "untouch.digest" /D"generated: enables untouching (set date back) unchanged but redated files."
+if exist mindprodcert2009dsa.cer describe "mindprodcert2009dsa.cer" /D"Public key for Mindprod code-signing certificate. Cannot be used to sign jars."
+if exist DESCRIPT.ION describe "DESCRIPT.ION" /D"4NT file descriptions"
+if exist MasterDistribution.site describe "MasterDistribution.site" /D"URL to get the master copy of the LEDataStream project files"
+if exist ledatastream.use describe "ledatastream.use" /D"precis(summary) of the LEDataStream project: little Endian read/write Generated"
+if exist ledatastream.vpj describe "ledatastream.vpj" /D"Slick Edit project ini file"
+if exist ledatastream.vpw describe "ledatastream.vpw" /D"Slick Edit project ini file"
+if exist ledatastream.vtg describe "ledatastream.vtg" /D"Slick Edit binary tag xref file"
+rem -- *.png and *gif files --
+if exist ledatastream.icon16.png describe "ledatastream.icon16.png" /D"16x16 icon for the LEDataStream project"
+if exist ledatastream.icon32.png describe "ledatastream.icon32.png" /D"32x32 icon for the LEDataStream project"
+if exist ledatastream.icon48.png describe "ledatastream.icon48.png" /D"roughly 48x48 icon for the LEDataStream project"
+if exist ledatastream.icon64.png describe "ledatastream.icon64.png" /D"roughly 64x64 icon for the LEDataStream project"
+if exist ledatastream.icon128.png describe "ledatastream.icon128.png" /D"roughly 128x128 icon for the LEDataStream project"
+if exist ledatastream.screenshot.png describe "ledatastream.screenshot.png" /D"screenshot for the LEDataStream project"
+if exist ledatastreamsplash.gif describe "ledatastreamsplash.gif" /D"splash gif for the LEDataStream project"
+if exist ledatastreamicon32.gif describe "ledatastreamicon32.gif" /D"32x32 gif icon for the LEDataStream project"
+if exist ledatastreamicon64.gif describe "ledatastreamicon64.gif" /D"64x64 gif icon for the LEDataStream project"
+rem  -- other *.png and *gif files --
+if exist E:\mindprod\image\icon16\ledatastream.png describe "E:\mindprod\image\icon16\ledatastream.png" /D"16x16 icon for the LEDataStream project"
+if exist E:\mindprod\image\icon32\ledatastream.png describe "E:\mindprod\image\icon32\ledatastream.png" /D"32x32 icon for the LEDataStream project"
+if exist E:\mindprod\image\icon32\ledatastream.gif describe "E:\mindprod\image\icon32\ledatastream.gif" /D"32x32 gif icon for the LEDataStream project"
+if exist E:\mindprod\image\icon48\ledatastream.icon48.png describe "E:\mindprod\image\icon48\ledatastream.icon48.png" /D"roughly 48x48 icon for the LEDataStream project"
+if exist E:\mindprod\image\icon64\ledatastream.png describe "E:\mindprod\image\icon64\ledatastream.png" /D"roughly 64x64 icon for the LEDataStream project"
+if exist E:\mindprod\image\icon64\ledatastream.gif describe "E:\mindprod\image\icon64\ledatastream.gif" /D"64x64 gif icon for the LEDataStream project"
+if exist E:\mindprod\image\icon128\ledatastream.png describe "E:\mindprod\image\icon128\ledatastream.png" /D"roughly 128x128 icon for the LEDataStream project"
+if exist E:\mindprod\image\screenshot\ledatastream.png describe "E:\mindprod\image\screenshot\ledatastream.png" /D"screenshot for the LEDataStream project"
+if exist E:\mindprod\image\splash\ledatastream.gif describe "E:\mindprod\image\splash\ledatastream.gif" /D"splash for the LEDataStream project"
+rem -- *.txt files --
+if exist _O_V_E_R_V_I_E_W.txt describe "_O_V_E_R_V_I_E_W.txt" /D"Commented List of all files for LEDataStream, with one line descriptions."
+if exist use.txt describe "use.txt" /D"key facts about the LEDataStream project. Generates ledatastream.use"
+if exist version.txt describe "version.txt" /D"key version info about the LEDataStream project. Generates ledatastream.use"
+if exist ledatastream.txt describe "ledatastream.txt" /D"ASCII text manual for the LEDataStream project."
+if exist E:\mindprod\precis\ledatastream.txt describe "E:\mindprod\precis\ledatastream.txt" /D"precis of the LEDataStream project: little Endian read/write"
+rem -- *.xml files --
+if exist build.xml describe "build.xml" /D"Complex ANT build script for LEDataStream"
+if exist rebuild.xml describe "rebuild.xml" /D"Simplified ANT build script for LEDataStream"
+if exist forgather.xml describe "forgather.xml" /D"list of extra gather steps for ANT."
+if exist forjar.xml describe "forjar.xml" /D"list of extra files to include in ledatastream.jar"
+if exist forpost.xml describe "forpost.xml" /D"list of extra posting steps for ANT."
+if exist forzip.xml describe "forzip.xml" /D"list of extra files for ANT include in ledatastream18.zip"
+if exist ledatastream.xml describe "ledatastream.xml" /D"ASP PAD desc of the LEDataStream project: little Endian read/write"
+if exist E:\mindprod\pad\ledatastream.xml describe "E:\mindprod\pad\ledatastream.xml" /D"ASP PAD desc of the LEDataStream project: little Endian read/write"
+if exist ledatastream18.zip describe "ledatastream18.zip" /D"LEDataStream 1.8 distribute zip: little Endian read/write"
+if exist zip.look describe "zip.look" /D"complete but uncommented manifest for ledatastream18.zip"
+if exist E:\mindprod\zips\ledatastream18.zip describe "E:\mindprod\zips\ledatastream18.zip" /D"LEDataStream 1.8 distribute zip archive: little Endian read/write"
+Rem Build _O_V_E_R_V_I_E_W.txt from 4NT/TakeCommand DESCRIPT.ION file descriptions.
+attrib -h descript.ion > nul:
+fourtidy.exe
+rem -30-

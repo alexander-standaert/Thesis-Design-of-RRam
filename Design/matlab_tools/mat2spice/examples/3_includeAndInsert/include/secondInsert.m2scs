@@ -1,0 +1,10 @@
+// <<<<<<<<<<<<<<<< secondInsert.m2scs <<<<<<<<<<<<<<<<<<<<<<<
+
+// include another file from inside an inserted file
+// WARNING: wrong path in generated include/.include statement !!
+$include deepInclude/someFile.m2s
+
+// insert another file from inside an inserted file:
+$insert deepInclude/someFile.m2s
+
+// >>>>>>>>>>>>>>>> secondInsert.m2scs >>>>>>>>>>>>>>>>>>>>>>>

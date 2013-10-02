@@ -1,0 +1,39 @@
+export UWI_BASEPATH=~/projects/spectreBinaryWaves
+
+
+export UWI_LIB_PATH=${UWI_BASEPATH}/libraries/
+export PATH=${PATH}:${UWI_BASEPATH}/scripts
+
+export UWI_PLATFORM=32  # 32 or 64
+
+export UWI_HEADER=H  # print header (plot name and wave definitions)
+#export UWI_HEADER=NH # do not print header
+#export UWI_HEADER=CH # print compressed header
+
+
+# ---- folder in which to put the output files
+export UWI_OUTPUT_MAP=UWI/  # default ; can be an absolute or relative path
+
+
+# ---- noncompressed only
+#export UWI_FORMAT_NC=NCA  #ascii
+#export UWI_FORMAT_NC=NCD  #double
+export UWI_FORMAT_NC=NCF  #float
+#export UWI_FORMAT_NC=NCH  #halfprecision
+
+
+# ---- compressed only (will give issues for idealised input waveforms):
+#export UWI_ISTEP=0.1e-6
+#export UWI_VSTEP=0.01
+#export UWI_TSTEP=50e-12
+
+#(for ultrasim, results are much better if you keep ISTEP and VSTEP at 0)
+export UWI_ISTEP=0
+export UWI_VSTEP=0
+export UWI_TSTEP=1000e-12
+
+#export UWI_FORMAT_CO=COA  #ascii
+#export UWI_FORMAT_CO=COD  #double
+export UWI_FORMAT_CO=COF  #float
+#export UWI_FORMAT_CO=COH  #halfprecision
+

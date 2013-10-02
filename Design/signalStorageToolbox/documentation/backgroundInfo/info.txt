@@ -1,0 +1,12 @@
+For end user information, look in ./manuals
+
+to access the javadoc information, type firefox/javadoc/index.html
+The javadoc provides the latest information about the available
+methods and classes in the java code.  Interesting classes and interfaces are: 
+- Signal
+- (Loadable)SignalDatabase ( in matlab used as "simulation" object )
+- the different format readers, inside
+--- be.kuleuven.micas.signalStorage.formats.psfAscii 	 
+--- be.kuleuven.micas.signalStorage.formats.spice 	 
+--- be.kuleuven.micas.signalStorage.formats.UWI
+- CompressedNamesIndex ( in matlab used as "header" object )

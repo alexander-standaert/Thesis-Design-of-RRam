@@ -1,0 +1,26 @@
+* hspice / eldo example
+
+* --------------------------------
+* needed for eldo :
+.PROBE DC
+.PROBE TRAN
+* ------------------------------
+
+.OPTIONS CSDF
+
+.TRAN 0.1p  10n
+.DC Vin 0 1 0.1
+
+* to generate the netlist: use:
+* mat2spice( 'RClong.m2s', 'generatedNetlist' )
+
+Vin n1 0 pulse 0 1 1n 0.1n 0.2n 0.4n 1n 
+*Vin  n1 0 PWL( 0p 0 10p 1 )
+
+$ for i=1:1000
+R_$<i>$   n$<i+1>$ n$<i>$ 1
+C_$<i>$   n$<i+1>$ 0      1f
+
+$end
+
+.end

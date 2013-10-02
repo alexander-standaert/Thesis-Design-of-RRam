@@ -1,0 +1,107 @@
+LEDataStream 1.8 build: 9326 released: 2007-05-24
+
+little Endian read/write.
+
+Copyright (c) 2009 Canadian Mind Products.
+
+Java class library.
+Download from http://mindprod.com/products1.html#LEDATASTREAM
+
+===> Free <===
+Full source included.
+You may even include the source code, modified or unmodified
+in commercial programs that you write and distribute.
+May be used freely for any purpose but military.
+For more details on this restriction, see
+http://mindprod.com/contact/nonmil.html
+If you include any Canadian Mind Products code in your own applications,
+your app too must be labeled non-military use only.
+All Java jars and source code are included.
+
+----
+
+Prerequisites:
+
+This program runs under any OS,
+(e.g. Win2K/XP/Vista/OSX/Linux/Solaris/Vista64/AIX...) so long as you have
+<><> Java version 1.1 <><> or later installed.
+See http://mindprod.com/jgloss/installingjava.html for details.
+
+----
+
+Installing on a PC:
+
+Download source and compiled class files to run on your own machine as a part of your own program.
+First install a recent Java JDK or JVM.
+See http://mindprod.com/jgloss/installingjava.html.
+To install, extract the zip download with WinZip
+(or similar unzip utility) into any directory you please,
+often J:\ --  ticking off the "use folder names" option.
+
+----
+
+Installing on a MacIntosh:
+
+Use Safari to download source and compiled class files to run on your own machine as a part of your own program.
+Safari will automatically unpack the zip into ~/Downloads (version 10.5)
+[or on the Desktop (version 10.4 and earlier)].
+First install a recent Java JDK or JVM.
+See http://mindprod.com/jgloss/installingjava.html.
+You may optionally move the download tree to a permanent home.
+I don't have a MacIntosh, just a PC, so I can't test my Java programs for Mac compatibility.
+In theory they should work without problems, but in practice that does not always happen.
+If you have problems please, let me know, preferably with screenshots and complete verbatim error messages.
+
+----
+
+Rebuilding:
+
+You are pretty much on your own how to use this material.
+
+----
+
+Use:
+
+Little-endian replacements for DataInputStream,
+DataOutputStream and RandomAccessFile. They work just like
+DataInputStream, DataOutputStream and RandomAccessFile
+except they work with little-endian binary data. Normally
+Java binary I/O is done with big-endian data, with the most
+significant byte of an integer or float first. Intel and
+Windows 95 tend to work with little endian data in native
+files. LEDataInputStream, LEDataOutputStream and
+LERandomAccessFile will let you read and write such files.
+Source code provided.
+
+The java.nio (new I/O) package that is new with JDK1.4 has
+ByteBuffer and friends that support big and little endian.
+That way you don't need LEDataStream.  LEDataStream is
+simpler.
+
+Note that  LEDatastream.read(byte b[], int off, int len) is
+exactly the same as DataStream.read((byte b[], int off, int
+len).  With bytes, there is no difference between big and
+little endian data.  LEDatastream.read does NOT reverse the
+order of the bytes read!
+
+For background see http://mindprod.com/jgloss/endian.html
+
+Version 1.6 just deprecates the readLine method in keeping with the
+deprecation of the underlying DataInput.readLine method.
+
+Why the egg icon?  In Jonathan Swift's Gulliver's Travels,
+two countries fought over which end of the end was best to
+break it, the little or big end, mirroring the struggle
+between the users of little and big endian binary formats.
+See http://mindprod.com/jgloss/endian.html
+
+----
+
+Version History:
+
+1.8 2007-05-24 adds a PAD and icon. It passes
+Intellij inspector. Complete the JavaDoc.
+
+-30-
+
+

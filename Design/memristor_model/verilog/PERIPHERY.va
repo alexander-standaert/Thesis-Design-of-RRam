@@ -1,0 +1,38 @@
+// PERIPHERY
+//
+// A loading circuit for an RRAM element.
+// It combines a resistive load with current compliance.
+// Set current compliance to a very high value (e.g. 1A) to disable it
+//
+// for current flowing from t1 to t2: 
+//   R=Rforward
+//   current compliance at CCforward
+//
+// for current flowing from t2 to t1: 
+//   R=Rreverse
+//   current compliance at CCreverse
+//
+// Author: Stefan Cosemans
+// ------------------------------------------
+`include "disciplines.vams"
+`include "constants.vams"
+
+module PERIPHERY ( t1, t2);
+inout t1, t2;
+electrical t1, t2;
+parameter real Rforward  = 0;
+parameter real Rreverse  = 0;
+parameter real CCforward = 0;
+parameter real CCreverse = 0;
+
+  analog begin
+  
+    if( V(t1,t2)>=0 ) begin
+      I(t1, t2) <+ min( V(t1,t2)/Rforward, CCforward  );
+    end else begin
+      I(t1, t2) <+ max( V(t1,t2)/Rreverse, -CCreverse );
+    end
+
+
+  end //analog begin                                                     
+endmodule                                                              

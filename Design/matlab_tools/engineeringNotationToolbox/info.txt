@@ -1,0 +1,14 @@
+engineeringNotationToolbox
+==========================
+author: Stefan Cosemans,  stefan.cosemans@gmail.com
+
+
+Adds engineering notation to matlab's fprintf and sprintf
+
+look at the matlab help for 
+- fprintf_EN 
+- sprintf_EN
+
+run example/engineeringNotationExample.m to get a first impression
+
+

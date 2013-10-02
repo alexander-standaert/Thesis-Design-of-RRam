@@ -1,0 +1,12 @@
+be.kuleuven.micas.helpers
+be.kuleuven.micas.signalStorage
+be.kuleuven.micas.signalStorage.formats
+be.kuleuven.micas.signalStorage.formats.UWI
+be.kuleuven.micas.signalStorage.formats.psfAscii
+be.kuleuven.micas.signalStorage.formats.spice
+be.kuleuven.micas.signalStorage.headerHierarchy
+be.kuleuven.micas.signalStorage.interfaces
+be.kuleuven.micas.signalStorage.interfaces.exceptions
+be.kuleuven.micas.signals
+com.mindprod.common11
+com.mindprod.ledatastream

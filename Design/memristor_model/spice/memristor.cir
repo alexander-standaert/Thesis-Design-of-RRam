@@ -1,0 +1,92 @@
+.hdl "../verilog/RME_QMMODEL_ANALYTICAL/HOURGLASS.va"
+
+simulator lang=spice
+
+.param n_CO      = 3
+.param n_BR      = 2
+.param n_TR      = 28
+.param TR_size   = 30
+.param BR_size   = 2
+.param omega_x   = 9e+14
+.param omega_y_0 = 9e+15
+.param V0        = -0.05
+.param Tambient  = 297
+.param Rthermal  = 1.2e+10
+.param c_thermal = 0.0075
+.param Ea_CO_to_TR = 1.68231e-19
+.param Ea_TR_to_CO = 1.68231e-19
+.param Ea_CO_to_BR = 1.68231e-19
+.param Ea_BR_to_CO = 1.68231e-19
+.param alpha_0   = 0.03
+.param m_n       = 2.2222222e-16
+.param m_v       = 0
+.param f0        = 1e+13
+
+.param enable_stochastics = 1
+.param initial_seed       = 253
+.param flux_limit         = 1.1402509e+11
+.param progressPrintStep  = 3.508e-08
+.param time_step_bound    = 4.385e-11
+
+.param V_WL_set   = 1.2
+.param V_WL_reset = 1.2
+.param V_WL_read  = 1.2
+.param V_BL_set   = -0.2
+.param V_BL_reset = 1.2
+.param V_BL_read  = 0.2
+.param V_SL_set   = 1.2
+.param V_SL_reset = 0
+.param V_SL_read  = 0
+
+.param T_wait     = 6.25e-09
+.param T_read     = 6.25e-09
+.param T_set      = 2.5e-08
+.param T_reset    = 2.5e-08
+.param T_cycle    = 8.77e-08
+.param T_stop     = 3.508e-07
+.param T_edge     = 2.5e-11
+
+.param transistor_W = 130e-09
+.param transistor_L = 65e-09
+.param Cload        = 0
+
+
+lang=spectre 
+
+subckt memristor ( node1  node2 )
+
+Xrme node1 node2 HOURGLASS
++ V0        = V0
++ omega_x   = omega_x
++ omega_y_0 = omega_y_0
++
++ N_TR = TR_size
++ N_BR = BR_size
++
++ initial_n_CO = n_CO
++ initial_n_TR = n_TR
++ initial_n_BR = n_BR
++
++ Ea_CO_to_TR  = Ea_CO_to_TR
++ Ea_TR_to_CO  = Ea_TR_to_CO
++ Ea_CO_to_BR  = Ea_CO_to_BR
++ Ea_BR_to_CO  = Ea_BR_to_CO
++ Tambient     = Tambient
++ Rthermal     = Rthermal
++ c_thermal    = c_thermal
++ alpha_0      = alpha_0
++ f0           = f0
++ m_n          = m_n
++ m_v          = m_v
++
++ enable_stochastics       = enable_stochastics
++ initial_seed             = initial_seed
++ flux_limit               = flux_limit
++ progressPrintStep        = progressPrintStep
++ time_step_bound          = time_step_bound
++ time_step_bound_factor   = 10
++ verbose_logfile          = 0
++ Nmax                     = 50
+
+ends memristor
+

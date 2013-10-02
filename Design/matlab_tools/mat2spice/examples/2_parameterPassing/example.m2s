@@ -1,0 +1,20 @@
+example file: show how to pass parameters from matlab to the m2s script
+
+$% mat2spice is called from matlab as  mat2spice( m2s, targetFolder, params )
+$%
+$% the provided parameters are available in the m2s file under the same
+$% name as they are called in the call
+$%
+$% e.g.  mat2spice( 'example.m2s', 'output', sp, description )
+$%
+$% allows the m2s file to access the values of sp and name
+$%
+$% In case sp is a structure with sp.key and sp.value, and 
+$% description is a string, the following should work:
+
+sp key      = $<sp.key>$
+sp value    = $<sp.value>$
+description = $<description>$
+
+
+$% NOTE: some people prefer to only pass a single structure called sp

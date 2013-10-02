@@ -1,0 +1,140 @@
+// << transistor library >>
+//
+// a collection of transistors
+//
+// library spectre parameters:
+//	-w			the width of a single transistor, default: wdef
+//
+//	-l			the length of the transistor, default: ldef
+//
+//	-n			the multiplicity of the transistor: total width is n*w,
+//				default: ndef
+//
+// author:      Bram Rooseleer
+// created:     08/04/09
+// last edit:	06/01/10
+// compiled:	09/02/10 16:56:36
+
+parameters ndef=1
+parameters wdef=150n
+parameters ldef=60n
+
+//used library: tsmc65
+include "~/lib/tsmc65/cor_lvt.scs" section= tt_lvt
+include "~/lib/tsmc65/cor_std_mos.scs" section= tt
+include "~/lib/tsmc65/cor_hvt.scs" section= tt_hvt
+
+
+// < nmos_lvt >
+//
+// a transistor
+subckt nmos_lvt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) nch_lvt w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends
+
+// < pmos_lvt >
+//
+// a transistor
+subckt pmos_lvt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) pch_lvt w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends
+
+// < nmos_svt >
+//
+// a transistor
+subckt nmos_svt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) nch w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends
+
+// < pmos_svt >
+//
+// a transistor
+subckt pmos_svt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) pch w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends
+
+// < nmos_hvt >
+//
+// a transistor
+subckt nmos_hvt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) nch_hvt w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends
+
+// < pmos_hvt >
+//
+// a transistor
+subckt pmos_hvt ( d g s b )
+parameters w=wdef l=ldef n=ndef
++ shiftVt=0
++ shiftBeta=0
+parameters nt=ceil(w*n/1.5e-05)
+parameters wt=w*n
+parameters lt=l
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mos ( d rg rs b ) pch_hvt w=wt l=lt nf=nt
+probe1 ( rs s ) iprobe
+
+ends

@@ -1,0 +1,31 @@
+// <<<<<<<<<<<<<<<< firstInclude.m2s <<<<<<<<<<<<<<<<<<<<<<<
+
+$% parameters passed from matlab are globally visible
+$if exist( 'sp', 'var' )
+ sp is available: $<sp.key>$ in firstInclude
+$else
+ sp is not available in firstInclude
+$end
+
+$% parameters defined in this script are visible
+$ test_include=5;
+$if exist( 'test_include', 'var' )
+ test_include is available: $< test_include >$
+$else
+ test_include is not available
+$end
+
+
+$% parameters defined in the parent scope are not visible
+$if exist( 'test_top', 'var' )
+ test_top is available in firstInclude
+$else
+ test_top is not available in firstInclude
+$end
+
+// change a globally visible parameter:
+$ sp.key = 'keyFromFirstInclude';
+// this change is applied in the calling m2s file
+
+
+// >>>>>>>>>>>>>>>> firstInclude.m2s >>>>>>>>>>>>>>>>>>>>>>>

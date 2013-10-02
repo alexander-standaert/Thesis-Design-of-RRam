@@ -1,0 +1,13 @@
+First source sourceMeFirst.m while in the directory ../scripts/
+
+look at the examples in the following order:
+- basic
+- include
+- insert
+- functions -- inline
+- functions -- dedicatedFile
+
+Note: 
+files with extension .m2s   are converted to .sp 
+files with extension .m2scs are converted to .scs
+

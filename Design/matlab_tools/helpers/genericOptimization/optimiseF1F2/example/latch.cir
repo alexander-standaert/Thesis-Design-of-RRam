@@ -1,0 +1,34 @@
+// ----------------------------------------
+// NOR-NOR latch with adjustment to prevent
+// leakage due to input being precharged at
+// up to 0.4V
+// ----------------------------------------
+// - _vb is a transistor associated with a Ids going into/out valuebar
+// - _v  ...
+
+subckt latch_NORNOR ( 
++  vdd vss vddBulk vssBulk 
++  set reset asyncreset inputsReady
++  value valuebar )
+
+minputup_vb (vdd     set      ntop_vb  vddBulk) mc_pmos_lvt w=$<sp.SlatchInUp>$*width    l=length
+mholdup_vb  (ntop_vb value    valuebar vddBulk) mc_pmos_lvt w=$<sp.SlatchHoldUp>$*width  l=length  
+minputup_v  (vdd     reset    ntop_v   vddBulk) mc_pmos_lvt w=$<sp.SlatchInUp>$*width    l=length
+mholdup_v   (ntop_v  valuebar value    vddBulk) mc_pmos_lvt w=$<sp.SlatchHoldUp>$*width  l=length  
+
+mholddown_v  (value    valuebar   vss vssBulk) mc_nmos_lvt w=$<sp.SlatchHoldDown>$*width  l=length  
+mholddown_vb (valuebar value      vss vssBulk) mc_nmos_lvt w=$<sp.SlatchHoldDown>$*width  l=length  
+massync_vb   (valuebar asyncreset vss vssBulk) mc_nmos_lvt w=$<sp.SlatchHoldDown>$*width  l=length
+
+minputdown_vb (valuebar   set   nbottom_vb vssBulk) mc_nmos_lvt w=$<sp.SlatchInDown>$*width l=length
+mblock_vb     (nbottom_vb inputsReady vss  vssBulk) mc_nmos_lvt w=$<sp.SlatchBlock>$*width  l=length
+minputdown_v  (value      reset nbottom_b  vssBulk) mc_nmos_lvt w=$<sp.SlatchInDown>$*width l=length
+mblock_v      (nbottom_b  inputsReady vss  vssBulk) mc_nmos_lvt w=$<sp.SlatchBlock>$*width  l=length
+
+Cpar (value valuebar) capacitor c=0.5f
+//probably an overestimation
+
+
+ends latch_NORNOR
+
+

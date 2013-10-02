@@ -1,0 +1,27 @@
+
+
+simulator lang=spice
+
+
+// WARNING: the settings in the netlist must correspond to the
+// settings in the UWI environment variables !!!
+//
+// Otherwise, UWI output is not used ...
+
+*.usim_opt uwi_lib = /users/micas/scoseman/projects/spectreBinaryWaves/libraries/compressed_UWI32.so 
+.usim_opt uwi_lib = ../../libraries/compressed_UWI32.so 
+
+*.usim_opt wf_format=COA
+*.usim_opt wf_format=COH
+.usim_opt wf_format=COF
+*.usim_opt wf_format=COD
+
+
+
+.probe tran i(*) 
+.probe tran v(*) 
+
+
+simulator lang=spectre
+
+include "decoder.scs"

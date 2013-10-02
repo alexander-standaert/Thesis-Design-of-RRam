@@ -1,0 +1,39 @@
+output for simulation 'tran1.tran'
+[
+#1 .Xnand.n1 V, .outBar V
+#2 .Xnand_0#1, .Xnand_1#1, .Xnand_2#1, .Xnand_3#1, .a0Bar V, .a1Bar V
+#3 .A_0 V, .A_1 V, .A_2 V, .A_3 V, .B_0 V, .B_1 V, .B_2 V, .B_3 V, .Xand_0_0#1, .Xand_0_1#1, .Xand_0_2#1, .Xand_0_3#1, .Xand_1_0#1, .Xand_1_1#1, .Xand_1_2#1, .Xand_1_3#1, .Xand_2_0#1, .Xand_2_1#1, .Xand_2_2#1, .Xand_2_3#1, .Xand_3_0#1, .Xand_3_1#1, .Xand_3_2#1, .Xand_3_3#1, .Xpre_A#2, .Xpre_B#2
+0 S_0 V
+1 S_1 V
+2 S_10 V
+3 S_11 V
+4 S_12 V
+5 S_13 V
+6 S_14 V
+7 S_15 V
+8 S_2 V
+9 S_3 V
+10 S_4 V
+11 S_5 V
+12 S_6 V
+13 S_7 V
+14 S_8 V
+15 S_9 V
+16 Va0:p A
+17 Va1:p A
+18 Va2:p A
+19 Va3:p A
+20 Vvdd:p A
+21 VvddBulk:p A
+22 Vvss:p A
+23 VvssBulk:p A
+24 Xdecoder#3
+25 a0 V
+26 a1 V
+27 a2 V
+28 a3 V
+29 vdd V
+30 vddBulk V
+31 vss V
+32 vssBulk V
+]

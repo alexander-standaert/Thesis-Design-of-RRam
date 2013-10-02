@@ -1,0 +1,5 @@
+
+% add the current path and all subpaths ( that exist at the time this 
+% command is executed ) to matlab's path
+currentPath = pwd;
+addpath( genpath( currentPath ) ); 

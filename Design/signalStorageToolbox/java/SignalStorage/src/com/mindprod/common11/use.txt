@@ -1,0 +1,77 @@
+Includes:
+
+BigDate:         simplified date handling when you want dates without times.
+CMPAboutBox:     a proper about box for AWT app/Applets that provides useful information.
+Hybrid:          converts AWT Applet into an Application
+ImageInfo:       information about a gif, png, jpg.
+ImageViewer:     component to display an image
+Limiter:         cap, corral and hem methods to ensure a value in range.
+Misc:            loadProperties (ordered), beep, thisYear, thisMonth, thisDayOfMonth
+ResizingImageViewer: display Image allowing user to change magnification
+Shuffle:         shuffles int[], similar to Colllections.shuffle(List)
+StoppableThread: threads you can gently stop.
+StringTools:     miscellaneous string methods
+VersionCheck:    check what version of Java is running.
+
+BigDate is a replacement for Java Date class. Handles dates
+999,999 BC to 999,999 AD, the missing year 0, the missing 10
+days in 1582, and the switch to the 100/400 leap year rule
+in 1600. Heavily commented Java source included. Supports
+ISO WeekNumbers and ISO Day of week.  If you want do do
+calculations on pure dates, ignoring timezones and time,
+BigDate is much easier and faster than the Sun Date and
+Calendar classes.  See TestDate for sample uses.
+
+Why the hydrochloric acid molecule logo? Molecules are the
+building blocks of matter. The library classes can be used
+to build Java programs. Hydrochloric acid in 1 chlorine and
+1 hydrogen. in the simplest possible molecule. The 1 theme
+is supposed to suggest JDK 1.1.  Hydrochloric acid is pretty
+nasty stuff, at least when concentrated. In weak
+concentration it tastes a bit like lemon juice. The
+connotation is unfortunate.  I hope you find these utilities
+useful and most un-lemon like.
+
+If you are using JDK 1.5+, get the com.mindprod.common15
+package too.  It has more efficient implementations of some
+of these same methods.
+
+----
+
+Version History:
+
+1.1 adds a StringTools.condense method to collapse
+multiple spaces down to 1.
+
+1.2 just changes the pad directory structure.
+
+1.3 reformats the code with IntelliJ and adds Javadoc.
+
+1.4 adds fast toUpperCase and toLowerCase for chars and Strings.
+
+1.5 2007-10-02 adds Shuffle class.
+
+1.6 2007-10-15 nearestXXXDay, dayOfWeek and calendarDayOfWeek in BigDate
+
+1.7 2008-01-29 StringTools.indexOfWhiteSpace
+
+1.8 2008-02-02 BigDate has named constants for days of week and months of the year.
+
+1.9 2008-03-10 add StringTools.firstWord
+
+2.0 2008-11-12 add JDK Version to About box
+
+2.1 2008-12-16 BigDate toString now handles BC and non-4-digit years.
+              toYYYYString, Constructor handles BC and non-4-digit years.
+
+2.2 2009-04-19 - add countLeading, countTrailing, TrimLeading, TrimTrailing that take multiple trim chars.
+
+2.3 2009-04-29 - add StringTools.countInstances(String,char), BigDate.parseYYYYmmdd(String)
+
+2.4 2009-04-30 - correct bug in StringTools.countLeading(String, String) and hence in trimLeading(String, String)
+                 add pruneExcessBlankLines
+
+2.5 2009-05-03 - add Localise class
+
+-30-
+

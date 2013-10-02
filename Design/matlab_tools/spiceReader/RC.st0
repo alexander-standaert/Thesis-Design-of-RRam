@@ -1,0 +1,66 @@
+***** HSPICE -- C-2009.09 32-BIT (Aug 24 2009) linux ******
+ Input File: RC.sp
+ lic:
+ lic: FLEXlm: v8.5b
+ lic: USER:   scoseman             HOSTNAME: prometheus
+ lic: HOSTID: 00188b8b9d99         PID:      8038
+ lic: Using FLEXlm license file:
+ lic: 1709@licserv
+ lic: Checkout 1 hspice
+ lic: License/Maintenance for hspice will expire on 31-dec-2010/2010.03
+ lic: FLOATING license(s) on SERVER licserv
+ lic:
+ init: begin read circuit files,  cpu clock=  0.00E+00
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/a
+                         d
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/b
+                         ehave
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/b
+                         jt
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/b
+                         urr_brn
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/c
+                         omlinear
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/d
+                         io
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/f
+                         et
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/l
+                         in_tech
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/p
+                         ci
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/s
+                         ignet
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/t
+                         i
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/t
+                         line
+       option search   = /esat/micas_sata/software/hspice_2009.09/parts/x
+                         ilinx
+       option runlvl
+       option post     = ascii
+ init: end read circuit files,  cpu clock=  0.00E+00 memory=     19 kb
+ init: begin check errors,  cpu clock=  0.00E+00
+ **warning**  no dc path to ground from node        0:                n5
+ init: end check errors,  cpu clock=  0.00E+00 memory=     19 kb
+ init: begin setup matrix, pivot=     0 cpu clock=  0.00E+00
+       establish matrix -- done,  cpu clock=  0.00E+00 memory=     20 kb
+       re-order matrix -- done,  cpu clock=  0.00E+00 memory=     20 kb
+ init: end setup matrix,  cpu clock=  0.00E+00 memory=     30 kb
+ dcop: begin dcop,  cpu clock=  0.00E+00
+ dcop: end dcop,  cpu clock=  0.00E+00 memory=     30 kb  tot_iter=       3
+ output: RC.tr0
+ sweep: tran tran0    begin, stop_t=  1.00E-09 #sweeps=1001 cpu clock=  0.00E+00
+ tran: time= 1.0743E-10 tot_iter=      32 conv_iter=      16 cpu clock= 0.00E+00
+ tran: time= 2.3291E-10 tot_iter=      40 conv_iter=      20 cpu clock= 0.00E+00
+ tran: time= 3.2728E-10 tot_iter=      44 conv_iter=      22 cpu clock= 0.00E+00
+ tran: time= 4.2728E-10 tot_iter=      48 conv_iter=      24 cpu clock= 0.00E+00
+ tran: time= 5.2728E-10 tot_iter=      52 conv_iter=      26 cpu clock= 0.00E+00
+ tran: time= 6.2728E-10 tot_iter=      56 conv_iter=      28 cpu clock= 0.00E+00
+ tran: time= 7.2728E-10 tot_iter=      60 conv_iter=      30 cpu clock= 0.00E+00
+ tran: time= 8.2728E-10 tot_iter=      64 conv_iter=      32 cpu clock= 0.00E+00
+ tran: time= 9.2728E-10 tot_iter=      68 conv_iter=      34 cpu clock= 0.00E+00
+ tran: time= 1.0000E-09 tot_iter=      72 conv_iter=      36 cpu clock= 0.00E+00
+ sweep: tran tran0    end,  cpu clock=  0.00E+00 memory=     30 kb
+>info:         ***** hspice job concluded
+ lic: Release hspice token(s)

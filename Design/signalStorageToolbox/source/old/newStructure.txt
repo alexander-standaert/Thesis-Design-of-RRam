@@ -1,0 +1,27 @@
+
+info: in the interface, points are added to a signal indicated by an index
+This means that there is no simple way to immediately filter out signals
+which are saved twice.
+
+postfix includes "." at start
+
+Therefore, the signals are saved twice and the readers of the output must support this behavior.
+
+
+There is a 
+
+Header           object -> filters out duplicate names
+CompressedHeader object -> filters out duplicate names
+
+ and a CompressedHeader object
+
+
+
+New structure:
+
+class Header used for both compressed and non-compressed
+- can be used to request 
+- filters out duplicate names
+
+
+test

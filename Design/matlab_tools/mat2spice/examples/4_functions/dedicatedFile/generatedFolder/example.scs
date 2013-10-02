@@ -1,0 +1,64 @@
+// example file to show use of functions in the main code body of a m2s file
+//
+// author: Stefan Cosemans
+// last modification: 2010-06-30
+
+// first look at the inline function example
+//
+// you can put functions in another m2s file that is included
+
+
+include "chain.scs"
+
+// DUMMY functions {{{1
+// ==============================================
+// ==============================================
+// you can use structures etc as input arguments for subcircuit functions
+
+subckt DUMMY_1 ( in out )
+
+// commentName  = first comment
+// commentValue = 55
+
+// you can instantiate another function subcircuit inside a function:
+Xchain ( vdd vss in out ) CHAIN_11
+
+ends
+
+
+subckt DUMMY_2 ( in out )
+
+// commentName  = second comment
+// commentValue = 55
+
+// you can instantiate another function subcircuit inside a function:
+Xchain ( vdd vss in out ) CHAIN_11
+
+ends
+
+// }}}1
+
+
+// instantiations {{{1
+// ==============================================
+
+Xchain_test ( vdd vss in1 out1 ) CHAIN_1 S=5
+
+Xchain_1 ( vdd vss in1 out1 ) CHAIN_2 S=5 R=3
+Xchain_2 ( vdd vss in2 out2 ) CHAIN_3 S=5 R=3
+Xchain_3 ( vdd vss in3 out3 ) CHAIN_4 S=5 R=3
+Xchain_4 ( vdd vss in4 out4 ) CHAIN_5 S=5 R=3
+Xchain_5 ( vdd vss in5 out5 ) CHAIN_1 S=5 R=3
+Xchain_6 ( vdd vss in6 out6 ) CHAIN_6 S=5 R=3
+Xchain_7 ( vdd vss in7 out7 ) CHAIN_7 S=5 R=3
+Xchain_8 ( vdd vss in8 out8 ) CHAIN_8 S=5 R=3
+Xchain_9 ( vdd vss in9 out9 ) CHAIN_9 S=5 R=3
+Xchain_10 ( vdd vss in10 out10 ) CHAIN_10 S=5 R=3
+
+Xchain_test ( vdd vss in1 out1 ) CHAIN_1 S=5
+
+Xcomment_1 ( A1 B1 ) DUMMY_1
+Xcomment_2 ( A2 B2 ) DUMMY_2
+
+// }}}1
+

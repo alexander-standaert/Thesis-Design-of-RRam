@@ -1,0 +1,62 @@
+// example file to show use of functions in the main code body of a m2s file
+//
+// author: Stefan Cosemans
+// last modification: 2010-06-30
+
+// first look at the inline function example
+//
+// you can put functions in another m2s file that is included
+
+
+$include chain.m2scs
+
+// DUMMY functions {{{1
+// ==============================================
+// ==============================================
+// you can use structures etc as input arguments for subcircuit functions
+$function sname = DUMMY( comment )
+$ sname = m2s_generateInstName;
+
+subckt $sname ( in out )
+
+// commentName  = $<comment.name >$
+// commentValue = $<comment.value>$
+
+// you can instantiate another function subcircuit inside a function:
+Xchain ( vdd vss in out ) $< CHAIN( comment.value ) >$
+
+ends
+
+$end  % function
+// }}}1
+
+
+// instantiations {{{1
+// ==============================================
+
+Xchain_test ( vdd vss in1 out1 ) $< CHAIN( 5 ) >$ S=5
+
+$for i=1:10  
+Xchain_$<i>$ ( vdd vss in$<i>$ out$<i>$ ) $< CHAIN( i ) >$ S=5 R=3
+$end
+$% notice: i here is not affected by i inside CHAIN, as it should be
+$% BUG: each time the function is called, it starts with the
+$% variables as defined at the position it is last called.  
+$% Don't use this behaviour !! Be careful with global variables whose
+$% values are changed inside the m2s files
+
+Xchain_test ( vdd vss in1 out1 ) $< CHAIN( 5 ) >$ S=5
+
+${
+ comment_1.name='first comment';
+ comment_1.value=55;
+ comment_2.name='second comment';
+ comment_2.value=55;
+}$
+Xcomment_1 ( A1 B1 ) $< DUMMY( comment_1 ) >$
+Xcomment_2 ( A2 B2 ) $< DUMMY( comment_2 ) >$
+
+// }}}1
+
+
+$% BUG?:  $insert chain.m2scs does not seem to work ..

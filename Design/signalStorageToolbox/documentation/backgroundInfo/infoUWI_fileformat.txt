@@ -1,0 +1,143 @@
+spectreBinaryWaves serves the following purpose:
+- lets spectre (and ultrasim) write a self-defined output format
+- this output format can be read into matlab
+
+To enable this, it makes use of UWI, the "ultrasim waveform interface", see cdnshelp
+
+This software is provided as is, but with the guarantee that some things will fail
+
+1) installation guide
+2) guide to different formats
+
+1) installation guide
+=====================
+copy the files to wherever you like.
+
+- "source" is only needed if you want to change something or if you want to compile
+  for a different platform
+- "libraries" contains the compiled shared objects
+- "scripts" contains the settings file (set_UWI_settings.rc), and the shell wrappers
+  around ultrasim and around spectre.
+- "matlab" contains the matlab code to read the data into matlab
+- "examples" contains a simple example of how to use spectreBinaryWaves
+
+in scripts/set_UWI_settings.rc
+- Adjust UWI_BASEPATH 
+- Adjust UWI_PLATFORM
+- Make other adjustments to the default settings you want to use
+
+To enable the UWI output, use the following scripts instead of spectre:
+- runNC_UWISpectre: spectre with noncompressed UWI output
+- runCO_UWISpectre: spectre with compressed UWI output
+All output of transient analyses is in the requested UWI format
+
+For ultrasim, you use the same binary as usual (ultrasim or ultrasim -spectre),
+but you specifiy the following two commands:
+(simulator lang=spice)
+.usim_opt wf_format = COA
+.usim_opt uwi_lib = /users/micas/scoseman/projects/spectreBinaryWaves/libraries/compressed_UWI32.so 
+(simulator lang=spectre)
+
+
+To get started, look at what happens in the scripts in examples/, and how
+the results are read and plotted in matlab:
+source ../scripts/set_UWI_settings.rc
+./test
+./testAllCompressed.sh
+./testAllNoncompressed.sh
+./runUltrasimUWI.sh exampleUltrasim.scs  (check inside .scs for the .uwi-statements)
+
+in matlab:
+add the matlab files to the path [e.g. addpath(genpath('../matlab'))  ]
+examplePlotNoncompressed
+examplePlotCompressed
+makePlotUltrasim
+
+Essentially, you can
+- read each of the formats
+- read header only (to get to know which signals are stored)
+- read only those waves that satisfy a filter (selective wave reading)
+
+2) guide to different formats
+=============================
+there are two families of formats: the noncompressed (NC*) and the compressed (CO*)
+
+noncompressed formats store one time value, followed by the value of each signal
+at that time:
+
+infotitle
+[ 
+1  signal1 V
+2  signal2 V
+3  signalI A
+]
+<time0>  <signal1,0> <signal2,0> <signal3,0> 
+<time1>  <signal1,1> <signal2,1> <signal3,1> 
+<time2>  <signal1,2> <signal2,2> <signal3,2> 
+<time3>  <signal1,3> <signal2,3> <signal3,3> 
+...
+
+The file is extended at regular intervals (whenever the simulator requests a flush),
+hence it is possible to track intermediate progress, and there are no memory issues
+
+compressed formats store only those points that change markedly (more than ISTEP or
+VSTEP) compared to the previously stored point.  The current point filtering is
+pretty dumb and will generate unpleasant artifacts in the overall signal shape,
+so beware.  The file format looks as follows:
+
+infotitle
+[ 
+1  signal1 V
+2  signal2 V
+3  signalI A
+]
+<# of timepoints> 
+<c1> <c2> <c3>
+<time0> <time1> <time2> ...
+<timeIndex,s1,0>  <s1,0> <timeIndex,s1,0> <s1,1>    <== signal 1
+<timeIndex,s2,0>  <s2,0>                            <== signal 2
+<timeIndex,s3,0>  <s3,0>                            <== signal 3
+
+This fileformat is only written at the end of the simulation, and this will hence
+result in memory issues as soon as the output becomes too large.  The timeIndices
+are the pointers inside the time vector.  c1, c2 etc are the cumulative number of points that must be skipped to get to the i-th signal.  C1 is hence always 0, 
+c2=c1+#points in signal 1, etc.
+
+Both compressed and noncompressed files can be written in Ascii, Double (8bytes), 
+Float (=Single precision, 4bytes) or Half precision(2 bytes).  To avoid accuracy issues, all time values are always saved as doubles.  
+Half precision values for V and I are divided by 1024 before being written to file.
+This way, their range is +- 65 and they can adequately represent signals in the 
+nanoAmp range.  In binary files, all normal integer values are written as 4-byte 
+unsigned integers.  TimeIndices are written as 2 bytes if there are not more than
+65535 timepoints, otherwise as 4 bytes.
+
+In general, I would suggest 
+- for ultrasim: a compressed waveformat COF for ultrasim, with ISTEP and
+VSTEP=0 (ultrasims filtering algorithm is good enough).  If disk space is very 
+important, you can consider COH.
+- for spectre: an uncompressed waveformat for rather small ciruits, e.g. NCF
+- for spectre: an compressed waveformat with tight VSTEP (e.g. 10mV) and ISTEP 
+               (e.g. 1uA) for larger digital circuits, e.g. COF or COH
+
+
+It is possible to suppress the header from the output.  This can be useful when
+you are doing a lot of semi-identical simulations, as in sweeps, optimisations or
+monte carlo simulations.  You can then use the header of one output file to
+interpret the data in all other output files.
+
+
+
+NOTE: on x86 machines (intel, amd), machine order is little endian, and at
+this time this is used by the c code, hence all binary files are in little
+endian mode.  
+
+This works fine with matlab code that is run on the same type of machine, on 
+another machine, this will not work.
+
+Java always uses big endian.  In the java code to read the binary files, we
+hence hardcoded the input to little endian.  The only acceptable solution is
+to use a defined endian mode for the output.  The logical choice would be
+little endian.  
+
+matlab fread can handle non-native endianness through the machineformat 'l'
+flag

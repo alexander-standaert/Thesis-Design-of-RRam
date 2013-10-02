@@ -1,0 +1,20 @@
+* "simulator" "HSPICE" 
+* "version" "C-2009.09 32-BIT"
+* "format" "HSP"
+* "rundate" "23:33:30 07/14/2010 "
+* "netlist" "RC.sp "
+* "runtitle" "this is my rather long title ========================================="
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc=   1.0000p       
+.nodeset
++ n1 =   0.            
++ n2 =   0.            
++ n4abcdefghijklmnopqrstuvewxyzabcdefghijklmnopqrstuvewxyabcdefghijklmnop =   0.            
++ n3 =   0.            
++ n4 =   0.            
++ n5 =   0.            
++ p =   0.            
+***   END: Saved Operating Point ***                     

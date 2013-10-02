@@ -1,0 +1,132 @@
+
+
+include "/users/micas/scoseman/Designs/data/models/L90_SPLVT10_V011.lib.scs" section=tt
+include "/users/micas/scoseman/Designs/data/models/L90_SP10_V051.lib.scs" section=tt
+include "/users/micas/scoseman/Designs/data/models/L90_SPHVT10_V102.lib.scs" section=tt
+
+include "/users/micas/scoseman/Designs/data/models/L90_LLHVT12_V101.lib.scs" section=tt
+
+// ------------------------------- splvt
+subckt nmos_splvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mnmos ( d rg rs b ) n_10_splvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends nmos_splvt
+
+subckt pmos_splvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mpmos ( d rg rs b ) p_10_splvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends pmos_splvt
+
+
+// ------------------------------- sp
+subckt nmos_sp ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mnmos ( d rg rs b ) n_10_sp l=l w=w
+probe1 ( rs s ) iprobe
+
+ends nmos_sp
+
+subckt pmos_sp ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mpmos ( d rg rs b ) p_10_sp l=l w=w
+probe1 ( rs s ) iprobe
+
+ends pmos_sp
+
+// ------------------------------- sphvt
+subckt nmos_sphvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mnmos ( d rg rs b ) n_10_sphvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends nmos_sphvt
+
+subckt pmos_sphvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mpmos ( d rg rs b ) p_10_sphvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends pmos_sphvt
+
+// ------------------------------- llhvt
+subckt nmos_llhvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mnmos ( d rg rs b ) n_12_llhvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends nmos_llhvt
+
+subckt pmos_llhvt ( d g s b ) 
+parameters
++ shiftVt=0
++ shiftBeta=0
++ w=1 
++ l=1 
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=shiftVt
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=shiftBeta
+
+mpmos ( d rg rs b ) p_12_llhvt l=l w=w
+probe1 ( rs s ) iprobe
+
+ends pmos_llhvt

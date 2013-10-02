@@ -1,0 +1,312 @@
+// example file to show use of functions in the main code body of a m2s file
+//
+// author: Stefan Cosemans
+// last modification: 2010-06-30
+
+// functions are used to create subcircuits with parameters,
+// e.g. the number of inverters in a chain.
+
+
+// CHAIN functions {{{1
+// ==============================================
+// ==============================================
+
+// CHAIN chainLength=5 {{{2
+// ==============================================
+subckt CHAIN_1 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+connect out n5 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=1 {{{2
+// ==============================================
+subckt CHAIN_2 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+connect out n1 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=2 {{{2
+// ==============================================
+subckt CHAIN_3 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+connect out n2 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=3 {{{2
+// ==============================================
+subckt CHAIN_4 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+connect out n3 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=4 {{{2
+// ==============================================
+subckt CHAIN_5 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+connect out n4 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=6 {{{2
+// ==============================================
+subckt CHAIN_6 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+connect out n6 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=7 {{{2
+// ==============================================
+subckt CHAIN_7 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+Xinv_6 ( vdd vss n6 n7 )
+connect out n7 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=8 {{{2
+// ==============================================
+subckt CHAIN_8 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+Xinv_6 ( vdd vss n6 n7 )
+Xinv_7 ( vdd vss n7 n8 )
+connect out n8 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=9 {{{2
+// ==============================================
+subckt CHAIN_9 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+Xinv_6 ( vdd vss n6 n7 )
+Xinv_7 ( vdd vss n7 n8 )
+Xinv_8 ( vdd vss n8 n9 )
+connect out n9 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=10 {{{2
+// ==============================================
+subckt CHAIN_10 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+Xinv_6 ( vdd vss n6 n7 )
+Xinv_7 ( vdd vss n7 n8 )
+Xinv_8 ( vdd vss n8 n9 )
+Xinv_9 ( vdd vss n9 n10 )
+connect out n10 
+
+ends
+// }}}2
+
+
+// CHAIN chainLength=55 {{{2
+// ==============================================
+subckt CHAIN_11 ( vdd vss in out )
+parameters S=0 R=2
+
+connect in n0
+Xinv_0 ( vdd vss n0 n1 )
+Xinv_1 ( vdd vss n1 n2 )
+Xinv_2 ( vdd vss n2 n3 )
+Xinv_3 ( vdd vss n3 n4 )
+Xinv_4 ( vdd vss n4 n5 )
+Xinv_5 ( vdd vss n5 n6 )
+Xinv_6 ( vdd vss n6 n7 )
+Xinv_7 ( vdd vss n7 n8 )
+Xinv_8 ( vdd vss n8 n9 )
+Xinv_9 ( vdd vss n9 n10 )
+Xinv_10 ( vdd vss n10 n11 )
+Xinv_11 ( vdd vss n11 n12 )
+Xinv_12 ( vdd vss n12 n13 )
+Xinv_13 ( vdd vss n13 n14 )
+Xinv_14 ( vdd vss n14 n15 )
+Xinv_15 ( vdd vss n15 n16 )
+Xinv_16 ( vdd vss n16 n17 )
+Xinv_17 ( vdd vss n17 n18 )
+Xinv_18 ( vdd vss n18 n19 )
+Xinv_19 ( vdd vss n19 n20 )
+Xinv_20 ( vdd vss n20 n21 )
+Xinv_21 ( vdd vss n21 n22 )
+Xinv_22 ( vdd vss n22 n23 )
+Xinv_23 ( vdd vss n23 n24 )
+Xinv_24 ( vdd vss n24 n25 )
+Xinv_25 ( vdd vss n25 n26 )
+Xinv_26 ( vdd vss n26 n27 )
+Xinv_27 ( vdd vss n27 n28 )
+Xinv_28 ( vdd vss n28 n29 )
+Xinv_29 ( vdd vss n29 n30 )
+Xinv_30 ( vdd vss n30 n31 )
+Xinv_31 ( vdd vss n31 n32 )
+Xinv_32 ( vdd vss n32 n33 )
+Xinv_33 ( vdd vss n33 n34 )
+Xinv_34 ( vdd vss n34 n35 )
+Xinv_35 ( vdd vss n35 n36 )
+Xinv_36 ( vdd vss n36 n37 )
+Xinv_37 ( vdd vss n37 n38 )
+Xinv_38 ( vdd vss n38 n39 )
+Xinv_39 ( vdd vss n39 n40 )
+Xinv_40 ( vdd vss n40 n41 )
+Xinv_41 ( vdd vss n41 n42 )
+Xinv_42 ( vdd vss n42 n43 )
+Xinv_43 ( vdd vss n43 n44 )
+Xinv_44 ( vdd vss n44 n45 )
+Xinv_45 ( vdd vss n45 n46 )
+Xinv_46 ( vdd vss n46 n47 )
+Xinv_47 ( vdd vss n47 n48 )
+Xinv_48 ( vdd vss n48 n49 )
+Xinv_49 ( vdd vss n49 n50 )
+Xinv_50 ( vdd vss n50 n51 )
+Xinv_51 ( vdd vss n51 n52 )
+Xinv_52 ( vdd vss n52 n53 )
+Xinv_53 ( vdd vss n53 n54 )
+Xinv_54 ( vdd vss n54 n55 )
+connect out n55 
+
+ends
+// }}}2
+
+// ==============================================
+// ==============================================
+// }}}1
+
+
+// DUMMY functions {{{1
+// ==============================================
+// ==============================================
+// you can use structures etc as input arguments for subcircuit functions
+
+subckt DUMMY_1 ( in out )
+
+// commentName  = first comment
+// commentValue = 55
+
+// you can instantiate another function subcircuit inside a function:
+Xchain ( vdd vss in out ) CHAIN_11
+
+ends
+
+
+subckt DUMMY_2 ( in out )
+
+// commentName  = second comment
+// commentValue = 55
+
+// you can instantiate another function subcircuit inside a function:
+Xchain ( vdd vss in out ) CHAIN_11
+
+ends
+
+// }}}1
+
+
+// instantiations {{{1
+// ==============================================
+
+Xchain_test ( vdd vss in1 out1 ) CHAIN_1 S=5
+
+Xchain_0 ( vdd vss in0 out0 ) CHAIN_2 S=5 R=3
+Xchain_1 ( vdd vss in1 out1 ) CHAIN_3 S=5 R=3
+Xchain_2 ( vdd vss in2 out2 ) CHAIN_4 S=5 R=3
+Xchain_3 ( vdd vss in3 out3 ) CHAIN_5 S=5 R=3
+Xchain_4 ( vdd vss in4 out4 ) CHAIN_1 S=5 R=3
+Xchain_5 ( vdd vss in5 out5 ) CHAIN_6 S=5 R=3
+Xchain_6 ( vdd vss in6 out6 ) CHAIN_7 S=5 R=3
+Xchain_7 ( vdd vss in7 out7 ) CHAIN_8 S=5 R=3
+Xchain_8 ( vdd vss in8 out8 ) CHAIN_9 S=5 R=3
+Xchain_9 ( vdd vss in9 out9 ) CHAIN_10 S=5 R=3
+
+Xchain_test ( vdd vss in1 out1 ) CHAIN_1 S=5
+
+Xcomment_1 ( A1 B1 ) DUMMY_1
+Xcomment_2 ( A2 B2 ) DUMMY_2
+
+// }}}1
+
+

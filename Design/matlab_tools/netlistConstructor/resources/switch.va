@@ -1,0 +1,35 @@
+`include "discipline.h"
+`include "constants.h"
+module switch ( source, gate, drain, bulk );
+electrical source;
+electrical gate;
+electrical drain;
+electrical bulk;
+parameter real    Ron =1.0;
+parameter real    Roff=1.0e12;
+parameter real    Cgs =0.2e-15;
+parameter real    Cgd =0.2e-15;
+parameter real    Cdb =0.1e-15;
+parameter real    Csb =0.1e-15;
+parameter real    Von =1;
+parameter real    Voff=0;
+  real local;
+  real alpha;
+  real beta;
+  real R;
+  analog begin
+    @ ( initial_step ) begin
+      $display( "switch has begun" );
+    end 
+
+    alpha = (  (V( gate, bulk )-Voff) / (Von-Voff) );
+    beta  = ((alpha-0.4)/0.2);
+
+    R = (alpha<0.4)*Roff + 
+        (alpha>0.6)*Ron + 
+        (alpha>=0.4)*(alpha<=0.6)* (  (1-beta) * Roff + beta*Ron ) ;
+
+    I( drain, source ) <+ V( drain, source) / R;
+
+  end
+endmodule

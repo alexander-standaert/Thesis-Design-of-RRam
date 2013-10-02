@@ -1,0 +1,36 @@
+
+
+// ------------------------------- vsource
+
+
+// ------------------------------- resistor
+// default resistor is ok, no wrapper needed
+
+// ------------------------------- capacitor
+// default capacitor is ok, no wrapper needed
+
+
+// ------------------------------- switch
+
+//ahdl_include "~scoseman/matlab/netlistConstructor/resources/switch.va"
+ahdl_include "switch.va"
+
+subckt myswitch ( source gate drain bulk ) 
+parameters Ron=0 Roff=0 Cgs=0 Cgd=0 Cdb=0 Csb=0
+
+myswitchInstance ( source gate drain bulk )  switch Ron=Ron Roff=Roff
+
+Cgs ( gate   source ) capacitor c=Cgs
+Cgd ( gate   drain  ) capacitor c=Cgd
+Cdb ( drain  bulk   ) capacitor c=Cdb
+Csb ( source bulk   ) capacitor c=Csb
+
+ends myswitch
+
+// switch is defined in vhdl file
+// parameters Ron = e.g. 1ohm for ideal ... 5 kOhm small NMOS, 1V Vgs in 90nm
+// parameters Roff= e.g. 1e12 for ideal
+// parameters Cgs, Cgd ; e.g. 0.2f * (W*L)/(W0*L0) in 90nm 
+// parameters Cdb, Csb ; e.g. 0.1f * (W*L)/(W0*L0) in 90nm 
+
+

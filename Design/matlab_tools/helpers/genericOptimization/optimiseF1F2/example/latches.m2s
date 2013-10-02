@@ -1,0 +1,83 @@
+Evaluate Cross-Coupled Latch SA with inputs on drain and load a simple latch
+
+simulator lang=spectre
+
+parameters enableMismatch = 1
+
+include "/users/micas/scoseman/Designs/data/mismatch/models-mismatch_90nm_HVT.tt"
+include "/users/micas/scoseman/Designs/data/mismatch/models-mismatch_90nm_LVT.tt"
+
+
+parameters width=120n length=80n
+
+$insert latch.cir
+
+parameters stopTime=$<sp.stopTime>$
+
+parameters voltage_bulk=0
+options1 options save=all
+
+parameters voeding      = 1
+
+mymc montecarlo 
++ donominal=no variations=mismatch 
++ seed=1234 
++ numruns=$<sp.numruns>$ 
++ savefamilyplots= no {
+  tran1 tran start=0p stop=stopTime step=10p;
+  
+  export delaySet  = oceanEval("cross( v(\"set\") $<sp.voeding/2>$ 1 'crossing ) ") ;
+  export delayReset= oceanEval("cross( v(\"reset\") $<sp.voeding/2>$ 1 'crossing ) ") ;
+  export delayOut1   = oceanEval("cross( v(\"out\")    $<sp.voeding/2>$ 1 'crossing ) ") ;
+  export delayOut2   = oceanEval("cross( v(\"outbar\") $<sp.voeding/2>$ 1 'crossing ) ") ;
+  export Qvdd        = oceanEval("integ( i(\"Vdd:p\")  0p $<sp.stopTime>$ )") ;
+  export Qvss        = oceanEval("integ( i(\"Vss:p\")  0p $<sp.stopTime>$ )") ;
+  export QvddLatch   = oceanEval("integ( i(\"VddLatch:p\")  0p $<sp.stopTime>$ )") ;
+  export QvssLatch   = oceanEval("integ( i(\"VssLatch:p\")  0p $<sp.stopTime>$ )") ;
+  export Qblock       = oceanEval("integ( i(\"Vblock:p\")   0p $<sp.stopTime>$ )") ;
+
+  export energy = oceanEval("abs(Qvdd)+abs(QvddLatch)" );
+  //TODO: update formula for energy
+  //export delay = oceanEval("max(delayOut1,delayOut2)");
+  export delay = oceanEval("delayOut2-delayReset");
+}
+
+Vdd       (vdd   0) vsource type=dc dc=voeding
+Vss       (vss   0) vsource type=dc dc=0
+
+VddLatch (vddLatch   0) vsource type=dc dc=voeding
+VssLatch (vssLatch   0) vsource type=dc dc=0
+
+Vblock ( block 0 ) vsource type=pwl  
++ wave=[ 0p           0       50p    0  75p voeding 300p  voeding 350p 0 ]
+
+$ if sp.value == 0
+$   out=sp.voeding; 
+$   outbar=0;
+$   set=0;
+$   reset=sp.voeding;
+$ else 
+$   out=0; 
+$   outbar=sp.voeding;
+$   set=sp.voeding;
+$   reset=0;
+$ end
+
+Vset ( set 0 ) vsource type=pwl  
++ wave=[ 0p           0.3     70p    0.3  85p  $<set>$   300p  $<set>$   350p 0.3 ]
+Vreset ( reset 0 ) vsource type=pwl  
++ wave=[ 0p           0.3     70p    0.3  85p  $<reset>$ 300p  $<reset>$ 350p 0   ]
+
+Vasyncreset (asyncreset 0) vsource type=dc dc=0
+
+
+ic out   =$<out>$  
+ic outbar=$<outbar>$  
+
+Cload_v  (out    vss) capacitor c=0.5f
+Cload_vb (outbar vss) capacitor c=0.5f
+
+NORNORlatch ( 
++  vdd vss vddBulk vssBulk 
++  set reset asyncreset block
++  out outbar ) latch_NORNOR

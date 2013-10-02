@@ -1,0 +1,85 @@
+example file showing include and insert
+
+$% parameters passed from matlab are visible
+$<sp.value>$ is available
+
+$if exist( 'sp', 'var' )
+ sp is available: $<sp.key>$
+$else
+ sp is not available
+$end
+
+$% parameters defined in this script are visible
+$ test_top=5;
+
+$if exist( 'test_top', 'var' )
+ test_top is available: $< test_top >$
+$else
+ test_top is not available
+$end
+
+
+// example.m2s:  top file <<<<<<<<<<<<<<<<<<
+
+$% --------------------- 
+$% with $include, a separate output file is
+$% generated for the included file
+$% and this output file is included with a spice-style .include
+// first top include: include/firstInclude.m2s
+$include include/firstInclude.m2s
+
+// global parameters that are altered inside include/insert files 
+// are altered at top level as well
+After firstInclude: sp.key = $<sp.key>$
+
+
+// second top include: include/secondInclude.m2scs
+$% bug: $include always makes it .include, also when it is a spectre file
+$% solve with simulator lang:
+simulator lang=spice
+$include include/secondInclude.m2scs
+simulator lang=spectre
+
+
+
+$% the parameters defined in the included files are not available:
+$if exist( 'test_include', 'var' )
+  test_include is available in top
+$else
+  test_include is not available in top
+$end
+
+
+$% --------------------- 
+$% with $insert, the content of the inserted file is added to this file.
+$% The contents is still parsed
+// first top insert: include/firstInsert.m2s
+$insert include/firstInsert.m2s
+
+// global parameters that are altered inside include/insert files 
+// are altered at top level as well
+After firstInsert: sp.key = $<sp.key>$
+
+// second top insert: include/firstInsert.m2s
+$insert include/secondInsert.m2scs
+
+$if exist( 'test_insert', 'var' )
+  test_insert is available in top
+$else
+  test_insert is not available in top
+$end
+
+// top sp insert
+// you can use normal spectre/spice includes, but watch the paths ...
+// Either use fully qualified names, or make sure you consider the
+// output folder as the starting directory to define relative paths 
+
+// an insert can solve some issues, but at this moment,
+// mat2spice warns when files other then m2s and m2scs files are included.
+// What is the desired behaviour?
+$insert include/spiceInclude.sp
+
+// example.m2s:  top file >>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
