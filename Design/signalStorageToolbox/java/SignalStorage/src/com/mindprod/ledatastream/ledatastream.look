@@ -1,6 +1,0 @@
-META-INF/MANIFEST.MF
-com/mindprod/ledatastream/LEDataInputStream.class
-com/mindprod/ledatastream/LEDataOutputStream.class
-com/mindprod/ledatastream/LEDataStream.class
-com/mindprod/ledatastream/LERandomAccessFile.class
-com/mindprod/ledatastream/LETest.class
