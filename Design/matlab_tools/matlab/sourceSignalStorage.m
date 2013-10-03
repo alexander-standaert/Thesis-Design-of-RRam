@@ -7,13 +7,14 @@
 % javaaddpath() needs requires an absolute path...
 % ----------------------------
 
-currentPath=pwd();
+currentPath = pwd();
 cd( '~' );
 home = pwd();
 cd( currentPath );
 
 %javaaddpath( [ home '/matlab/java/' ] );
-javaaddpath( [ home '/matlab/java/SignalStorage.jar' ] );
+%javaaddpath( [ home '/matlab/java/SignalStorage.jar' ] );
+javaaddpath( [ currentPath 'matlab_tools/matlab/java/SignalStorage.jar' ] );
 import be.kuleuven.micas.signals.*;
 import be.kuleuven.micas.signalStorage.interfaces.*;
 import be.kuleuven.micas.signalStorage.simulationBrowser.*
@@ -22,7 +23,7 @@ import be.kuleuven.micas.signalStorage.simulationBrowser.*
 % ----------------------------
 % set up the matlab path
 % ----------------------------
-addpath(genpath('~/matlab/signalStorage'))
+%addpath(genpath('~/matlab/signalStorage'))
 % this adds ~/matlab/signalStorage and all its subdirectories to the matlab path
 
 
