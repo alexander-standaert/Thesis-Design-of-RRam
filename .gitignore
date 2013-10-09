@@ -1,6 +1,8 @@
 *.*~
+**/logs/*
 */logs
 *.raw
 *.srf
 *.log
 *.ahdlSimDB
+*/m2s_run.m
