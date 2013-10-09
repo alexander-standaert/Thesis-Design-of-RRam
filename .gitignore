@@ -1,1 +1,6 @@
 *.*~
+*/logs
+*.raw
+*.srf
+*.log
+*.ahdlSimDB

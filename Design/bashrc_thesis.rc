@@ -1,0 +1,10 @@
+
+#SPECTRE
+
+#source ~micasusr/design/scripts/ic_0_mmsim_12.10.rc
+source ~micasusr/design/scripts/ic_0_mmsim_11.10.rc
+#source ~micasusr/design/scripts/ic_0_mmsim_10.11.rc
+#source ~micasusr/design/scripts/ic_0_mmsim_7.2.rc
+
+#CADENCE
+source ~micasusr/design/scripts/ic_6.1.5.132.rc
