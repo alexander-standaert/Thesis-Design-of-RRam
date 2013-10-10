@@ -3,6 +3,8 @@ system('ls')
 
 [sim tree] = readPsfAscii('./memory_cell/memory_cell1/memory_cell1_testbench.raw/ana.tran', '.*')
 
+%comment
+
 bl = sim.getSignal('bl');
 blx = bl.getXValues;
 bly = bl.getYValues;
