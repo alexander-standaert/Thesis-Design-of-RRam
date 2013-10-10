@@ -1,4 +1,6 @@
 close all
+system('ls')
+
 [sim tree] = readPsfAscii('./memory_cell/memory_cell1/memory_cell1_testbench.raw/ana.tran', '.*')
 
 bl = sim.getSignal('bl');
