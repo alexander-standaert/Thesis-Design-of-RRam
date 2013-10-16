@@ -10,8 +10,8 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % transistor sizes										
-pmult = 1;
-nmult = 1;									
+pmult = 10*50*10^(-9);
+nmult = 3*50*10^(-9);									
 
 mat2spice(mat2spicepath,spicepath,pmult,nmult)
 clear inputfile currentpath mat2spicepath spicepath
@@ -27,15 +27,15 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-Rload1 = 1;
-Rload2 = 1;
-Rload3 = 1;
-Cload1 = 1;
-Cload2 = 1;
-Cload3 = 1;
-Rmemcell = 1;
-Rmemhigh = 1;
-Rmemlow = 1;								
+Rload1 = 100;
+Rload2 = 100;
+Rload3 = 100;
+Cload1 = 18*10^-15;
+Cload2 = 18*10^-15;
+Cload3 = 18*10^-15;
+Rmemcell = 10000;
+Rmemhigh = 35000;
+Rmemlow = 5000;								
 
 mat2spice(mat2spicepath,spicepath,Rload1,Rload2,Rload3,Cload1,Cload2,Cload3,Rmemcell,Rmemhigh,Rmemlow)
 clear inputfile currentpath mat2spicepath spicepath
@@ -51,7 +51,7 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-sel1_1 = 1;
+sel1_1 = '0 0';
 sel1_2 = 1;
 sel1_3 = 1;
 
@@ -82,4 +82,11 @@ clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Run spice
+
+close all
+system('spectre -format psfascii ./Sa/sa1/spice/sa1_testbench.sp')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Plot results
+
 
