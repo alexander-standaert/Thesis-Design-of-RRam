@@ -1,4 +1,3 @@
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mat2spice latch
 
@@ -51,31 +50,31 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-sel1_1 = '0 0';
-sel1_2 = 1;
-sel1_3 = 1;
+sel1_1 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
+sel1_2 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
+sel1_3 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
 
-sel2_1 = 1;
-sel2_2 = 1;
-sel2_3 = 1;
+sel2_1 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel2_2 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel2_3 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
 
-wl_1 = 1;
-wl_2 = 1; 
-wl_3 = 1; 
+wl_1 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
+wl_2 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
+wl_3 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
 
-sl_1 = 1; 
-sl_2 = 1; 
-sl_3 = 1; 
+sl_1 = '[0 0]'; 
+sl_2 = '[0 0]'; 
+sl_3 = '[0 0]'; 
 
 vload_1 = 1; 
 vload_2 = 1;
 vload_3 = 1;
 
-LE1 = 1;
-LE2 = 1;
+LE1 = wavegen([0,5e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9);
+LE2 = wavegen([0,5e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9);
 
-selL1 = 1;
-selL2 = 1;						
+selL1 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
+selL2 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);					
 
 mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2)
 clear inputfile currentpath mat2spicepath spicepath
