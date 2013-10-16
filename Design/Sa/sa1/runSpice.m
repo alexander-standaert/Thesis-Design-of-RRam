@@ -109,16 +109,15 @@ LE1 = sim.getSignal('LE1');
 LE1x = LE1.getXValues;
 LE1y = LE1.getYValues;
 
-LE2 = sim.getSignal('LE2');
-LE2x = LE2.getXValues;
-LE2y = LE2.getYValues;
+selL1 = sim.getSignal('selL1');
+selL1x = selL1.getXValues;
+selL1y = selL1.getYValues;
 
 figure
 hold on
-
-plot(sel1_1x,sel1_1y)
-plot(sel2_1x,sel2_1y)
-plot(sel1_1x,sel1_1y)
+plot(sel1_1x,sel1_1y+1.1,sel2_1x,sel2_1y+2.2,wl_1x,wl_1y+3.3,LE1x,LE1y+4.4,selL1x,selL1y+5.5)
+hleg1 = legend('selectline1','selectline2','wordline','latch enable','select latch');
+hold off
 
 
  
