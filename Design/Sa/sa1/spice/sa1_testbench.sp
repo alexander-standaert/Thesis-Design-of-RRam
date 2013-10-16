@@ -38,4 +38,4 @@ vselL2 selL2 gnd vsource type=pwl wave=[0 0 4.5e-09 0 4.6e-09 1 5e-09 0 5.05e-09
 
 vgnd gnd 0 vsource type=dc dc=0
 
-ana tran step=1e-12 stop=1e-12
+ana tran step=1e-12 stop=1e-08

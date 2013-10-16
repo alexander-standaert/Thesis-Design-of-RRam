@@ -51,7 +51,7 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 														
 % parameters
 steptime = 10^-12;
-stoptime = 10^-12;
+stoptime = 10*10^-9;
 
 sel1_1 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
 sel1_2 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
@@ -93,23 +93,32 @@ system('spectre -format psfascii ./Sa/sa1/spice/sa1_testbench.sp')
 
 [sim tree] = readPsfAscii('./Sa/sa1/spice/sa1_testbench.raw/ana.tran', '.*')
 
-sel1_1 = sim.getSignal('bl');
+sel1_1 = sim.getSignal('sel1_1');
 sel1_1x = sel1_1.getXValues;
 sel1_1y = sel1_1.getYValues;
 
-sel2_1 = sim.getSignal('sl');
+sel2_1 = sim.getSignal('sel2_1');
 sel2_1x = sel2_1.getXValues;
 sel2_1y = sel2_1.getYValues;
 
-wl_1 = sim.getSignal('sl');
+wl_1 = sim.getSignal('wl_1');
 wl_1x = wl_1.getXValues;
 wl_1y = wl_1.getYValues;
 
-LE1 = sim.getSignal('sl');
+LE1 = sim.getSignal('LE1');
 LE1x = LE1.getXValues;
 LE1y = LE1.getYValues;
 
-LE2 = sim.getSignal('sl');
+LE2 = sim.getSignal('LE2');
 LE2x = LE2.getXValues;
 LE2y = LE2.getYValues;
+
+figure
+hold on
+
+plot(sel1_1x,sel1_1y)
+plot(sel2_1x,sel2_1y)
+plot(sel1_1x,sel1_1y)
+
+
  
