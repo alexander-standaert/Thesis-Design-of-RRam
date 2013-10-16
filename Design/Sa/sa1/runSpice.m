@@ -88,4 +88,25 @@ system('spectre -format psfascii ./Sa/sa1/spice/sa1_testbench.sp')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot results
 
+[sim tree] = readPsfAscii('./Sa/sa1/spice/sa1_testbench.raw/ana.tran', '.*')
 
+% sel1_1 = sim.getSignal('bl');
+% sel1_1x = sel1_1.getXValues;
+% sel1_1y = sel1_1.getYValues;
+% 
+% sel2_1 = sim.getSignal('sl');
+% sel2_1x = sel2_1.getXValues;
+% sel2_1y = sel2_1.getYValues;
+% 
+% wl_1 = sim.getSignal('sl');
+% wl_1x = wl_1.getXValues;
+% wl_1y = wl_1.getYValues;
+% 
+% LE1 = sim.getSignal('sl');
+% LE1x = LE1.getXValues;
+% LE1y = LE1.getYValues;
+% 
+% LE2 = sim.getSignal('sl');
+% LE2x = LE2.getXValues;
+% LE2y = LE2.getYValues;
+ 

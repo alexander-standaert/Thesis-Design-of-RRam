@@ -31,3 +31,7 @@ vLE2 LE2 gnd vsource type=pwl wave=$<LE2>$
 
 vselL1 selL1 gnd vsource type=pwl wave=$<selL1>$
 vselL2 selL2 gnd vsource type=pwl wave=$<selL2>$
+
+vgnd gnd 0 vsource type=dc dc=0
+
+ana tran step=$<steptime>$ stop=$<stoptime>$
