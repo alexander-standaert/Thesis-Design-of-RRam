@@ -22,9 +22,9 @@ vsl_1 sl_1 gnd vsource type=pwl wave=$<sl_1>$
 vsl_2 sl_2 gnd vsource type=pwl wave=$<sl_2>$
 vsl_3 sl_3 gnd vsource type=pwl wave=$<sl_3>$
 
-vvload_1 vload_1 gnd  vsource type=dc dc='$<vload_1>$' 
-vvload_2 vload_2 gnd  vsource type=dc dc='$<vload_2>$'
-vvload_3 vload_3 gnd  vsource type=dc dc='$<vload_3>$'
+vvload_1 vload_1 gnd  vsource type=dc dc=$<vload_1>$
+vvload_2 vload_2 gnd  vsource type=dc dc=$<vload_2>$
+vvload_3 vload_3 gnd  vsource type=dc dc=$<vload_3>$
 
 vLE1 LE1 gnd vsource type=pwl wave=$<LE1>$
 vLE2 LE2 gnd vsource type=pwl wave=$<LE2>$
