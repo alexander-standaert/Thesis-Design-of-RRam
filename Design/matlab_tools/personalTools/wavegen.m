@@ -26,7 +26,7 @@ for i=2:n-1
     end
     waveformvector(4*i-2)=bits(i);
     waveformvector(4*i-1)=timeoffset+time(i+1);
-    waveformvector(4*i)=bits(i+1);
+    waveformvector(4*i)=bits(i);
 end
 waveformvector(1)=time(1);
 waveformvector(2)=bits(1);
