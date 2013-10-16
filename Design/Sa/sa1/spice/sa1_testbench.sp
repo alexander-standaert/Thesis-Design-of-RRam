@@ -7,12 +7,12 @@ simulator lang=spice
 
 simulator lang=spectre
 
-mmemarray ( bl_1 bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3 vss vdd ) memarray
-mlatch (bl_1 bl_2 out outbar vdd vss vdd vss LE1 LE2 selL1 selL2) latch
+mmemarray ( bl_1 bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3 gnd vdd ) memarray
+mlatch (bl_1 bl_2 out outbar vdd gnd vdd gnd LE1 LE2 selL1 selL2) latch
 
-vsel1_1 sel1_1 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 1e-08 1]
-vsel1_2 sel1_2 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 1e-08 1]
-vsel1_3 sel1_3 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 1e-08 1]
+vsel1_1 sel1_1 gnd vsource type=pwl wave=[0 1 4e-09 1 4.05e-09 0 1e-08 0]
+vsel1_2 sel1_2 gnd vsource type=pwl wave=[0 1 4e-09 1 4.05e-09 0 1e-08 0]
+vsel1_3 sel1_3 gnd vsource type=pwl wave=[0 1 4e-09 1 4.05e-09 0 1e-08 0]
 
 vsel2_1 sel2_1 gnd vsource type=pwl wave=[0 0 2e-09 0 2.1e-09 1 4e-09 1 4.05e-09 0 1e-08 0]
 vsel2_2 sel2_2 gnd vsource type=pwl wave=[0 0 2e-09 0 2.1e-09 1 4e-09 1 4.05e-09 0 1e-08 0]

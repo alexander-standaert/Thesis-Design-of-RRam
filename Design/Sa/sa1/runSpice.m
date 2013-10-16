@@ -53,15 +53,15 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 steptime = 10^-12;
 stoptime = 10*10^-9;
 
-sel1_1 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
-sel1_2 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
-sel1_3 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,6e-9);
+sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sel1_2 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel1_3 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9);
 
-sel2_1 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel2_1 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
 sel2_2 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
 sel2_3 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
 
-wl_1 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
+wl_1 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
 wl_2 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
 wl_3 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
 
@@ -73,8 +73,8 @@ vload_1 = 1;
 vload_2 = 1;
 vload_3 = 1;
 
-LE1 = wavegen([0,5e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9);
-LE2 = wavegen([0,5e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9);
+LE1 = wavegen([0,5e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+LE2 = wavegen([0,5e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
 selL1 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
 selL2 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);					
@@ -113,11 +113,42 @@ selL1 = sim.getSignal('selL1');
 selL1x = selL1.getXValues;
 selL1y = selL1.getYValues;
 
+
+
 figure
 hold on
 plot(sel1_1x,sel1_1y+1.1,sel2_1x,sel2_1y+2.2,wl_1x,wl_1y+3.3,LE1x,LE1y+4.4,selL1x,selL1y+5.5)
 hleg1 = legend('selectline1','selectline2','wordline','latch enable','select latch');
 hold off
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+out = sim.getSignal('out');
+out_t = out.getXValues;
+out_v = out.getYValues;
+
+outb = sim.getSignal('out');
+outb_t = outb.getXValues;
+outb_v = outb.getYValues;
+
+bl_1 = sim.getSignal('bl_1');
+bl_1_t = bl_1.getXValues;
+bl_1_v = bl_1.getYValues;
+
+bl_2 = sim.getSignal('bl_2');
+bl_2_t = bl_2.getXValues;
+bl_2_v = bl_2.getYValues;
+
+figure
+
+plot(out_t,out_v)
+hold on
+plot(outb_t,outb_v,'r')
+
+figure
+
+plot(bl_1_t,bl_1_v)
+hold on
+plot(bl_2_t,bl_2_v,'r')
 
  
