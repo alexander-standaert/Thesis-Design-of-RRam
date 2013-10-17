@@ -30,9 +30,9 @@ Rload1 = 100;
 Rload2 = 100;
 Rload3 = 100;
 Cload1 = 18*10^-15;
-Cload2 = 18*10^-15;
-Cload3 = 18*10^-15;
-Rmemcell = 10000;
+Cload2 = Cload1;
+Cload3 = Cload1;
+Rmemcell = 35000;
 Rmemhigh = 35000;
 Rmemlow = 5000;								
 
@@ -53,31 +53,31 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 steptime = 10^-12;
 stoptime = 10*10^-9;
 
-sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
-sel1_2 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9);
-sel1_3 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel1_1 = wavegen([1e-9,4.5e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sel1_2 = sel1_1;
+sel1_3 = sel1_1;
 
 sel2_1 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
-sel2_2 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
-sel2_3 = wavegen([0,2e-9,4e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9);
+sel2_2 = sel2_1;
+sel2_3 = sel2_1;
 
-wl_1 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
-wl_2 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
-wl_3 = wavegen([0,4.2e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
+wl_1 = wavegen([0,5e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+wl_2 = wl_1;
+wl_3 = wl_1;
 
 sl_1 = '[0 0]'; 
-sl_2 = '[0 0]'; 
-sl_3 = '[0 0]'; 
+sl_2 = sl_1; 
+sl_3 = sl_1; 
 
 vload_1 = 1; 
 vload_2 = 1;
 vload_3 = 1;
 
-LE1 = wavegen([0,5e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
-LE2 = wavegen([0,5e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
+LE1 = wavegen([0,6e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+LE2 = wavegen([0,6e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
-selL1 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
-selL2 = wavegen([0,4.5e-9,5e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);					
+selL1 = wavegen([0,6.5e-9,6.7e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
+selL2 = selL1;					
 
 mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime)
 clear inputfile currentpath mat2spicepath spicepath
@@ -93,6 +93,7 @@ system('spectre -format psfascii ./Sa/sa1/spice/sa1_testbench.sp')
 
 [sim tree] = readPsfAscii('./Sa/sa1/spice/sa1_testbench.raw/ana.tran', '.*')
 
+%plot control signals
 sel1_1 = sim.getSignal('sel1_1');
 sel1_1x = sel1_1.getXValues;
 sel1_1y = sel1_1.getYValues;
@@ -117,38 +118,40 @@ selL1y = selL1.getYValues;
 
 figure
 hold on
-plot(sel1_1x,sel1_1y+1.1,sel2_1x,sel2_1y+2.2,wl_1x,wl_1y+3.3,LE1x,LE1y+4.4,selL1x,selL1y+5.5)
-hleg1 = legend('selectline1','selectline2','wordline','latch enable','select latch');
+plot(sel1_1x,(sel1_1y)*-1+2.1,sel2_1x,sel2_1y+2.2,wl_1x,wl_1y+3.3,LE1x,LE1y+4.4,selL1x,selL1y+5.5)
+hleg1 = legend('selectline1*-1','selectline2','wordline','latch enable','select latch','Location','SouthEastOutside');
 hold off
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-out = sim.getSignal('out');
-out_t = out.getXValues;
-out_v = out.getYValues;
-
-outb = sim.getSignal('out');
-outb_t = outb.getXValues;
-outb_v = outb.getYValues;
+%plot bitline
 
 bl_1 = sim.getSignal('bl_1');
-bl_1_t = bl_1.getXValues;
-bl_1_v = bl_1.getYValues;
+bl_1x = bl_1.getXValues;
+bl_1y = bl_1.getYValues;
 
 bl_2 = sim.getSignal('bl_2');
-bl_2_t = bl_2.getXValues;
-bl_2_v = bl_2.getYValues;
+bl_2x = bl_2.getXValues;
+bl_2y = bl_2.getYValues;
 
 figure
-
-plot(out_t,out_v)
 hold on
-plot(outb_t,outb_v,'r')
+plot(bl_1x,bl_1y,bl_2x,bl_2y)
+hleg1 = legend('bitline1','bitline2','Location','SouthEastOutside');
+hold off
 
+%plot output
+
+out = sim.getSignal('out');
+outx = out.getXValues;
+outy = out.getYValues;
+ 
+outb = sim.getSignal('outbar');
+outbx = outb.getXValues;
+outby = outb.getYValues;
+ 
 figure
-
-plot(bl_1_t,bl_1_v)
 hold on
-plot(bl_2_t,bl_2_v,'r')
+plot(outx,outy,outbx,outby)
+hleg1 = legend('out','outbar','Location','SouthEastOutside');
+hold off
 
  
