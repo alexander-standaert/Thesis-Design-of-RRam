@@ -1,3 +1,6 @@
+mismatch_on = 0;
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mat2spice latch
 
@@ -10,9 +13,34 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 														
 % transistor sizes										
 pmult = 10*50*10^(-9);
-nmult = 3*50*10^(-9);									
+nmult = 3*50*10^(-9);	
 
-mat2spice(mat2spicepath,spicepath,pmult,nmult)
+if mismatch_on == 1
+   mismatch_latch = repmat({''},8,2);
+   %mismatch vt
+   mismatch_latch(1,1)={'m_vt=0'}; % M1
+   mismatch_latch(2,1)={'m_vt=0'}; % M2
+   mismatch_latch(3,1)={'m_vt=0'}; % M3
+   mismatch_latch(4,1)={'m_vt=0'}; % M4
+   mismatch_latch(5,1)={'m_vt=0'}; % M5
+   mismatch_latch(6,1)={'m_vt=0'}; % M6
+   mismatch_latch(7,1)={'m_vt=0'}; % M7
+   mismatch_latch(8,1)={'m_vt=0'}; % M8
+   
+   %mismatch B
+   mismatch_latch(1,2)={'m_B=0'}; % M1
+   mismatch_latch(2,2)={'m_B=0'}; % M2
+   mismatch_latch(3,2)={'m_B=0.01'}; % M3
+   mismatch_latch(4,2)={'m_B=0'}; % M4
+   mismatch_latch(5,2)={'m_B=0'}; % M5
+   mismatch_latch(6,2)={'m_B=0'}; % M6
+   mismatch_latch(7,2)={'m_B=0'}; % M7
+   mismatch_latch(8,2)={'m_B=0'}; % M8
+else
+   mismatch_latch = repmat({''},8,2);
+end
+
+mat2spice(mat2spicepath,spicepath,pmult,nmult,mismatch_latch)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,11 +60,16 @@ Rload3 = 100;
 Cload1 = 18*10^-15;
 Cload2 = Cload1;
 Cload3 = Cload1;
-Rmemcell = 35000;
+Rmemcell = 10000;
 Rmemhigh = 35000;
-Rmemlow = 5000;								
+Rmemlow = 5000;	
 
-mat2spice(mat2spicepath,spicepath,Rload1,Rload2,Rload3,Cload1,Cload2,Cload3,Rmemcell,Rmemhigh,Rmemlow)
+%init conditions
+init_bl_1 = 0.2;
+init_bl_2 = 0.1;
+init_bl_3 = 0.2;
+
+mat2spice(mat2spicepath,spicepath,Rload1,Rload2,Rload3,Cload1,Cload2,Cload3,Rmemcell,Rmemhigh,Rmemlow,init_bl_1,init_bl_2,init_bl_3)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,7 +112,13 @@ LE2 = wavegen([0,6e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 selL1 = wavegen([0,6.5e-9,6.7e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
 selL2 = selL1;					
 
-mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime)
+if mismatch_on == 1
+   transistor_type = 'mm';
+else
+   transistor_type = 'mc';
+end
+
+mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

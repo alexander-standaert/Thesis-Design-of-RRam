@@ -2,7 +2,7 @@ simulator lang=spice
 
 .include './latch.sp'
 .include './memarray.sp'
-.lib '../../../technology_models/tech_wrapper.lib' mc
+.lib '../../../technology_models/tech_wrapper.lib' $<transistor_type>$
 
 
 simulator lang=spectre

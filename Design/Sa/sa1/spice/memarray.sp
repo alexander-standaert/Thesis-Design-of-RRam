@@ -6,7 +6,7 @@ subckt memarray ( bl_1 bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 
 xsel1_1 node1_1 sel1_1 vload_1 vdd MOSP
 rload_1 (node1_1 bl_1) resistor r=100
 
-rmemcell (bl_1 node2_1) resistor r=35000
+rmemcell (bl_1 node2_1) resistor r=10000
 msl_1 node2_1 wl_1 sl_1 gnd MOSN
 
 cload_1 (bl_1 gnd) capacitor c=1.8e-14
@@ -36,13 +36,7 @@ aliasbl ( bl_2 bl_3 ) vsource type=dc dc=0
 
 ic bl_1=0.2
 ic bl_2=0.1
-ic bl_2=0.4
+ic bl_3=0.2
 
-ic node1_1=0
-ic node1_2=0
-ic node1_3=0
 
-ic node2_1=0
-ic node2_2=0
-ic node2_3=0
 ends memarray

@@ -34,15 +34,9 @@ xsel2_3 bl_3 sel2_3 gnd gnd MOSN
 
 aliasbl ( bl_2 bl_3 ) vsource type=dc dc=0
 
-ic bl_1=0.2
-ic bl_2=0.1
-ic bl_2=0.4
+ic bl_1=$<init_bl_1>$
+ic bl_2=$<init_bl_2>$
+ic bl_3=$<init_bl_3>$
 
-ic node1_1=0
-ic node1_2=0
-ic node1_3=0
 
-ic node2_1=0
-ic node2_2=0
-ic node2_3=0
 ends memarray

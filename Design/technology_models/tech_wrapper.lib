@@ -36,4 +36,29 @@ m1 d g s b pmos w=w l=l delvto=dvtn  m='mult*(1+dbetan_op_beta)'
 .ends
 
 
+.lib mm
+.include '45nm_LP.pm'
+
+.subckt mosn d g s b mult='1' w='50e-9' l='45e-9' m_vt='0' m_B='0'
+.param abetan='1.1n'
+.param avtn='2.5n'
+.param dvtn=agauss(0,'avtn/sqrt(mult*w*l)',1)
+.param dbetan_op_beta=agauss(0,'abetan/sqrt(mult*w*l)',1)
+m1 d gin s b nmos w=w l=l delvto=dvtn m='mult*(1+dbetan_op_beta)'
+vofset g gin DC m_vt
+Gofset d s d s m_B
+.ends
+
+
+.subckt mosp d g s b mult='1' w='50e-9' l='45e-9' m_vt='0' m_B='0'
+.param abetan='1.1n'
+.param avtn='2.5n'
+.param dvtn=agauss(0,'avtn/sqrt(mult*w*l)',1)
+.param dbetan_op_beta=agauss(0,'abetan/sqrt(mult*w*l)',1)
+m1 d gin s b pmos w=w l=l delvto=dvtn  m='mult*(1+dbetan_op_beta)'
+vofset g gin DC m_vt
+Gofset d s d s m_B
+.ends
+
+
 .endl
