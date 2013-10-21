@@ -30,8 +30,8 @@ vvload_1 vload_1 gnd  vsource type=dc dc=1
 vvload_2 vload_2 gnd  vsource type=dc dc=1
 vvload_3 vload_3 gnd  vsource type=dc dc=1
 
-vLE1 LE1 gnd vsource type=pwl wave=[0 1 6e-09 1 6.05e-09 0 1.1e-08 0]
-vLE2 LE2 gnd vsource type=pwl wave=[0 0 6e-09 0 6.1e-09 1 1.1e-08 1]
+vLE1 LE1 gnd vsource type=pwl wave=[0 1 7.2e-09 1 7.25e-09 0 1.22e-08 0]
+vLE2 LE2 gnd vsource type=pwl wave=[0 0 7.2e-09 0 7.3e-09 1 1.22e-08 1]
 
 vselL1 selL1 gnd vsource type=pwl wave=[0 0 6.5e-09 0 6.6e-09 1 6.7e-09 1 6.75e-09 0 1.17e-08 0]
 vselL2 selL2 gnd vsource type=pwl wave=[0 0 6.5e-09 0 6.6e-09 1 6.7e-09 1 6.75e-09 0 1.17e-08 0]

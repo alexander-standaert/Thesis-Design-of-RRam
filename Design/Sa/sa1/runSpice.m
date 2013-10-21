@@ -16,21 +16,23 @@ pmult = 10*50*10^(-9);
 nmult = 3*50*10^(-9);	
 
 if mismatch_on == 1
+   At = 10*10^-3*10^-6; %10mV/um
+   
    mismatch_latch = repmat({''},8,2);
    %mismatch vt
-   mismatch_latch(1,1)={'m_vt=0'}; % M1
-   mismatch_latch(2,1)={'m_vt=0'}; % M2
-   mismatch_latch(3,1)={'m_vt=0'}; % M3
+   mismatch_latch(1,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M1
+   mismatch_latch(2,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M2
+   mismatch_latch(3,1)={['m_vt=',randnormal(0,sqrt(At^2/(pmult*45e-9)))]}; % M3
    mismatch_latch(4,1)={'m_vt=0'}; % M4
-   mismatch_latch(5,1)={'m_vt=0'}; % M5
+   mismatch_latch(5,1)={['m_vt=',randnormal(0,sqrt(At^2/(nmult*45e-9)))]}; % M5
    mismatch_latch(6,1)={'m_vt=0'}; % M6
-   mismatch_latch(7,1)={'m_vt=0'}; % M7
-   mismatch_latch(8,1)={'m_vt=0'}; % M8
+   mismatch_latch(7,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M7
+   mismatch_latch(8,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M8
    
    %mismatch B
    mismatch_latch(1,2)={'m_B=0'}; % M1
    mismatch_latch(2,2)={'m_B=0'}; % M2
-   mismatch_latch(3,2)={'m_B=0.01'}; % M3
+   mismatch_latch(3,2)={'m_B=0'}; % M3
    mismatch_latch(4,2)={'m_B=0'}; % M4
    mismatch_latch(5,2)={'m_B=0'}; % M5
    mismatch_latch(6,2)={'m_B=0'}; % M6
@@ -55,11 +57,11 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 														
 % parameters									
 Rload1 = 100;
-Rload2 = 100;
-Rload3 = 100;
+Rload2 = Rload1;
+Rload3 = Rload1;
 Cload1 = 18*10^-15;
-Cload2 = Cload1;
-Cload3 = Cload1;
+Cload2 = 18*10^-15;
+Cload3 = 18*10^-15;
 Rmemcell = 10000;
 Rmemhigh = 35000;
 Rmemlow = 5000;	
@@ -106,8 +108,8 @@ vload_1 = 1;
 vload_2 = 1;
 vload_3 = 1;
 
-LE1 = wavegen([0,6e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
-LE2 = wavegen([0,6e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
+LE1 = wavegen([0,7.2e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+LE2 = wavegen([0,7.2e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
 selL1 = wavegen([0,6.5e-9,6.7e-9;0,1,0],0.1e-9,0.05e-9,0,1,5e-9);
 selL2 = selL1;					
