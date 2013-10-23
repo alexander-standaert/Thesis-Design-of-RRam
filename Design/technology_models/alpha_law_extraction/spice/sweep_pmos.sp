@@ -9,10 +9,10 @@ parameters Vds = 0
 
 xM1 d g s b mosp 
 
-Vbulk   ( b 0 ) vsource type=dc dc=0
-Vsource ( s 0 ) vsource type=dc dc=0
-Vgate   ( g 0 ) vsource type=dc dc=Vgs
-Vdrain  ( d 0 ) vsource type=dc dc=Vds
+Vbulk   ( b 0 ) vsource type=dc dc=1
+Vsource ( s 0 ) vsource type=dc dc=1
+Vgate   ( g 0 ) vsource type=dc dc=1-Vgs
+Vdrain  ( d 0 ) vsource type=dc dc=1-Vds
 
 
 // sweep Vgs for the given values of Vds

@@ -51,11 +51,12 @@ Id0 = Id(end);
 Vgs = sim_Vgs_sweep(Ncurves1).getSignal('g').getYValues;
 Id = sim_Vgs_sweep(Ncurves1).getSignal('Vsource:p').getYValues;
 
-figure
-plot(Vgs,Id)
-xlabel('Vgs [V]')
-ylabel('Id [A]')
-title('NMOS Vgs-Id')
+figure(1)
+subplot(1,5,[1,2]);
+plot(Vgs,Id);
+xlabel('Vgs [V]');
+ylabel('Id [A]');
+title('NMOS Vgs-Id');
 
 Vg1 = 0.6;
 Id1 = Id( find(Vgs == Vg1));
@@ -89,8 +90,9 @@ disp('=================================')
 % PLOT ALPHA MODEL LAW VOOR NMOS
 
 %plot the alpha model resuts
-figure
-hold on
+figure(1)
+subplot(1,5,[3,5]);
+hold on;
 Ncurves = length(sim_Vds_sweep);    
 for i=1:Ncurves
     x = sim_Vds_sweep(i).getSignal('Vsource:p').getXValues;
@@ -139,14 +141,15 @@ end
     
     
 %extract Id0 (Ids when Vgs and Vds = Vdd
-Id = sim_Vds_sweep(Ncurves2).getSignal('Vsource:p').getYValues;
+Id = sim_Vds_sweep(Ncurves2).getSignal('Vdrain:p').getYValues;
 Id0 = Id(end);
     
 %extraction Vth
 Vgs = sim_Vgs_sweep(Ncurves1).getSignal('g').getYValues;
-Id = sim_Vgs_sweep(Ncurves1).getSignal('Vsource:p').getYValues;
+Id = sim_Vgs_sweep(Ncurves1).getSignal('Vdrain:p').getYValues;
 
-figure
+figure(2)
+subplot(1,5,[1,2]);
 plot(Vgs,Id)
 xlabel('Vgs [V]')
 ylabel('Id [A]')
@@ -184,12 +187,13 @@ disp('=================================')
 % PLOT ALPHA MODEL LAW VOOR PMOS
 
 %plot the alpha model resuts
-figure
+figure(2)
+subplot(1,5,[3,5]);
 hold on
 Ncurves = length(sim_Vds_sweep);    
 for i=1:Ncurves
-    x = sim_Vds_sweep(i).getSignal('Vsource:p').getXValues;
-    y = sim_Vds_sweep(i).getSignal('Vsource:p').getYValues;  
+    x = sim_Vds_sweep(i).getSignal('Vdrain:p').getXValues;
+    y = sim_Vds_sweep(i).getSignal('Vdrain:p').getYValues;  
     plot(x,y,'b')
 end
 
@@ -209,6 +213,7 @@ end
 xlabel('Vds [V]')
 ylabel('Id [A]')
 title('PMOS Vds-Id')
+axis([-Inf Inf 0 Inf])
 
 
 
