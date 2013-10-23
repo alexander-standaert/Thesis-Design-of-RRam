@@ -3,6 +3,7 @@
 
 .model  nmos  nmos  level = 54
 
+*+delvt0 = 0.3
 
 +version = 4.0             binunit = 1               paramchk= 1               mobmod  = 0             
 +capmod  = 2               igcmod  = 1               igbmod  = 1               geomod  = 1             
