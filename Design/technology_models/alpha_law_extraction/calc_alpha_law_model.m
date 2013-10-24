@@ -1,4 +1,4 @@
-clear all
+
 
 sp.Vdd       = 1;
 sp.step_small = 0.01;
