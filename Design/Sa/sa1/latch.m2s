@@ -2,14 +2,17 @@ simulator lang=spectre
 
 subckt latch (in inbar out outbar vdd vss bp bn LE1 LE2 sel1 sel2)
 
-xM1 in sel1 out bn MOSN $<num2str(cell2mat(mismatch_latch(1,1)))>$ $<num2str(cell2mat(mismatch_latch(1,2)))>$
-xM2 inbar sel2 outbar bn MOSN $<num2str(cell2mat(mismatch_latch(2,1)))>$ $<num2str(cell2mat(mismatch_latch(2,2)))>$
+xM1 in sel1 out bn MOSN $<num2str(cell2mat(sp.mismatch_latch(1,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(1,2)))>$
+xM2 inbar sel2 outbar bn MOSN $<num2str(cell2mat(sp.mismatch_latch(2,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(2,2)))>$
 
-xM3 out outbar n1 bp MOSP w=$<pmult>$ $<num2str(cell2mat(mismatch_latch(3,1)))>$ $<num2str(cell2mat(mismatch_latch(3,2)))>$
-xM4 outbar out n1 bp MOSP w=$<pmult>$ $<num2str(cell2mat(mismatch_latch(4,1)))>$ $<num2str(cell2mat(mismatch_latch(4,2)))>$
-xM5 out outbar n2 bn MOSN w=$<nmult>$ $<num2str(cell2mat(mismatch_latch(5,1)))>$ $<num2str(cell2mat(mismatch_latch(5,2)))>$
-xM6 outbar out n2 bn MOSN w=$<nmult>$ $<num2str(cell2mat(mismatch_latch(6,1)))>$ $<num2str(cell2mat(mismatch_latch(6,2)))>$
-xM7 n1 LE1 vdd bp MOSP $<num2str(cell2mat(mismatch_latch(7,1)))>$ $<num2str(cell2mat(mismatch_latch(7,2)))>$
-xM8 n2 LE2 vss bn MOSN $<num2str(cell2mat(mismatch_latch(8,1)))>$ $<num2str(cell2mat(mismatch_latch(8,2)))>$
+xM3 out outbar n1 bp MOSP w=$<sp.pmult>$ $<num2str(cell2mat(sp.mismatch_latch(3,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(3,2)))>$
+xM4 outbar out n1 bp MOSP w=$<sp.pmult>$ $<num2str(cell2mat(sp.mismatch_latch(4,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(4,2)))>$
+xM5 out outbar n2 bn MOSN w=$<sp.nmult>$ $<num2str(cell2mat(sp.mismatch_latch(5,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(5,2)))>$
+xM6 outbar out n2 bn MOSN w=$<sp.nmult>$ $<num2str(cell2mat(sp.mismatch_latch(6,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(6,2)))>$
+
+
+xM7 n1 LE1 vdd bp MOSP $<num2str(cell2mat(sp.mismatch_latch(7,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(7,2)))>$
+xM8 n2 LE2 vss bn MOSN $<num2str(cell2mat(sp.mismatch_latch(8,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(8,2)))>$
+
 
 ends latch

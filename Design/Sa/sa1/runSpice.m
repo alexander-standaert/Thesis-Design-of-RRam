@@ -12,37 +12,37 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % transistor sizes										
-pmult = 10*50*10^(-9);
-nmult = 3*50*10^(-9);	
+sp.pmult = 10*50*10^(-9);
+sp.nmult = 3*50*10^(-9);	
 
 if mismatch_on == 1
    At = 10*10^-3*10^-6; %10mV/um
    
-   mismatch_latch = repmat({''},8,2);
+   sp.mismatch_latch = repmat({''},8,2);
    %mismatch vt
-   mismatch_latch(1,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M1
-   mismatch_latch(2,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M2
-   mismatch_latch(3,1)={['m_vt=',randnormal(0,sqrt(At^2/(pmult*45e-9)))]}; % M3
-   mismatch_latch(4,1)={'m_vt=0'}; % M4
-   mismatch_latch(5,1)={['m_vt=',randnormal(0,sqrt(At^2/(nmult*45e-9)))]}; % M5
-   mismatch_latch(6,1)={'m_vt=0'}; % M6
-   mismatch_latch(7,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M7
-   mismatch_latch(8,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M8
+   sp.mismatch_latch(1,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M1
+   sp.mismatch_latch(2,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M2
+   sp.mismatch_latch(3,1)={['m_vt=',randnormal(0,sqrt(At^2/(pmult*45e-9)))]}; % M3
+   sp.mismatch_latch(4,1)={'m_vt=0'}; % M4
+   sp.mismatch_latch(5,1)={['m_vt=',randnormal(0,sqrt(At^2/(nmult*45e-9)))]}; % M5
+   sp.mismatch_latch(6,1)={'m_vt=0'}; % M6
+   sp.mismatch_latch(7,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M7
+   sp.mismatch_latch(8,1)={['m_vt=',randnormal(0,sqrt(At^2/(50e-9*45e-9)))]}; % M8
    
    %mismatch B
-   mismatch_latch(1,2)={'m_B=0'}; % M1
-   mismatch_latch(2,2)={'m_B=0'}; % M2
-   mismatch_latch(3,2)={'m_B=0'}; % M3
-   mismatch_latch(4,2)={'m_B=0'}; % M4
-   mismatch_latch(5,2)={'m_B=0'}; % M5
-   mismatch_latch(6,2)={'m_B=0'}; % M6
-   mismatch_latch(7,2)={'m_B=0'}; % M7
-   mismatch_latch(8,2)={'m_B=0'}; % M8
+   sp.mismatch_latch(1,2)={'m_B=0'}; % M1
+   sp.mismatch_latch(2,2)={'m_B=0'}; % M2
+   sp.mismatch_latch(3,2)={'m_B=0'}; % M3
+   sp.mismatch_latch(4,2)={'m_B=0'}; % M4
+   sp.mismatch_latch(5,2)={'m_B=0'}; % M5
+   sp.mismatch_latch(6,2)={'m_B=0'}; % M6
+   sp.mismatch_latch(7,2)={'m_B=0'}; % M7
+   sp.mismatch_latch(8,2)={'m_B=0'}; % M8
 else
-   mismatch_latch = repmat({''},8,2);
+   sp.mismatch_latch = repmat({''},8,2);
 end
 
-mat2spice(mat2spicepath,spicepath,pmult,nmult,mismatch_latch)
+mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,22 +56,22 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-Rload1 = 100;
-Rload2 = Rload1;
-Rload3 = Rload1;
-Cload1 = 18*10^-15;
-Cload2 = 18*10^-15;
-Cload3 = 18*10^-15;
-Rmemcell = 10000;
-Rmemhigh = 35000;
-Rmemlow = 5000;	
+sp.Rload1 = 100;
+sp.Rload2 = sp.Rload1;
+sp.Rload3 = sp.Rload1;
+sp.Cload1 = 18*10^-15;
+sp.Cload2 = 18*10^-15;
+sp.Cload3 = 18*10^-15;
+sp.Rmemcell = 10000;
+sp.Rmemhigh = 35000;
+sp.Rmemlow = 5000;	
 
 %init conditions
-init_bl_1 = 0.2;
-init_bl_2 = 0.1;
-init_bl_3 = 0.2;
+sp.init_bl_1 = 0.2;
+sp.init_bl_2 = 0.1;
+sp.init_bl_3 = 0.2;
 
-mat2spice(mat2spicepath,spicepath,Rload1,Rload2,Rload3,Cload1,Cload2,Cload3,Rmemcell,Rmemhigh,Rmemlow,init_bl_1,init_bl_2,init_bl_3)
+mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,42 +85,42 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters
-steptime = 10^-12;
-stoptime = 10*10^-9;
+sp.steptime = 10^-12;
+sp.stoptime = 10*10^-9;
 
-sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
-sel1_2 = sel1_1;
-sel1_3 = sel1_1;
+sp.sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sp.sel1_2 = sp.sel1_1;
+sp.sel1_3 = sp.sel1_1;
 
-sel2_1 = wavegen([0,0.5e-9,2e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
-sel2_2 = sel2_1;
-sel2_3 = sel2_1;
+sp.sel2_1 = wavegen([0,0.5e-9,2e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
+sp.sel2_2 = sp.sel2_1;
+sp.sel2_3 = sp.sel2_1;
 
-wl_1 = wavegen([0,3e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
-wl_2 = wl_1;
-wl_3 = wl_1;
+sp.wl_1 = wavegen([0,3e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+sp.wl_2 = sp.wl_1;
+sp.wl_3 = sp.wl_1;
 
-sl_1 = '[0 0]'; 
-sl_2 = sl_1; 
-sl_3 = sl_1; 
+sp.sl_1 = '[0 0]'; 
+sp.sl_2 = sp.sl_1; 
+sp.sl_3 = sp.sl_1; 
 
-vload_1 = 1; 
-vload_2 = 1;
-vload_3 = 1;
+sp.vload_1 = 1; 
+sp.vload_2 = 1;
+sp.vload_3 = 1;
 
-LE1 = wavegen([0,7.2e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
-LE2 = wavegen([0,7.2e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
+sp.LE1 = wavegen([0,7.2e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+sp.LE2 = wavegen([0,7.2e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
-selL1 = wavegen([0,6.5e-9,6.7e-9;0,0,0],0.1e-9,0.05e-9,0,1,5e-9);
-selL2 = selL1;					
+sp.selL1 = wavegen([0,6.5e-9,6.7e-9;0,0,0],0.1e-9,0.05e-9,0,1,5e-9);
+sp.selL2 = sp.selL1;					
 
 if mismatch_on == 1
-   transistor_type = 'mm';
+   sp.transistor_type = 'mm';
 else
-   transistor_type = 'mc';
+   sp.transistor_type = 'mc';
 end
 
-mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type)
+mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -9,7 +9,10 @@ xM3 out outbar n1 bp MOSP w=5e-07
 xM4 outbar out n1 bp MOSP w=5e-07  
 xM5 out outbar n2 bn MOSN w=1.5e-07  
 xM6 outbar out n2 bn MOSN w=1.5e-07  
+
+
 xM7 n1 LE1 vdd bp MOSP  
 xM8 n2 LE2 vss bn MOSN  
+
 
 ends latch
