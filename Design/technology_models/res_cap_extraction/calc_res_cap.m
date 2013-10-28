@@ -33,19 +33,19 @@ for i=1:Ncurves2
 end
     
 
-%Vds = sim_Vds_sweep(end).getSignal('Vsource:p').getXValues;
-%Ids = sim_Vds_sweep(end).getSignal('Vsource:p').getYValues; 
+Vds = sim_Vds_sweep(end).getSignal('Vsource:p').getXValues;
+Vds = sim_Vds_sweep(end).getSignal('Vsource:p').getYValues; 
 
-%plot(Vds,Vds./Ids,'r')
+plot(Vds,Vds./Ids,'r')
 
-%fitobj = polyfit(Vds,Vds./Ids,6)
+fitobj = polyfit(Vds,Vds./Ids,6)
 
  
    
-%x = Vds;
-%plot(x,polyval(fitobj,x))
+x = Vds;
+plot(x,polyval(fitobj,x))
    
-%sum(polyval(fitobj,x))/length(polyval(fitobj,x))
+sum(polyval(fitobj,x))/length(polyval(fitobj,x))
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
