@@ -1,0 +1,22 @@
+simulator lang=spice
+
+.lib '../../tech_wrapper.lib' tt
+
+simulator lang=spectre
+
+parameters Vgs = 1
+parameters Vds = 0 
+parameters wnmos = 50e-9
+
+xM1 d g s b mosn l=$<sp.nmosL>$ w=wnmos 
+
+Vbulk   ( b 0 ) vsource type=dc dc=0
+Vsource ( s 0 ) vsource type=dc dc=0
+Vgate   ( g 0 ) vsource type=dc dc=Vgs
+Vdrain  ( d 0 ) vsource type=dc dc=Vds
+
+
+// sweep Vds for the given values of w
+swp sweep param=wnmos values=[ $sp.w_values ] {
+mysweep dc param=Vds values=[ $sp.Vds_sweep ]
+}

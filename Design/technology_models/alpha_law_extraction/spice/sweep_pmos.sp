@@ -7,7 +7,7 @@ simulator lang=spectre
 parameters Vgs = 0
 parameters Vds = 0 
 
-xM1 d g s b mosp 
+xM1 d g s b mosp l=4.5e-08 w=5e-08 
 
 Vbulk   ( b 0 ) vsource type=dc dc=1
 Vsource ( s 0 ) vsource type=dc dc=1

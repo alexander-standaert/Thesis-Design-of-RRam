@@ -10,6 +10,11 @@ sp.Vgs_sweep  = -0.0:sp.step_small:sp.Vdd;
 sp.Vgs_values = 0.6:sp.step_big:sp.Vdd;
 sp.Vds_sweep  = -0.0:sp.step_small:sp.Vdd;
 
+sp.nmosL = 45e-9;
+sp.nmosW = 50e-9;
+sp.pmosL = 45e-9;
+sp.pmosW = 50e-9;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 [currentpath,~,~] = fileparts(which(mfilename));
@@ -68,13 +73,13 @@ Vg3 = 0.8;
 Id3 = Id( find(Vgs == Vg3));
 
 Vth = bisection(['log10(',num2str(Id1),'/',num2str(Id2),')*log10((',num2str(Vg2),'-Vth)/(',num2str(Vg3),'-Vth))-log10(',num2str(Id2),'/',num2str(Id3),')*log10((',num2str(Vg1),'-Vth)/(',num2str(Vg2),'-Vth))'], ...
-'Vth',0.2,sp.Vdd,10^-9,1000);
+'Vth',0.2,sp.Vdd,10^-12,100000);
 
 %extraction alpha
-alpha = log10(Id1/Id2)/log10((Vg1-Vth)/(Vg2-Vth));
+alpha = log(Id2/Id3)/log((Vg2-Vth)/(Vg3-Vth));
 
 %extraction Vd0
-Vd0 = sp.Vdd-Vth;
+Vd0 = sp.Vdd-Vth%K*sqrt(Vgs-Vth);
 
 disp('=================================')
 disp(' ALPHA MODEL PARAMETERS FOR NMOS ')
@@ -102,11 +107,11 @@ end
 
 Vgs = sp.Vgs_values;
 Vds = 0:0.01:sp.Vdd;
-Ncurves = length(Vgs);    
+Ncurves = length(Vgs); 
 for i=1:Ncurves
     ID0 = ones(1,length(Vds))*Id0*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^alpha;
-    VD0 = ones(1,length(Vds))*Vd0*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^(alpha/2);
-    RD0 = (ID0./VD0).*Vds;
+    VD0 = ones(1,length(Vds))*(0.5*(Vgs(i)-Vth).^(1/2)).*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^(alpha/2);
+    RD0 = (1.6*ID0./VD0).*Vds;
     I = find((ID0-RD0)>0);
     p = I(end);
     ID0tot = [RD0(1:p) ID0(p+1:end)];
@@ -116,6 +121,28 @@ end
 xlabel('Vds [V]')
 ylabel('Id [A]')
 title('NMOS Vds-Id')
+
+figure(3)
+hold on
+for i=1:Ncurves
+    x = sim_Vds_sweep(i).getSignal('Vsource:p').getXValues;
+    y = sim_Vds_sweep(i).getSignal('Vsource:p').getYValues;  
+    plot(x,x./y,'g')
+end
+
+Vds = sim_Vds_sweep(end).getSignal('Vsource:p').getXValues;
+Ids = sim_Vds_sweep(end).getSignal('Vsource:p').getYValues; 
+
+plot(Vds,Vds./Ids,'r')
+
+fitobj = polyfit(Vds,Vds./Ids,6)
+
+ 
+   
+x = Vds;
+plot(x,polyval(fitobj,x))
+   
+sum(polyval(fitobj,x))/length(polyval(fitobj,x))
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,7 +198,7 @@ Vth = bisection(['log10(',num2str(Id1),'/',num2str(Id2),')*log10((',num2str(Vg2)
 alpha = log10(Id1/Id2)/log10((Vg1-Vth)/(Vg2-Vth));
 
 %extraction Vd0
-Vd0 = sp.Vdd-Vth;
+%Vd0 = K*sqrt(Vgs-Vth);
 
 disp('=================================')
 disp(' ALPHA MODEL PARAMETERS FOR PMOS ')
@@ -202,7 +229,7 @@ Vds = 0:0.01:sp.Vdd;
 Ncurves = length(Vgs);    
 for i=1:Ncurves
     ID0 = ones(1,length(Vds))*Id0*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^alpha;
-    VD0 = ones(1,length(Vds))*Vd0*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^(alpha/2);
+    VD0 = ones(1,length(Vds))*(0.5*(Vgs(i)-Vth).^(1/2)).*((Vgs(i)-Vth)./(sp.Vdd-Vth)).^(alpha/2);
     RD0 = (ID0./VD0).*Vds;
     I = find((ID0-RD0)>0);
     p = I(end);
@@ -214,6 +241,32 @@ xlabel('Vds [V]')
 ylabel('Id [A]')
 title('PMOS Vds-Id')
 axis([-Inf Inf 0 Inf])
+
+
+figure(4)
+hold on
+
+
+
+for i=1:Ncurves
+    x = sim_Vds_sweep(i).getSignal('Vdrain:p').getXValues;
+    y = sim_Vds_sweep(i).getSignal('Vdrain:p').getYValues;  
+    plot(x,x./y,'g')
+end
+
+Vds = sim_Vds_sweep(end).getSignal('Vdrain:p').getXValues;
+Ids = sim_Vds_sweep(end).getSignal('Vdrain:p').getYValues; 
+
+plot(Vds,Vds./Ids,'r')
+
+fitobj2 = polyfit(Vds,Vds./Ids,6)
+
+ 
+   
+x = Vds;
+plot(x,polyval(fitobj2,x))
+   
+sum(polyval(fitobj2,x))/length(polyval(fitobj2,x))
 
 
 
