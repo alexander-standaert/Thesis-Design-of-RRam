@@ -91,7 +91,7 @@ spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
 % parameters									
 Wpswitch = wpmos;
 
-Rload1 = 100;
+Rload1 = 0;
 Rload2 = Rload1;
 Rload3 = Rload1;
 Cload1 = 18*10^-15;
@@ -131,44 +131,73 @@ bl_2 = sim.getSignal('bl_2');
 bl_2x = bl_2.getXValues*10^9;
 bl_2y = bl_2.getYValues;
 
+Ibl_1 = sim.getSignal('vsel1_1:p');
+Ibl_x = Ibl_1.getXValues*10^9;
+Ibl_y = Ibl_1.getYValues;
+
 Vdiff = bl_1y-bl_2y;
 
 st = 5.5;
 tmp = abs(bl_1x-st);
 [x sti] = min(tmp);
 
-Vdiffs(i) = rc_latch(Vdiff(sti))
-
-figure(1)
+if k == 1
+    figure(1)
+    hold on
+    subplot(2,2,1)
+    plot(bl_1x,bl_1y,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('bitline voltage [V]')
+    title('Low resistance cell')
+    hold on
+    subplot(2,2,3)
+    plot(bl_1x,Vdiff,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('diff bitline voltage [V]')
+else
+    figure(1)
+    hold on
+    subplot(2,2,2)
+    plot(bl_1x,bl_1y,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('bitline voltage [V]')
+    title('High resistance cell')
+    hold on
+    subplot(2,2,4)
+    plot(bl_1x,Vdiff,'color',cmap(8*i,:));   
+    xlabel('time [ns]')
+    ylabel('diff bitline voltage [V]')    
+end
 
 if k == 1
-hold on
-subplot(2,2,1)
-plot(bl_1x,bl_1y,'color',cmap(8*i,:));
-hold on
-subplot(2,2,3)
-plot(bl_1x,Vdiff,'color',cmap(8*i,:));
-else
-hold on
-subplot(2,2,2)
-plot(bl_1x,bl_1y,'color',cmap(8*i,:));
-hold on
-subplot(2,2,4)
-plot(bl_1x,Vdiff,'color',cmap(8*i,:));   
-    
+   figure(2)
+   hold on
+   subplot(2,1,1)
+   plot(bl_1x,bl_1y,'color',cmap(8*i,:));
+   xlabel('time [ns]')
+   ylabel('bitline voltage [V]')
+   hold on
+   subplot(2,1,2)
+   plot(bl_1x,Ibl_y,'color',cmap(8*i,:));
+   xlabel('time [ns]')
+   ylabel('bitline current [A]') 
 end
+
 
 end
 
 end
-% 
-% w
-% 
-% figure(2)
-% hold on
-% hleg1 = legend('Vdiff','Location','SouthEastOutside');
-% xlabel('Pswitch width [nm]')
-% ylabel('voltage [V]')
-% set(gca,'XScale','log')
-% plot(w*10^9,log(1./Vdiffs),'o')
 
+figure(1)
+suptitle('Effect of sizing Pmos switch (1)')
+
+figure(2)
+suptitle('Effect of sizing Pmos switch (2)')
+
+% location of the plot to be zoomed in.  
+s_pos =[4 -0.7e-8 4.5 10e-8];
+% location of the zoom-in plot  
+t_pos = [5 0.5e-6 9 3.5e-6];    
+ah = gca; 
+% generate a zoom-in plot.  
+zoomPlot(ah, s_pos, t_pos);  

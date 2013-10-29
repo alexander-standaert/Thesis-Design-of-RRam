@@ -42,9 +42,9 @@ sel2_1 = wavegen([0,0.5e-9,2e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
 sel2_2 = sel2_1;
 sel2_3 = sel2_1;
 
-wl_1 = wavegen([0,3e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
-wl_2 = wl_1;
-wl_3 = wl_1;
+wl_1 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+wl_2 = wavegen([0,4.0e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+wl_3 = wavegen([0,4.0e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
 
 sl_1 = '[0 0]'; 
 sl_2 = sl_1; 
@@ -53,6 +53,8 @@ sl_3 = sl_1;
 vload_1 = 1; 
 vload_2 = 1;
 vload_3 = 1;
+
+vpreload = 0;
 
 LE1 = wavegen([0,7.2e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
 LE2 = wavegen([0,7.2e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
@@ -63,17 +65,17 @@ selL2 = selL1;
 
 transistor_type = 'mc';
 
-mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type)
+mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type,vpreload)
 clear inputfile currentpath mat2spicepath spicepath
 
 i=0;
 cmap = redgreencmap;
 
-w_step = 10e-9;
-w_stop = 100e-9;
-w=[50e-9:w_step:w_stop];
+m_step = 2000;
+m_stop = 10000;
+m=[0:m_step:m_stop];
 
-for wpmos=w
+for m=m
 
 i = i+1;
 
@@ -89,18 +91,18 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-Wpswitch = wpmos;
+Wpswitch = 80e-9;
 
-Rload1 = 100;
+Rload1 = 0;
 Rload2 = Rload1;
 Rload3 = Rload1;
 Cload1 = 18*10^-15;
 Cload2 = 18*10^-15;
 Cload3 = 18*10^-15;
 if k == 1
-Rmemcell = 5000;
+Rmemcell = 5000+m;
 else
-Rmemcell = 35000;   
+Rmemcell = 30000+m;   
 end
 Rmemhigh = 35000;
 Rmemlow = 5000;	
@@ -131,44 +133,50 @@ bl_2 = sim.getSignal('bl_2');
 bl_2x = bl_2.getXValues*10^9;
 bl_2y = bl_2.getYValues;
 
+Ibl_1 = sim.getSignal('vsel1_1:p');
+Ibl_x = Ibl_1.getXValues*10^9;
+Ibl_y = Ibl_1.getYValues;
+
 Vdiff = bl_1y-bl_2y;
 
 st = 5.5;
 tmp = abs(bl_1x-st);
 [x sti] = min(tmp);
 
-Vdiffs(i) = rc_latch(Vdiff(sti))
+if k == 1
+    figure(1)
+    hold on
+    subplot(2,2,1)
+    plot(bl_1x,bl_1y,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('bitline voltage [V]')
+    title('Low resistance cell')
+    hold on
+    subplot(2,2,3)
+    plot(bl_1x,Vdiff*10^3,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('diff bitline voltage [mV]')
+else
+    figure(1)
+    hold on
+    subplot(2,2,2)
+    plot(bl_1x,bl_1y,'color',cmap(8*i,:));
+    xlabel('time [ns]')
+    ylabel('bitline voltage [V]')
+    title('High resistance cell')
+    hold on
+    subplot(2,2,4)
+    plot(bl_1x,Vdiff*10^3,'color',cmap(8*i,:));   
+    xlabel('time [ns]')
+    ylabel('diff bitline voltage [mV]')    
+end
+
+
+
+end
+
+end
 
 figure(1)
-
-if k == 1
-hold on
-subplot(2,2,1)
-plot(bl_1x,bl_1y,'color',cmap(8*i,:));
-hold on
-subplot(2,2,3)
-plot(bl_1x,Vdiff,'color',cmap(8*i,:));
-else
-hold on
-subplot(2,2,2)
-plot(bl_1x,bl_1y,'color',cmap(8*i,:));
-hold on
-subplot(2,2,4)
-plot(bl_1x,Vdiff,'color',cmap(8*i,:));   
-    
-end
-
-end
-
-end
-% 
-% w
-% 
-% figure(2)
-% hold on
-% hleg1 = legend('Vdiff','Location','SouthEastOutside');
-% xlabel('Pswitch width [nm]')
-% ylabel('voltage [V]')
-% set(gca,'XScale','log')
-% plot(w*10^9,log(1./Vdiffs),'o')
+suptitle('Effect of sizing mem resistance')
 

@@ -46,7 +46,7 @@ ylabel('total computation time with latch Vdiff a time t [ns]')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  plot t_tot  for one t1 and Rmos
 
-st = 1e-9;
+st = 4e-9;
 tmp = abs(time-(st+t_ofset));
 [x sti] = min(tmp);
 
@@ -98,7 +98,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot optimum Rmos voor Rmem at t1
 
-st = 1e-9;
+st = 3e-9;
 tmp = abs(time-(st+t_ofset));
 [x sti] = min(tmp);
 

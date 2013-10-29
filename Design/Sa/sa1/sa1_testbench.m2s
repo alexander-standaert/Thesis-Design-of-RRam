@@ -7,7 +7,7 @@ simulator lang=spice
 
 simulator lang=spectre
 
-mmemarray ( bl_1 bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3 gnd vdd ) memarray
+mmemarray ( bl_1 bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3 vpreload gnd vdd ) memarray
 mlatch (bl_1 bl_2 out outbar vdd gnd vdd gnd LE1 LE2 selL1 selL2) latch
 
 vsel1_1 sel1_1 gnd vsource type=pwl wave=$<sel1_1>$
@@ -38,5 +38,7 @@ vselL2 selL2 gnd vsource type=pwl wave=$<selL2>$
 
 vgnd gnd 0 vsource type=dc dc=0
 vvdd vdd 0 vsource type=pwl wave=[0 0 0.01n 1]
+
+vpre vpreload gnd vsource type=dc dc=$<vpreload>$
 
 ana tran step=$<steptime>$ stop=$<stoptime>$
