@@ -18,9 +18,9 @@ vsel2_1 sel2_1 gnd vsource type=pwl wave=[0 0 5e-10 0 6e-10 1 2e-09 1 2.05e-09 0
 vsel2_2 sel2_2 gnd vsource type=pwl wave=[0 0 5e-10 0 6e-10 1 2e-09 1 2.05e-09 0 8e-09 0]
 vsel2_3 sel2_3 gnd vsource type=pwl wave=[0 0 5e-10 0 6e-10 1 2e-09 1 2.05e-09 0 8e-09 0]
 
-vwl_1 wl_1 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 9.5e-09 1]
-vwl_2 wl_2 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 9.5e-09 1]
-vwl_3 wl_3 gnd vsource type=pwl wave=[0 0 4e-09 0 4.1e-09 1 9.5e-09 1]
+vwl_1 wl_1 gnd vsource type=pwl wave=[0 0 3e-09 0 3.1e-09 1 8.5e-09 1]
+vwl_2 wl_2 gnd vsource type=pwl wave=[0 0 3e-09 0 3.1e-09 1 8.5e-09 1]
+vwl_3 wl_3 gnd vsource type=pwl wave=[0 0 3e-09 0 3.1e-09 1 8.5e-09 1]
 
 vsl_1 sl_1 gnd vsource type=pwl wave=[0 0]
 vsl_2 sl_2 gnd vsource type=pwl wave=[0 0]

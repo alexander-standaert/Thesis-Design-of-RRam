@@ -35,16 +35,16 @@ steptime = 10^-12;
 stoptime = 10*10^-9;
 
 sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
-sel1_2 = sel1_1;
-sel1_3 = sel1_1;
+sel1_2 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sel1_3 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
 
 sel2_1 = wavegen([0,0.5e-9,2e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
 sel2_2 = sel2_1;
 sel2_3 = sel2_1;
 
 wl_1 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
-wl_2 = wavegen([0,4.0e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
-wl_3 = wavegen([0,4.0e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+wl_2 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
+wl_3 = wavegen([0,4e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); %nmos gate
 
 sl_1 = '[0 0]'; 
 sl_2 = sl_1; 
@@ -91,7 +91,7 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/spice');						
 														
 % parameters									
-Wpswitch = 80e-9;
+Wpswitch = 100e-9;
 
 Rload1 = 0;
 Rload2 = Rload1;
