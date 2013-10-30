@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<project name="Thesis Wouter Diels en Alexander Standaert" company="" manager="" phase="" project-start="20130815T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Eerst Semester" note="" work="4089600" start="20130815T000000Z" end="20140101T170000Z" work-start="20130815T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Literatuur Studie" note="" work="2880000" start="20130815T000000Z" end="20140101T170000Z" work-start="20130815T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="3" name="Literatuur studie" note="" work="2880000" start="20130815T000000Z" end="20140101T170000Z" work-start="20130815T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="4" name="Bepalen van Sense Amp volgend trim" note="" work="0" start="20131218T000000Z" end="20131218T000000Z" work-start="20131218T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20131218T000000Z"/>
+        </task>
+      </task>
+      <task id="5" name="Sense Amp flow" note="" work="1209600" start="20131016T000000Z" end="20131122T000000Z" work-start="20131016T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="6" name="Werkend krijgen bestanden" note="" work="201600" start="20131016T000000Z" end="20131024T170000Z" work-start="20131016T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20131016T000000Z"/>
+        </task>
+        <task id="7" name="Analyse snelheid/energie" note="" work="604800" start="20131023T000000Z" end="20131120T170000Z" work-start="20131023T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20131023T000000Z"/>
+        </task>
+        <task id="8" name="Analyse mismatch" note="" work="403200" start="20131028T000000Z" end="20131114T170000Z" work-start="20131028T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20131028T000000Z"/>
+        </task>
+        <task id="9" name="final results" note="" work="0" start="20131122T000000Z" end="20131122T000000Z" work-start="20131122T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20131122T000000Z"/>
+        </task>
+      </task>
+    </task>
+    <task id="10" name="Tweede Semester" note="" work="3744000" start="20140210T000000Z" end="20140611T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="11" name="Sense Amps" note="" work="1814400" start="20140210T000000Z" end="20140310T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="12" name="Sense Amp 1" note="" work="604800" start="20140210T000000Z" end="20140304T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="13" name="Analytical work" note="" work="201600" start="20140210T000000Z" end="20140218T170000Z" work-start="20140210T080000Z" percent-complete="6" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140210T000000Z"/>
+          </task>
+          <task id="14" name="Analyse snelheid/energie" note="" work="201600" start="20140217T000000Z" end="20140225T170000Z" work-start="20140217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140217T000000Z"/>
+          </task>
+          <task id="15" name="Analyse mismatch" note="" work="201600" start="20140224T000000Z" end="20140304T170000Z" work-start="20140224T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140224T000000Z"/>
+          </task>
+        </task>
+        <task id="16" name="Sense Amp 2" note="" work="604800" start="20140210T000000Z" end="20140304T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="17" name="Analytical work" note="" work="201600" start="20140210T000000Z" end="20140218T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140210T000000Z"/>
+          </task>
+          <task id="18" name="Analyse snelheid/energie" note="" work="201600" start="20140217T000000Z" end="20140225T170000Z" work-start="20140217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140217T000000Z"/>
+          </task>
+          <task id="19" name="Analyse mismatch" note="" work="201600" start="20140224T000000Z" end="20140304T170000Z" work-start="20140224T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140224T000000Z"/>
+          </task>
+        </task>
+        <task id="20" name="Sense Amp 3" note="" work="604800" start="20140210T000000Z" end="20140304T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="21" name="Analytical work" note="" work="201600" start="20140210T000000Z" end="20140218T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140210T000000Z"/>
+          </task>
+          <task id="22" name="Analyse snelheid/energie" note="" work="201600" start="20140217T000000Z" end="20140225T170000Z" work-start="20140217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140217T000000Z"/>
+          </task>
+          <task id="23" name="Analyse mismatch" note="" work="201600" start="20140224T000000Z" end="20140304T170000Z" work-start="20140224T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="must-start-on" time="20140224T000000Z"/>
+          </task>
+        </task>
+        <task id="24" name="Results sense Amp" note="" work="0" start="20140310T000000Z" end="20140310T000000Z" work-start="20140310T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20140310T000000Z"/>
+        </task>
+      </task>
+      <task id="25" name="Mem architecture" note="" work="1065600" start="20140210T000000Z" end="20140331T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="26" name="ratio sense Amp/Cells/Decoders" note="" work="864000" start="20140210T000000Z" end="20140321T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20140210T000000Z"/>
+        </task>
+        <task id="27" name="extract param from layout" note="" work="201600" start="20140217T000000Z" end="20140225T170000Z" work-start="20140217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20140217T000000Z"/>
+        </task>
+        <task id="28" name="Results mem architecture" note="" work="0" start="20140331T000000Z" end="20140331T000000Z" work-start="20140331T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20140331T000000Z"/>
+        </task>
+      </task>
+      <task id="29" name="Reevaluate planning" note="" work="0" start="20140310T000000Z" end="20140310T000000Z" work-start="20140310T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20140310T000000Z"/>
+      </task>
+      <task id="30" name="Start writing" note="" work="864000" start="20140501T000000Z" end="20140611T170000Z" work-start="20140501T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20140501T000000Z"/>
+      </task>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>
