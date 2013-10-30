@@ -26,9 +26,9 @@ vsl_1 sl_1 gnd vsource type=pwl wave=[0 0]
 vsl_2 sl_2 gnd vsource type=pwl wave=[0 0]
 vsl_3 sl_3 gnd vsource type=pwl wave=[0 0]
 
-vvload_1 vload_1 gnd  vsource type=dc dc=1.45
-vvload_2 vload_2 gnd  vsource type=dc dc=1.45
-vvload_3 vload_3 gnd  vsource type=dc dc=1.45
+vvload_1 vload_1 gnd  vsource type=dc dc=1
+vvload_2 vload_2 gnd  vsource type=dc dc=1
+vvload_3 vload_3 gnd  vsource type=dc dc=1
 
 vLE1 LE1 gnd vsource type=pwl wave=[0 1 7.2e-09 1 7.25e-09 0 1.22e-08 0]
 vLE2 LE2 gnd vsource type=pwl wave=[0 0 7.2e-09 0 7.3e-09 1 1.22e-08 1]
