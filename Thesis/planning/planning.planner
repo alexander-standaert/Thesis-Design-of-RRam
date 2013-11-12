@@ -45,7 +45,7 @@
         <constraint type="must-start-on" time="20131220T000000Z"/>
       </task>
     </task>
-    <task id="11" name="Tweede Semester" note="" work="3657600" start="20140210T000000Z" end="20140627T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="11" name="Tweede Semester" note="" work="3456000" start="20140210T000000Z" end="20140627T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="12" name="Sensing Schemes" note="" work="1382400" start="20140210T000000Z" end="20140416T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="13" name="Sensing Scheme 1" note="" work="691200" start="20140210T000000Z" end="20140313T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="14" name="Analytical work" note="" work="201600" start="20140210T000000Z" end="20140218T170000Z" work-start="20140210T080000Z" percent-complete="6" priority="0" type="normal" scheduling="fixed-work">
@@ -82,27 +82,24 @@
       <task id="24" name="Reevaluate planning" note="" work="0" start="20140303T000000Z" end="20140303T000000Z" work-start="20140303T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
         <constraint type="must-start-on" time="20140303T000000Z"/>
       </task>
-      <task id="25" name="Mem architecture" note="" work="1267200" start="20140210T000000Z" end="20140411T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="25" name="Mem architecture" note="" work="1065600" start="20140210T000000Z" end="20140411T000000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="26" name="Bitcells/Words per block - SA verdeling - local/global bitlines" note="" work="864000" start="20140210T000000Z" end="20140321T170000Z" work-start="20140210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20140210T000000Z"/>
         </task>
         <task id="27" name="Decoding to blocks" note="" work="201600" start="20140321T000000Z" end="20140331T170000Z" work-start="20140321T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20140321T000000Z"/>
         </task>
-        <task id="28" name="extract parasitic resistance/capacitance from layout?" note="" work="201600" start="20140331T000000Z" end="20140408T170000Z" work-start="20140331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <constraint type="must-start-on" time="20140331T000000Z"/>
-        </task>
-        <task id="29" name="Results mem architecture" note="" work="0" start="20140411T000000Z" end="20140411T000000Z" work-start="20140411T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <task id="28" name="Results mem architecture" note="" work="0" start="20140411T000000Z" end="20140411T000000Z" work-start="20140411T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
           <constraint type="must-start-on" time="20140411T000000Z"/>
         </task>
       </task>
-      <task id="30" name="Start writing" note="" work="1008000" start="20140418T000000Z" end="20140605T170000Z" work-start="20140418T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="29" name="finalize writing" note="" work="1008000" start="20140418T000000Z" end="20140605T170000Z" work-start="20140418T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="must-start-on" time="20140418T000000Z"/>
       </task>
-      <task id="31" name="Finish Masterpaper" note="" work="0" start="20140606T000000Z" end="20140606T000000Z" work-start="20140606T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <task id="30" name="Finish Masterpaper" note="" work="0" start="20140606T000000Z" end="20140606T000000Z" work-start="20140606T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
         <constraint type="must-start-on" time="20140606T000000Z"/>
       </task>
-      <task id="32" name="Masterproef Presentatie" note="" work="0" start="20140627T000000Z" end="20140627T000000Z" work-start="20140627T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <task id="31" name="Masterproef Presentatie" note="" work="0" start="20140627T000000Z" end="20140627T000000Z" work-start="20140627T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
         <constraint type="must-start-on" time="20140627T000000Z"/>
       </task>
     </task>
