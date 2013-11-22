@@ -12,7 +12,7 @@ xM8 n2 LE2 vss bn MOSN
 
 
 ic out=0.4
-ic outbar=0.81
+ic outbar=0.4001
 
 
 ends latch

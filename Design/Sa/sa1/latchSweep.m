@@ -1,10 +1,10 @@
 mismatch_on = 0;
 
-n=5;
+n=1;
 
 pmult = 8;
 nmult = 4;
-DV = [0.01:0.1:(n+1)*0.1];
+DV = 0.0001;
 Vx = 0.4;
 
 
@@ -21,7 +21,7 @@ for i=1:n
     sp.pmult = pmult(1);
     sp.nmult = nmult(1);	
     sp.outinit = Vx(1);
-    sp.outbarinit = Vx(1)+DV(i);
+    sp.outbarinit = Vx(1)+DV(1);
 
     if mismatch_on == 1
         At = 3*10^-3*10^-6; %3mV/um
