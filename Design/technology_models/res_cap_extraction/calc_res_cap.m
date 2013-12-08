@@ -5,7 +5,7 @@ sp.step_small = 0.01;
 sp.step_big = 10e-9;
 
     
-sp.w_values = 50e-9:sp.step_big:300e-9
+sp.w_values = 100e-9:sp.step_big:300e-9
 sp.Vds_sweep  = -0.0:sp.step_small:sp.Vdd;
 
 sp.nmosL = 45e-9;

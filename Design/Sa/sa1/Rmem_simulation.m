@@ -35,8 +35,8 @@ steptime = 10^-12;
 stoptime = 10*10^-9;
 
 sel1_1 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
-sel1_2 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
-sel1_3 = wavegen([0,4e-9;1,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sel1_2 = wavegen([0,4e-9,6e-9;1,0,0],0.1e-9,0.05e-9,0,1,6e-9); %pmos gate
+sel1_3 = sel1_2; %pmos gate
 
 sel2_1 = wavegen([0,0.5e-9,2e-9;0,1,0],0.1e-9,0.05e-9,0,1,6e-9); %nmos gate
 sel2_2 = sel2_1;

@@ -1,6 +1,6 @@
 simulator lang=spectre
 
-subckt memarray ( bl_1out bl_2out sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3  vpreload gnd vdd )
+subckt memarray ( bl_1out bl_2 sel1_1 sel1_2 sel1_3 sel2_1 sel2_2 sel2_3 wl_1 wl_2 wl_3 sl_1 sl_2 sl_3 vload_1 vload_2 vload_3  vpreload gnd vdd )
 
 // mem cell branch
 xsel1_1 node1_1 sel1_1 vload_1 vdd MOSP w=$<Wpswitch>$
@@ -40,10 +40,14 @@ ic bl_3=$<init_bl_3>$
 
 
 //current conveyer
-xIcon_1 bl_1 bl_2out bl_1out gnd MOSN 
-xIcon_2 bl_2 bl_1out bl_2out gnd MOSN 
+xIcon_1 bl_1out bl_1 gnd gnd MOSN 
+xIcon_2 bl_2out bl_2 gnd gnd MOSN 
 
-xsel3_1 bl_1out sel1_1 vload_1 vdd MOSP //w=$<Wpswitch>$
-xsel3_2 bl_2out sel1_1 vload_1 vdd MOSP //w=$<Wpswitch>$
+xsel3_1 bl_1out aa vload_1 vdd MOSP //w=$<Wpswitch>$
+xsel3_2 bl_2out aa vload_1 vdd MOSP //w=$<Wpswitch>$
 
+cload_4 (bl_1out gnd) capacitor c=1e-15
+cload_5 (bl_2out gnd) capacitor c=1e-15
+
+Vbias aa gnd vsource type=dc dc=0.5
 ends memarray

@@ -1,0 +1,462 @@
+
+**************************************************
+Capacitance Table `swp-000_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-000_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=20.5783 a   , variable=89.8872 a   , sum=110.466 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=20.5783 a   , variable=165.74 a    , sum=186.318 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=50 a        , sum=50 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=16.5434 a   , sum=17.6954 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=42.3086 a   , variable=123.978 a   , sum=166.286 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=80 a        , sum=80 a        .
+
+
+**************************************************
+Capacitance Table `swp-001_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-001_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=22.8648 a   , variable=99.3191 a   , sum=122.184 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=22.8648 a   , variable=183.267 a   , sum=206.132 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=55 a        , sum=55 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=18.3816 a   , sum=19.5336 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=46.8815 a   , variable=137.753 a   , sum=184.635 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=88 a        , sum=88 a        .
+
+
+**************************************************
+Capacitance Table `swp-002_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-002_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=25.1512 a   , variable=108.751 a   , sum=133.902 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=25.1512 a   , variable=200.793 a   , sum=225.945 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=60 a        , sum=60 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=20.2198 a   , sum=21.3718 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=51.4545 a   , variable=151.528 a   , sum=202.983 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=96 a        , sum=96 a        .
+
+
+**************************************************
+Capacitance Table `swp-003_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-003_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=27.4377 a   , variable=118.183 a   , sum=145.621 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=27.4377 a   , variable=218.32 a    , sum=245.758 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=65 a        , sum=65 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=22.0579 a   , sum=23.2099 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=56.0275 a   , variable=165.304 a   , sum=221.331 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=104 a       , sum=104 a       .
+
+
+**************************************************
+Capacitance Table `swp-004_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-004_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=29.7242 a   , variable=127.615 a   , sum=157.339 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=29.7242 a   , variable=235.847 a   , sum=265.571 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=70 a        , sum=70 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=23.8961 a   , sum=25.0481 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=60.6004 a   , variable=179.079 a   , sum=239.679 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=112 a       , sum=112 a       .
+
+
+**************************************************
+Capacitance Table `swp-005_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-005_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=32.0107 a   , variable=137.047 a   , sum=169.057 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=32.0107 a   , variable=253.373 a   , sum=285.384 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=75 a        , sum=75 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=25.7343 a   , sum=26.8863 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=65.1734 a   , variable=192.854 a   , sum=258.028 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=120 a       , sum=120 a       .
+
+
+**************************************************
+Capacitance Table `swp-006_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-006_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=34.2972 a   , variable=146.479 a   , sum=180.776 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=34.2972 a   , variable=270.9 a     , sum=305.197 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=80 a        , sum=80 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=27.5724 a   , sum=28.7244 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=69.7463 a   , variable=206.629 a   , sum=276.376 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=128 a       , sum=128 a       .
+
+
+**************************************************
+Capacitance Table `swp-007_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-007_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=36.5836 a   , variable=155.911 a   , sum=192.494 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=36.5836 a   , variable=288.427 a   , sum=325.01 a    .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=85 a        , sum=85 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=29.4106 a   , sum=30.5626 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=74.3193 a   , variable=220.405 a   , sum=294.724 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=136 a       , sum=136 a       .
+
+
+**************************************************
+Capacitance Table `swp-008_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-008_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=38.8701 a   , variable=165.343 a   , sum=204.213 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=38.8701 a   , variable=305.953 a   , sum=344.824 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=90 a        , sum=90 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=31.2487 a   , sum=32.4007 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=78.8922 a   , variable=234.18 a    , sum=313.072 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=144 a       , sum=144 a       .
+
+
+**************************************************
+Capacitance Table `swp-009_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-009_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=41.1566 a   , variable=174.774 a   , sum=215.931 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=41.1566 a   , variable=323.48 a    , sum=364.637 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=95 a        , sum=95 a        .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=33.0869 a   , sum=34.2389 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=83.4652 a   , variable=247.955 a   , sum=331.421 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=152 a       , sum=152 a       .
+
+
+**************************************************
+Capacitance Table `swp-010_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-010_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=43.4431 a   , variable=184.206 a   , sum=227.649 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=43.4431 a   , variable=341.007 a   , sum=384.45 a    .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=100 a       , sum=100 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=34.9251 a   , sum=36.0771 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=88.0381 a   , variable=261.731 a   , sum=349.769 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=160 a       , sum=160 a       .
+
+
+**************************************************
+Capacitance Table `swp-011_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-011_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=45.7295 a   , variable=193.638 a   , sum=239.368 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=45.7295 a   , variable=358.533 a   , sum=404.263 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=105 a       , sum=105 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=36.7632 a   , sum=37.9152 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=92.6111 a   , variable=275.506 a   , sum=368.117 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=168 a       , sum=168 a       .
+
+
+**************************************************
+Capacitance Table `swp-012_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-012_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=48.016 a    , variable=203.07 a    , sum=251.086 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=48.016 a    , variable=376.06 a    , sum=424.076 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=110 a       , sum=110 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=38.6014 a   , sum=39.7534 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=97.184 a    , variable=289.281 a   , sum=386.465 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=176 a       , sum=176 a       .
+
+
+**************************************************
+Capacitance Table `swp-013_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-013_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=50.3025 a   , variable=212.502 a   , sum=262.805 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=50.3025 a   , variable=393.587 a   , sum=443.889 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=115 a       , sum=115 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=40.4395 a   , sum=41.5915 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=101.757 a   , variable=303.057 a   , sum=404.814 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=184 a       , sum=184 a       .
+
+
+**************************************************
+Capacitance Table `swp-014_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-014_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=52.589 a    , variable=221.934 a   , sum=274.523 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=52.589 a    , variable=411.114 a   , sum=463.702 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=120 a       , sum=120 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=42.2777 a   , sum=43.4297 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=106.33 a    , variable=316.832 a   , sum=423.162 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=192 a       , sum=192 a       .
+
+
+**************************************************
+Capacitance Table `swp-015_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-015_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=54.8755 a   , variable=231.366 a   , sum=286.241 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=54.8755 a   , variable=428.64 a    , sum=483.516 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=125 a       , sum=125 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=44.1159 a   , sum=45.2679 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=110.903 a   , variable=330.607 a   , sum=441.51 a    .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=200 a       , sum=200 a       .
+
+
+**************************************************
+Capacitance Table `swp-016_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-016_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=57.1619 a   , variable=240.798 a   , sum=297.96 a    .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=57.1619 a   , variable=446.167 a   , sum=503.329 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=130 a       , sum=130 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=45.954 a    , sum=47.106 a    .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=115.476 a   , variable=344.382 a   , sum=459.858 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=208 a       , sum=208 a       .
+
+
+**************************************************
+Capacitance Table `swp-017_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-017_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=59.4484 a   , variable=250.23 a    , sum=309.678 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=59.4484 a   , variable=463.694 a   , sum=523.142 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=135 a       , sum=135 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=47.7922 a   , sum=48.9442 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=120.049 a   , variable=358.158 a   , sum=478.207 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=216 a       , sum=216 a       .
+
+
+**************************************************
+Capacitance Table `swp-018_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-018_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=61.7349 a   , variable=259.662 a   , sum=321.397 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=61.7349 a   , variable=481.22 a    , sum=542.955 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=140 a       , sum=140 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=49.6303 a   , sum=50.7823 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=124.622 a   , variable=371.933 a   , sum=496.555 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=224 a       , sum=224 a       .
+
+
+**************************************************
+Capacitance Table `swp-019_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-019_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=64.0214 a   , variable=269.094 a   , sum=333.115 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=64.0214 a   , variable=498.747 a   , sum=562.768 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=145 a       , sum=145 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=51.4685 a   , sum=52.6205 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=129.195 a   , variable=385.708 a   , sum=514.903 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=232 a       , sum=232 a       .
+
+
+**************************************************
+Capacitance Table `swp-020_printCapacitanceTable':
+**************************************************
+Capacitance values computed in info analysis `swp-020_printCapacitanceTable' at T = 27 C.
+
+b : b   fixed=0           , variable=0           , sum=0           .
+
+d : d   fixed=66.3078 a   , variable=278.526 a   , sum=344.833 a   .
+
+g : g   fixed=0           , variable=0           , sum=0           .
+
+s : s   fixed=66.3078 a   , variable=516.274 a   , sum=582.581 a   .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=150 a       , sum=150 a       .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=53.3067 a   , sum=54.4587 a   .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=133.768 a   , variable=399.484 a   , sum=533.251 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=240 a       , sum=240 a       .
+

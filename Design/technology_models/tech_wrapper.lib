@@ -5,22 +5,22 @@
 .include '45nm_LP.pm'
 .include '45nm_HP.pm'
 
-.subckt mosn d g s b mult='1' w='50e-9' l='45e-9'
+.subckt mosn d g s b mult='1' w='100e-9' l='45e-9'
 m1 d g s b nmos w=w l=l m='mult'
 .ends
 
 
-.subckt mosp d g s b mult='1' w='50e-9' l='45e-9'
+.subckt mosp d g s b mult='1' w='100e-9' l='45e-9'
 m1 d g s b pmos w=w l=l  m='mult'
 .ends
 
 
-.subckt mosn_h d g s b mult='1' w='50e-9' l='45e-9'
+.subckt mosn_h d g s b mult='1' w='100e-9' l='45e-9'
 m1 d g s b nmos_h w=w l=l m='mult'
 .ends
 
 
-.subckt mosp_h d g s b mult='1' w='50e-9' l='45e-9'
+.subckt mosp_h d g s b mult='1' w='100e-9' l='45e-9'
 m1 d g s b pmos_h w=w l=l  m='mult'
 .ends
 .endl

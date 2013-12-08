@@ -58,20 +58,21 @@ LE1 = wavegen([0,7.2e-9;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
 LE2 = wavegen([0,7.2e-9;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
 selL1 = wavegen([0,6.5e-9,6.7e-9;0,0,0],0.1e-9,0.05e-9,0,1,5e-9);
-selL2 = selL1;					
+selL2 = selL1;	
 
+vpreload=0;
 
 transistor_type = 'mc';
 
-mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type)
+mat2spice(mat2spicepath,spicepath,sel1_1,sel1_2,sel1_3,sel2_1,sel2_2,sel2_3,wl_1,wl_2,wl_3,sl_1,sl_2,sl_3,vload_1,vload_2,vload_3,LE1,LE2,selL1,selL2,steptime,stoptime,transistor_type,vpreload)
 clear inputfile currentpath mat2spicepath spicepath
 
 i=0;
 cmap = redgreencmap;
 
 w_step = 10e-9;
-w_stop = 100e-9;
-w=[50e-9:w_step:w_stop];
+w_stop = 200e-9;
+w=[100e-9:w_step:w_stop];
 
 for wpmos=w
 

@@ -190,7 +190,7 @@ end
 
 end
 
-figure(1)
+figure(1) 
 suptitle('Effect of sizing Pmos switch (1)')
 
 figure(2)
