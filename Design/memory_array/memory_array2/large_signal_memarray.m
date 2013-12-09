@@ -2,7 +2,7 @@ function [] = large_signal_memarray()
 close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SET PARAM
-param = init_param();
+param = init_param('bodye2');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ANALYSIS
 
@@ -12,19 +12,67 @@ param = init_param();
 % [sim tree] = analyse_array(param)
 % calc_bl_energy(sim,'bl','vgnd:p',1,1e-9)
 
-sim_monte_carlo(param,{'bl','out'},30000,10000,30,2)
+sim_monte_carlo(param,{'bl','mmemarray.bl_ex','out'},30000,10000,1,1)
 end
 
-function [param] = init_param()
+function [param] = init_param(loadtype)
+param.loadtype = loadtype;
+
 % dimentions							
 param.Cload = 18*10^-15;
-param.Rmemcell = 30000;
+param.Rmemcell1 = 30000;
+param.Rmemcell2 = 30000;
 
-param.wref1 = 100e-9;
-param.wref2 = 120e-9;
-param.wref3 = 140e-9;
-param.wref4 = 160e-9;
-
+if loadtype == 'switch'
+    param.wref1 = 100e-9;
+    param.wref2 = 120e-9;
+    param.wref3 = 140e-9;
+    param.wref4 = 160e-9;
+elseif loadtype == 'diode1' %effect van switch sizing op p diode
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 500e-9;
+    param.wref4 = 1000e-9;
+    param.wdiode = 100e-9;
+elseif loadtype == 'diode2' %effect van bleeding tran size op p diode
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 100e-9;
+    param.wref4 = 100e-9;
+    param.wdiode = 100e-9;
+    param.wbleed1 = 100e-9;
+    param.wbleed2 = 300e-9;
+    param.wbleed3 = 500e-9;
+    param.wbleed4 = 1000e-9;
+elseif loadtype == 'diode3' %effect van switch sizing op n diode
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 500e-9;
+    param.wref4 = 1000e-9;
+    param.wdiode = 100e-9;  
+elseif loadtype == 'diode4' %bias
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 100e-9;
+    param.wref4 = 100e-9;
+    param.wbias = 300e-9;
+    param.vbias = wavegen([0,13e-9,25e-9,37e-9;0,0.1,0.3,0.4],0.1e-9,0.05e-9,0,1,5.5e-9); 
+elseif loadtype == 'bodyef' %body
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 100e-9;
+    param.wref4 = 100e-9;
+    param.wbias = 300e-9;
+    param.vbias = wavegen([0,13e-9,25e-9,37e-9;0,0.1,0.3,0.4],0.1e-9,0.05e-9,0,1,5.5e-9); 
+elseif loadtype == 'bodye2' %body
+    param.wref1 = 100e-9;
+    param.wref2 = 100e-9;
+    param.wref3 = 100e-9;
+    param.wref4 = 100e-9;
+    param.wbias = 300e-9;
+    param.vbias = wavegen([0,13e-9,25e-9,37e-9;0,0.1,0.3,0.4],0.1e-9,0.05e-9,0,1,5.5e-9); 
+end
+    
 param.init_bl = 0;
 
 param.temp = 30;
@@ -32,8 +80,11 @@ param.mult_inv = 2;
 
 % signals
 param.wl_1 = wavegen([0,1e-9;0,1],0.1e-9,0.05e-9,0,1,5.5e-9); 
+param.wl_2 = wavegen([0,1e-9;0,0],0.1e-9,0.05e-9,0,1,5.5e-9);
 
 param.sl_1 = wavegen([0,1e-9;0,0],0.1e-9,0.05e-9,0,1,5.5e-9); 
+
+param.sel_0 = wavegen([0,1e-9;0,0],0.1e-9,0.05e-9,0,1,5.5e-9); 
 
 param.sel_1 = wavegen([0,1e-9;1,1],0.1e-9,0.05e-9,0,1,5.5e-9); 
 param.sel_2 = wavegen([0,1e-9;1,0],0.1e-9,0.05e-9,0,1,5.5e-9); 
@@ -89,9 +140,9 @@ hold off
 end
 
 function [simhigh simlow] = sim_highlow(param,Rhigh,Rlow)
-param.Rmemcell = Rhigh;
+param.Rmemcell1 = Rhigh;
 [simhigh tree] = analyse_array(param);
-param.Rmemcell = Rlow;
+param.Rmemcell1 = Rlow;
 [simlow tree] = analyse_array(param);
 end
 
@@ -147,8 +198,20 @@ param.VtMismatch = 1;
 param.BMismatch = 0;
 param.mcruns = mc_runs;
 
-param.Rmemcell = Rhigh;
+param.stoptime = 49e-9;
 
+param.wl_1 = wavegen([0,1e-9,6e-9,7e-9,12e-9,13e-9,18e-9,19e-9,24e-9,25e-9,30e-9,31e-9,36e-9,37e-9,42e-9,43e-9,48e-9;0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],0.1e-9,0.05e-9,0,1,5.5e-9);
+param.wl_2 = wavegen([0,1e-9,6e-9,7e-9,12e-9,13e-9,18e-9,19e-9,24e-9,25e-9,30e-9,31e-9,36e-9,37e-9,42e-9,43e-9,48e-9;0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0],0.1e-9,0.05e-9,0,1,5.5e-9);
+
+param.sel_0 = wavegen([0,1e-9,6e-9,7e-9,12e-9,13e-9,18e-9,19e-9,24e-9,25e-9,30e-9,31e-9,36e-9,37e-9,42e-9,43e-9,48e-9;1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],0.1e-9,0.05e-9,0,1,5.5e-9);
+
+param.sel_1 = wavegen([0,1e-9,6e-9,7e-9,12e-9;1,0,1,0,1],0.1e-9,0.05e-9,0,1,5.5e-9); 
+param.sel_2 = wavegen([0,13e-9,18e-9,19e-9,24e-9;1,0,1,0,1],0.1e-9,0.05e-9,0,1,5.5e-9); 
+param.sel_3 = wavegen([0,25e-9,30e-9,31e-9,36e-9;1,0,1,0,1],0.1e-9,0.05e-9,0,1,5.5e-9); 
+param.sel_4 = wavegen([0,37e-9,42e-9,43e-9,48e-9;1,0,1,0,1],0.1e-9,0.05e-9,0,1,5.5e-9);  
+
+param.Rmemcell1 = Rhigh;
+param.Rmemcell2 = Rlow;
 % Mat2spice memory array
 
 inputfile = 'large_signal_memarray.m2s';
@@ -167,51 +230,19 @@ system('spectre -format psfascii ./memory_array/memory_array2/spice/large_signal
 for i=1:param.mcruns
     istr=num2str(i+1000);
     istr=istr(end-2:end);
-    [sim_high(i), ~] = readPsfAscii(strcat('./memory_array/memory_array2/spice/large_signal_memarray.raw/mc-',istr,'_ana.tran'), '.*');
-end
-
-param.Rmemcell = Rlow;
-
-% Mat2spice memory array
-
-inputfile = 'large_signal_memarray.m2s';
-
-[currentpath,~,~] = fileparts(which(mfilename));
-
-mat2spicepath = strcat(currentpath,'/',inputfile);
-spicepath = strcat(strrep(currentpath,pwd,''),'/spice');			
-
-mat2spice(mat2spicepath,spicepath,param)
-clear inputfile currentpath mat2spicepath spicepath
-
-% Run spice
-system('spectre -format psfascii ./memory_array/memory_array2/spice/large_signal_memarray.sp');
-
-for i=1:param.mcruns
-    istr=num2str(i+1000);
-    istr=istr(end-2:end);
-    [sim_low(i), ~] = readPsfAscii(strcat('./memory_array/memory_array2/spice/large_signal_memarray.raw/mc-',istr,'_ana.tran'), '.*');
+    [sim(i), ~] = readPsfAscii(strcat('./memory_array/memory_array2/spice/large_signal_memarray.raw/mc-',istr,'_ana.tran'), '.*');
 end
 
 for k=1:length(plot_param)
    for i=1:param.mcruns
-        sig = sim_high(i).getSignal(plot_param(k));
+        sig = sim(i).getSignal(plot_param(k));
         sig1x = sig.getXValues*10^9;
         sig1y = sig.getYValues;
 
-        sig = sim_low(i).getSignal(plot_param(k));
-        sig2x = sig.getXValues*10^9;
-        sig2y = sig.getYValues;
-        
         figure(fignb+k-1)
         hold on
-        subplot(1,2,1)
         plot(sig1x,sig1y)
         axis([sig1x(1) sig1x(end) -0.01 1.01])
-        hold on
-        subplot(1,2,2)
-        plot(sig2x,sig2y)
-        axis([sig2x(1) sig2x(end) -0.01 1.01])
     end
 end
 end
