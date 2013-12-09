@@ -1,7 +1,7 @@
-sp.numruns = 100;
+sp.numruns = 999;
 
-sp.Pmult=1;
-sp.Nmult=1;
+sp.Pmult=5;
+sp.Nmult=3;
 
 sp.Rload1 = 100;
 sp.Rload2 = sp.Rload1;
@@ -46,6 +46,8 @@ td=[];
 
 figure(1)
 hold all
+figure(2)
+hold all
 sim=[];
 
 for i=1:sp.numruns
@@ -54,15 +56,21 @@ istr=istr(end-2:end);
 [temp, ~] = readPsfAscii(strcat('./MonteCarloTest/test.raw/mymc-',istr,'_mytran.tran'), '.*');
 sim=[sim;temp];
 a=sim(i).getSignal('bl_1');
+b=sim(i).getSignal('bl_ref');
+c=sim(i).getSignal('inout');
 t=a.getXValues;
-v=a.getYValues;
+v1=a.getYValues;
+v2=b.getYValues;
+v3=c.getYValues;
 
-[tdel,correct(i)]=calcYieldSpeed(v,t,0);
-if correct(i)==1
-    td=[td;tdel];
-end
-
-plotSignal(a)
+%[tdel,correct(i)]=calcYieldSpeed(v,t,0);
+%if correct(i)==1
+%    td=[td;tdel];
+%end
+figure(1)
+plot(t,(v2-v1))
+figure(2)
+plot(t,v3)
 end
 
 hold off
