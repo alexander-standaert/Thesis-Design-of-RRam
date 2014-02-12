@@ -1,0 +1,6 @@
+subckt inverter (in out vdd vss bp bn)
+
+xM1 out in vdd bp mc_pmos_lvt w=PWmin l=PLmin
+xM2 out in vss bn mc_nmos_lvt w=PWmin l=PLmin
+
+ends latch

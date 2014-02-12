@@ -1,4 +1,4 @@
-sp.numruns = 999;
+sp.numruns = 100;
 
 sp.Pmult=5;
 sp.Nmult=3;
@@ -41,13 +41,12 @@ clear inputfile currentpath mat2spicepath spicepath
 
 system('spectre ./MonteCarloTest/test.scs');
 
-correct=zeros(sp.numruns,1);
 td=[];
 
 figure(1)
 hold all
-figure(2)
-hold all
+% figure(2)
+% hold all
 sim=[];
 
 for i=1:sp.numruns
@@ -63,16 +62,10 @@ v1=a.getYValues;
 v2=b.getYValues;
 v3=c.getYValues;
 
-%[tdel,correct(i)]=calcYieldSpeed(v,t,0);
-%if correct(i)==1
-%    td=[td;tdel];
-%end
 figure(1)
-plot(t,(v2-v1))
-figure(2)
+% plot(t,(v1))
+% figure(2)
 plot(t,v3)
 end
 
 hold off
-yield=mean(correct)
-tdelay=mean(td)

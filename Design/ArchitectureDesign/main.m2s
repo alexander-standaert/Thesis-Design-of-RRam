@@ -1,0 +1,5 @@
+simulator lang=spectre
+
+include "transistorsPTM.scs"
+include "parameters.sp"
+include "architecture.scs"

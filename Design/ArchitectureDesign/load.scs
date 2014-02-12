@@ -1,0 +1,5 @@
+subckt load (LoadLine Bitline)
+
+Rshort (LoadLine Bitline) resistor r=0
+
+ends load

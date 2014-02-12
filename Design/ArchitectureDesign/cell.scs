@@ -1,0 +1,6 @@
+subckt cell (BitLine SourceLine WordLine NBulkLine)
+
+rMemristor (BitLine n1) resistor r=RMEM
+xM n1 WordLine SourceLine NBulkLine mc_nmos_lvt w=PWmin l=PLmin
+
+ends cell

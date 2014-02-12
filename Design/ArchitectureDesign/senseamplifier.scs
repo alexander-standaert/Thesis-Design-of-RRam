@@ -1,0 +1,11 @@
+subckt senseamplifier (vdd vss nbulk pbulk inout inoutbar enablep enablen)
+
+xM1 inout inoutbar n1 pbulk mc_pmos_lvt w=PWp l=PLmin
+xM2 inoutbar inout n1 pbulk mc_pmos_lvt w=PWp l=PLmin
+xM3 inout inoutbar n2 nbulk mc_nmos_lvt w=PWn l=PLmin
+xM4 inoutbar inout n2 nbulk mc_nmos_lvt w=PWn l=PLmin
+
+xM5 n1 enablep vdd pbulk mc_pmos_lvt w=PWpenable l=PLmin
+xM6 n2 enablen vss nbulk mc_nmos_lvt w=PWnenable l=PLmin
+
+ends senseamplifier

@@ -31,4 +31,4 @@ parameters switch2wave=[0 0 5e-09 0 5.1e-09 1 7e-09 1 7.05e-09 0 1.2e-08 0]
 parameters lepwave=[0 1 8e-09 1 8.05e-09 0 1.3e-08 0]
 parameters lenwave=[0 0 8e-09 0 8.1e-09 1 1.3e-08 1]
 
-parameters numberofruns = 999
+parameters numberofruns = 100

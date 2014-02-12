@@ -1,0 +1,12 @@
+simulator lang=spectre
+
+include "branch.sp"
+
+subckt localblock (vdd vss NBulkLine PBulkLine $<bus('WL',[0:sp.NoWLpB-1])>$ $<bus('BL',[0:sp.NoBLpLB-1])>$ $<bus('SS',[0:sp.NoBLpLB-1])>$
++$<bus('Charge',[0:sp.NoBLpLB-1])>$ $<bus('Discharge',[0:sp.NoBLpLB-1])>$)
+
+$for i=0:sp.NoBLpLB-1
+xBranch$<i>$ (vdd vss BL$<strcat('_',int2str(i))>$ $<bus('WL',[0:sp.NoWLpB-1])>$ SS$<strcat('_',int2str(i))>$ Charge$<strcat('_',int2str(i))>$ Discharge$<strcat('_',int2str(i))>$ PBulkLine NBulkLine) branch
+$end
+
+ends localblock
