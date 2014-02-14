@@ -1,3 +1,4 @@
+
 subckt cell (BitLine SourceLine WordLine NBulkLine)
 
 rMemristor (BitLine n1) resistor r=RMEM

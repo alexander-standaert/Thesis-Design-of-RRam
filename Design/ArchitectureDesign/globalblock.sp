@@ -1,7 +1,9 @@
+
 simulator lang=spectre
 
-include "branch.sp"
+include "localblock.sp"
 include "mux.sp"
+include "senseamplifier.scs"
 
 subckt globalblock (vdd vss NBulkLine PBulkLine
 +LWL_0_0 LWL_0_1 LWL_0_2 LWL_0_3 LWL_0_4 LWL_0_5 LWL_1_0 LWL_1_1 LWL_1_2 LWL_1_3 LWL_1_4 LWL_1_5 LWL_2_0 LWL_2_1 LWL_2_2 LWL_2_3 LWL_2_4 LWL_2_5 LWL_3_0 LWL_3_1 LWL_3_2 LWL_3_3 LWL_3_4 LWL_3_5 LWL_4_0 LWL_4_1 LWL_4_2 LWL_4_3 LWL_4_4 LWL_4_5 LWL_5_0 LWL_5_1 LWL_5_2 LWL_5_3 LWL_5_4 LWL_5_5 LWL_6_0 LWL_6_1 LWL_6_2 LWL_6_3 LWL_6_4 LWL_6_5 LWL_7_0 LWL_7_1 LWL_7_2 LWL_7_3 LWL_7_4 LWL_7_5
@@ -20,6 +22,6 @@ xLB5 (vdd vss NBulkLine PBulkLine LWL_0_5 LWL_1_5 LWL_2_5 LWL_3_5 LWL_4_5 LWL_5_
 xMUX0 (BL_0_0 BL_0_1 BL_0_2 BL_1_0 BL_1_1 BL_1_2 BL_2_0 BL_2_1 BL_2_2 BL_3_0 BL_3_1 BL_3_2 BL_4_0 BL_4_1 BL_4_2 BL_5_0 BL_5_1 BL_5_2 BL_6_0 BL_6_1 BL_6_2 BL_7_0 BL_7_1 BL_7_2 BL_8_0 BL_8_1 BL_8_2 BL_9_0 BL_9_1 BL_9_2 SelBL_0_0 SelBL_0_1 SelBL_0_2 SelBL_1_0 SelBL_1_1 SelBL_1_2 SelBL_2_0 SelBL_2_1 SelBL_2_2 SelBL_3_0 SelBL_3_1 SelBL_3_2 SelBL_4_0 SelBL_4_1 SelBL_4_2 SelBL_5_0 SelBL_5_1 SelBL_5_2 SelBL_6_0 SelBL_6_1 SelBL_6_2 SelBL_7_0 SelBL_7_1 SelBL_7_2 SelBL_8_0 SelBL_8_1 SelBL_8_2 SelBL_9_0 SelBL_9_1 SelBL_9_2 InOut NBulkLine) mux
 xMUX1 (BL_0_3 BL_0_4 BL_0_5 BL_1_3 BL_1_4 BL_1_5 BL_2_3 BL_2_4 BL_2_5 BL_3_3 BL_3_4 BL_3_5 BL_4_3 BL_4_4 BL_4_5 BL_5_3 BL_5_4 BL_5_5 BL_6_3 BL_6_4 BL_6_5 BL_7_3 BL_7_4 BL_7_5 BL_8_3 BL_8_4 BL_8_5 BL_9_3 BL_9_4 BL_9_5 SelBL_0_3 SelBL_0_4 SelBL_0_5 SelBL_1_3 SelBL_1_4 SelBL_1_5 SelBL_2_3 SelBL_2_4 SelBL_2_5 SelBL_3_3 SelBL_3_4 SelBL_3_5 SelBL_4_3 SelBL_4_4 SelBL_4_5 SelBL_5_3 SelBL_5_4 SelBL_5_5 SelBL_6_3 SelBL_6_4 SelBL_6_5 SelBL_7_3 SelBL_7_4 SelBL_7_5 SelBL_8_3 SelBL_8_4 SelBL_8_5 SelBL_9_3 SelBL_9_4 SelBL_9_5 InOutbar NBulkLine) mux
 
-xSA (vdd vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN)
+xSA (vdd vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN) senseamplifier
 
 ends globalblock

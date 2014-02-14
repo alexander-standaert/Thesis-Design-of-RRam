@@ -1,0 +1,36 @@
+
+simulator lang=spectre
+
+include "transistorsPTM.scs"
+include "globalblock.sp"
+include "inverter.scs"
+include "parameters.sp"
+
+xGlobal (vdd vss NBulkLine PBulkLine
++$<grid('LWL',[0:sp.NoWLpB-1],[0:sp.NoLBpSA-1])>$
++$<grid('SS',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
++$<grid('Charge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
++$<grid('Discharge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
++$<grid('SelBL',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
++InOut InOutbar EnableSAP EnableSAN) globalblock
+
+xInv0 (InOut InOutbarBuf vdd vss PBulkLine NBulkLine) inverter
+xInv1 (InOutbar InOutBuf vdd vss PBulkLine NBulkLine) inverter
+
+Vvdd     ( vdd     0 ) vsource dc=1
+VvddBulk ( PBulkLine 0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+mymc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=numberofruns
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes {
+mytran tran stop=simlength
+}
+
+option1 options rawfmt = psfascii
+

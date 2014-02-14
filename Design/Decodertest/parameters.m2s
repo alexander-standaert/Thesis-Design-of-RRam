@@ -1,0 +1,9 @@
+
+simulator lang=spectre
+
+parameters PWmin = 100n                         //MinimalTransistorWidth
+parameters PLmin = 45n                          //MinimalTransistorLenght
+        
+parameters numberofruns = $<sp.numruns>$
+parameters enableMismatch = $<sp.MismatchOn>$  
+parameters simlength = $<sp.simlength>$

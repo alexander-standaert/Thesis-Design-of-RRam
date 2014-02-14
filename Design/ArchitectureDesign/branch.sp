@@ -6,7 +6,7 @@ subckt branch (vdd vss BitLine WL_0 WL_1 WL_2 WL_3 WL_4 WL_5 WL_6 WL_7 SourceSel
 
 xSwitchVdd LoadLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=PLmin
 xSwitchVss1 Bitline Discharge vss NBulkLine mc_nmos_lvt w=WDischargeBL l=PLmin
-xSwitchVss2 SourceLine SourceSelect vss NBulkLine mc_nmos_lvt w=WDischargeSL l=Plmin
+xSwitchVss2 SourceLine SourceSelect vss NBulkLine mc_nmos_lvt w=WDischargeSL l=PLmin
 
 xLoad LoadLine Bitline load
 

@@ -240,9 +240,14 @@ for k=1:length(plot_param)
         sig1y = sig.getYValues;
 
         figure(fignb+k-1)
-        hold on
+        hold all
+        subplot(1,2,1)
         plot(sig1x,sig1y)
         axis([sig1x(1) sig1x(end) -0.01 1.01])
+        hold all
+        subplot(1,2,2)
+        plot(sig2x,sig2y)
+        axis([sig2x(1) sig2x(end) -0.01 1.01])
     end
 end
 end

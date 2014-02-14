@@ -1,0 +1,29 @@
+// showcase for mismatch simulation
+
+simulator lang=spectre
+
+include "transistorsPTM.scs"
+include "decodersynthesis.sp"
+include "parameters.sp"
+
+xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder
+
+Vvdd     ( vdd     0 ) vsource dc=1
+VvddBulk ( PBulkLine 0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+
+mymc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=numberofruns
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes {
+mytran tran stop=simlength
+}
+
+option1 options rawfmt = psfascii
+
+

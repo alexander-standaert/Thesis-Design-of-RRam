@@ -1,6 +1,6 @@
+
 simulator lang=spectre
 
-parameters enableMismatch = $<sp.MismatchOn>$   //Mismatch
 parameters PWmin = 100n                         //MinimalTransistorWidth
 parameters PLmin = 45n                          //MinimalTransistorLenght
 parameters WChargeBL = $<sp.WChargeBL>$         //BitLineChargerWidth(perBL)
@@ -11,4 +11,12 @@ parameters PWn = $<sp.PWn>$                     //DifferentialNpairWidth(perSA)
 parameters PWp = $<sp.PWp>$                     //DifferentialPpairWidth(perSA)
 parameters PWpenable = $<sp.PWpenable>$         //SenseAmpEnablePWidth(perSA)
 parameters PWnenable = $<sp.PWnenable>$         //SenseAmpEnableNWidth(perSA)
-parameters PWmux = $<sp.PWMmux>$                //PassgateWidth(perMux)
+parameters PWmuxLB = $<sp.PWMmuxLB>$                //PassgateWidth(perMuxLB)
+parameters PWmuxLB = $<sp.PWMmuxGB>$                //PassgateWidth(perMuxGB)
+
+parameters numberofruns = $<sp.numruns>$
+parameters enableMismatch = $<sp.MismatchOn>$   //Mismatch
+parameters simlength = $<sp.simlength>$
+
+
+parameters RMEM = 10000;

@@ -1,21 +1,24 @@
+
 simulator lang=spectre
 
-include "branch.sp"
-include "mux.sp"
+include "localblock.sp"
+include "senseamplifier.scs"
+include "branch.scs"
 
 subckt globalblock (vdd vss NBulkLine PBulkLine
-+$<grid('LWL',[0:sp.NoWLpB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('SS',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('Charge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('Discharge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('SelBL',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
++$<grid('LWL',[0:sp.NoWLpB-1],[0:1])>$
++$<grid('SS',[0:sp.NoBLpLB-1],[0:1])>$
++$<grid('Charge',[0:sp.NoBLpLB-1],[0:1)>$
++$<grid('Discharge',[0:sp.NoBLpLB-1],[0:1])>$
++$<bus('SelLB',[0:sp.1])>$
 +InOut InOutbar EnableSAP EnableSAN)
 
-$for i=0:sp.NoLBpSA-1
-xLB$<i>$ (vdd vss NBulkLine PBulkLine $<grid('LWL',[0:sp.NoWLpB-1],i)>$ $<grid('BL',[0:sp.NoBLpLB-1],i)>$ $<grid('SS',[0:sp.NoBLpLB-1],i)>$ $<grid('Charge',[0:sp.NoBLpLB-1],i)>$ $<grid('Discharge',[0:sp.NoBLpLB-1],i)>$) localblock
+$for i=0:1
+xLB$<i>$ (vdd vss NBulkLine PBulkLine $<grid('LWL',[0:sp.NoWLpB-1],i)>$ $<grid('SelBL',[0:sp.NoBLpLB-1],i)>$ BLout<strcat('_',int2str(i)) $<grid('SS',[0:sp.NoBLpLB-1],i)>$ $<grid('Charge',[0:sp.NoBLpLB-1],i)>$ $<grid('Discharge',[0:sp.NoBLpLB-1],i)>$) localblock
+xM$<i>$ BLout$<strcat('_',int2str(i))>$ SelLB$<strcat('_',int2str(i))>$ InOut NBulkLine mc_nmos_lvt w=PWmux l=PLmin
 $end
-xMUX0 ($<grid('BL',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA/2-1])>$ $<grid('SelBL',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA/2-1])>$ InOut NBulkLine) mux
-xMUX1 ($<grid('BL',[0:sp.NoBLpLB-1],[sp.NoLBpSA/2:sp.NoLBpSA-1])>$ $<grid('SelBL',[0:sp.NoBLpLB-1],[sp.NoLBpSA/2:sp.NoLBpSA-1])>$ InOutbar NBulkLine) mux
+xRefBranch (vdd vss RefBitLine $<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PBulkLine NBulkLine) branch
+xPassgate (RefBitLine PassRef InOutbar NBulkLine) mc_nmos_lvt w=PWmuxGB l=PLmin
 
 xSA (vdd vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN) senseamplifier
 
