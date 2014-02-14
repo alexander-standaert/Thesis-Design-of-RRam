@@ -13,8 +13,9 @@ param = gen_sig(param);
 %plot_controlsig({'bl_switch'})
 
 %iterate_size(100e-9,20e-9,300e-9,100e-9,20e-9,300e-9,0,0.1,0.7,param,1)
-reduce_data()
-
+data = reduce_data()
+run_mc(data(1:2,:),param,10,0)
+% plot_data(data)
 end
 
 function [param] = init_param(param)
@@ -204,7 +205,7 @@ for k = wsstart:wsstep:wsstop
 end
 
 if noplot
-    save ./load_analysis/loadanalysis.mat ws wl v b_switch tr_switch n_switch b_bias tr_bias n_bias b_diode tr_diode n_diode b_bulk tr_bulk n_bulk
+    save ./load_analysis/loadanalysis1.mat ws wl v b_switch tr_switch n_switch b_bias tr_bias n_bias b_diode tr_diode n_diode b_bulk tr_bulk n_bulk
 else
     plotdata(b_switch,tr_switch,n_switch,'SWITCH');
     for k = 1:length(wl) 
@@ -313,7 +314,7 @@ end
     end
 end
 
-function [] = reduce_data()
+function [best_elements] = reduce_data()
     load ./load_analysis/loadanalysis.mat
     
     switch_elements = [ones(length(ws),1),ws',ones(length(ws),1)*nan,ones(length(ws),1)*nan,b_switch(:,2)-b_switch(:,3),tr_switch(:,4),n_switch(:,4)];
@@ -332,8 +333,258 @@ function [] = reduce_data()
         bulk_elements = [bulk_elements;[ones(length(ws),1)*4,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_bulk(:,k,2)-b_bulk(:,k,3),tr_bulk(:,k,4),n_bulk(:,k,4)]];
     end
     
+   % SORT ALL ELEMENTS IN FRONTS 
     
-   all_elements = [switch_elements;bias_elements;diode_elements;bulk_elements];
+   x = [switch_elements;bias_elements;diode_elements;bulk_elements];
+   %plot_data(x)
+   x(:,5) = x(:,5)*-1;
    
+   N = size(x,1);
+
+   M = 3;
+   V = 4;
+
+   x(:,V+M+1) = ones(N,1);
+
+   [c2,ia,ic] = unique(x(:,V+1:V+M),'rows');
+   x = x(ia,:);
+
+   out_of_fronts = 0;
+   front = 1;
+   while out_of_fronts == 0
+       x_index = find(x(:,V+M+1) == front);
+       N_new = size(x_index,1);
+
+       if isempty(x_index)
+           out_of_fronts = 1;
+       else
+           for i = 1:N_new
+               continu = 1;
+               x_index_temp = x_index;
+               x_index_temp(i) = [];
+               x_temp = x(x_index_temp,:);
+               k = 0;
+               while k < M && continu
+                   k=k+1;
+                   f = x(x_index(i),V+k);
+                   x_temp = x_temp(find(x_temp(:,V+k) <= f),:);
+                   if isempty(x_temp)
+                       continu = 0;
+                   elseif k == M
+                     x(x_index(i),V+M+1) = front + 1;
+                   end
+               end
+           end
+       end
+   front = front+1;
+   end
+   x(:,5) = x(:,5)*-1; 
    
+   best_elements = x(find(x(:,(V+M+1))==1),1:V+M);
+end
+
+function [] = plot_data(elements)
+    show_3d = 0;
+    load flujet
+    s = 50;
+
+    figure
+    scatter(elements(:,5),elements(:,6),s,elements(:,1))
+    xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    ylabel('DELAY','FontSize', 10,'FontWeight','bold')
+    
+    figure
+    scatter(elements(:,6),elements(:,7),s,elements(:,1))
+    xlabel('DELAY','FontSize', 10,'FontWeight','bold')
+    ylabel('CELL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    
+    figure
+    scatter(elements(:,5),elements(:,7),s,elements(:,1))
+    xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    ylabel('CELL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    
+    if show_3d
+        figure
+        scatter3(elements(:,5),elements(:,6),elements(:,7),s,elements(:,1))
+        %plot3(elements(:,5),elements(:,6),elements(:,7))
+        xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+        ylabel('DELAY','FontSize', 10,'FontWeight','bold')
+        zlabel('CELL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    end
+    
+end
+
+function [] = run_mc(elements,param,mc_runs,noplot)
+param.simulationtype = 'mont';
+param.VtMismatch = 1;
+param.BMismatch = 0;
+param.mcruns = mc_runs;
+
+for i = 1:length(elements(:,1))
+    switch elements(i,1)
+        case 1
+            loadtype = 'switch';
+            param.wswitchswitch = elements(i,2);
+            
+        case 2
+            loadtype = 'bias';
+            param.wswitchbias = elements(i,2);
+            param.wbias = elements(i,3);
+            param.vbias = elements(i,4);
+        case 3
+            loadtype = 'diode';
+            param.wswitchdiode = elements(i,2);
+            param.wdiode = elements(i,3);
+        case 4
+            loadtype = 'bulk';
+            param.wswitchbulk = elements(i,2);
+            param.wbulk = elements(i,3);
+        otherwise
+            loadtype = 1;
+            error('unknown element type')
+    end
+    
+    runspice(param);
+    
+    for l=1:param.mcruns
+        istr=num2str(l+1000);
+        istr=istr(end-2:end);
+        [sim, ~] = readPsfAscii(strcat('./load_analysis/spice/load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+        
+        [b,tr,n] = gatherdata(sim,loadtype);
+        b_all(i,l,:) = b;
+        tr_all(i,l,:) = tr;
+        n_all(i,l,:) = n;
+    end
+    %plotdata(b_all(1,:,:),tr_all(1,:,:),n_all(1,:,:),'plot_caption')
+end
+
+if noplot
+    save ./load_analysis/loadanalysis2.mat b_all tr_all n_all elements
+else
+    for i = 1:length(elements(:,1))
+        switch elements(i,1)
+        case 1
+            plotcaption = strcat('MC switch   Wswitch:',num2str(elements(i,2)));            
+        case 2
+            plotcaption = strcat('MC bias   Wswitch:',num2str(elements(i,2)),'     Wbias:',num2str(elements(i,3)),'     Vbias:',num2str(elements(i,4)));
+        case 3
+            plotcaption = strcat('MC diode   Wswitch:',num2str(elements(i,2)),'     Wbias:',num2str(elements(i,3)));
+        case 4
+            plotcaption = strcat('MC bulk   Wswitch:',num2str(elements(i,2)),'     Wbias:',num2str(elements(i,3)));
+        otherwise
+            plotcaption = '';
+            error('unknown element type')
+        end
+        plotdata(b_all(i,:,:),tr_all(i,:,:),n_all(i,:,:),plotcaption)
+    end
+end
+
+    function [b,tr,n] = gatherdata(sim,branch)
+
+        sig = sim.getSignal(strcat('bl_',branch));
+        sigx = sig.getXValues*10^9;
+        sigy = sig.getYValues;
+
+        ts_hh = 2;
+        ts_hl = 10;
+        ts_lh = 18;
+        ts_ll = 26;
+
+        t_hh = 8;
+        t_hl = 16;
+        t_lh = 24;
+        t_ll = 32;
+
+        [Y, i_hh] = min(abs(sigx - t_hh));
+        [Y, i_hl] = min(abs(sigx - t_hl));
+        [Y, i_lh] = min(abs(sigx - t_lh));
+        [Y, i_ll] = min(abs(sigx - t_ll));
+
+        [Y, l_hh] = min(abs(sigx - ts_hh));
+        [Y, l_hl] = min(abs(sigx - ts_hl));
+        [Y, l_lh] = min(abs(sigx - ts_lh));
+        [Y, l_ll] = min(abs(sigx - ts_ll));
+
+        b_hh = sigy(i_hh);
+        b_hl = sigy(i_hl);
+        b_lh = sigy(i_lh);
+        b_ll = sigy(i_ll);
+
+        st_limit = 0.1;
+
+        [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+        [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+        [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+        [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+
+        tst_hh = sigx(k_hh+l_hh);
+        tst_hl = sigx(k_hl+l_hl);
+        tst_lh = sigx(k_lh+l_lh);
+        tst_ll = sigx(k_ll+l_ll);
+
+        tr_hh = (tst_hh - ts_hh)*10^-9;
+        tr_hl = (tst_hl - ts_hl)*10^-9;
+        tr_lh = (tst_lh - ts_lh)*10^-9;
+        tr_ll = (tst_ll - ts_ll)*10^-9;
+
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+        sigy = sig.getYValues;
+        n_hh = sigy(i_hh); 
+
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+        sigy = sig.getYValues;
+        n_hl = sigy(i_hl); 
+
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+        sigy = sig.getYValues;
+        n_lh = sigy(i_lh); 
+
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+        sigy = sig.getYValues;
+        n_ll = sigy(i_ll); 
+        
+        b = [b_hh,b_hl,b_lh,b_ll];
+        tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+        n = [n_hh,n_hl,n_lh,n_ll];
+
+    end
+
+    function [] = plotdata(b,tr,n,plot_caption)
+        bh = [b(1,:,1),b(1,:,2)];
+        bl = [b(1,:,3),b(1,:,4)];
+        
+        trh = [tr(1,:,1),tr(1,:,2)];
+        trl = [tr(1,:,3),tr(1,:,4)];
+        
+        figure
+        subplot(3,1,1)
+        title(plot_caption,'FontSize', 14,'FontWeight','bold');
+        hold on
+        h =  histfit(bh,10,'kernel')
+        set(h(2),'color','r')
+        delete(h(1))
+        h =  histfit(bl,10,'kernel')
+        set(h(2),'color','g')
+        delete(h(1))
+        xlabel('BITLINE VOLTAGE','FontSize', 10,'FontWeight','bold')
+        subplot(3,1,2)
+        hold on
+        h =  histfit(trh,10,'kernel')
+        set(h(2),'color','r')
+        delete(h(1))
+        h =  histfit(trl,10,'kernel')
+        set(h(2),'color','g')
+        delete(h(1))
+        xlabel('RISETIME','FontSize', 10,'FontWeight','bold')
+%         subplot(3,1,3)
+%         hold on
+%         plot(ws,b(:,1)-n(:,1),'r')
+%         plot(ws,b(:,2)-n(:,2),'r--')
+%         plot(ws,b(:,3)-n(:,3))
+%         plot(ws,b(:,4)-n(:,4),'--')
+%         ylabel('VOLTAGE DROP R','FontSize', 10,'FontWeight','bold') 
+%         xlabel('SIZING SWITCH','FontSize', 10,'FontWeight','bold')     
+    end
+
 end

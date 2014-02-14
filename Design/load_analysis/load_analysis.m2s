@@ -5,7 +5,7 @@ simulator lang=spice
 $if param.simulationtype == 'tran' 
 .lib '../../technology_models/tech_wrapper.lib' tt
 $else
-.include '../technology_models/monte_carlo_models.scs'
+.include '../../technology_models/monte_carlo_models.scs'
 $end
 
 .OPTIONS METHOD=trap
@@ -17,6 +17,10 @@ $if param.simulationtype == 'tran'
     ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
     parameters tp = MOSP
     parameters tn = MOSN
+    parameters Rmemcellhh = $<param.Rmemcellhh>$
+    parameters Rmemcellhl = $<param.Rmemcellhl>$
+    parameters Rmemcelllh = $<param.Rmemcelllh>$
+    parameters Rmemcellll = $<param.Rmemcellll>$
 $else
     mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes savefamilyplots=yes {
         ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
@@ -25,6 +29,11 @@ $else
     parameters tn = mc_nmos_lvt
     parameters enableVtMismatch=$<param.VtMismatch>$
     parameters enableBMismatch=$<param.BMismatch>$
+    parameters Rmemcellhh = mismatched_Rhigh
+    parameters Rmemcellhl = mismatched_Rhigh
+    parameters Rmemcelllh = mismatched_Rlow
+    parameters Rmemcellll = mismatched_Rlow
+    
 $end
 
 ///////////////////////////////////////////////////////////////////////////
@@ -60,17 +69,17 @@ vvdd vdd 0 vsource type=pwl wave=[0 0 0.01n 1]
 subckt memarray ( bl wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd)
 
 // mem cell high high
-rmemcell_hh (bl nodecell_hh) resistor r=$<param.Rmemcellhh>$
+rmemcell_hh (bl nodecell_hh) resistor r=Rmemcellhh
 mcell_hh nodecell_hh wl_1 sl gnd tn
 // mem cell high low
-rmemcell_hl (bl nodecell_hl) resistor r=$<param.Rmemcellhl>$
+rmemcell_hl (bl nodecell_hl) resistor r=Rmemcellhl
 mcell_hl nodecell_hl wl_2 sl gnd tn
 
 // mem cell low high
-rmemcell_lh (bl nodecell_lh) resistor r=$<param.Rmemcelllh>$
+rmemcell_lh (bl nodecell_lh) resistor r=Rmemcelllh
 mcell_lh nodecell_lh wl_3 sl gnd tn
 // mem cell low low
-rmemcell_ll (bl nodecell_ll) resistor r=$<param.Rmemcellll>$
+rmemcell_ll (bl nodecell_ll) resistor r=Rmemcellll
 mcell_ll nodecell_ll wl_4 sl gnd tn
 
 // bl

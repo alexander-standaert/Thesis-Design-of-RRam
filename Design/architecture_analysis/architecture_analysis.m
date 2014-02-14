@@ -137,7 +137,13 @@ decoder_bl_area = decoder_area(decoder_bl_type)*nb_globalblocks*nb_localblocks;
 decoder_lb_area = decoder_area(decoder_lb_type)*nb_globalblocks;
 decoder_gb_area = decoder_area(decoder_gb_type);
 
-unitarea_cell = 0.1;
+% AREA CELL
+%
+unitarea_cell = (1.5*45e-9)*(2*45e-9);
+% volgens presentatie van stefan, indien SL//BL
+% length = 1.5*6F
+% width = 2*6F
+
 unitarea_SA = 2;
 
 cell_area = unitarea_cell*nb_wordlines*nb_branches*nb_localblocks*nb_globalblocks;
@@ -217,8 +223,7 @@ end
 function [] = plot_solutions(solutions)
 figure
 area = solutions(:,7);
-s = exp(5*area/max(area))
-%s = linspace(1,50,10);
+s = exp(5*area/max(area));
 scatter(solutions(:,5),solutions(:,6),s)
 xlabel('ENERGY','FontSize', 10,'FontWeight','bold')
 ylabel('DELAY','FontSize', 10,'FontWeight','bold')
