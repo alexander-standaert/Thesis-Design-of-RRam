@@ -1,9 +1,0 @@
-simulator lang=spectre
-
-subckt mux ($<bus('IN',[0:sp.NoLBpSA/2*sp.NoBLpLB-1])>$ $<bus('SEL',[0:sp.NoLBpSA/2*sp.NoBLpLB-1])>$ OUT NBulkLine)
-
-$for i=0:sp.NoLBpSA/2*sp.NoBLpLB-1
-xM$<i>$ IN$<strcat('_',int2str(i))>$ SEL$<strcat('_',int2str(i))>$ OUT NBulkLine mc_nmos_lvt w=PWmux l=PLmin
-$end
-
-ends mux

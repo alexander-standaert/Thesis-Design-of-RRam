@@ -5,85 +5,90 @@ xM2 out in vss bn mc_nmos_lvt w=PWmin l=PLmin
 
 ends inverter
 
-subckt 2nand (A B out vdd vss bp bn)
+subckt twonand (A B out vdd vss bp bn)
 
 xM1 out A vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM2 out B vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM3 n A vss bn mc_nmos_lvt w=PWmin l=PLmin
 xM4 out B n bn mc_nmos_lvt w=PWmin l=PLmin
 
-ends 2nand
+ends twonand
 
-subckt 2nor (A B out vdd vss bp bn)
+subckt twonor (A B out vdd vss bp bn)
 
 xM1 n A vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM2 out B n bp mc_pmos_lvt w=PWmin l=PLmin
 xM3 out A vss bn mc_nmos_lvt w=PWmin l=PLmin
 xM4 out B vss bn mc_nmos_lvt w=PWmin l=PLmin
 
-ends 2nor
+ends twonor
 
-subckt 3nand (A B C out vdd vss bp bn)
+subckt threenand (A B C out vdd vss bp bn)
 
 xM1 out A vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM2 out B vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM3 out C vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM4 n1 A vss bn mc_nmos_lvt w=PWmin l=PLmin
 xM5 n2 B n1 bn mc_nmos_lvt w=PWmin l=PLmin
-xM6 out B n2 bn mc_nmos_lvt w=PWmin l=PLmin
+xM6 out C n2 bn mc_nmos_lvt w=PWmin l=PLmin
 
-ends 3nand
+ends threenand
 
-subckt 3nor (A B C out vdd vss bp bn)
+subckt threenor (A B C out vdd vss bp bn)
 
 xM1 n1 A vdd bp mc_pmos_lvt w=PWmin l=PLmin
 xM2 n2 B n1 bp mc_pmos_lvt w=PWmin l=PLmin
 xM3 out C n2 bp mc_pmos_lvt w=PWmin l=PLmin
 xM4 out A vss bn mc_nmos_lvt w=PWmin l=PLmin
 xM5 out B vss bn mc_nmos_lvt w=PWmin l=PLmin
-xM6 out B vss bn mc_nmos_lvt w=PWmin l=PLmin
+xM6 out C vss bn mc_nmos_lvt w=PWmin l=PLmin
 
-ends 3nor
+ends threenor
 
-subckt 2to4decoder (a0 a1 enablebar N0 N1 N2 N3 vdd vss bp bn)
+subckt twotofourdecoder (a0 a1 enablebar N0 N1 N2 N3 vdd vss bp bn)
 
 xinv1 a0 a0bar vdd vss bp bn inverter
 xinv2 a1 a1bar vdd vss bp bn inverter
 
-xnand1 a0bar a1bar N0pre vdd vss bp bn 2nand
-xnand2 a0bar a1 N1pre vdd vss bp bn 2nand
-xnand3 a0 a1bar N2pre vdd vss bp bn 2nand
-xnand4 a0 a1 N3pre vdd vss bp bn 2nand
+// xnand1 a0bar a1bar N0pre vdd vss bp bn twonand
+// xnand2 a0 a1bar N1pre vdd vss bp bn twonand
+// xnand3 a0bar a1 N2pre vdd vss bp bn twonand
+// xnand4 a0 a1 N3pre vdd vss bp bn twonand
 
-xnor1 N0pre enablebar N0 vdd vss bp bn 2nor
-xnor2 N1pre enablebar N1 vdd vss bp bn 2nor
-xnor3 N2pre enablebar N2 vdd vss bp bn 2nor
-xnor4 N3pre enablebar N3 vdd vss bp bn 2nor
+// xnor1 N0pre enablebar N0 vdd vss bp bn twonor
+// xnor2 N1pre enablebar N1 vdd vss bp bn twonor
+// xnor3 N2pre enablebar N2 vdd vss bp bn twonor
+// xnor4 N3pre enablebar N3 vdd vss bp bn twonor
 
-ends 2to4decoder
+xnor1 a0 a1 enablebar N0 vdd vss bp bn threenor
+xnor2 a0bar a1 enablebar N1 vdd vss bp bn threenor
+xnor3 a0 a1bar enablebar N2 vdd vss bp bn threenor
+xnor4 a0bar a1bar enablebar N3 vdd vss bp bn threenor
 
-subckt 3to8decoder (a0 a1 a2 enablebar N0 N1 N2 N3 N4 N5 N6 N7 vdd vss bp bn)
+ends twotofourdecoder
+
+subckt threetoeightdecoder (a0 a1 a2 enablebar N0 N1 N2 N3 N4 N5 N6 N7 vdd vss bp bn)
 
 xinv1 a0 a0bar vdd vss bp bn inverter
 xinv2 a1 a1bar vdd vss bp bn inverter
 xinv3 a2 a2bar vdd vss bp bn inverter
 
-xnand1 a0bar a1bar a2bar N0pre vdd vss bp bn 3nand
-xnand2 a0 a1bar a2bar N1pre vdd vss bp bn 3nand
-xnand3 a0bar a1 a2bar N2pre vdd vss bp bn 3nand
-xnand4 a0 a1 a2bar N3pre vdd vss bp bn 3nand
-xnand5 a0bar a1bar a2 N4pre vdd vss bp bn 3nand
-xnand6 a0 a1bar a2 N5pre vdd vss bp bn 3nand
-xnand7 a0bar a1 a2 N6pre vdd vss bp bn 3nand
-xnand8 a0 a1 a2 N7pre vdd vss bp bn 3nand
+xnand1 a0bar a1bar a2bar N0pre vdd vss bp bn threenand
+xnand2 a0 a1bar a2bar N1pre vdd vss bp bn threenand
+xnand3 a0bar a1 a2bar N2pre vdd vss bp bn threenand
+xnand4 a0 a1 a2bar N3pre vdd vss bp bn threenand
+xnand5 a0bar a1bar a2 N4pre vdd vss bp bn threenand
+xnand6 a0 a1bar a2 N5pre vdd vss bp bn threenand
+xnand7 a0bar a1 a2 N6pre vdd vss bp bn threenand
+xnand8 a0 a1 a2 N7pre vdd vss bp bn threenand
 
-xnor1 N0pre enablebar N0 vdd vss bp bn 2nor
-xnor2 N1pre enablebar N1 vdd vss bp bn 2nor
-xnor3 N2pre enablebar N2 vdd vss bp bn 2nor
-xnor4 N3pre enablebar N3 vdd vss bp bn 2nor
-xnor5 N4pre enablebar N4 vdd vss bp bn 2nor
-xnor6 N5pre enablebar N5 vdd vss bp bn 2nor
-xnor7 N6pre enablebar N6 vdd vss bp bn 2nor
-xnor8 N7pre enablebar N7 vdd vss bp bn 2nor
+xnor1 N0pre enablebar N0 vdd vss bp bn twonor
+xnor2 N1pre enablebar N1 vdd vss bp bn twonor
+xnor3 N2pre enablebar N2 vdd vss bp bn twonor
+xnor4 N3pre enablebar N3 vdd vss bp bn twonor
+xnor5 N4pre enablebar N4 vdd vss bp bn twonor
+xnor6 N5pre enablebar N5 vdd vss bp bn twonor
+xnor7 N6pre enablebar N6 vdd vss bp bn twonor
+xnor8 N7pre enablebar N7 vdd vss bp bn twonor
 
-ends 3to8decoder
+ends threetoeightdecoder

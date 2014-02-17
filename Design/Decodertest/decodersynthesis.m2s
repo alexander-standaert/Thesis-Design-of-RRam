@@ -8,35 +8,35 @@ subckt decoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ 
 xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
 
 $if sp.NoI==2
-xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $elseif sp.NoI==3
-xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) 3to8decoder
+xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $elseif sp.NoI==4
-xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $for i=0:3
 xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[i*2^(sp.NoI-2):2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[i*2^(sp.NoI-2):2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $end
 $elseif sp.NoI==5
-xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $for i=0:3
 xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-2)*i:2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) 3to8decoder
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-2)*i:2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $end
 $elseif sp.NoI==6
-xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) 3to8decoder
+xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $for i=0:7
 xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec$<i>$ ($<bus('IN',[0:sp.NoI-4])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-3)*i:2^(sp.NoI-3)*i+2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) 3to8decoder
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-4])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-3)*i:2^(sp.NoI-3)*i+2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $end
 $elseif sp.NoI==7
-xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-4)-1])>$ vdd vss PBulkLine NBulkLine) 3to8decoder
+xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-4)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $for i=0:7
 xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec1L$<i>$ ($<bus('IN',[2:3])>$ tempbar$<strcat('_',int2str(i))>$ $<grid('temp',[0:3],i)>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec1L$<i>$ ($<bus('IN',[2:3])>$ tempbar$<strcat('_',int2str(i))>$ $<grid('temp',[0:3],i)>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $for j=0:3
 xinv$<strcat('_',int2str(j),'_',int2str(i))>$ (temp$<strcat('_',int2str(j),'_',int2str(i))>$ tempbar$<strcat('_',int2str(j),'_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec2L$<strcat('_',int2str(j),'_',int2str(i))>$ ($<bus('IN',[0:1])>$ tempbar$<strcat('_',int2str(j),'_',int2str(i))>$ $<bus('OUT',[16*i+4*j:16*i+4*j+3])>$ vdd vss PBulkLine NBulkLine) 2to4decoder
+xdec2L$<strcat('_',int2str(j),'_',int2str(i))>$ ($<bus('IN',[0:1])>$ tempbar$<strcat('_',int2str(j),'_',int2str(i))>$ $<bus('OUT',[16*i+4*j:16*i+4*j+3])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $end
 $end
 $end

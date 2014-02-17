@@ -11,7 +11,8 @@ subckt globalblock (vdd vss NBulkLine PBulkLine
 +$<grid('Charge',[0:sp.NoBLpLB-1],[0:1)>$
 +$<grid('Discharge',[0:sp.NoBLpLB-1],[0:1])>$
 +$<bus('SelLB',[0:sp.1])>$
-+InOut InOutbar EnableSAP EnableSAN)
++InOut InOutbar EnableSAP EnableSAN
++$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect Refcharge RefDischarge)
 
 $for i=0:1
 xLB$<i>$ (vdd vss NBulkLine PBulkLine $<grid('LWL',[0:sp.NoWLpB-1],i)>$ $<grid('SelBL',[0:sp.NoBLpLB-1],i)>$ BLout<strcat('_',int2str(i)) $<grid('SS',[0:sp.NoBLpLB-1],i)>$ $<grid('Charge',[0:sp.NoBLpLB-1],i)>$ $<grid('Discharge',[0:sp.NoBLpLB-1],i)>$) localblock

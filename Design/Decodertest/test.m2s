@@ -13,6 +13,12 @@ VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
+Ven (enable 0) vsource type=pwl wave=waveen
+
+$for i=0:sp.NoI-1
+Vin$<i>$ (IN$<strcat('_',int2str(i))>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+$end
+
 
 mymc montecarlo
 + donominal=no variations=mismatch
