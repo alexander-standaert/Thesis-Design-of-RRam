@@ -1,0 +1,32 @@
+$% DONT FORGET TO SPECIFY THE VARS: number_of_wl, number_of_bl, mode, R_fixed  in matlab
+
+simulator lang=spice
+.include ../../../technology_models/tech_wrapper.lib mc
+
+simulator lang=spectre
+
+/////////////////////////////////////////////////////////
+
+subckt memcell ( wl bl sl gnd R=10K )
+
+m1 bl sl node1 gnd nmos
+Rcell (wl node1) resistor r=R
+
+ends memcell
+
+/////////////////////////////////////////////////////////
+
+subckt memarray ( $<bus('wl',[1:number_of_wl])>$ $<bus('bl',[1:number_of_bl])>$ $<grid('sl',[1:number_of_wl], [1:number_of_bl])>$ gnd )
+
+$for i=[1:number_of_wl]
+$   for h=[1:number_of_bl]
+$       cell = strcat('Mcell_',num2str(i),'_',num2str(h));
+$       sl = strcat('sl_',num2str(i),'_',num2str(h));
+$		wl = strcat('wl_',num2str(i));	
+$		bl = strcat('bl_',num2str(h));
+$		
+$<cell>$ ( $<wl>$ $<bl>$ $<sl>$ gnd ) memcell	R=$<getResistance(mode, R_fixed)>$
+$   end
+$end 
+
+ends memarray

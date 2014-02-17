@@ -1,0 +1,25 @@
+simulator lang=spectre
+
+subckt latch (out outbar vdd vss bp bn LE1 LE2)
+
+xM3 out outbar n1 bp MOSP w=$<sp.pmult*100e-9>$ $<num2str(cell2mat(sp.mismatch_latch(3,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(3,2)))>$
+xM4 outbar out n1 bp MOSP w=$<sp.pmult*100e-9>$ $<num2str(cell2mat(sp.mismatch_latch(4,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(4,2)))>$
+xM5 out outbar n2 bn MOSN w=$<sp.nmult*100e-9>$ $<num2str(cell2mat(sp.mismatch_latch(5,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(5,2)))>$
+xM6 outbar out n2 bn MOSN w=$<sp.nmult*100e-9>$ $<num2str(cell2mat(sp.mismatch_latch(6,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(6,2)))>$
+
+xM7 n1 LE1 vdd bp MOSP $<num2str(cell2mat(sp.mismatch_latch(7,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(7,2)))>$
+xM8 n2 LE2 vss bn MOSN $<num2str(cell2mat(sp.mismatch_latch(8,1)))>$ $<num2str(cell2mat(sp.mismatch_latch(8,2)))>$
+
+
+ic out=$<sp.outinit>$
+ic outbar=$<sp.outbarinit>$
+
+
+ends latch
+
+subckt invertor (in out vdd vss)
+
+xM1 out in vss vss MOSN
+xM2 out in vdd vdd MOSP
+
+ends invertor

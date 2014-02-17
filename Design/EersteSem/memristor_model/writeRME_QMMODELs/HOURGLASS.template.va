@@ -1,0 +1,581 @@
+@@information
+
+// ------------------------------------------------------------------------------------------------
+// HOURGLASS : transient verilog-A model for RME
+// - Implements QM conduction model [ Robin Degraeve + Philippe Roussel's Mathematica results ]
+// - Implements set and reset behavior based on Robin Degraeve's updated hourglass model (PTW Oct 2012)
+//
+// - For details: documentation still to be created
+//
+// Author: Stefan Cosemans
+// Date  : 2012-11-05
+// ------------------------------------------------------------------------------------------------
+
+`include "disciplines.vams"
+`include "constants.vams"
+
+module @@modelName ( t1, t2 );
+inout t1, t2;
+electrical t1, t2;
+
+// ANALOG NODES {{{1
+// ========================================================================
+// real cell state
+electrical temperature;
+
+// visualization only
+electrical n_CO;  // real state is stored in n_CO_
+electrical n_BR;  // real state is stored in n_BR_
+electrical n_TR;  // real state is stored in n_TR_
+
+electrical log10_omega_y; // omega_y. Stored as log10 to avoid convergence issues
+
+electrical log10_counter_TR_to_CO_plus1000;
+electrical log10_counter_CO_to_TR_plus1000;
+electrical log10_counter_BR_to_CO_plus1000;
+electrical log10_counter_CO_to_BR_plus1000;
+
+electrical log10_jumps_TR_to_CO_plus1000;
+electrical log10_jumps_CO_to_TR_plus1000;
+electrical log10_jumps_BR_to_CO_plus1000;
+electrical log10_jumps_CO_to_BR_plus1000;
+
+electrical log10_flux_TR_to_CO_plus1000;
+electrical log10_flux_CO_to_TR_plus1000;
+electrical log10_flux_BR_to_CO_plus1000;
+electrical log10_flux_CO_to_BR_plus1000;
+
+electrical log10_flux_reduction_factor_plus1000; 
+// all fluxes are divided by this value before being used to avoid excessive simulation times
+
+electrical log10_threshold_TR_to_CO_plus1000;
+electrical log10_threshold_CO_to_TR_plus1000;
+electrical log10_threshold_BR_to_CO_plus1000;
+electrical log10_threshold_CO_to_BR_plus1000;
+// }}}1
+
+// SPICE INSTANCE PARAMETERS {{{1
+
+// ---cell parameters---------------------------------------------------------------------------------------------- {{{2
+@@ifAnalytical  parameter real    V0      = 0.0;
+@@ifAnalytical  parameter real    omega_x = 0.0;
+@@ifAnalytical  parameter integer Nmax    = 100; //number of terms used to calculate RME current                                    
+parameter real omega_y_0    = 0.0; // omega_y when n_CO = 1 
+parameter real Ea           = 0.0; // e.g. 1.5eV --> pass  "1.5 * 1.6e-19" !
+parameter real f0           = 0.0; // pre-factor for all flux formulas, e.g. 1e12
+
+parameter real alpha_0      = 0.0; // e.g. 0.03  --> alpha' = min( alpha_0 + m_n / n_CO, 0.5 )
+parameter real m_n          = 0.0; // e.g. 2.0
+
+parameter real c_thermal    = 0.0; // e.g. 0.075
+parameter real Rthermal     = 0.0; // e.g. 60 MK/W (=6e7)
+
+parameter real N_TR = 0.0;
+parameter real N_BR = 0.0;
+// ---------------------------------------------------------------------------------------------------------------- }}}2
+
+// ---initial cell state------------------------------------------------------------------------------------------- {{{2
+parameter real initial_n_CO = 0.0;
+parameter real initial_n_TR = 0.0;
+parameter real initial_n_BR = 0.0;
+// n_total is the sum of the above
+// ---------------------------------------------------------------------------------------------------------------- }}}2
+
+// ---ambient temperature-------------------------------------------------------------------------------- {{{2
+parameter real    Tambient     = 0.0; // ambient temperature, e.g. 300 [K]
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---simulation settings------------------------------------------------------------------------------- {{{2
+parameter integer enable_stochastics       = 1;
+parameter integer initial_seed             = 0;
+parameter real    progressPrintStep        = 10e-9;  // output progress when this time is exceeded
+parameter real    flux_limit               = 10e12;
+parameter real    time_step_bound          = 10e-12; // set to zero (or negative) to not bound the time step
+//parameter real    time_step_divide_after_overflow = 2; //after we missed a particle jump, reduce the time step with this factor for the next step
+parameter integer verbose_logfile          = 1;      // set to zero to print less information to log file
+// ------------------------------------------------------------------------------------------------------ }}}2
+                 
+// }}}1
+
+// INTERNAL VARIABLE DECLARATION {{{1
+// ========================================================================
+
+// ---Elementary cell state------------------------------------------------------------------------------ {{{2
+integer n_CO_;
+integer n_TR_;
+integer n_BR_;
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---Counters and thresholds - part of cell state ------------------------------------------------------ {{{2
+real    counter_TR_to_CO;
+real    counter_CO_to_TR;
+real    counter_BR_to_CO;
+real    counter_CO_to_BR;
+
+real    threshold_TR_to_CO;
+real    threshold_CO_to_TR;
+real    threshold_BR_to_CO;
+real    threshold_CO_to_BR;
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---omega_y (derived)---------------------------------------------------------------------------------- {{{2
+real    omega_y;  
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---fluxes and jumps (these are intermediate variables)------------------------------------------------ {{{2
+real    flux_TR_to_CO;
+real    flux_CO_to_TR;
+real    flux_BR_to_CO;
+real    flux_CO_to_BR;
+
+real    flux_reduction_factor;
+
+real    jumps_TR_to_CO; //number of jumps during entire simulation up to now
+real    jumps_CO_to_TR; //new jump happens when counter is >= jumps_CO_to_TR + 1
+real    jumps_BR_to_CO;
+real    jumps_CO_to_BR;
+// ------------------------------------------------------------------------------------------------------ }}}2
+   
+// ---physical constants-------------------------------------------------------------------------------- {{{2
+real    q; // elementary charge
+real    k; // boltzmann constant
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---intermediate variables----------------------------------------------------------------------------- {{{2
+real   delta;
+real   alpha_prime;
+real   exp_Ea;
+real   exp_pV;
+real   exp_nV;
+real   max_flux;
+
+real   a;
+real   b;
+real   c;
+real   T_option1;
+real   T_option2;
+real   DT_robin;
+real   T_robin;
+real   T;
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---internal stuff (debugging ; simulator control ) -------------------------------------------------- {{{2
+// logging, debug, stepsize control
+real    Iprevious;  // not needed for spectre
+real    plusValue;
+real    prevTime  ; // time when this "function" was last called 
+real    timeStep  ; // time passed since previous evaluation               
+integer file      ; // write output for debugging. Set to 0 to suppress output
+real    lastPrintedProgressPoint;
+integer firstStep;
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// ---stochastic stuff----------------------------------------------------------------------------------- {{{2
+integer  seed; //note: this value should be updated by rdist_exponential
+// ------------------------------------------------------------------------------------------------------ }}}2
+
+// }}}1
+
+// INCLUDE FILES {{{1
+// ----------------------------------------------------------------------
+//`include "../helperFunctions.v"
+@@ifAnalytical`include "../analyticalModel.v"
+/// }}}1
+
+
+//TODO: move to other file
+// ===== helper function: lowerInteger ==================================================== {{{1
+analog function integer lowerInteger;
+  input number;
+  real  number;
+  integer rounded;
+
+  begin
+    rounded = number;
+    if( (rounded-number) > 0 ) begin    // automatically rounded up --> subtract 1
+      lowerInteger = rounded-1;
+    end else begin
+      lowerInteger = rounded;
+    end
+  end
+endfunction
+// ======================================================================================= }}}1
+
+
+// analog begin =========================================================== {{{1
+analog begin                   
+
+// before start of simulation (ic) ---------------------------------------- {{{2
+if( analysis("ic") ) begin
+   if( file==0 ) begin
+      file = $fopen( "logs/all_RMEs.log" );   // set to "file=0" 0 to disable logging altogether
+      $fdisplay( file, "%m: @ file opened by 'if(analysis(\"ic\")'" ); 
+   end
+   $fdisplay( file, "%m: @ 'if(analysis(\"ic\")' entered" ); 
+   $fflush( file );
+   n_CO_ = initial_n_CO;
+   n_BR_ = initial_n_BR;
+   n_TR_ = initial_n_TR;
+
+   threshold_TR_to_CO = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+   threshold_CO_to_TR = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+   threshold_BR_to_CO = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+   threshold_CO_to_BR = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+   jumps_TR_to_CO = 0;
+   jumps_CO_to_TR = 0;
+   jumps_BR_to_CO = 0;
+   jumps_CO_to_BR = 0;
+
+   seed=initial_seed;
+
+   q   = 1.602176487e-19;   // electron charge (positive number..)
+   k   = 1.3806503e-23;     // boltzmann constant
+   
+   plusValue=1000;
+end
+// ----------------------------------------------------------------------- }}}2
+
+// initial step --------------------------------------------------------- {{{2 
+@( initial_step) begin        
+
+   prevTime                 = 0;
+   lastPrintedProgressPoint = 0;
+   firstStep=1;
+   
+   //if( file==0 ) begin
+   //   file = $fopen( "logs/all_RMEs.log" );   
+   //   $fdisplay( file, "%m: @ file opened by @( initial_step )" ); 
+   //end   
+   $fdisplay( file, "%m: @ initial_step entered" ); 
+   $fflush( file );
+   
+   $fdisplay( file, "%m: TEST: q=%gC", q ); 
+
+   //threshold_TR_to_CO = 1.0;
+   //threshold_CO_to_TR = 1.0;
+   //threshold_BR_to_CO = 1.0;
+   //threshold_CO_to_BR = 1.0;
+   //jumps_TR_to_CO = 0;
+   //jumps_CO_to_TR = 0;
+   //jumps_BR_to_CO = 0;
+   //jumps_CO_to_BR = 0;
+
+
+   //q   = 1.602176487e-19;   // electron charge (positive number..)
+   //k   = 1.3806503e-23;     // boltzmann constant
+
+   //n_CO_ = initial_n_CO;
+   //n_BR_ = initial_n_BR;
+   //n_TR_ = initial_n_TR;
+   //V(temperature) <+ Tambient;
+   
+   //plusValue=1000;
+
+end // initial step 
+// ------------------------------------------------------------------------- }}}2
+
+// firststep -------------------------------------------------------------- {{{2 
+if( firstStep==1 ) begin
+  $fdisplay( file, "------------------------- firstStep %m ------------------ " ); 
+  $fdisplay( file, " q    = %g", q ); 
+  $fdisplay( file, " k    = %g", k ); 
+  $fdisplay( file, " n_CO_= %d", n_CO_ ); 
+  $fdisplay( file, " n_TR_= %d", n_TR_ ); 
+  $fdisplay( file, " n_BR_= %d", n_BR_ ); 
+  
+@@ifAnalytical  $fdisplay( file, " V0      = %gV ", V0 ); 
+@@ifAnalytical  $fdisplay( file, " omega_x = %gHz", omega_x);
+  $fdisplay( file, " omega_y_0                = %gHz"        , omega_y_0 ); 
+  $fdisplay( file, " N_TR                     = %g"          , N_TR ); 
+  $fdisplay( file, " N_BR                     = %g"          , N_BR ); 
+  $fdisplay( file, " Ea                       = %gJ"         , Ea   ); 
+  $fdisplay( file, " Tambient                 = %gK"         , Tambient ); 
+  $fdisplay( file, " Rthermal                 = %gW/K"       , Rthermal ); 
+  $fdisplay( file, " c_thermal                = %g/K"        , c_thermal ); 
+  $fdisplay( file, " alpha_0                  = %g"          , alpha_0 ); 
+  $fdisplay( file, " m_n                      = %g"          , m_n ); 
+  $fdisplay( file, " f0                       = %gHz"        , f0  ); 
+  $fdisplay( file, " flux limit               = %gHz"        , flux_limit  ); 
+//  $fdisplay( file, " time_step_bound          = %gsec"       , time_step_bound ); 
+//  $fdisplay( file, " time_step_after_overflow = %gsec"       , time_step_after_overflow ); 
+//  $fdisplay( file, " time_step_divide_after_overflow = %gsec", time_step_divide_after_overflow ); 
+//  $fdisplay( file, " fluxAboveWhichToSimplify = %gjumps/sec" , fluxAboveWhichToSimplify ); 
+  $fdisplay( file, "--------------------------------------------------------- " ); 
+  $fflush( file );
+  firstStep=0;
+end
+// firststep --------------------------------------------------------- }}}2 
+
+
+
+// timestep and progress logging --------------------------------------------------------- {{{2
+timeStep = $abstime - prevTime ;                               
+
+Iprevious = I(t1,t2);
+
+if( $abstime > lastPrintedProgressPoint+progressPrintStep) begin
+  $display( "%m: progress: %3.1fns\n", $abstime/1.0e-9 ); 
+  lastPrintedProgressPoint = $abstime;
+  $fdisplay( file, "\n" ); 
+  $fdisplay( file, "=================================================================" ); 
+  $fdisplay( file, "%m: progress: %3.1fns\n", $abstime/1.0e-9 ); 
+  $fdisplay( file, "=================================================================" ); 
+  $fflush( file );
+end
+
+if ( verbose_logfile==1 ) begin
+   $fdisplay( file, "================================================================" );   
+   $fdisplay( file, "%m: t=%6.6fps ; step =%6.6fps ; Vrme=%3.3fV ; Irme=%gA", $abstime/1.0e-12, timeStep/1.0e-12, V(t1,t2), Iprevious );
+   $fdisplay( file, "%m: n_CO_=%d, n_TR_=%d, n_BR_=%d", n_CO_, n_TR_, n_BR_ ); 
+end
+ 
+prevTime = $abstime;                                           
+// --------------------------------------------------------- TIME and LOGGING }}}2
+
+
+
+// calculate temperature and fluxes---------------------------------------- {{{2
+//V( temperature ) <+ Tambient + alpha_prime * V(t1,t2) * I(t1,t2) * ( Rthermal/n_CO_ ) - c_thermal * pow( V(temperature)-Tambient, 2 );
+alpha_prime = min( alpha_0 + m_n / (1.0*n_CO_), 0.5 );
+
+a = c_thermal  ;
+b = 1.0-2*c_thermal*Tambient;
+c = c_thermal*Tambient*Tambient - alpha_prime * V(t1,t2) * Iprevious * ( Rthermal/n_CO_ )-Tambient;
+//c = c_thermal*Tambient*Tambient - V(t1,t2) * I(t1,t2) * ( Rthermal/n_CO_ )-Tambient;
+T_option1 = ( -b + sqrt(b*b-4*a*c) ) / (2*a); // as a is positive and -b/2a~=Tambient, this should be the correct value
+T_option2 = ( -b - sqrt(b*b-4*a*c) ) / (2*a); //
+
+DT_robin = alpha_prime * V(t1,t2) * Iprevious * Rthermal / n_CO_;
+T_robin  = -1.0/(2*c_thermal) + Tambient + sqrt(1.0+4*c_thermal*DT_robin) / (2*c_thermal);
+
+
+$fdisplay( file, " c_thermal=%g; Tambient=%g, alpha_prime=%g, V(t1,t2)=%g, I(t1,t2)=%g, Rthermal=%g, n_CO_=%d", c_thermal,Tambient, alpha_prime, V(t1,t2), Iprevious, Rthermal, n_CO_ );
+$fdisplay( file, " %g T^2 + %g T + %g = 0 --> T=%g(selected) or T=%g or Trobin=%g", a,b,c, T_option1, T_option2, T_robin ); 
+
+T= T_option1;
+V( temperature ) <+ T_option1;
+
+
+exp_Ea = exp( -Ea / (k*T) );
+exp_pV = exp(  alpha_prime*q*V(t1,t2) / (k*T) );
+exp_nV = exp( -alpha_prime*q*V(t1,t2) / (k*T) );
+
+flux_TR_to_CO = f0 * n_CO_ * (   n_TR_/N_TR ) * exp_Ea * exp_pV;
+flux_CO_to_TR = f0 * n_CO_ * ( 1-n_TR_/N_TR ) * exp_Ea * exp_nV;
+flux_BR_to_CO = f0 * n_CO_ * (   n_BR_/N_BR ) * exp_Ea * exp_nV;
+flux_CO_to_BR = f0 * n_CO_ * ( 1-n_BR_/N_BR ) * exp_Ea * exp_pV; 
+
+if( n_CO_<=1) begin
+    flux_CO_to_TR = 0;
+    flux_CO_to_BR = 0;
+end
+
+// flux reduction ------------------------------------------------------------------- {{{3
+flux_reduction_factor = 1;
+max_flux = max( max(flux_TR_to_CO,flux_CO_to_TR), max(flux_BR_to_CO,flux_CO_to_BR) );
+if( max_flux > flux_limit ) begin
+  flux_reduction_factor = max_flux / flux_limit;
+  if ( verbose_logfile==1 ) begin
+    $fdisplay( file, "%m: WARNING - reducing all fluxes with %g", flux_reduction_factor );   
+  end
+  flux_TR_to_CO = flux_TR_to_CO / flux_reduction_factor;
+  flux_CO_to_TR = flux_CO_to_TR / flux_reduction_factor;
+  flux_BR_to_CO = flux_BR_to_CO / flux_reduction_factor;
+  flux_CO_to_BR = flux_CO_to_BR / flux_reduction_factor; 
+end
+
+// ---------------------------------------------------------------------------------- }}}3
+
+// simplify fluxes [disabled] {{{3
+//--if( totalflux_TE_to_CO >= fluxAboveWhichToSimplify && totalflux_CO_to_TE>= fluxAboveWhichToSimplify ) begin
+//--  if( verbose_logfile==1 ) begin
+//--    $fdisplay( file, "%m @ %gns: merging flux_TE_to_CO (%g) and flux_CO_to_TE (%g)", $abstime/1.0e-9, totalflux_TE_to_CO, totalflux_CO_to_TE ); 
+//--  end
+//--  $discontinuity(0);
+//--  if( totalflux_TE_to_CO >= totalflux_CO_to_TE ) begin
+//--    simplified_flux_TE_to_CO = totalflux_TE_to_CO-totalflux_CO_to_TE;
+//--    simplified_flux_CO_to_TE = 0;
+//--  end else begin
+//--    simplified_flux_CO_to_TE = totalflux_CO_to_TE-totalflux_TE_to_CO;
+//--    simplified_flux_TE_to_CO = 0;
+//--  end
+//--end
+//--if( totalflux_BE_to_CO >= fluxAboveWhichToSimplify && totalflux_CO_to_BE>= fluxAboveWhichToSimplify ) begin
+//--  if( verbose_logfile==1 ) begin
+//--    $fdisplay( file, "%m @ %gns: merging flux_BE_to_CO (%g) and flux_CO_to_BE (%g)", $abstime/1.0e-9, totalflux_BE_to_CO, totalflux_CO_to_BE ); 
+//--  end
+//--  $discontinuity(0);
+//--  if( totalflux_BE_to_CO >= totalflux_CO_to_BE ) begin
+//--    simplified_flux_BE_to_CO = totalflux_BE_to_CO-totalflux_CO_to_BE;
+//--    simplified_flux_CO_to_BE = 0;
+//--  end else begin
+//--    simplified_flux_CO_to_BE = totalflux_CO_to_BE-totalflux_BE_to_CO;
+//--    simplified_flux_BE_to_CO = 0;
+//--  end
+//--end
+//-- }}}3
+
+// --------------------------------------------------------- }}}2
+
+// update counters -------------------------------------------------------------- {{{2
+counter_TR_to_CO = counter_TR_to_CO + flux_TR_to_CO * timeStep; 
+counter_CO_to_TR = counter_CO_to_TR + flux_CO_to_TR * timeStep;
+counter_BR_to_CO = counter_BR_to_CO + flux_BR_to_CO * timeStep;
+counter_CO_to_BR = counter_CO_to_BR + flux_CO_to_BR * timeStep;
+// ------------------------------------------------------------------------------ }}}2
+
+// particle jumps -------------------------------------------------------- {{{2
+
+// TR-->CO {{{3
+if( counter_TR_to_CO >= threshold_TR_to_CO ) begin
+  $discontinuity(0);
+  n_CO_ = n_CO_+1;
+  n_TR_ = n_TR_-1; 
+  if( verbose_logfile==1 ) begin
+    $fdisplay( file, "%m @ %gns: jump TR -> CO [ threshold=%g, counter=%g, new n_CO=%d, n_TR=%d ]", 
+                     $abstime/1.0e-9, threshold_TR_to_CO, counter_TR_to_CO, n_CO_, n_TR_ ); 
+  end
+  if( counter_TR_to_CO> 2.0*threshold_TR_to_CO ) begin
+    $fdisplay( file, "%m @ %gns: WARNING: counter_TR_to_CO>>threshold_TR_to_CO (%g>%g)",
+                     $abstime/1.0e-9, counter_TR_to_CO, threshold_TR_to_CO ); 
+  end
+  counter_TR_to_CO   = 0.0;
+  threshold_TR_to_CO = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+  jumps_TR_to_CO = jumps_TR_to_CO+1;
+end // }}}3
+
+// CO-->TR {{{3
+if( counter_CO_to_TR >= threshold_CO_to_TR ) begin
+  $discontinuity(0);
+  n_CO_ = n_CO_-1;
+  n_TR_ = n_TR_+1; 
+  if( verbose_logfile==1 ) begin
+    $fdisplay( file, "%m @ %gns: jump CO -> TR [ threshold=%g, counter=%g, new n_CO=%d, n_TR=%d ]", 
+                     $abstime/1.0e-9, threshold_CO_to_TR, counter_CO_to_TR, n_CO_, n_TR_ ); 
+  end
+  if( counter_CO_to_TR> 2.0*threshold_CO_to_TR ) begin
+    $fdisplay( file, "%m @ %gns: WARNING: counter_CO_to_TR>>threshold_CO_to_TR (%g>%g)",
+                     $abstime/1.0e-9, counter_CO_to_TR, threshold_CO_to_TR );
+  end
+  counter_CO_to_TR   = 0.0;
+  threshold_CO_to_TR = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+  jumps_CO_to_TR = jumps_CO_to_TR+1;
+end // }}}3
+
+// BR-->CO {{{3
+if( counter_BR_to_CO >= threshold_BR_to_CO ) begin
+  $discontinuity(0);
+  n_CO_ = n_CO_+1;
+  n_BR_ = n_BR_-1; 
+  if( verbose_logfile==1 ) begin
+    $fdisplay( file, "%m @ %gns: jump BR -> CO [ threshold=%g, counter=%g, new n_CO=%d, n_BR=%d ]", 
+                     $abstime/1.0e-9, threshold_BR_to_CO, counter_BR_to_CO, n_CO_, n_BR_ ); 
+  end
+  if( counter_BR_to_CO> 2.0*threshold_BR_to_CO ) begin
+    $fdisplay( file, "%m @ %gns: WARNING: counter_BR_to_CO>>threshold_BR_to_CO (%g>%g)",
+                     $abstime/1.0e-9, counter_BR_to_CO, threshold_BR_to_CO );
+  end
+  counter_BR_to_CO   = 0.0;
+  threshold_BR_to_CO = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+  jumps_BR_to_CO = jumps_BR_to_CO+1;
+end // }}}3
+
+// CO-->BR {{{3
+if( counter_CO_to_BR >= threshold_CO_to_BR ) begin
+  $discontinuity(0);
+  n_CO_ = n_CO_-1;
+  n_BR_ = n_BR_+1; 
+  if( verbose_logfile==1 ) begin
+    $fdisplay( file, "%m @ %gns: jump CO -> BR [ threshold=%g, counter=%g, new n_CO=%d, n_BR=%d ]", 
+                     $abstime/1.0e-9, threshold_CO_to_BR, counter_CO_to_BR, n_CO_, n_BR_ ); 
+  end
+  if( counter_CO_to_BR> 2.0*threshold_CO_to_BR ) begin
+    $fdisplay( file, "%m @ %gns: WARNING: counter_CO_to_BR>>threshold_CO_to_BR (%g>%g)",
+                     $abstime/1.0e-9, counter_CO_to_BR, threshold_CO_to_BR );
+  end
+  counter_CO_to_BR   = 0.0;
+  threshold_CO_to_BR = 1.0 + enable_stochastics*( $rdist_exponential(seed,1.0)-1.0 );
+  jumps_CO_to_BR = jumps_CO_to_BR+1;
+end // }}}3
+
+// ----------------------------------------------------------------------------------------------- }}}2
+
+// calculate omega_y and current ---------------------------------------------------- {{{2
+omega_y = omega_y_0 / n_CO_ ;
+@@ifAnalytical  I(t1, t2) <+ calculateCurrentRME( omega_x, omega_y, V0, V(t1,t2), file, 0, Nmax ); 
+@@ifTable       I(t1, t2) <+ $table_model (  omega_y, V(t1,t2),  "@@tableFile", "1,1" ); 
+// ---------------------------------------------------------------------- }}}2
+
+
+
+// logging -------------------------------------------------- {{{2 
+if( verbose_logfile==1 ) begin 
+  $fdisplay( file, "alpha_prime=%g", alpha_prime ); 
+  $fdisplay( file, "q=%g", q ); 
+  $fdisplay( file, "k=%g", k ); 
+  $fdisplay( file, "V(t1,t2)=%gV", V(t1,t2) ); 
+  $fdisplay( file, "I(t1,t2)=%gA", I(t1,t2) ); 
+  $fdisplay( file, "n_CO=%d", n_CO_ ); 
+  $fdisplay( file, "T=%gK", T ); 
+  $fdisplay( file, "Tambient=%gK", Tambient ); 
+  $fdisplay( file, "exp_Ea=%g", exp_Ea ); 
+  $fdisplay( file, "exp_pV=%g", exp_pV ); 
+  $fdisplay( file, "exp_nV=%g", exp_nV ); 
+  $fdisplay( file, "seed=%d"  , seed   ); 
+end
+// --------------------------------------------------------- }}}2
+
+// save signals for VISUALIZATION ------------------------- {{{2
+V( n_CO ) <+ n_CO_; 
+V( n_BR ) <+ n_BR_;
+V( n_TR ) <+ n_TR_;
+
+V( log10_omega_y ) <+ log( omega_y );
+
+V( log10_flux_TR_to_CO_plus1000 ) <+ log( plusValue+flux_TR_to_CO*flux_reduction_factor );
+V( log10_flux_CO_to_TR_plus1000 ) <+ log( plusValue+flux_CO_to_TR*flux_reduction_factor );
+V( log10_flux_BR_to_CO_plus1000 ) <+ log( plusValue+flux_BR_to_CO*flux_reduction_factor );
+V( log10_flux_CO_to_BR_plus1000 ) <+ log( plusValue+flux_CO_to_BR*flux_reduction_factor );
+
+V( log10_counter_TR_to_CO_plus1000 ) <+ log( plusValue+counter_TR_to_CO );
+V( log10_counter_CO_to_TR_plus1000 ) <+ log( plusValue+counter_CO_to_TR );
+V( log10_counter_BR_to_CO_plus1000 ) <+ log( plusValue+counter_BR_to_CO );
+V( log10_counter_CO_to_BR_plus1000 ) <+ log( plusValue+counter_CO_to_BR );
+
+V( log10_jumps_TR_to_CO_plus1000 ) <+ log( plusValue+jumps_TR_to_CO );
+V( log10_jumps_CO_to_TR_plus1000 ) <+ log( plusValue+jumps_CO_to_TR );
+V( log10_jumps_BR_to_CO_plus1000 ) <+ log( plusValue+jumps_BR_to_CO );
+V( log10_jumps_CO_to_BR_plus1000 ) <+ log( plusValue+jumps_CO_to_BR );
+
+V( log10_flux_reduction_factor_plus1000 ) <+ log( plusValue+flux_reduction_factor );
+
+V( log10_threshold_TR_to_CO_plus1000 ) <+ log( plusValue+threshold_TR_to_CO );
+V( log10_threshold_CO_to_TR_plus1000 ) <+ log( plusValue+threshold_CO_to_TR );
+V( log10_threshold_BR_to_CO_plus1000 ) <+ log( plusValue+threshold_BR_to_CO );
+V( log10_threshold_CO_to_BR_plus1000 ) <+ log( plusValue+threshold_CO_to_BR );
+
+// -------------------------------------------------------- }}}2
+
+// bound the timestep ------------------------------------ {{{2
+if( time_step_bound>0 ) begin
+  $bound_step( time_step_bound );
+end
+$bound_step( min( min( 1/(flux_TR_to_CO+1), 1/(flux_CO_to_TR+1)), 
+                  min( 1/(flux_BR_to_CO+1), 1/(flux_CO_to_BR+1)) )/10.0 );
+// ------------------------------------------------------- }}}2
+
+
+// CLEANUP AFTER SIMULATIOM  ----------------------------- {{{2
+@( final_step ) begin
+  if(file!=0) begin
+    $fdisplay( file, "final step - closing file\n" );
+    $fclose( file );
+  end
+end 
+// ------------------------------------------------------ }}}2
+
+end //analog begin 
+// =============================================================================== }}}1
+                                                    
+
+endmodule                                                              

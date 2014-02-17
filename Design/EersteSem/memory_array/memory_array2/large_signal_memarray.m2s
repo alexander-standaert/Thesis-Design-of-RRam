@@ -1,0 +1,128 @@
+///////////////////////////////////////////////////////////////////////////
+// SIMULATION SETTINGS
+
+simulator lang=spice
+$if param.simulationtype == 'tran' 
+.lib '../../../technology_models/tech_wrapper.lib' tt
+$else
+.include '../../../technology_models/transistorsPTM.scs'
+$end
+
+.OPTIONS METHOD=trap
+.TEMP $<param.temp>$
+
+simulator lang=spectre
+
+$if param.simulationtype == 'tran' 
+    ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
+    parameters tp = MOSP
+    parameters tn = MOSN
+$else
+    mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes savefamilyplots=yes {
+        ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
+    }
+    parameters tp = mc_pmos_lvt
+    parameters tn = mc_nmos_lvt
+    parameters enableVtMismatch=$<param.VtMismatch>$
+    parameters enableBMismatch=$<param.BMismatch>$
+$end
+
+///////////////////////////////////////////////////////////////////////////
+// TEST BENCH + SIGNALS
+mmemarray ( bl wl_1 wl_2 sl_1 sel_0 sel_1 sel_2 sel_3 sel_4 gnd vdd) memarray
+msa (bl out gnd vdd) sa
+
+vwl_1 wl_1 gnd vsource type=pwl wave=$<param.wl_1>$
+vwl_2 wl_2 gnd vsource type=pwl wave=$<param.wl_2>$
+
+vsl_1 sl_1 gnd vsource type=pwl wave=$<param.sl_1>$
+
+vsel_0 sel_0 gnd vsource type=pwl wave=$<param.sel_0>$
+
+vsel_1 sel_1 gnd vsource type=pwl wave=$<param.sel_1>$
+vsel_2 sel_2 gnd vsource type=pwl wave=$<param.sel_2>$
+vsel_3 sel_3 gnd vsource type=pwl wave=$<param.sel_3>$
+vsel_4 sel_4 gnd vsource type=pwl wave=$<param.sel_4>$
+
+vgnd gnd 0 vsource type=dc dc=0
+vvdd vdd 0 vsource type=pwl wave=[0 0 0.01n 1]
+
+///////////////////////////////////////////////////////////////////////////
+// SA
+
+subckt sa (in out gnd vdd)
+
+minvp out in vdd vdd tp w=$<param.mult_inv*2*100e-9>$
+minvn out in gnd gnd tn w=$<param.mult_inv*100e-9>$
+
+ends sa
+
+///////////////////////////////////////////////////////////////////////////
+// MEMARRAY
+
+subckt memarray ( bl wl_1 wl_2 sl_1 sel_0 sel_1 sel_2 sel_3 sel_4 gnd vdd)
+
+// mem cell 1
+rmemcell1 (bl node2_1) resistor r=$<param.Rmemcell1>$
+msl_1 node2_1 wl_1 sl_1 gnd tn
+// mem cell 2
+rmemcell2 (bl node2_2) resistor r=$<param.Rmemcell2>$
+msl_2 node2_2 wl_2 sl_1 gnd tn
+
+$if param.loadtype == 'switch' 
+    xsel_1 vdd sel_1 bl vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl vdd tp w=$<param.wref4>$
+$elseif param.loadtype == 'diode1' 
+    xsel_1 vdd sel_1 bl_ex vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl_ex vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl_ex vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl_ex vdd tp w=$<param.wref4>$
+    xdiode bl bl bl_ex vdd tp w=$<param.wdiode>$
+$elseif param.loadtype == 'diode2' 
+    xsel_1 vdd sel_1 bl_ex vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl_ex vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl_ex vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl_ex vdd tp w=$<param.wref4>$
+    xdiode bl bl bl_ex vdd tp w=$<param.wdiode>$
+    xbleeding1 bl sel_1 bl_ex vdd tp w=$<param.wbleed1>$
+    xbleeding2 bl sel_2 bl_ex vdd tp w=$<param.wbleed2>$
+    xbleeding3 bl sel_3 bl_ex vdd tp w=$<param.wbleed3>$
+    xbleeding4 bl sel_4 bl_ex vdd tp w=$<param.wbleed4>$
+$elseif param.loadtype == 'diode3' 
+    xsel_1 vdd sel_1 bl_ex vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl_ex vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl_ex vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl_ex vdd tp w=$<param.wref4>$
+    xdiode bl_ex bl_ex bl gnd tn w=$<param.wdiode>$
+$elseif param.loadtype == 'diode4' 
+    xsel_1 vdd sel_1 bl_ex vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl_ex vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl_ex vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl_ex vdd tp w=$<param.wref4>$
+    xbias bl biasV bl_ex vdd tp w=$<param.wbias>$
+    vbias biasV gnd vsource type=pwl wave=$<param.vbias>$
+$elseif param.loadtype == 'bodyef' 
+    xsel_1 vdd sel_1 bl_ex vdd tp w=$<param.wref1>$
+    xsel_2 vdd sel_2 bl_ex vdd tp w=$<param.wref2>$
+    xsel_3 vdd sel_3 bl_ex vdd tp w=$<param.wref3>$
+    xsel_4 vdd sel_4 bl_ex vdd tp w=$<param.wref4>$
+    xbias bl biasV bl_ex bl tp w=$<param.wbias>$
+    vbias biasV gnd vsource type=pwl wave=$<param.vbias>$
+$elseif param.loadtype == 'bodye2' 
+    xsel_1 bl_ex sel_1 bl vdd tp w=$<param.wref1>$
+    xsel_2 bl_ex sel_2 bl vdd tp w=$<param.wref2>$
+    xsel_3 bl_ex sel_3 bl vdd tp w=$<param.wref3>$
+    xsel_4 bl_ex sel_4 bl vdd tp w=$<param.wref4>$
+    xbias bl_ex biasV vdd bl_ex tp w=$<param.wbias>$
+    vbias biasV gnd vsource type=pwl wave=$<param.vbias>$
+$end
+
+// bl
+cload_1 (bl gnd) capacitor c=$<param.Cload>$
+xsel_0 gnd sel_0 bl gnd tn 
+
+ic bl=$<param.init_bl>$
+
+ends memarray
