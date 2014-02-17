@@ -11,7 +11,8 @@ parameters PWn = 1e-07                     //DifferentialNpairWidth(perSA)
 parameters PWp = 1e-07                     //DifferentialPpairWidth(perSA)
 parameters PWpenable = 1e-07         //SenseAmpEnablePWidth(perSA)
 parameters PWnenable = 1e-07         //SenseAmpEnableNWidth(perSA)
-parameters PWmux = 2e-07                //PassgateWidth(perMux)
+parameters PWmuxLB = 2e-07                //PassgateWidth(perMuxLB)
+parameters PWmuxLB = 2e-07                //PassgateWidth(perMuxGB)
 
 parameters numberofruns = 1
 parameters enableMismatch = 0   //Mismatch

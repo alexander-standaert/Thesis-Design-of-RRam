@@ -8,9 +8,9 @@ include "branch.scs"
 subckt globalblock (vdd vss NBulkLine PBulkLine
 +$<grid('LWL',[0:sp.NoWLpB-1],[0:1])>$
 +$<grid('SS',[0:sp.NoBLpLB-1],[0:1])>$
-+$<grid('Charge',[0:sp.NoBLpLB-1],[0:1)>$
++$<grid('Charge',[0:sp.NoBLpLB-1],[0:1])>$
 +$<grid('Discharge',[0:sp.NoBLpLB-1],[0:1])>$
-+$<bus('SelLB',[0:sp.1])>$
++$<bus('SelLB',[0:1])>$
 +InOut InOutbar EnableSAP EnableSAN
 +$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect Refcharge RefDischarge)
 

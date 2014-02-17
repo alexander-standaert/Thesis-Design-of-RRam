@@ -25,10 +25,7 @@ sp.simlength=3e-9;
 inputfile = 'branch.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));
 mat2spicepath = strcat(currentpath,'/',inputfile);
-spicepath = strrep(currentpath,pwd,'');
-mat2spice(mat2spicepath,spicepath,sp)
-inputfile = 'mux.m2s';
-mat2spicepath = strcat(currentpath,'/',inputfile);
+spicepath = strcat(strrep(currentpath,pwd,''),'/SPICE');
 mat2spice(mat2spicepath,spicepath,sp)
 inputfile = 'localblock.m2s';
 mat2spicepath = strcat(currentpath,'/',inputfile);
@@ -44,4 +41,4 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre ./ArchitectureDesign/SpiceFile.sp');
+system('spectre ./ArchitectureDesign/SPICE/SpiceFile.sp');
