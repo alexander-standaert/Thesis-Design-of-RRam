@@ -6,17 +6,17 @@ clc
 param = init_param([]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ANALYSIS
-param = gen_sig(param);
+param = gen_sig(param,6);
 %plot_controlsig({'sel_pulldown','sel_load','wl_3','bl_bulk'})
 %plot_controlsig({'sel_pulldown','sel_load','wl_1','sel_sl'})
 %plot_controlsig({'wl_1','wl_2','wl_3','wl_4'})
 %plot_controlsig({'bl_switch'})
 
-%iterate_size(100e-9,20e-9,300e-9,100e-9,20e-9,300e-9,0,0.1,0.7,param,1)
+%iterate_size(100e-9,10e-9,500e-9,100e-9,10e-9,500e-9,0,0.1,1,param,1)
 data = reduce_data()
-run_mc(data(1:2,:),param,10,0)
+% run_mc(data(1:2,:),param,5,0)
 %plot_data(data)
-%find_unitbit_delay(param)
+%find_unitbit_param(gen_sig(param,15),1)
 
 %data_stats(data)
 
@@ -70,13 +70,11 @@ mat2spice(mat2spicepath,spicepath,param)
 clear inputfile currentpath mat2spicepath spicepath
 
 % Run spice
-system('spectre -format psfascii ./load_analysis/spice/load_analysis.sp');
+system('spectre -format psfascii ./LoadAnalysis/spice/load_analysis.sp');
 
 end
 
-function [param] = gen_sig(param)
-
-sensetime = 6;
+function [param] = gen_sig(param,sensetime)
 param.senstime = sensetime;
 
 wave_sel_pulldown = makewave('vsel_pulldown',[0.1,0.8,1]*1e-9,[0,1,0]);
@@ -135,7 +133,7 @@ end
 
 function [] = plot_controlsig(controlsignals)
 %controlsignals = cellstr(controlsignals);
-[sim tree] = readPsfAscii('./load_analysis/spice/load_analysis.raw/ana.tran', '.*');
+[sim tree] = readPsfAscii('./LoadAnalysis/spice/load_analysis.raw/ana.tran', '.*');
 
 figure
 
@@ -159,20 +157,20 @@ v = [vstart:vstep:vstop];
 
 for k = wsstart:wsstep:wsstop
     
-    param.wswitchswitch = k;
+    param.wswitchswitch = k
     param.wswitchbias = k;
     param.wswitchdiode = k;
     param.wswitchbulk = k;
 
     i2=1;
     for p = wlstart:wlstep:wlstop
-        param.wbias = p;
+        param.wbias = p
         param.wdiode = p;
         param.wbulk = p;
 
         i3 = 1;
         for o = vstart:vstep:vstop
-            param.vbias = o;
+            param.vbias = o
             wave_sel_bias = makewave('vsel_bias',[2,param.senstime]*1e-9,[param.vbias,0]);
             wavegroup_bias = makewavegroup('readRHL',[wave_sel_bias]);
             allwaves = calcwaves([wavegroup_bias]);
@@ -180,7 +178,7 @@ for k = wsstart:wsstep:wsstop
             
             runspice(param);
 
-            [sim tree] = readPsfAscii('./load_analysis/spice/load_analysis.raw/ana.tran', '.*');
+            [sim tree] = readPsfAscii('./LoadAnalysis/spice/load_analysis.raw/ana.tran', '.*');
 
             [b,tr,n] = gatherdata(sim,'switch');
             b_switch(i1,:) = b;
@@ -209,7 +207,7 @@ for k = wsstart:wsstep:wsstop
 end
 
 if noplot
-    save ./load_analysis/loadanalysis1.mat ws wl v b_switch tr_switch n_switch b_bias tr_bias n_bias b_diode tr_diode n_diode b_bulk tr_bulk n_bulk
+    save ./LoadAnalysis/loadanalysis1.mat ws wl v b_switch tr_switch n_switch b_bias tr_bias n_bias b_diode tr_diode n_diode b_bulk tr_bulk n_bulk
 else
     plotdata(b_switch,tr_switch,n_switch,'SWITCH');
     for k = 1:length(wl) 
@@ -319,72 +317,106 @@ end
 end
 
 function [best_elements] = reduce_data()
-    load ./load_analysis/loadanalysis.mat
-    
-    switch_elements = [ones(length(ws),1),ws',ones(length(ws),1)*nan,ones(length(ws),1)*nan,b_switch(:,2)-b_switch(:,3),tr_switch(:,4),n_switch(:,4),ws'*45e-9];
-    
-    bias_elements = [];
-    for k = 1:length(wl)
-        for l = 1:length(v)
-            bias_elements = [bias_elements;[ones(length(ws),1)*2,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*v(l),b_bias(:,k,l,2)-b_bias(:,k,l,3),tr_bias(:,k,l,4),n_bias(:,k,l,4),(ws'+wl(k))*45e-9]];
+
+%     all_elements = organize_data(1);
+     data = load('./LoadAnalysis/loadanalysis_alldata.mat');
+     best_elements = sort_data(data.all_elements,1)
+
+    function [all_elements] = organize_data(savedata)
+        
+        data = load('./LoadAnalysis/loadanalysis_raw.mat');
+        ws = data.ws;
+        wl = data.wl;
+        v = data.v;
+        b_switch = data.b_switch;
+        tr_switch = data.tr_switch;
+        n_switch = data.n_switch;
+        b_bias = data.b_bias;
+        tr_bias = data.tr_bias;
+        n_bias = data.n_bias;
+        b_diode = data.b_diode;
+        tr_diode = data.tr_diode;
+        n_diode = data.n_diode;
+        b_bulk = data.b_bulk;
+        tr_bulk = data.tr_bulk;
+        n_bulk = data.n_bulk;
+        
+        switch_elements = [ones(length(ws),1),ws',ones(length(ws),1)*nan,ones(length(ws),1)*nan,b_switch(:,2)-b_switch(:,3),tr_switch(:,4),b_switch(:,4)-n_switch(:,4),ws'*45e-9];
+        
+        bias_elements = [];
+        for k = 1:length(wl)
+            for l = 1:length(v)
+                bias_elements = [bias_elements;[ones(length(ws),1)*2,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*v(l),b_bias(:,k,l,2)-b_bias(:,k,l,3),tr_bias(:,k,l,4),b_bias(:,k,l,4)-n_bias(:,k,l,4),(ws'+wl(k))*45e-9]];
+            end
+        end
+        
+        diode_elements = [];
+        bulk_elements = [];
+        for k = 1:length(wl)
+            diode_elements = [diode_elements;[ones(length(ws),1)*3,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_diode(:,k,2)-b_diode(:,k,3),tr_diode(:,k,4),b_diode(:,k,4)-n_diode(:,k,4),(ws'+wl(k))*45e-9]];
+            bulk_elements = [bulk_elements;[ones(length(ws),1)*4,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_bulk(:,k,2)-b_bulk(:,k,3),tr_bulk(:,k,4),b_bulk(:,k,4)-n_bulk(:,k,4),(ws'+wl(k))*45e-9]];
+        end
+        
+        % SORT ALL ELEMENTS IN FRONTS
+        
+        all_elements = [switch_elements;bias_elements;diode_elements;bulk_elements];
+        
+        if savedata
+            save ./LoadAnalysis/loadanalysis_alldata.mat all_elements
         end
     end
-    
-    diode_elements = [];
-    bulk_elements = [];
-    for k = 1:length(wl)
-        diode_elements = [diode_elements;[ones(length(ws),1)*3,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_diode(:,k,2)-b_diode(:,k,3),tr_diode(:,k,4),n_diode(:,k,4),(ws'+wl(k))*45e-9]];
-        bulk_elements = [bulk_elements;[ones(length(ws),1)*4,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_bulk(:,k,2)-b_bulk(:,k,3),tr_bulk(:,k,4),n_bulk(:,k,4),(ws'+wl(k))*45e-9]];
+
+    function [best_elements] = sort_data(x,savedata)
+        %plot_data(x)
+        x(:,5) = x(:,5)*-1;
+        
+        N = size(x,1);
+        
+        M = 4;
+        V = 4;
+        
+        x(:,V+M+1) = ones(N,1);
+        
+        [c2,ia,ic] = unique(x(:,V+1:V+M),'rows');
+        x = x(ia,:);
+        
+        out_of_fronts = 0;
+        front = 1;
+        while out_of_fronts == 0
+            x_index = find(x(:,V+M+1) == front);
+            N_new = size(x_index,1);
+            
+            if isempty(x_index)
+                out_of_fronts = 1;
+            else
+                for i = 1:N_new
+                    continu = 1;
+                    x_index_temp = x_index;
+                    x_index_temp(i) = [];
+                    x_temp = x(x_index_temp,:);
+                    k = 0;
+                    while k < M && continu
+                        k=k+1;
+                        f = x(x_index(i),V+k);
+                        x_temp = x_temp(find(x_temp(:,V+k) <= f),:);
+                        if isempty(x_temp)
+                            continu = 0;
+                        elseif k == M
+                            x(x_index(i),V+M+1) = front + 1;
+                        end
+                    end
+                end
+            end
+            front = front+1;
+        end
+        x(:,5) = x(:,5)*-1;
+        
+        best_elements = x(find(x(:,(V+M+1))==1),1:V+M);
+        
+        if savedata
+            save ./LoadAnalysis/loadanalysis_frontdata.mat best_elements
+        end
     end
-    
-   % SORT ALL ELEMENTS IN FRONTS 
-    
-   x = [switch_elements;bias_elements;diode_elements;bulk_elements];
-   %plot_data(x)
-   x(:,5) = x(:,5)*-1;
-   
-   N = size(x,1);
-
-   M = 4;
-   V = 4;
-
-   x(:,V+M+1) = ones(N,1);
-
-   [c2,ia,ic] = unique(x(:,V+1:V+M),'rows');
-   x = x(ia,:);
-
-   out_of_fronts = 0;
-   front = 1;
-   while out_of_fronts == 0
-       x_index = find(x(:,V+M+1) == front);
-       N_new = size(x_index,1);
-
-       if isempty(x_index)
-           out_of_fronts = 1;
-       else
-           for i = 1:N_new
-               continu = 1;
-               x_index_temp = x_index;
-               x_index_temp(i) = [];
-               x_temp = x(x_index_temp,:);
-               k = 0;
-               while k < M && continu
-                   k=k+1;
-                   f = x(x_index(i),V+k);
-                   x_temp = x_temp(find(x_temp(:,V+k) <= f),:);
-                   if isempty(x_temp)
-                       continu = 0;
-                   elseif k == M
-                     x(x_index(i),V+M+1) = front + 1;
-                   end
-               end
-           end
-       end
-   front = front+1;
-   end
-   x(:,5) = x(:,5)*-1; 
-   
-   best_elements = x(find(x(:,(V+M+1))==1),1:V+M);
 end
 
 function [] = plot_data(elements)
@@ -490,7 +522,7 @@ for i = 1:length(elements(:,1))
     for l=1:param.mcruns
         istr=num2str(l+1000);
         istr=istr(end-2:end);
-        [sim, ~] = readPsfAscii(strcat('./load_analysis/spice/load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+        [sim, ~] = readPsfAscii(strcat('./LoadAnalysis/spice/load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
         
         [b,tr,n] = gatherdata(sim,loadtype);
         b_all(i,l,:) = b;
@@ -501,7 +533,7 @@ for i = 1:length(elements(:,1))
 end
 
 if noplot
-    save ./load_analysis/loadanalysis2.mat b_all tr_all n_all elements
+    save ./LoadAnalysis/loadanalysis2.mat b_all tr_all n_all elements
 else
     for i = 1:length(elements(:,1))
         switch elements(i,1)
@@ -598,42 +630,50 @@ end
         trh = [tr(1,:,1),tr(1,:,2)];
         trl = [tr(1,:,3),tr(1,:,4)];
         
+        nh = bh-[n(1,:,1),n(1,:,2)];
+        nl = bl-[n(1,:,3),n(1,:,4)];
+        
+        nbins = 10;
+        
         figure
         subplot(3,1,1)
         title(plot_caption,'FontSize', 14,'FontWeight','bold');
         hold on
-        h =  histfit(bh,10,'kernel')
+        h =  histfit(bh,nbins,'kernel')
         set(h(2),'color','r')
         delete(h(1))
-        h =  histfit(bl,10,'kernel')
+        h =  histfit(bl,nbins,'kernel')
         set(h(2),'color','g')
         delete(h(1))
         xlabel('BITLINE VOLTAGE','FontSize', 10,'FontWeight','bold')
         subplot(3,1,2)
         hold on
-        h =  histfit(trh,10,'kernel')
+        h =  histfit(trh,nbins,'kernel')
         set(h(2),'color','r')
         delete(h(1))
-        h =  histfit(trl,10,'kernel')
+        h =  histfit(trl,nbins,'kernel')
         set(h(2),'color','g')
         delete(h(1))
         xlabel('RISETIME','FontSize', 10,'FontWeight','bold')
-%         subplot(3,1,3)
-%         hold on
-%         plot(ws,b(:,1)-n(:,1),'r')
-%         plot(ws,b(:,2)-n(:,2),'r--')
-%         plot(ws,b(:,3)-n(:,3))
-%         plot(ws,b(:,4)-n(:,4),'--')
-%         ylabel('VOLTAGE DROP R','FontSize', 10,'FontWeight','bold') 
-%         xlabel('SIZING SWITCH','FontSize', 10,'FontWeight','bold')     
+        subplot(3,1,3)
+        hold on
+        h =  histfit(nh,nbins,'kernel')
+        set(h(2),'color','r')
+        delete(h(1))
+        h =  histfit(nl,nbins,'kernel')
+        set(h(2),'color','g')
+        delete(h(1))
+        xlabel('VOLTAGE DROP R','FontSize', 10,'FontWeight','bold')      
     end
 
 end
 
-function [] = find_unitbit_delay(param)
-	Cunit = 0.18e-15;
+function [] = find_unitbit_param(param,noplot)
+    param.stoptime = 70*10^-9;
 
-	nb_cells = 2.^([2:15]);
+    Cunit = 0.18e-15;
+
+	nb_cells = 2.^([1:15]);
 	C = nb_cells*Cunit;
 	
 	% load settings
@@ -651,47 +691,57 @@ function [] = find_unitbit_delay(param)
 
 		runspice(param);
 
-		[sim tree] = readPsfAscii('./load_analysis/spice/load_analysis.raw/ana.tran', '.*');
+		[sim tree] = readPsfAscii('./LoadAnalysis/spice/load_analysis.raw/ana.tran', '.*');
 
-        [tr] = gatherdata(sim,'switch');
+        [b,tr] = gatherdata(sim,'switch');
         tr_switch(i) = mean(tr);
-        [tr] = gatherdata(sim,'bias');
+        e_switch(i) = C(i)*mean(b)^2;
+        [b,tr] = gatherdata(sim,'bias');
         tr_bias(i) = mean(tr);
-        [tr] = gatherdata(sim,'diode');
+        e_bias(i) = C(i)*mean(b)^2;
+        [b,tr] = gatherdata(sim,'diode');
         tr_diode(i) = mean(tr);
-        [tr] = gatherdata(sim,'bulk');
+        e_diode(i) = C(i)*mean(b)^2;
+        [b,tr] = gatherdata(sim,'bulk');
         tr_bulk(i) = mean(tr);
+        e_bulk(i) = C(i)*mean(b)^2;
             
-	end
+    end
        
-	figure
-	plot(nb_cells,tr_switch)   
-	title('Delay ifv number of cells, load:switch','FontSize', 14,'FontWeight','bold');
-    xlabel('number of cells','FontSize', 10,'FontWeight','bold')
-	ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
+    if noplot
+       bit_delay = [nb_cells',tr_switch',tr_bias',tr_diode',tr_bulk']; 
+       save ./ArchitectureAnalysis/bitdelay.mat bit_delay
+       bit_energy = [nb_cells',e_switch',e_bias',e_diode',e_bulk']; 
+       save ./ArchitectureAnalysis/bitenergy.mat bit_energy
+    else
+        figure
+        plot(nb_cells,tr_switch)   
+        title('Delay ifv number of cells, load:switch','FontSize', 14,'FontWeight','bold');
+        xlabel('number of cells','FontSize', 10,'FontWeight','bold')
+        ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
 
-	figure
-	plot(nb_cells,tr_bias)   
-	title('Delay ifv number of cells, load:bias','FontSize', 14,'FontWeight','bold');
-    xlabel('number of cells','FontSize', 10,'FontWeight','bold')
-	ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
+        figure
+        plot(nb_cells,tr_bias)   
+        title('Delay ifv number of cells, load:bias','FontSize', 14,'FontWeight','bold');
+        xlabel('number of cells','FontSize', 10,'FontWeight','bold')
+        ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
 
-	figure
-	plot(nb_cells,tr_diode)   
-	title('Delay ifv number of cells, load:diode','FontSize', 14,'FontWeight','bold');
-    xlabel('number of cells','FontSize', 10,'FontWeight','bold')
-	ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
+        figure
+        plot(nb_cells,tr_diode)   
+        title('Delay ifv number of cells, load:diode','FontSize', 14,'FontWeight','bold');
+        xlabel('number of cells','FontSize', 10,'FontWeight','bold')
+        ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
 
-	figure
-	plot(nb_cells,tr_bulk)   
-	title('Delay ifv number of cells, load:bulk','FontSize', 14,'FontWeight','bold');
-    xlabel('number of cells','FontSize', 10,'FontWeight','bold')
-	ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
-
+        figure
+        plot(nb_cells,tr_bulk)   
+        title('Delay ifv number of cells, load:bulk','FontSize', 14,'FontWeight','bold');
+        xlabel('number of cells','FontSize', 10,'FontWeight','bold')
+        ylabel('avg delay','FontSize', 10,'FontWeight','bold')  
+    end
 	%TODO curve fit
 	% vergeet in een (0,0) punt in te voegen
 
-	function [tr] = gatherdata(sim,branch)
+	function [b,tr] = gatherdata(sim,branch)
 
         sig = sim.getSignal(strcat('bl_',branch));
         sigx = sig.getXValues*10^9;
@@ -739,6 +789,7 @@ function [] = find_unitbit_delay(param)
         tr_lh = (tst_lh - ts_lh)*10^-9;
         tr_ll = (tst_ll - ts_ll)*10^-9;
 
+        b = [b_hh,b_hl,b_lh,b_ll];
         tr = [tr_hh,tr_hl,tr_lh,tr_ll];
 
     end
