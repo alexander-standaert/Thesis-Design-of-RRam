@@ -5,7 +5,7 @@ simulator lang=spice
 $if param.simulationtype == 'tran' 
 .lib '../../technology_models/tech_wrapper.lib' tt
 $else
-.include '../../technology_models/monte_carlo_models.scs'
+.include './technology_models/monte_carlo_models.scs'
 $end
 
 .OPTIONS METHOD=trap

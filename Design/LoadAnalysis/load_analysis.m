@@ -13,9 +13,18 @@ param = gen_sig(param,6);
 %plot_controlsig({'bl_switch'})
 
 %iterate_size(100e-9,10e-9,500e-9,100e-9,10e-9,500e-9,0,0.1,1,param,1)
-data = reduce_data()
-% run_mc(data(1:2,:),param,5,0)
-%plot_data(data)
+
+%data = reduce_data()
+%  data = load('./LoadAnalysis/loadanalysis_alldata.mat');
+%  data = data.all_elements
+%  plot_data(data)
+data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
+data = data.best_elements
+% selecteddata = plot_data(data)
+run_mc(data,param,200,1,19,20)
+
+
+
 %find_unitbit_param(gen_sig(param,15),1)
 
 %data_stats(data)
@@ -419,9 +428,9 @@ function [best_elements] = reduce_data()
     end
 end
 
-function [] = plot_data(elements)
+function [data] = plot_data(elements)
     show_3d = 0;
-    c = [[0,0,0];[0,1,0];[1,0,0];[0,0,1]];
+    c = [[139/255,0,139/255];[0,0,255/255];[50/255,205/255,50/255];[255/255,0,0]]; %color
     s = 5e15;
 
     ia = find(elements(:,1)==1);
@@ -443,9 +452,9 @@ function [] = plot_data(elements)
     b = scatter(elements(ib,5),elements(ib,6),elements(ib,8)*s,elements(ib,end-2:end));
     c = scatter(elements(ic,5),elements(ic,6),elements(ic,8)*s,elements(ic,end-2:end));
     d = scatter(elements(id,5),elements(id,6),elements(id,8)*s,elements(id,end-2:end));
-    xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
-    ylabel('DELAY','FontSize', 10,'FontWeight','bold')
-    legend([a,b,c,d],'Switch','Bias','Diode','Bulk')
+    xlabel('BL(hrs) - BL(lrs) (V)','FontSize', 10,'FontWeight','bold')
+    ylabel('DELAY (ns)','FontSize', 10,'FontWeight','bold')
+    legend([a,b,c,d],'Switch Load','Bias Load','Diode Load','Bulk Load')
    
     
     sh(2) = subplot(2,1,2)
@@ -454,9 +463,9 @@ function [] = plot_data(elements)
     f = scatter(elements(ib,5),elements(ib,7),elements(ib,8)*s,elements(ib,end-2:end));
     g = scatter(elements(ic,5),elements(ic,7),elements(ic,8)*s,elements(ic,end-2:end));
     h = scatter(elements(id,5),elements(id,7),elements(id,8)*s,elements(id,end-2:end));
-    xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
-    ylabel('CELL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
-    legend([a,b,c,d],'Switch','Bias','Diode','Bulk')
+    xlabel('BL(hrs) - BL(lrs) (V)','FontSize', 10,'FontWeight','bold')
+    ylabel('CELL VOLTAGE DROP (V)','FontSize', 10,'FontWeight','bold')
+    legend([a,b,c,d],'Switch Load','Bias Load','Diode Load','Bulk Load')
     
 
      data = []
@@ -487,18 +496,32 @@ function [] = plot_data(elements)
     
 end
 
-function [] = run_mc(elements,param,mc_runs,noplot)
+function [] = run_mc(elements,param,mc_runs,noplot,id,nb_id)
+n = length(elements(:,1));
+n/nb_id;
+n_blok = round(n/nb_id);
+if id == nb_id
+   n_start = (id-1)*n_blok+1;
+   n_stop = n;
+else
+   n_start = (id-1)*n_blok+1;
+   n_stop = (id)*n_blok;   
+end
+
+elements = elements(n_start:n_stop,:);
+
 param.simulationtype = 'mont';
 param.VtMismatch = 1;
 param.BMismatch = 0;
 param.mcruns = mc_runs;
 
-for i = 1:length(elements(:,1))
+
+for i = 36:length(elements(:,1))
+    disp(strjoin({'ELEMENT ',num2str(i),'OF THE',num2str(length(elements(:,1))),'OF BLOK',num2str(id)},' '))
     switch elements(i,1)
         case 1
             loadtype = 'switch';
-            param.wswitchswitch = elements(i,2);
-            
+            param.wswitchswitch = elements(i,2);           
         case 2
             loadtype = 'bias';
             param.wswitchbias = elements(i,2);
@@ -517,23 +540,36 @@ for i = 1:length(elements(:,1))
             error('unknown element type')
     end
     
-    runspice(param);
+    inputfile = 'load_analysis.m2s';
+
+    [currentpath,~,~] = fileparts(which(mfilename));
+
+    mat2spicepath = strcat(currentpath,'/',inputfile);
+    spicepath = strcat(strrep(currentpath,pwd,''),'/spice');			
+
+    mat2spice(mat2spicepath,spicepath,param)
+    clear inputfile currentpath mat2spicepath spicepath
+
+    % Run spice
+    system(strjoin({'mv ./LoadAnalysis/spice/load_analysis.sp /tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.sp'},''));
+    system(strjoin({'spectre -format psfascii /tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.sp'},''));
     
     for l=1:param.mcruns
         istr=num2str(l+1000);
         istr=istr(end-2:end);
-        [sim, ~] = readPsfAscii(strcat('./LoadAnalysis/spice/load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+        [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.raw/mc-',istr,'_ana.tran'), '.*');
         
         [b,tr,n] = gatherdata(sim,loadtype);
-        b_all(i,l,:) = b;
-        tr_all(i,l,:) = tr;
-        n_all(i,l,:) = n;
+        b_all(l,:) = b;
+        tr_all(l,:) = tr;
+        n_all(l,:) = n;
     end
-    %plotdata(b_all(1,:,:),tr_all(1,:,:),n_all(1,:,:),'plot_caption')
+    element = elements(i,:);
+    save(strjoin({'./LoadAnalysis/mc_raw/loadanalysis_mc',num2str(id),'_',num2str(i),'.mat'},''),'b_all','tr_all','n_all','element')
 end
 
 if noplot
-    save ./LoadAnalysis/loadanalysis2.mat b_all tr_all n_all elements
+   % save(strjoin({'./LoadAnalysis/loadanalysis_mc',num2str(id),'.mat'},''),'b_all','tr_all','n_all','elements')
 else
     for i = 1:length(elements(:,1))
         switch elements(i,1)

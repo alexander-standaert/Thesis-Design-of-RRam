@@ -124,7 +124,7 @@ total_area = decoder_wl_area + ...
 end
 
 function [solutions] = calc_solutions(memsize, full_address_range)
-maxdecoder = 11;
+maxdecoder = 7;
 if full_address_range
     cell_options = 2.^[1:maxdecoder];
     branch_options = 2.^[1:maxdecoder];
@@ -137,19 +137,19 @@ else
     globalblock_options = 2.^[6:15];
 end
 
-all_solutions = allcomb(cell_options,branch_options,localblock_options,globalblock_options);
-all_solutions = [all_solutions prod(all_solutions,2)];
+all_solutions = allcomb(cell_options,branch_options,localblock_options,globalblock_options)
+all_solutions = [all_solutions prod(all_solutions,2)]
 
 solutions = all_solutions(find(all_solutions(:,5)==memsize),:);
 
-solutions = solutions(:,1:4);
+solutions = solutions(:,1:4)
 end
 
 function [eval_solutions] = eval_solutions(solutions)
 eval_solutions = [solutions,zeros(length(solutions(:,1)),3)];
 
 for i = 1:length(solutions(:,1))
-    eval_solutions(i,5) = calc_delay(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
+    eval_solutions(i,5) = calc_delay(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4))
     eval_solutions(i,6) = calc_energy(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
     eval_solutions(i,7) = calc_area(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
 end
@@ -158,8 +158,8 @@ end
 
 function [] = plot_solutions(solutions)
 figure
-area = solutions(:,7);
-s = exp(5*area/max(area));
+area = solutions(:,7)
+s = 1;%exp(5*area/max(area));
 scatter(solutions(:,5),solutions(:,6),s)
 xlabel('ENERGY','FontSize', 10,'FontWeight','bold')
 ylabel('DELAY','FontSize', 10,'FontWeight','bold')
