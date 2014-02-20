@@ -1,5 +1,6 @@
 function [sim,Emean,delaymean] = Synthesize(NoI)
 sp.NoI=NoI;
+sp.NoISTRING = [];
 
 sp.MismatchOn=0;
 sp.numruns=1;
@@ -71,7 +72,7 @@ sp.wavesin = wavein;
 end
 
 function [sim] = SpiceInit(sp)
-inputfile = 'decodersynthesis.m2s';
+inputfile = 'decodersynthesis1o7.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));
 mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/SPICE');

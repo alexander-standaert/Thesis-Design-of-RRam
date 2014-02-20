@@ -1,13 +1,25 @@
 simulator lang=spectre
 
 include "branch.sp"
+include "decoder.sp"
 
-subckt localblock (vdd vss NBulkLine PBulkLine $<bus('WL',[0:sp.NoWLpB-1])>$ $<bus('SelBL',[0:sp.NoBLpLB-1])>$ BLout $<bus('SS',[0:sp.NoBLpLB-1])>$
-+$<bus('Charge',[0:sp.NoBLpLB-1])>$ $<bus('Discharge',[0:sp.NoBLpLB-1])>$)
+subckt localblock (vdd vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ WLenable $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ BLenable BLout)
+parameters $<grid('Rcell',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+
+xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ WLenable $<bus('WL',[0:sp.NoWLpB-1])>$ vdd vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$
+xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ BLenable $<bus('SelL',[0:sp.NoBLpLB-1])>$ vdd vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoBLpLB))>$
+
+$for i=0:sp.NoBLpLB
+xnot$<i>$_0 (SelL$<i>$ SelLbar$<i>$ vdd vss PBulkLine NBulkLine) inverter
+xnot$<i>$_1 (SelLbar$<i>$ SelLbarbar$<i>$ vdd vss PBulkLine NBulkLine) inverter
+xnot$<i>$_2 (SelLbarbar$<i>$ SelLbarbarbar$<i>$ vdd vss PBulkLine NBulkLine) inverter
+$end
+
 
 $for i=0:sp.NoBLpLB-1
-xBranch$<i>$ (vdd vss BL$<strcat('_',int2str(i))>$ $<bus('WL',[0:sp.NoWLpB-1])>$ SS$<strcat('_',int2str(i))>$ Charge$<strcat('_',int2str(i))>$ Discharge$<strcat('_',int2str(i))>$ PBulkLine NBulkLine) branch
+xBranch$<i>$ (vdd vss BL$<strcat('_',int2str(i))>$ $<bus('WL',[0:sp.NoWLpB-1])>$ SelLbarbar$<strcat('_',int2str(i))>$ SelLbarbarbar$<strcat('_',int2str(i))>$ SelLbar$<strcat('_',int2str(i))>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$
 xM$<i>$ BL$<strcat('_',int2str(i))>$ SelBL$<strcat('_',int2str(i))>$ BLout NBulkLine mc_nmos_lvt w=PWmuxLB l=PLmin
+cParWL$<i>$ WL$<strcat('_',int2str(i))>$ vss capacitor c=Cpar*$<sp.NoWLpB>$
 $end
 
 ends localblock

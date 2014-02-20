@@ -12,11 +12,33 @@ parameters PWp = $<sp.PWp>$                     //DifferentialPpairWidth(perSA)
 parameters PWpenable = $<sp.PWpenable>$         //SenseAmpEnablePWidth(perSA)
 parameters PWnenable = $<sp.PWnenable>$         //SenseAmpEnableNWidth(perSA)
 parameters PWmuxLB = $<sp.PWMmuxLB>$                //PassgateWidth(perMuxLB)
-parameters PWmuxLB = $<sp.PWMmuxGB>$                //PassgateWidth(perMuxGB)
+parameters PWmuxGB = $<sp.PWMmuxGB>$                //PassgateWidth(perMuxGB)
 
 parameters numberofruns = $<sp.numruns>$
 parameters enableMismatch = $<sp.MismatchOn>$   //Mismatch
 parameters simlength = $<sp.simlength>$
 
 
-parameters RMEM = 10000;
+parameters RMEMHigh = 7500;
+parameters RMEMLow = 32500;
+
+$for i=0:0
+$for j=0:1
+$for k=0:sp.NoBLpLB-1
+$for l=0:sp.NoWLpB-1
+$if rand > 0.5
+parameters Rcell_$<i>$_$<j>$_$<k>$_$<l>$ = RMEMHigh
+$else
+parameters Rcell_$<i>$_$<j>$_$<k>$_$<l>$ = RMEMLow
+$end
+$end
+$end
+$end
+$end
+
+$for i=0:2:sp.NoWLpB-1
+parameters Rref_$<i>$ = RMEMHigh
+$end
+$for i=1:2:sp.NoWLpB-1
+parameters Rref_$<i>$ = RMEMLow
+$end

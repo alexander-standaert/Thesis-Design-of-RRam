@@ -1,7 +1,7 @@
 % Architecture parameters
-sp.NoWLpB=8;
-sp.NoBLpLB=10;
-sp.NoLBpSA=6;
+sp.NoWLpB=128;
+sp.NoBLpLB=64;
+sp.NoGB=6;
 
 % TransistorWith parameters
 sp.WChargeBL=500e-9;
@@ -41,4 +41,4 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre ./ArchitectureDesign/SPICE/SpiceFile.sp');
+system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');

@@ -1,14 +1,14 @@
 simulator lang=spectre
 
-parameters PWp = 1*100n
-parameters PWn = 1*100n
-parameters PWpenable = 1*100n
-parameters PWnenable = 1*100n
+parameters PWp = 20*100n
+parameters PWn = 20*100n
+parameters PWpenable = 18*100n
+parameters PWnenable = 18*100n
 
-parameters lepwave=[0 1 1e-09 1 1.1e-09 1 6e-09 1]
-parameters lenwave=[0 0 1e-09 0 1.05e-09 0 6e-09 0]
+parameters lepwave=[0 1 5e-10 1 5.5e-10 0 5.5e-09 0]
+parameters lenwave=[0 1 5e-10 1 6e-10 1 5.5e-09 1]
 
-parameters initialout=0.5
-parameters initialoutbar=0.5
+parameters initialout=0.3
+parameters initialoutbar=0.335
 
-parameters numberofruns = 1
+parameters numberofruns = 999

@@ -1,13 +1,13 @@
 
-simulator lang=spectre
-
-include "CMOSlogic.scs"
-
-subckt decoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine)
+subckt decoder$<sp.NoISTRING>$ ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine)
 
 xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
 
-$if sp.NoI==2
+$if sp.NoI==1
+xinv0 (IN_0 OUT_1pre vdd vss PBulkLine NBulkLine) inverter
+xnor1 (OUT_1pre enablebar OUT_1 vdd vss PBulkLine NBulkLine) twonor
+xnor2 (IN_0 enablebar OUT_0 vdd vss PBulkLine NBulkLine) twonor
+$elseif sp.NoI==2
 xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $elseif sp.NoI==3
 xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder

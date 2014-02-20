@@ -3,16 +3,16 @@ simulator lang=spectre
 
 include "transistorsPTM.scs"
 include "globalblock.sp"
-include "inverter.scs"
 include "parameters.sp"
 
-xGlobal (vdd vss NBulkLine PBulkLine
-+$<grid('LWL',[0:sp.NoWLpB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('SS',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('Charge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('Discharge',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+$<grid('SelBL',[0:sp.NoBLpLB-1],[0:sp.NoLBpSA-1])>$
-+InOut InOutbar EnableSAP EnableSAN) globalblock
+xGlobal0 (vdd vss NBulkLine PBulkLine
++$<grid('LWLencoded',[0:1],[0:log2(sp.NoWLpB)-1])>$
++$<grid('LBLencoded',[0:1],[0:log2(sp.NoBLpLB)-1])>$
++$<bus('WLenable',[0,1])>$ $<bus('BLenable',[0,1])>$
++$<bus('SelLB',[0:1])>$
++InOut InOutbar EnableSAP EnableSAN
++$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect Refcharge RefDischarge)       
++globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(0)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
 xInv0 (InOut InOutbarBuf vdd vss PBulkLine NBulkLine) inverter
 xInv1 (InOutbar InOutBuf vdd vss PBulkLine NBulkLine) inverter
@@ -21,6 +21,17 @@ Vvdd     ( vdd     0 ) vsource dc=1
 VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+$for i=0:log2(sp.NoWLpB)-1
+VWLenc_0_$<2*i>$ (LWLencoded_0_$<i>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+VWLenc_0_$<2*i+1>$ (LWLencoded_1_$<i>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+$end
+$for i=0:log2(sp.NoBLpLB)-1
+VBLenc_0_$<2*i>$ (LBLencoded_0_$<i>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+VBLenc_0_$<2*i+1>$ (LBLencoded_1_$<i>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+$end
+
+save InOutBuf Vvdd:currents
 
 mymc montecarlo
 + donominal=no variations=mismatch

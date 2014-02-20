@@ -26,7 +26,7 @@ spicepath = strrep(currentpath,pwd,'');
 mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre ./LatchOptimization/BasicLatch/test.scs');
+system('spectre ./LatchAnalysis/BasicLatch/test.scs');
 
 correct=zeros(sp.numruns,1);
 td=[];
@@ -45,7 +45,7 @@ Pstatvector=[];
 for i=1:sp.numruns
 istr=num2str(i+1000);
 istr=istr(end-2:end);
-[temp, ~] = readPsfAscii(strcat('./LatchOptimization/BasicLatch/test.raw/mymc-',istr,'_mytran.tran'), '.*');
+[temp, ~] = readPsfAscii(strcat('./LatchAnalysis/BasicLatch/test.raw/mymc-',istr,'_mytran.tran'), '.*');
 sim=[sim;temp];
 a=sim(i).getSignal('inout');
 b=sim(i).getSignal('inoutbar');
