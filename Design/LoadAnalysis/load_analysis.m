@@ -1,32 +1,35 @@
 function [] = load_analysis()
 close all
 clc
+%disp(strjoin({'ID ',num2str(simid)},''))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SET PARAM
 param = init_param([]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ANALYSIS
-param = gen_sig(param,6);
+% param = gen_sig(param,6);
 %plot_controlsig({'sel_pulldown','sel_load','wl_3','bl_bulk'})
 %plot_controlsig({'sel_pulldown','sel_load','wl_1','sel_sl'})
 %plot_controlsig({'wl_1','wl_2','wl_3','wl_4'})
 %plot_controlsig({'bl_switch'})
 
-%iterate_size(100e-9,10e-9,500e-9,100e-9,10e-9,500e-9,0,0.1,1,param,1)
+%iterate_size(100e-9,10e-9,100e-9,210e-9,10e-9,210e-9,1,0.1,1,param,0)
 
 %data = reduce_data()
 %  data = load('./LoadAnalysis/loadanalysis_alldata.mat');
 %  data = data.all_elements
 %  plot_data(data)
-data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
-data = data.best_elements
-% selecteddata = plot_data(data)
-run_mc(data,param,200,1,19,20)
+%data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
+%data = data.best_elements
+% % selecteddata = plot_data(data)
+%run_mc(data,param,300,1,1,1,str2num(simid))
+% run_mc([[2,100e-9,210e-9,1,0.210739944779165,0.000000001502476,0.059856054676761,0.000000000000014]],param,200,1,1,1)
 
 
-
-%find_unitbit_param(gen_sig(param,15),1)
-
+%analyse_mc()
+mc_analize_data()
+% find_unitbit_param(gen_sig(param,15),1)
+% mc_contour()
 %data_stats(data)
 
 end
@@ -140,25 +143,7 @@ param.sel_sl = allwaves.vsel_sl;
 
 end
 
-function [] = plot_controlsig(controlsignals)
-%controlsignals = cellstr(controlsignals);
-[sim tree] = readPsfAscii('./LoadAnalysis/spice/load_analysis.raw/ana.tran', '.*');
-
-figure
-
-for i=1:length(controlsignals)
-    sig = sim.getSignal(controlsignals(i));
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-
-    subplot(length(controlsignals),1,i)
-    plot(sigx,sigy)
-    ylabel(controlsignals(i),'FontSize', 10,'FontWeight','bold')
-end
-
-end
-
-function [] = iterate_size(wsstart,wsstep,wsstop,wlstart,wlstep,wlstop,vstart,vstep,vstop,param,noplot)
+function [] = la_run(wsstart,wsstep,wsstop,wlstart,wlstep,wlstop,vstart,vstep,vstop,param,noplot)
 i1=1;
 ws = [wsstart:wsstep:wsstop];
 wl = [wlstart:wlstep:wlstop];
@@ -325,12 +310,12 @@ end
     end
 end
 
-function [best_elements] = reduce_data()
+function [best_elements] = la_reduce_data()
 
-%     all_elements = organize_data(1);
-     data = load('./LoadAnalysis/loadanalysis_alldata.mat');
-     best_elements = sort_data(data.all_elements,1)
-
+%       all_elements = organize_data(1);
+%       best_elements = []
+    data = load('./LoadAnalysis/loadanalysis_alldata.mat');
+    best_elements = sort_data(data.all_elements,1)
     function [all_elements] = organize_data(savedata)
         
         data = load('./LoadAnalysis/loadanalysis_raw.mat');
@@ -350,20 +335,32 @@ function [best_elements] = reduce_data()
         tr_bulk = data.tr_bulk;
         n_bulk = data.n_bulk;
         
-        switch_elements = [ones(length(ws),1),ws',ones(length(ws),1)*nan,ones(length(ws),1)*nan,b_switch(:,2)-b_switch(:,3),tr_switch(:,4),b_switch(:,4)-n_switch(:,4),ws'*45e-9];
+        switch_elements = [ones(length(ws),1),ws',ones(length(ws),1)*nan,ones(length(ws),1)*nan,((b_switch(:,1)+b_switch(:,2))/2) - ((b_switch(:,3)+b_switch(:,4))/2) ...
+                                                                                               ,((tr_switch(:,1)+tr_switch(:,2)+tr_switch(:,3)+tr_switch(:,4))/4) ... 
+                                                                                               ,((b_switch(:,1)+b_switch(:,2))/2) - ((n_switch(:,1)+n_switch(:,2))/2) ...
+                                                                                               ,ws'*45e-9];
         
         bias_elements = [];
         for k = 1:length(wl)
             for l = 1:length(v)
-                bias_elements = [bias_elements;[ones(length(ws),1)*2,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*v(l),b_bias(:,k,l,2)-b_bias(:,k,l,3),tr_bias(:,k,l,4),b_bias(:,k,l,4)-n_bias(:,k,l,4),(ws'+wl(k))*45e-9]];
+                bias_elements = [bias_elements;[ones(length(ws),1)*2,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*v(l),((b_bias(:,k,l,1)+b_bias(:,k,l,2))/2) - ((b_bias(:,k,l,3)+b_bias(:,k,l,4))/2) ...
+                                                                                                                         ,((tr_bias(:,k,l,1)+tr_bias(:,k,l,2)+tr_bias(:,k,l,3)+tr_bias(:,k,l,4))/4) ... 
+                                                                                                                         ,((b_bias(:,k,l,1)+b_bias(:,k,l,2))/2) - ((n_bias(:,k,l,1)+n_bias(:,k,l,2))/2) ...
+                                                                                                                        ,(ws'+wl(k))*45e-9]];
             end
         end
         
         diode_elements = [];
         bulk_elements = [];
         for k = 1:length(wl)
-            diode_elements = [diode_elements;[ones(length(ws),1)*3,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_diode(:,k,2)-b_diode(:,k,3),tr_diode(:,k,4),b_diode(:,k,4)-n_diode(:,k,4),(ws'+wl(k))*45e-9]];
-            bulk_elements = [bulk_elements;[ones(length(ws),1)*4,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,b_bulk(:,k,2)-b_bulk(:,k,3),tr_bulk(:,k,4),b_bulk(:,k,4)-n_bulk(:,k,4),(ws'+wl(k))*45e-9]];
+            diode_elements = [diode_elements;[ones(length(ws),1)*3,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,((b_diode(:,k,1)+b_diode(:,k,2))/2) - ((b_diode(:,k,3)+b_diode(:,k,4))/2) ...
+                                                                                                                      ,((tr_diode(:,k,1)+tr_diode(:,k,2)+tr_diode(:,k,3)+tr_diode(:,k,4))/4) ...
+                                                                                                                      ,((b_diode(:,k,1)+b_diode(:,k,2))/2) - ((n_diode(:,k,1)+n_diode(:,k,2))/2) ...
+                                                                                                                      ,(ws'+wl(k))*45e-9]];
+            bulk_elements = [bulk_elements;[ones(length(ws),1)*4,ws',ones(length(ws),1)*wl(k),ones(length(ws),1)*nan,((b_bulk(:,k,1)+b_bulk(:,k,2))/2) - ((b_bulk(:,k,3)+b_bulk(:,k,4))/2) ...
+                                                                                                                    ,((tr_bulk(:,k,1)+tr_bulk(:,k,2)+tr_bulk(:,k,3)+tr_bulk(:,k,4))/4) ...
+                                                                                                                    ,((b_bulk(:,k,1)+b_bulk(:,k,2))/2) - ((n_bulk(:,k,1)+n_bulk(:,k,2))/2) ...
+                                                                                                                    ,(ws'+wl(k))*45e-9]];
         end
         
         % SORT ALL ELEMENTS IN FRONTS
@@ -426,6 +423,11 @@ function [best_elements] = reduce_data()
             save ./LoadAnalysis/loadanalysis_frontdata.mat best_elements
         end
     end
+end
+
+function [data] = plot_data_bytype(elements,type)
+elementstype = elements(find(elements(:,1) == type),:);
+data = plot_data(elementstype);
 end
 
 function [data] = plot_data(elements)
@@ -496,7 +498,25 @@ function [data] = plot_data(elements)
     
 end
 
-function [] = run_mc(elements,param,mc_runs,noplot,id,nb_id)
+function [] = plot_controlsig(controlsignals)
+%controlsignals = cellstr(controlsignals);
+[sim tree] = readPsfAscii('./LoadAnalysis/spice/load_analysis.raw/ana.tran', '.*');
+
+figure
+
+for i=1:length(controlsignals)
+    sig = sim.getSignal(controlsignals(i));
+    sigx = sig.getXValues*10^9;
+    sigy = sig.getYValues;
+
+    subplot(length(controlsignals),1,i)
+    plot(sigx,sigy)
+    ylabel(controlsignals(i),'FontSize', 10,'FontWeight','bold')
+end
+
+end
+
+function [] = mc_run(elements,param,mc_runs,noplot,id,nb_id,startele)
 n = length(elements(:,1));
 n/nb_id;
 n_blok = round(n/nb_id);
@@ -515,8 +535,7 @@ param.VtMismatch = 1;
 param.BMismatch = 0;
 param.mcruns = mc_runs;
 
-
-for i = 36:length(elements(:,1))
+for i = startele:length(elements(:,1))
     disp(strjoin({'ELEMENT ',num2str(i),'OF THE',num2str(length(elements(:,1))),'OF BLOK',num2str(id)},' '))
     switch elements(i,1)
         case 1
@@ -552,7 +571,7 @@ for i = 36:length(elements(:,1))
 
     % Run spice
     system(strjoin({'mv ./LoadAnalysis/spice/load_analysis.sp /tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.sp'},''));
-    system(strjoin({'spectre -format psfascii /tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.sp'},''));
+    system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/load_analysis',num2str(id),'.sp'},''));
     
     for l=1:param.mcruns
         istr=num2str(l+1000);
@@ -702,6 +721,326 @@ end
         xlabel('VOLTAGE DROP R','FontSize', 10,'FontWeight','bold')      
     end
 
+end
+
+function [] = mc_process_data()
+    for i = 1:1681
+        data = load(strjoin({'./LoadAnalysis/mc_raw/loadanalysis_mc',num2str(i),'.mat'},''));
+        element(i,1:8) = data.element;
+        n(:,1) = [data.n_all(:,1);data.n_all(:,2)];
+        n(:,2) = [data.n_all(:,3);data.n_all(:,4)];
+        b(:,1) = [data.b_all(:,1);data.b_all(:,2)];
+        b(:,2) = [data.b_all(:,3);data.b_all(:,4)];
+        tr(:,1) = [data.tr_all(:,1);data.tr_all(:,2)];
+        tr(:,2) = [data.tr_all(:,3);data.tr_all(:,4)];
+        
+	element(i,7) = mean(b(:,1)-n(:,1)); 
+
+        x = [0:0.005:1];
+        dist_type = 'LogNormal';
+        
+        p1 = fitdist(b(:,1),dist_type);
+        cdf_blow = cdf(p1,x);
+        [y i1] = min(abs(cdf_blow-0.001));
+	[y b1] = min(abs(cdf_blow-0.5));
+        
+        p2 = fitdist(b(:,2),dist_type);
+        cdf_blow = cdf(p2,x);
+        [y i2] = min(abs(cdf_blow-0.999));
+        [y b2] = min(abs(cdf_blow-0.5));
+        
+%         figure
+%         hold on
+%         plot(x,cdf(p1,x))
+%         plot([x(i1),x(i1)],[0,1],'r')
+%         plot(x,cdf(p2,x))
+%         plot([x(i2),x(i2)],[0,1],'g')
+              
+       
+%         figure
+%         hold on
+%         plot(x,pdf(p1,x))
+%         plot([x(i1),x(i1)],[0,1],'r')
+%         plot(x,pdf(p2,x))
+%         plot([x(i2),x(i2)],[0,1],'g')
+        
+	element(i,5) = x(b1)-x(b2); %9
+        element(i,9) = x(i1)-x(i2); %9
+        element(i,10) = p1.sigma; %10
+        element(i,11) = p2.sigma; %11
+
+        dist_type = 'LogNormal';
+        x = 0:1e-12:6e-9;
+        
+        p1 = fitdist(tr(:,1),dist_type);
+        p2 = fitdist(tr(:,2),dist_type);
+        p3 = fitdist([tr(:,2);tr(:,1)],dist_type);
+        cdf_tr = cdf(p3,x);
+        [y i3] = min(abs(cdf_tr-0.999));
+	[y i4] = min(abs(cdf_tr-0.5));
+        
+%         figure
+%         hold on
+%         plot(x,pdf(p1,x))
+%         plot(x,pdf(p2,x))
+%         plot(x,pdf(p3,x),'r')
+%         plot([x(i3),x(i3)],[0,1e9],'g')
+        
+        element(i,12) = x(i3); %12
+	element(i,6) = x(i4); %
+	
+	
+    end
+    
+    allmcdata = element;
+    save('./LoadAnalysis/loadanalysis_allmcdata.mat','allmcdata')
+end
+
+function [] = mc_reduce_data()
+
+    data = load('./LoadAnalysis/loadanalysis_allmcdata.mat');
+    disp(strjoin({'START WITH',num2str(length(data.allmcdata(:,1))),'ELEMENTS'},' '))
+    best_elements = sort_data1(data.allmcdata);
+    disp(strjoin({'REDUCED TO',num2str(length(best_elements(:,1))),'ELEMENTS'},' '))
+    best_elements = sort_data2(best_elements,1);
+    disp(strjoin({'ENDED WITH',num2str(length(best_elements(:,1))),'ELEMENTS'},' '))
+%     plot_mcdata(best_elements)
+    
+    function [best_elements] = sort_data1(y)
+        x=y;
+        %plot_data(x)
+        x(:,5) = x(:,5)*-1;
+        
+        x = x(:,5:8);
+        
+        N=size(y,1);
+        f = zeros(N,1);
+
+
+        front=1;
+        elements = N;
+        while (elements > 0)
+            for i=1:N
+               flag = 0;
+               if f(i)==0
+                   rowi = x(i,:);
+                   for j=1:N 
+                        if( (i ~= j) & ( (f(j) == 0 ) | (f(j) == front ) ) )
+                            rowj = x(j,:);
+
+                            if( all(rowj-rowi <= 0) )
+                                if(all(rowj-rowi ~= 0))
+                                    flag = 1;
+                                    break;
+                                end
+                            end
+
+                        end
+                   end
+
+                   if(flag == 0)
+                       f(i) = front;
+                       elements = elements - 1;
+                   end
+
+               end
+            end
+            front=front+1;
+        end
+
+        best_elements = y(find(f==1),:);
+        
+    end
+
+    function [best_elements] = sort_data2(x,savedata)
+        x(:,9) = x(:,9)*-1;
+        
+        N = size(x,1);
+        
+        M = 4;
+        V = 8;
+        
+        x(:,V+M+1) = ones(N,1);
+        
+        [c2,ia,ic] = unique(x(:,V+1:V+M),'rows');
+        x = x(ia,:);
+        
+        out_of_fronts = 0;
+        front = 1;
+        while out_of_fronts == 0
+            x_index = find(x(:,V+M+1) == front);
+            N_new = size(x_index,1);
+            
+            if isempty(x_index)
+                out_of_fronts = 1;
+            else
+                for i = 1:N_new
+                    continu = 1;
+                    x_index_temp = x_index;
+                    x_index_temp(i) = [];
+                    x_temp = x(x_index_temp,:);
+                    k = 0;
+                    while k < M && continu
+                        k=k+1;
+                        f = x(x_index(i),V+k);
+                        x_temp = x_temp(find(x_temp(:,V+k) <= f),:);
+                        if isempty(x_temp)
+                            continu = 0;
+                        elseif k == M
+                            x(x_index(i),V+M+1) = front + 1;
+                        end
+                    end
+                end
+            end
+            front = front+1;
+        end
+        x(:,9) = x(:,9)*-1;
+        
+        %find(x(:,9)>0.08)
+        %x = x(find(x(:,9)>0.08),:)
+        
+        best_elements = x(find(x(:,(V+M+1))==1),1:V+M);
+        
+        
+        if savedata
+            save ./LoadAnalysis/loadanalysis_frontdatamc.mat best_elements
+        end
+    end
+
+end
+
+function [] = mc_contourplot(plotelements,figurenb)
+figure(figurenb)
+
+for i = 1:length(plotelements(:,1))
+    data = find_element(plotelements(i,:));
+    n(:,1) = [data.n_all(:,1);data.n_all(:,2)];
+    n(:,2) = [data.n_all(:,3);data.n_all(:,4)];
+    b = [(data.b_all(:,1)-data.b_all(:,3));(data.b_all(:,2)-data.b_all(:,4));0;0.4];
+    tr = [(data.tr_all(:,1)+data.tr_all(:,3))/2;(data.tr_all(:,2)+data.tr_all(:,4))/2;0;6e-9];
+    
+    xbin=40;
+    x=[min(b):(max(b)-min(b))/xbin:max(b)-(max(b)-min(b))/xbin];
+    ybin=xbin;
+    y=[min(tr):(max(tr)-min(tr))/ybin:max(tr)-(max(tr)-min(tr))/ybin];
+    z=hist3([b,tr],[xbin,ybin]);
+    z(1,1) = 0;
+    z(end,end) = 0;
+    z = 100*z/max(max(z));
+    
+    t = [1,0.9:-0.01:0]';
+    r = ones(length(t),1);
+    g = ones(length(t),1).*t;
+    b = ones(length(t),1).*t;
+    colormap([r,g,b])
+    
+    hold on	
+    [c h] = contour(x,y,z','Fill', 'on');
+    set(h,'LineColor','none')
+    hp = findobj(h,'Type','Patch');
+    set(hp(end),'FaceAlpha',0.4);
+    
+    clear n b tr 
+end
+
+    function [data] = find_element(element)
+        data = load('./LoadAnalysis/loadanalysis_allmcdata.mat');
+        allmcdata = data.allmcdata;
+        allmcdata(isnan(allmcdata))=1000;
+        element(isnan(element))=1000;
+        i = strmatch(element(1,1:4),allmcdata(:,1:4))
+        data = load(strjoin({'./LoadAnalysis/mc_raw/loadanalysis_mc',num2str(i),'.mat'},''));
+    end
+
+end
+
+function [] = mc_pointplot(elements,figurenb)
+    show_3d = 0;
+    c = [[139/255,0,139/255];[0,0,255/255];[50/255,205/255,50/255];[255/255,0,0]]; %color
+    s = 5e15;
+
+    ia = find(elements(:,1)==1);
+    ib = find(elements(:,1)==2);
+    ic = find(elements(:,1)==3);
+    id = find(elements(:,1)==4);
+    elements(:,end+1:end+3) = repmat([1,0,0],length(elements(:,1)),1);
+    elements(ia,end-2:end) = repmat(c(1,:),length(ia),1);
+    elements(ib,end-2:end) = repmat(c(2,:),length(ib),1);
+    elements(ic,end-2:end) = repmat(c(3,:),length(ic),1);
+    elements(id,end-2:end) = repmat(c(4,:),length(id),1);
+    
+    
+    
+    fig1 = figure(figurenb);
+    sh(1) = subplot(2,1,1);
+    hold on
+    a = scatter(elements(ia,5),elements(ia,6),elements(ia,8)*s,elements(ia,end-2:end));
+    b = scatter(elements(ib,5),elements(ib,6),elements(ib,8)*s,elements(ib,end-2:end));
+    c = scatter(elements(ic,5),elements(ic,6),elements(ic,8)*s,elements(ic,end-2:end));
+    d = scatter(elements(id,5),elements(id,6),elements(id,8)*s,elements(id,end-2:end));
+    ylim([0 3e-9])
+    xlim([0 0.4])
+    xlabel('BL(hrs) - BL(lrs) (V)','FontSize', 10,'FontWeight','bold')
+    ylabel('DELAY (ns)','FontSize', 10,'FontWeight','bold')
+    legend([a,b,c,d],'Switch Load','Bias Load','Diode Load','Bulk Load')   
+    
+    sh(2) = subplot(2,1,2);
+    hold on
+    e = scatter(elements(ia,5),elements(ia,7),elements(ia,8)*s,elements(ia,end-2:end));
+    f = scatter(elements(ib,5),elements(ib,7),elements(ib,8)*s,elements(ib,end-2:end));
+    g = scatter(elements(ic,5),elements(ic,7),elements(ic,8)*s,elements(ic,end-2:end));
+    h = scatter(elements(id,5),elements(id,7),elements(id,8)*s,elements(id,end-2:end));
+    ylim([0 0.7])
+    xlim([0 0.4])
+    xlabel('BL(hrs) - BL(lrs) (V)','FontSize', 10,'FontWeight','bold')
+    ylabel('CELL VOLTAGE DROP (V)','FontSize', 10,'FontWeight','bold')
+    legend([a,b,c,d],'Switch Load','Bias Load','Diode Load','Bulk Load')
+    
+     annotation_pinned('rectangle',[0 0 0.08 3e-9],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(1));
+     annotation_pinned('rectangle',[0 0 0.08 0.7],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(2));
+    
+     data = [];
+    
+    if show_3d
+        figure
+        scatter3(elements(:,5),elements(:,6),elements(:,7),s,elements(:,1))
+        %plot3(elements(:,5),elements(:,6),elements(:,7))
+        xlabel('BL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+        ylabel('DELAY','FontSize', 10,'FontWeight','bold')
+        zlabel('CELL VOLTAGE DIFF','FontSize', 10,'FontWeight','bold')
+    end
+    
+end
+
+function [] = mc_analize_data()
+    warning off
+    
+    %DATA AFTER PARETO
+    data = load('./LoadAnalysis/loadanalysis_frontdatamc.mat');
+    elements_all = data.best_elements;
+    mc_pointplot(elements_all,1)
+    
+    %DATA AFTER PARETO + select only bias load
+    data = load('./LoadAnalysis/loadanalysis_frontdatamc.mat');
+    elements_bias = data.best_elements;
+    elements_bias = elements_bias(find(elements_bias(:,1)==2),:);
+    elements_bias = elements_bias(find(elements_bias(:,4)==0),:);
+    mc_pointplot(elements_bias,2)
+    
+    %DATA TO SHOW MC AREA
+    element_bias = elements_bias(2,:);
+    
+    elements_switch = elements_all(find(elements_all(:,1)==1),:);
+    element_switch = elements_switch(1,:);
+    
+    elements_diode = elements_all(find(elements_all(:,1)==3),:);
+    element_diode = elements_diode(3,:);
+    
+    elements_bulk = elements_all(find(elements_all(:,1)==4),:)
+    element_bulk = elements_bulk(2,:);
+    
+    mc_contourplot([element_bias;element_switch;element_diode;element_bulk],3)
+   
 end
 
 function [] = find_unitbit_param(param,noplot)

@@ -18,8 +18,8 @@ parameters sigma_LVT_Vt_p   = (( AdVt_p   /1000)/sqrt(2))*sqrt(1u*1u)
 parameters sigma_LVT_I_I0_n = (( AdI_I0_n /100 )/sqrt(2))*sqrt(1u*1u)
 parameters sigma_LVT_I_I0_p = (( AdI_I0_p /100 )/sqrt(2))*sqrt(1u*1u)
 
-parameters sigma_Rlow= ((10000-5000)/2) 
-parameters sigma_Rhigh= ((35000-30000)/2)
+parameters sigma_Rlow= ((10000-5000)/6) 
+parameters sigma_Rhigh= ((35000-30000)/6)
 
 // these parameters get a new randomly selected value for each instance,
 // independently selected from the appropriate distribution 
@@ -29,7 +29,7 @@ parameters delta_1um_LVT_I_I0_n=0
 parameters delta_1um_LVT_I_I0_p=0
 
 parameters mismatched_Rlow= ((10000-5000)/2) + 5000
-parameters mismatched_Rhigh= ((35000-20000)/2) + 30000
+parameters mismatched_Rhigh= ((35000-30000)/2) + 30000
 
 statistics {
   mismatch{
