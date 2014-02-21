@@ -4,6 +4,9 @@
 simulator lang=spice
 $if param.simulationtype == 'tran' 
 .lib '../../technology_models/tech_wrapper.lib' tt
+$elseif param.simulationtype == 'mres'
+.include 'monte_carlo_res.scs'
+.lib 'tech_wrapper.lib' tt
 $else
 .include './technology_models/monte_carlo_models.scs'
 $end
@@ -21,6 +24,16 @@ $if param.simulationtype == 'tran'
     parameters Rmemcellhl = $<param.Rmemcellhl>$
     parameters Rmemcelllh = $<param.Rmemcelllh>$
     parameters Rmemcellll = $<param.Rmemcellll>$
+$elseif param.simulationtype == 'mres'
+    mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes paramfile="./mcparam.dat" {
+        ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
+    }
+    parameters tp = MOSP
+    parameters tn = MOSN
+    parameters Rmemcellhh = mismatched_Rhigh
+    parameters Rmemcellhl = mismatched_Rhigh
+    parameters Rmemcelllh = mismatched_Rlow
+    parameters Rmemcellll = mismatched_Rlow
 $else
     mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes savefamilyplots=yes {
         ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
@@ -106,6 +119,7 @@ subckt load_bias ( bl sel_load sel_bias gnd vdd)
 mswitch vdd sel_load bl0 vdd tp w=$<param.wswitchbias>$
 mbias bl0 sel_bias bl vdd tp w=$<param.wbias>$
 ends load_bias
+
 
 subckt load_diode ( bl sel_load gnd vdd)
 mswitch vdd sel_load bl0 vdd tp w=$<param.wswitchdiode>$

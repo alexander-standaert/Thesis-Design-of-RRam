@@ -8,7 +8,7 @@ function [] = load_analysis()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% ANALYSIS
      param = gen_sig(param,6);
-%     runspice(param)
+%      runspice(param)
       
     %plot_controlsig({'sel_pulldown','sel_load','wl_1','sel_sl'})
     %plot_controlsig({'wl_1','wl_2','wl_3','wl_4'})
@@ -20,10 +20,10 @@ function [] = load_analysis()
     %  data = load('./LoadAnalysis/loadanalysis_alldata.mat');
     %  data = data.all_elements
     %  plot_data(data)
-    %data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
-    %data = data.best_elements
+%     data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
+%     data = data.best_elements
     % % selecteddata = plot_data(data)
-    %run_mc(data,param,300,1,1,1,str2num(simid))
+%     run_mc(data(1,:),param,300,1,1,1,1)
     % run_mc([[2,100e-9,210e-9,1,0.210739944779165,0.000000001502476,0.059856054676761,0.000000000000014]],param,200,1,1,1)
 %     la_reduce_data()
     
@@ -33,8 +33,8 @@ function [] = load_analysis()
     % find_unitbit_param(gen_sig(param,15),1)
     %data_stats(data)
     
-%     element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000]
-%           mc_run_ref(element,param,50)
+     element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000]
+%      mc_run_res(element,param,50)
       mc_analize_data()
 end
 
@@ -919,6 +919,135 @@ function [] = mc_run(elements,param,mc_runs,noplot,id,nb_id,startele)
     
 end
 
+function [] = mc_run_res(element,param,mc_runs)
+    
+    param.simulationtype = 'mres';
+    param.VtMismatch = 1;
+    param.BMismatch = 0;
+    param.mcruns = mc_runs;
+    
+    switch element(1)
+        case 1
+            loadtype = 'switch';
+            param.wswitchswitch = element(2);
+        case 2
+            loadtype = 'bias';
+            param.wswitchbias = element(2);
+            param.wbias = element(3);
+            param.vbias = element(4);
+        case 3
+            loadtype = 'diode';
+            param.wswitchdiode = element(2);
+            param.wdiode = element(3);
+        case 4
+            loadtype = 'bulk';
+            param.wswitchbulk = element(2);
+            param.wbulk = element(3);
+        otherwise
+            loadtype = 1;
+            error('unknown element type')
+    end  
+    
+    inputfile = 'load_analysis.m2s';
+    
+    [currentpath,~,~] = fileparts(which(mfilename));
+    
+    mat2spicepath = strcat(currentpath,'/',inputfile);
+    spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
+    
+    mat2spice(mat2spicepath,spicepath,param)
+    clear inputfile currentpath mat2spicepath spicepath
+    
+    % Run spice
+    system(strjoin({'mv ./LoadAnalysis/spice/load_analysis.sp /tmp/s0211331-loadana/spice/load_analysis.sp'},''));
+    system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/load_analysis.sp'},''));
+    
+    for l=1:param.mcruns
+        istr=num2str(l+1000);
+        istr=istr(end-2:end);
+        [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+        
+        [b,tr,n] = gatherdata(sim,loadtype);
+        b_all(l,:) = b;
+        tr_all(l,:) = tr;
+        
+    end
+    b_all = [b_all(:,1);b_all(:,2);b_all(:,3);b_all(:,4)];
+    tr_all = [tr_all(:,1);tr_all(:,2)];
+    save(strjoin({'./LoadAnalysis/loadanalysis_mcres.mat'},''),'b_all','tr_all','element')
+    
+    function [b,tr,n] = gatherdata(sim,branch)
+        
+        sig = sim.getSignal(strcat('bl_',branch));
+        sigx = sig.getXValues*10^9;
+        sigy = sig.getYValues;
+        
+        ts_hh = 2;
+        ts_hl = 10;
+        ts_lh = 18;
+        ts_ll = 26;
+        
+        t_hh = 8;
+        t_hl = 16;
+        t_lh = 24;
+        t_ll = 32;
+        
+        [Y, i_hh] = min(abs(sigx - t_hh));
+        [Y, i_hl] = min(abs(sigx - t_hl));
+        [Y, i_lh] = min(abs(sigx - t_lh));
+        [Y, i_ll] = min(abs(sigx - t_ll));
+        
+        [Y, l_hh] = min(abs(sigx - ts_hh));
+        [Y, l_hl] = min(abs(sigx - ts_hl));
+        [Y, l_lh] = min(abs(sigx - ts_lh));
+        [Y, l_ll] = min(abs(sigx - ts_ll));
+        
+        b_hh = sigy(i_hh);
+        b_hl = sigy(i_hl);
+        b_lh = sigy(i_lh);
+        b_ll = sigy(i_ll);
+        
+        st_limit = 0.1;
+        
+        [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+        [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+        [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+        [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+        
+        tst_hh = sigx(k_hh+l_hh);
+        tst_hl = sigx(k_hl+l_hl);
+        tst_lh = sigx(k_lh+l_lh);
+        tst_ll = sigx(k_ll+l_ll);
+        
+        tr_hh = (tst_hh - ts_hh)*10^-9;
+        tr_hl = (tst_hl - ts_hl)*10^-9;
+        tr_lh = (tst_lh - ts_lh)*10^-9;
+        tr_ll = (tst_ll - ts_ll)*10^-9;
+        
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+        sigy = sig.getYValues;
+        n_hh = sigy(i_hh);
+        
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+        sigy = sig.getYValues;
+        n_hl = sigy(i_hl);
+        
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+        sigy = sig.getYValues;
+        n_lh = sigy(i_lh);
+        
+        sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+        sigy = sig.getYValues;
+        n_ll = sigy(i_ll);
+        
+        b = [b_hh,b_hl,b_lh,b_ll];
+        tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+        n = [n_hh,n_hl,n_lh,n_ll];
+        
+    end
+    
+end
+
 function [] = mc_run_ref(element,param,mc_runs)
     
     param.simulationtype = 'mont';
@@ -1006,8 +1135,8 @@ function [] = mc_run_ref(element,param,mc_runs)
         tr_all(l,:) = tr;
         
     end
-    b_all = [b_all(:,1);b_all(:,1)];
-    tr_all = [tr_all(:,1);tr_all(:,1)];
+    b_all = [b_all(:,1);b_all(:,2)];
+    tr_all = [tr_all(:,1);tr_all(:,2)];
     save(strjoin({'./LoadAnalysis/loadanalysis_mcref.mat'},''),'b_all','tr_all','element')
     
     function [b,tr,n] = gatherdata(sim,branch)
@@ -1319,8 +1448,8 @@ function [] = mc_contourplot(plotmcelements,figurenb)
     sh(1) = subplot(2,1,1);
     legend('Bias Load','Switch Load','Diode Load','Bulk Load')
     
-    annotation_pinned('rectangle',[0 0 0.08 3e-9],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(1));
-    annotation_pinned('rectangle',[0 0 0.08 0.7],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(2));
+%     annotation_pinned('rectangle',[0 0 0.08 3e-9],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(1));
+%     annotation_pinned('rectangle',[0 0 0.08 0.7],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(2));
     
     function [data] = find_element(element)
         data = load('./LoadAnalysis/loadanalysis_allmcdata.mat');
@@ -1375,9 +1504,9 @@ function [] = mc_pointplot(elements,figurenb)
     ylabel('CELL VOLTAGE DROP (V)','FontSize', 12,'FontWeight','bold')
     legend([a,b,c,d],'Switch Load','Bias Load','Diode Load','Bulk Load')
     
-    annotation_pinned('rectangle',[0 0 0.08 3e-9],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(1));
-    annotation_pinned('rectangle',[0 0 0.08 0.7],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(2));
-    
+%     annotation_pinned('rectangle',[0 0 0.08 3e-9],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(1));
+%     annotation_pinned('rectangle',[0 0 0.08 0.7],'FaceAlpha',0.5,'FaceColor',[1 0 0.2],'Color','none','axes',sh(2));
+%     
     data = [];
     
     if show_3d

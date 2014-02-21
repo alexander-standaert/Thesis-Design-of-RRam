@@ -1,0 +1,14 @@
+
+parameters sigma_Rlow= ((10000-5000)/6) 
+parameters sigma_Rhigh= ((35000-30000)/6)
+
+parameters mismatched_Rlow= ((10000-5000)/2) + 5000
+parameters mismatched_Rhigh= ((35000-30000)/2) + 30000
+
+statistics {
+  mismatch{	
+    vary mismatched_Rlow dist=gauss std=sigma_Rlow
+    vary mismatched_Rhigh dist=gauss std=sigma_Rhigh
+  }
+}
+
