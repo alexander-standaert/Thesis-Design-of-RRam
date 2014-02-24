@@ -18,7 +18,7 @@ $end
 
 $for i=0:sp.NoBLpLB-1
 xBranch$<i>$ (vdd vss BL$<strcat('_',int2str(i))>$ $<bus('WL',[0:sp.NoWLpB-1])>$ SelLbarbar$<strcat('_',int2str(i))>$ SelLbarbarbar$<strcat('_',int2str(i))>$ SelLbar$<strcat('_',int2str(i))>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$
-xM$<i>$ BL$<strcat('_',int2str(i))>$ SelBL$<strcat('_',int2str(i))>$ BLout NBulkLine mc_nmos_lvt w=PWmuxLB l=PLmin
+xM$<i>$ BL$<strcat('_',int2str(i))>$ SelLbarbar$<strcat('_',int2str(i))>$ BLout NBulkLine mc_nmos_lvt w=PWmuxLB l=PLmin
 cParWL$<i>$ WL$<strcat('_',int2str(i))>$ vss capacitor c=Cpar*$<sp.NoWLpB>$
 $end
 

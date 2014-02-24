@@ -1,6 +1,6 @@
 function [yield,tdelay,E,Pstat] = MClatch( DeltaV,multP,multN,multPen,multNen )
 % tic
-sp.numruns = 999;
+sp.numruns = 200;
 
 sp.Pmult=multP;
 sp.Nmult=multN;
@@ -27,15 +27,15 @@ system('spectre ./LatchAnalysis/BasicLatch/test.scs');
 correct=zeros(sp.numruns,1);
 td=[];
 sim=[];
-figure(1)
-subplot(1,2,1)
-xlabel('time [ns]')
-ylabel('voltage [V]')
-hold all
-subplot(1,2,2)
-xlabel('time [ns]')
-ylabel('voltage [V]')
-hold all
+% figure(1)
+% subplot(1,2,1)
+% xlabel('time [ns]')
+% ylabel('voltage [V]')
+% hold all
+% subplot(1,2,2)
+% xlabel('time [ns]')
+% ylabel('voltage [V]')
+% hold all
 
 tdelayvector=[];
 correctvector=[];
@@ -68,16 +68,16 @@ correctvector=[correctvector;correct];
 Evector = [Evector;E];
 Pstatvector = [Pstatvector;Pstat];
 
-figure(1)
-subplot(1,2,1)
-plot(t*1e9,(v1))
-subplot(1,2,2)
-plot(t*1e9,v2)
+% figure(1)
+% subplot(1,2,1)
+% plot(t*1e9,(v1))
+% subplot(1,2,2)
+% plot(t*1e9,v2)
 end
-subplot(1,2,1)
-hold off
-subplot(1,2,2)
-hold off
+% subplot(1,2,1)
+% hold off
+% subplot(1,2,2)
+% hold off
 yield=mean(correctvector)
 tdelay=mean(tdelayvector)
 E=mean(Evector)

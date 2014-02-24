@@ -8,7 +8,6 @@ include "parameters.sp"
 xGlobal0 (vdd vss NBulkLine PBulkLine
 +$<grid('LWLencoded',[0:1],[0:log2(sp.NoWLpB)-1])>$
 +$<grid('LBLencoded',[0:1],[0:log2(sp.NoBLpLB)-1])>$
-+$<bus('WLenable',[0,1])>$ $<bus('BLenable',[0,1])>$
 +$<bus('SelLB',[0:1])>$
 +InOut InOutbar EnableSAP EnableSAN
 +$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect Refcharge RefDischarge)       
