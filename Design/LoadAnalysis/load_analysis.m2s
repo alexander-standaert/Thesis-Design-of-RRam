@@ -5,10 +5,13 @@ simulator lang=spice
 $if param.simulationtype == 'tran' 
 .lib '../../technology_models/tech_wrapper.lib' tt
 $elseif param.simulationtype == 'mres'
-.include 'monte_carlo_res.scs'
-.lib 'tech_wrapper.lib' tt
+//.include 'monte_carlo_res.scs'
+//.lib 'tech_wrapper.lib' tt
+.include '../../technology_models/monte_carlo_res.scs'
+.lib '../../technology_models/tech_wrapper.lib' tt
 $else
 .include './technology_models/monte_carlo_models.scs'
+.include './technology_models/monte_carlo_res.scs'
 $end
 
 .OPTIONS METHOD=trap
@@ -25,27 +28,32 @@ $if param.simulationtype == 'tran'
     parameters Rmemcelllh = $<param.Rmemcelllh>$
     parameters Rmemcellll = $<param.Rmemcellll>$
 $elseif param.simulationtype == 'mres'
-    mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes paramfile="./mcparam.dat" {
+	mc montecarlo
+	+ donominal=no variations=mismatch
+	+ seed=1234
+	+ numruns=$<param.mcruns>$
+	+ firstrun=1
+	+ saveprocessparams=yes
+	+ savefamilyplots= yes {
         ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
     }
+
     parameters tp = MOSP
     parameters tn = MOSN
-    parameters Rmemcellhh = mismatched_Rhigh
-    parameters Rmemcellhl = mismatched_Rhigh
-    parameters Rmemcelllh = mismatched_Rlow
-    parameters Rmemcellll = mismatched_Rlow
 $else
-    mc montecarlo donominal=no variations=mismatch seed=1234 numruns=$<param.mcruns>$ firstrun=1 saveprocessparams=yes savefamilyplots=yes {
+    mc montecarlo
+	+ donominal=no variations=mismatch
+	+ seed=1234
+	+ numruns=$<param.mcruns>$
+	+ firstrun=1
+	+ saveprocessparams=yes
+	+ savefamilyplots= yes {
         ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
     }
-    parameters tp = mc_pmos_lvt
+	parameters tp = mc_pmos_lvt
     parameters tn = mc_nmos_lvt
     parameters enableVtMismatch=$<param.VtMismatch>$
     parameters enableBMismatch=$<param.BMismatch>$
-    parameters Rmemcellhh = mismatched_Rhigh
-    parameters Rmemcellhl = mismatched_Rhigh
-    parameters Rmemcelllh = mismatched_Rlow
-    parameters Rmemcellll = mismatched_Rlow
     
 $end
 

@@ -18,8 +18,10 @@ parameters sigma_LVT_Vt_p   = (( AdVt_p   /1000)/sqrt(2))*sqrt(1u*1u)
 parameters sigma_LVT_I_I0_n = (( AdI_I0_n /100 )/sqrt(2))*sqrt(1u*1u)
 parameters sigma_LVT_I_I0_p = (( AdI_I0_p /100 )/sqrt(2))*sqrt(1u*1u)
 
-parameters sigma_Rlow= ((10000-5000)/6) 
-parameters sigma_Rhigh= ((35000-30000)/6)
+parameters sigma_LVT_Vt_n_corr   = (( AdVt_n   /1000)/sqrt(2))*sqrt(1u*1u) 
+parameters sigma_LVT_Vt_p_corr   = (( AdVt_p   /1000)/sqrt(2))*sqrt(1u*1u)
+parameters sigma_LVT_I_I0_n_corr = (( AdI_I0_n /100 )/sqrt(2))*sqrt(1u*1u)
+parameters sigma_LVT_I_I0_p_corr = (( AdI_I0_p /100 )/sqrt(2))*sqrt(1u*1u)
 
 // these parameters get a new randomly selected value for each instance,
 // independently selected from the appropriate distribution 
@@ -28,8 +30,11 @@ parameters delta_1um_LVT_Vt_p=0
 parameters delta_1um_LVT_I_I0_n=0
 parameters delta_1um_LVT_I_I0_p=0
 
-parameters mismatched_Rlow= ((10000-5000)/2) + 5000
-parameters mismatched_Rhigh= ((35000-30000)/2) + 30000
+parameters delta_1um_LVT_Vt_n_corr=0
+parameters delta_1um_LVT_Vt_p_corr=0
+parameters delta_1um_LVT_I_I0_n_corr=0
+parameters delta_1um_LVT_I_I0_p_corr=0
+
 
 statistics {
   mismatch{
@@ -37,10 +42,11 @@ statistics {
     vary delta_1um_LVT_Vt_p   dist=gauss std=sigma_LVT_Vt_p
     vary delta_1um_LVT_I_I0_n dist=gauss std=sigma_LVT_I_I0_n
     vary delta_1um_LVT_I_I0_p dist=gauss std=sigma_LVT_I_I0_p
-	
-    vary mismatched_Rlow dist=gauss std=sigma_Rlow
-    vary mismatched_Rhigh dist=gauss std=sigma_Rhigh
 
+    vary delta_1um_LVT_Vt_n_corr   dist=gauss std=sigma_LVT_Vt_n_corr
+    vary delta_1um_LVT_Vt_p_corr   dist=gauss std=sigma_LVT_Vt_p_corr
+    vary delta_1um_LVT_I_I0_n_corr dist=gauss std=sigma_LVT_I_I0_n_corr
+    vary delta_1um_LVT_I_I0_p_corr dist=gauss std=sigma_LVT_I_I0_p_corr
   }
 }
 
