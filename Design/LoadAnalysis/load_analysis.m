@@ -28,16 +28,17 @@ function [] = load_analysis()
 %     la_reduce_data()
     
     
-%      la_analize_data()
+%       la_analize_data()
 
     % find_unitbit_param(gen_sig(param,15),1)
     %data_stats(data)
     
      element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000]
 %mc_run(element,param,1,1,1,1,1) 
-mc_run_bestcase(element,param,2)
-% mc_run_res(element,param,1)
+%   mc_run_ref(element,param,50,20)
+ mc_analize_ref()
 %      mc_analize_data()
+% mc_finalload(param)
 end
 
 function [param] = init_param(param)
@@ -517,7 +518,7 @@ function [] = la_analize_data()
      param.stoptime = 34*10^-9;
      runspice(param)
     
-    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_1','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
+    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_2','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
     annotation(f,'rectangle',...
         [0.21273964131107 0.110642781875659 0.691947858688931 0.816649104320337],...
         'LineStyle','none',...
@@ -527,7 +528,7 @@ function [] = la_analize_data()
     set(gcf, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
     print(gcf,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/controlsig1.png');
 
-    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_1','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
+    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_2','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
     annotation(f,'rectangle',...
         [0.129166666666667 0.110642781875659 0.0835729746444033 0.816649104320337],...
         'LineStyle','none',...
@@ -541,7 +542,7 @@ function [] = la_analize_data()
     set(gcf, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
     print(gcf,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/controlsig2.png');
     
-    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_1','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
+    f = plot_controlsig({'sel_sl','sel_pulldown','sel_load','wl_2','bl_bias'},[8.1 16.1],[],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
     annotation(f,'rectangle',...
         [0.128571428571429 0.110642781875659 0.1875 0.816649104320337],...
         'LineStyle','none',...
@@ -552,7 +553,7 @@ function [] = la_analize_data()
     print(gcf,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/controlsig3.png');
 
     % LA OBJECTIVES
-%      f = plot_controlsig({'bl_bias'},[9.5 16.1],[-0.1,0.5],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
+     f = plot_controlsig({'bl_bias'},[9.5 16.1],[-0.1,0.5],'./LoadAnalysis/spice/load_analysis.raw/ana.tran')
 
     % LA SWEEP
     data = load('./LoadAnalysis/loadanalysis_alldata.mat');
@@ -923,12 +924,15 @@ function [] = mc_run(elements,param,mc_runs,noplot,id,nb_id,startele)
     
 end
 
-function [] = mc_run_bestcase(element,param,mc_runs)
+function [] = mc_run_finalload(element,param,mc_runs,savename)
     param.simulationtype = 'mont';
     param.VtMismatch = 1;
     param.BMismatch = 0;
     param.mcruns = mc_runs;
-    
+    param.delta_Ip = 0;
+    param.delta_Vp = 0;
+    param.delta_Ip2 = 0;
+    param.delta_Vp2 = 0;
     
     switch element(1)
         case 1
@@ -951,7 +955,7 @@ function [] = mc_run_bestcase(element,param,mc_runs)
             loadtype = 1;
             error('unknown element type')
     end
-    
+       
     inputfile = 'final_load_analysis.m2s';
     
     [currentpath,~,~] = fileparts(which(mfilename));
@@ -962,36 +966,131 @@ function [] = mc_run_bestcase(element,param,mc_runs)
     mat2spice(mat2spicepath,spicepath,param)
     clear inputfile currentpath mat2spicepath spicepath
     
-    % make Sim folders
-    system('rm -rf /tmp/s0211331-loadana/');
-    system('mkdir /tmp/s0211331-loadana/');
-    system('mkdir /tmp/s0211331-loadana/spice');
-    system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
-    system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
-    system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
-    system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
-    system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
-    
-    
-    % Run spice
-    system(strjoin({'mv ./LoadAnalysis/spice/final_load_analysis.sp /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
-    system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
-    
-    for l=1:param.mcruns
-        istr=num2str(l+1000);
-        istr=istr(end-2:end);
-        [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/final_load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+    if strcmp(param.fullmcsim,'yes')
+        % make Sim folders
+        system('rm -rf /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/spice');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+
+
+        % Run spice
+        system(strjoin({'mv ./LoadAnalysis/spice/final_load_analysis.sp /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
+
+        for l=1:param.mcruns
+            istr=num2str(l+1000);
+            istr=istr(end-2:end);
+            [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/final_load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+
+            [b,tr,n] = gatherdata(sim,loadtype);
+            b_all(l,:) = b;
+            tr_all(l,:) = tr;
+            n_all(l,:) = n;
+            [b,tr,n] = gatherdata(sim,'ref');
+            b_refall(l,:) = b;
+            tr_refall(l,:) = tr;
+            n_refall(l,:) = n;
+        end
+        b_all = [b_all(:,1),b_all(:,3);b_all(:,2),b_all(:,4)];
+        tr_all = [tr_all(:,1),tr_all(:,3);tr_all(:,2),tr_all(:,4)];
+        n_all = [n_all(:,1),n_all(:,3);n_all(:,2),n_all(:,4)];
+
+        b_refall = [b_refall(:,1);b_refall(:,2)];
+        tr_refall = [tr_refall(:,1);tr_refall(:,2)];
+        n_refall = [n_refall(:,1);n_refall(:,2)];
+
+        save(strjoin({'./LoadAnalysis/',savename},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+    else
         
-        [b,tr,n] = gatherdata(sim,loadtype);
-        b_all(l,:) = b;
-        tr_all(l,:) = tr;
-        n_all(l,:) = n;
-    end
-    b_all = [b_all(:,1),b_all(:,3);b_all(:,2),b_all(:,4)];
-    tr_all = [tr_all(:,1),tr_all(:,3);tr_all(:,2),tr_all(:,4)];
-    n_all = [n_all(:,1),n_all(:,3);n_all(:,2),n_all(:,4)];
+        param.mcruns = 50;
+        for k=1:mc_runs
+            AdVt_p = 2.5;    
+            AdI_I0_p = 1.2;  
+            sigma_LVT_Vt_p   = (( AdVt_p   /1000)/sqrt(2))*sqrt(1e-6*1e-6);
+            sigma_LVT_I_I0_p = (( AdI_I0_p /100 )/sqrt(2))*sqrt(1e-6*1e-6);
+            
+            a=[4:0.02:6]*1e-9;
+            b=[2:0.02:3]*1e-8;
+            
+            param.delta_Ip = b(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_I_I0_p);
+            param.delta_Vp = a(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_Vt_p);
+            param.delta_Ip2 = b(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_I_I0_p);
+            param.delta_Vp2 = a(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_Vt_p);
+            
+            inputfile = 'final_load_analysis.m2s';
     
-    save('./LoadAnalysis/loadanalysis_mc_finalload','b_all','tr_all','n_all','element')
+            [currentpath,~,~] = fileparts(which(mfilename));
+
+            mat2spicepath = strcat(currentpath,'/',inputfile);
+            spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
+
+            mat2spice(mat2spicepath,spicepath,param)
+            clear inputfile currentpath mat2spicepath spicepath
+            
+            % make Sim folders
+            system('rm -rf /tmp/s0211331-loadana/');
+            system('mkdir /tmp/s0211331-loadana/');
+            system('mkdir /tmp/s0211331-loadana/spice');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+
+
+            % Run spice
+            system(strjoin({'mv ./LoadAnalysis/spice/final_load_analysis.sp /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
+            system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/final_load_analysis.sp'},''));
+
+            for l=1:param.mcruns
+                istr=num2str(l+1000);
+                istr=istr(end-2:end);
+                [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/final_load_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+
+                [b,tr,n] = gatherdata(sim,loadtype);
+                b_all(l,:) = b;
+                [b,tr,n] = gatherdata(sim,'ref');
+                b_ref(l,:) = b;
+            end
+            dist_type = 'Normal';
+            x = [0:0.005:1];
+            b_high = fitdist([b_all(:,1);b_all(:,2)],dist_type);
+            cdf_blow = cdf(b_high,x);
+            [y i1] = min(abs(cdf_blow-0.001));
+            
+            b_min(k) = x(i1)
+            
+            x = [0:0.005:1];
+            b_low = fitdist([b_all(:,3);b_all(:,4)],dist_type);
+            cdf_blow = cdf(b_low,x);
+            [y i1] = min(abs(cdf_blow-0.999));
+            
+            b_max(k) = x(i1)
+            
+            x = [0:0.005:1];
+            b_refd = fitdist([b_ref(:,1);b_ref(:,2)],dist_type);
+            cdf_blow = cdf(b_refd,x);
+            [y i1] = min(abs(cdf_blow-0.001));
+            [y i2] = min(abs(cdf_blow-0.999));
+            
+            b_refmin(k) = x(i1)
+            b_refmax(k) = x(i2)
+            
+            vt1(k) = param.delta_Vp
+            ip1(k) = param.delta_Ip
+            vt2(k) = param.delta_Vp2
+            ip2(k) = param.delta_Ip2
+            
+            
+            save(strjoin({'./LoadAnalysis/',savename},''),'b_min','b_max','b_refmin','b_refmax','vt1','ip1','vt2','ip2','element')
+        end
+        save(strjoin({'./LoadAnalysis/',savename},''),'b_min','b_max','vt','ip','element')
+    end
     
     function [b,tr,n] = gatherdata(sim,branch)
         
@@ -1196,35 +1295,17 @@ function [] = mc_run_res(element,param,mc_runs)
     
 end
 
-function [] = mc_run_ref(element,param,mc_runs)
+function [] = mc_run_ref(element,param,mc_runs,refcellnb)
     
     param.simulationtype = 'mont';
     param.VtMismatch = 1;
     param.BMismatch = 0;
     param.mcruns = mc_runs;
     
-    switch element(1)
-        case 1
-            loadtype = 'switch';
-            param.wswitchswitch = element(2);
-        case 2
-            loadtype = 'bias';
-            param.wswitchbias = element(2);
-            param.wbias = element(3);
-            param.vbias = element(4);
-        case 3
-            loadtype = 'diode';
-            param.wswitchdiode = element(2);
-            param.wdiode = element(3);
-        case 4
-            loadtype = 'bulk';
-            param.wswitchbulk = element(2);
-            param.wbulk = element(3);
-        otherwise
-            loadtype = 1;
-            error('unknown element type')
-    end
-    
+    param.wswitchbias = element(2);
+    param.wbias = element(3);
+    param.vbias = element(4);
+        
     param.senstime = 6;
     
     wave_sel_pulldown = makewave('vsel_pulldown',[0.1,0.8,1]*1e-9,[0,1,0]);
@@ -1258,34 +1339,47 @@ function [] = mc_run_ref(element,param,mc_runs)
     param.sel_bulk = allwaves.vsel_bulk;
     param.sel_sl = allwaves.vsel_sl;
     
+    for k = 1:refcellnb
+        param.refnb = k;
     
-    inputfile = 'ref_analysis.m2s';
-    
-    [currentpath,~,~] = fileparts(which(mfilename));
-    
-    mat2spicepath = strcat(currentpath,'/',inputfile);
-    spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
-    
-    mat2spice(mat2spicepath,spicepath,param)
-    clear inputfile currentpath mat2spicepath spicepath
-    
-    % Run spice
-    system(strjoin({'mv ./LoadAnalysis/spice/ref_analysis.sp /tmp/s0211331-loadana/spice/ref_analysis.sp'},''));
-    system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/ref_analysis.sp'},''));
-    
-    for l=1:param.mcruns
-        istr=num2str(l+1000);
-        istr=istr(end-2:end);
-        [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/ref_analysis.raw/mc-',istr,'_ana.tran'), '.*');
-        
-        [b,tr] = gatherdata(sim,loadtype);
-        b_all(l,:) = b;
-        tr_all(l,:) = tr;
-        
+        inputfile = 'ref_analysis.m2s';
+
+        [currentpath,~,~] = fileparts(which(mfilename));
+
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
+
+        mat2spice(mat2spicepath,spicepath,param)
+        clear inputfile currentpath mat2spicepath spicepath
+
+        % make Sim folders
+        system('rm -rf /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/spice');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+
+        % Run spice
+        system(strjoin({'mv ./LoadAnalysis/spice/ref_analysis.sp /tmp/s0211331-loadana/spice/ref_analysis.sp'},''));
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/ref_analysis.sp'},''));
+
+        for l=1:param.mcruns
+            istr=num2str(l+1000);
+            istr=istr(end-2:end);
+            [sim, ~] = readPsfAscii(strcat('/tmp/s0211331-loadana/spice/ref_analysis.raw/mc-',istr,'_ana.tran'), '.*');
+
+            [b,tr] = gatherdata(sim,'bias');
+            b_all(l,:) = b;
+            tr_all(l,:) = tr;
+
+        end
+        b_all = [b_all(:,1);b_all(:,2)];
+        save(strjoin({'./LoadAnalysis/mc_ref/loadanalysis_mcref',num2str(k),'.mat'},''),'b_all','tr_all','element')
+        clear b_all tr_all
     end
-    b_all = [b_all(:,1);b_all(:,2)];
-    tr_all = [tr_all(:,1);tr_all(:,2)];
-    save(strjoin({'./LoadAnalysis/loadanalysis_mcref.mat'},''),'b_all','tr_all','element')
     
     function [b,tr,n] = gatherdata(sim,branch)
         
@@ -1803,6 +1897,169 @@ function [] = mc_analize_data()
     set(f4, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 500]/r);
     print(f4,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/mc_finalload_bl.png');
     
+end
+
+function [] = mc_finalload(param)
+    element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000];
+    param.fullmcsim = 'noo';
+%      mc_run_finalload(element,param,500,'loadanalysis_mc_finalloadextrems')
+    
+     data = load('./LoadAnalysis/loadanalysis_mc_finalload.mat');
+     b_memhigh = data.b_min;
+     b_memlow = data.b_max;
+     b_refhigh = data.b_refmax;
+     b_reflow = data.b_refmin;
+     switch_vt = data.vt1;
+     switch_i = data.ip1;
+     bias_vt = data.vt2;
+     bias_i = data.ip2;
+     
+%      x = [-1:0.005:1];
+%     figure
+%     p_diff_bl = fitdist(b_memhigh(:)-b_memlow(:),'Kernel');
+%     plot(x,pdf(p_diff_bl,x),'LineWidth',3)
+%     xlim([0,0.2])
+%     xlabel('CDF(HRS)<0.001 - CDF(LRS)>0.999 (V)','FontSize', 12,'FontWeight','bold')
+%     ylabel('PDF','FontSize', 12,'FontWeight','bold')
+%     
+%     figure
+%     hold on
+%     p_diff_bl = fitdist(b_memhigh(:)-b_refhigh(:),'Normal');
+%     plot(x,pdf(p_diff_bl,x),'LineWidth',3)
+%     area([-1:0.005:0],pdf(p_diff_bl,[-1:0.005:0]),'FaceColor','r')
+%     xlim([-0.2,0.2])
+%     xlabel('CDF(HRS)<0.001 - CDF(LRS)>0.999 (V)','FontSize', 12,'FontWeight','bold')
+%     ylabel('PDF','FontSize', 12,'FontWeight','bold')
+%     
+%     figure
+%     hold on
+%     p_diff_bl = fitdist(b_reflow(:)-b_memlow(:),'Normal');
+%     plot(x,pdf(p_diff_bl,x),'LineWidth',3)
+%     area([-1:0.005:0],pdf(p_diff_bl,[-1:0.005:0]),'FaceColor','r')
+%     xlim([-0.2,0.2])
+%     xlabel('CDF(HRS)<0.001 - CDF(LRS)>0.999 (V)','FontSize', 12,'FontWeight','bold')
+%     ylabel('PDF','FontSize', 12,'FontWeight','bold')
+%     
+%     i1 = find((b_memhigh(:)-b_refhigh(:))<0)
+%     i2 = find((b_memhigh(:)-b_memlow(:))<0.1)
+%     i3 = find((b_reflow(:)-b_memlow(:))<0)
+    
+    
+    
+    f1 = figure
+    hold on
+    [B, IX] = sort(b_memhigh)
+    plot(b_refhigh(IX),'r')
+    plot(b_reflow(IX),'r')
+    plot(b_memhigh(IX))
+    plot(b_memlow(IX))
+    ylim([0.2,0.6])
+    ylabel('BL voltage (V)','FontSize', 12,'FontWeight','bold')
+    xlabel('SAMPLES','FontSize', 12,'FontWeight','bold')
+    
+    r = 150; % pixels per inch
+    set(f1, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 500]/r);
+    print(f1,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_samples_blv.png');
+    
+    f2 = figure
+    subplot(2,1,1)
+    hold on
+    [B, IX] = sort(b_memhigh)
+    plot(b_memhigh(IX))
+    plot(b_memlow(IX))
+    ylim([0.2,0.6])
+    ylabel('BL voltage (V)','FontSize', 12,'FontWeight','bold')
+    xlabel('SAMPLES','FontSize', 12,'FontWeight','bold')
+    subplot(2,1,2)
+    plot(switch_vt(IX)./(sqrt(100e-9*45e-9)))
+    ylabel('Vt mismatch voltage SWITCH (V)','FontSize', 12,'FontWeight','bold')
+    xlabel('SAMPLES','FontSize', 12,'FontWeight','bold')
+    
+    r = 150; % pixels per inch
+    set(f2, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+    print(f2,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_samples_blv2.png');
+
+%     
+%     x = 1:500;
+%     p1 = 2.7403e-16
+%     p2 = -4.2881e-13
+%     p3 = 2.5664e-10
+%     p4 = -7.1197e-08
+%     p5 = 8.5495e-06
+%     p6 = -6.5232e-05
+%     p7 = 0.38017
+    %     y = p1*x.^6 + p2*x.^5 + p3*x.^4 + p4*x.^3 + p5*x.^2 + p6*x + p7
+%     plot(x,y,'g')
+%     
+%     p1 = -7.6044e-21
+%     p2 = 1.555e-17
+%     p3 = -1.2866e-14
+%     p4 = 5.5018e-12
+%     p5 = -1.2846e-09
+%     p6 = 1.5919e-07
+%     p7 = -9.7478e-06
+%     p8 = 0.00045537
+%     p9 = 0.31245
+%     
+%     y = p1*x.^8 + p2*x.^7 + p3*x.^6 + p4*x.^5 + p5*x.^4 + p6*x.^3 + p7*x.^2 + p8*x + p9
+%     plot(x,y,'g')
+
+    f3 = figure
+    hold on
+    [B, IX] = sort(b_refhigh)
+    plot(b_memhigh(IX))
+    plot(b_memlow(IX))
+    plot(b_refhigh(IX),'r')
+    plot(b_reflow(IX),'r')
+    ylim([0.2,0.6])
+    ylabel('BL voltage (V)','FontSize', 12,'FontWeight','bold')
+    xlabel('SAMPLES','FontSize', 12,'FontWeight','bold')
+    
+    
+%     r = 150; % pixels per inch
+%     set(f2, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f2,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_samples_blv2.png');
+
+    
+end
+
+function [] = mc_analize_ref()
+   refcellnb = 18;
+   
+   f = figure;
+   hold on
+   l = refcellnb;
+   cc = [[(1-(1/l)):-(1/l):0]',ones(l,1)*0,[0:(1/l):(1-(1/l))]'];
+   for i = refcellnb:-1:1
+       data = load(strjoin({'./LoadAnalysis/mc_ref/loadanalysis_mcref',num2str(i),'.mat'},''));
+       b = data.b_all;
+       
+       x = [0.24:0.001:0.5];
+       p_b = fitdist(b(:),'Normal');
+       plot(x,pdf(p_b,x),'LineWidth',3,'Color',cc(i,:));
+       xlim([0.25,0.5]);
+       
+       if i == refcellnb
+          cdf_blow = cdf(p_b,x);
+           [y i1] = min(abs(cdf_blow-0.999));
+           [y i2] = min(abs(cdf_blow-0.001));
+           plot([x(i1),x(i1)],[0,30],'b','LineWidth',3)
+           plot([x(i2),x(i2)],[0,30],'b','LineWidth',3) 
+           x(i2)-x(i1)
+       end
+   end
+   cdf_blow = cdf(p_b,x);
+   [y i1] = min(abs(cdf_blow-0.999));
+   [y i2] = min(abs(cdf_blow-0.001));
+   plot([x(i1),x(i1)],[0,30],'r','LineWidth',3)
+   plot([x(i2),x(i2)],[0,30],'r','LineWidth',3)
+   x(i2)-x(i1)
+   ylabel('PDF','FontSize', 12,'FontWeight','bold')
+   xlabel('BL voltage (V)','FontSize', 12,'FontWeight','bold')
+   
+   r = 150; % pixels per inch
+   set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 700]/r);
+   print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/ref_distr.png');
 end
 
 function [] = find_unitbit_param(param,noplot)

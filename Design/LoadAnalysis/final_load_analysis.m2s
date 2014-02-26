@@ -3,6 +3,7 @@
 
 simulator lang=spice
 .include 'monte_carlo_res.scs'
+.include 'monte_carlo_models.scs' //./technology_models/
 .lib 'tech_wrapper.lib' tt
 
 .OPTIONS METHOD=trap
@@ -19,17 +20,42 @@ mc montecarlo
 + savefamilyplots= yes 
 {
 	ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
+    
 }
 
-parameters tp = MOSP
-parameters tn = MOSN
+parameters tp = mc_pmos_lvt
+parameters tn = mc_nmos_lvt
+
+$if param.fullmcsim == 'yes' 
+    parameters tpl = mc_pmos_lvt
+    parameters tnl = mc_nmos_lvt
+    parameters tplp = mc_pmos_lvt
+    parameters tnlp = mc_pmos_lvt
+$else
+    parameters delta_Ip =$<param.delta_Ip>$
+    parameters  delta_Vp = $<param.delta_Vp>$
+    parameters tpl = mc_pmos_m
+    parameters tnl = mc_pmos_m
+    parameters delta_Ipm =$<param.delta_Ip2>$
+    parameters  delta_Vpm = $<param.delta_Vp2>$
+    parameters tplp = mc_pmos_mm
+    parameters tnlp = mc_pmos_mm
+$end
+
+parameters enableVtMismatch=$<param.VtMismatch>$
+parameters enableBMismatch=$<param.BMismatch>$
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 // TEST BENCH + SIGNALS
 mmemarray_bias ( bl_bias wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref ( bl_ref wl_5 wl_6 sel_sl sel_pulldown gnd vdd) memarray2
+mmemarray_ref ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref2 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref3 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref4 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+
 
 mload ( bl_bias bl_ref sel_load sel_bias gnd vdd) load
 
@@ -37,8 +63,6 @@ vwl_1 wl_1 gnd vsource type=pwl wave=$<param.wl_1>$
 vwl_2 wl_2 gnd vsource type=pwl wave=$<param.wl_2>$
 vwl_3 wl_3 gnd vsource type=pwl wave=$<param.wl_3>$
 vwl_4 wl_4 gnd vsource type=pwl wave=$<param.wl_4>$
-vwl_5 wl_5 gnd vsource type=pwl wave=$<param.wl_3>$
-vwl_6 wl_6 gnd vsource type=pwl wave=$<param.wl_4>$
 
 vsel_pulldown sel_pulldown gnd vsource type=pwl wave=$<param.sel_pulldown>$
 vsel_load sel_load gnd vsource type=pwl wave=$<param.sel_load>$
@@ -77,47 +101,40 @@ mpulldown gnd sel_pulldown bl gnd tn
 msl gnd sel_sl sl gnd tn w=$<param.wsl>$
 csl (sl gnd) capacitor c=$<param.Csl>$
 
-ic bl=$<param.init_bl>$
-
 ends memarray
 
-subckt memarray2 ( bl wl_1 wl_2 sel_sl sel_pulldown gnd vdd)
-
-rmemcell_hh (bl nodecell_hh) resistor r=Rmemcellhh
-mcell_hh nodecell_hh wl_1 sl gnd tn
-
-rmemcell_hl (bl nodecell_hl) resistor r=Rmemcellll
-mcell_hl nodecell_hl wl_2 sl gnd tn
-
-
-// bl
-cbl (bl gnd) capacitor c=$<param.Cbl>$
-mpulldown gnd sel_pulldown bl gnd tn 
-
-// sl
-msl gnd sel_sl sl gnd tn w=$<param.wsl>$
-csl (sl gnd) capacitor c=$<param.Csl>$
-
-
-ends memarray2
 
 ///////////////////////////////////////////////////////////////////////////
 // LOADS
 
 
 subckt load ( bl bl_ref sel_load sel_bias gnd vdd)
-mswitch vdd sel_load bl0 vdd tp w=$<param.wswitchbias>$
-mbias bl0 sel_bias bl vdd tp w=$<param.wbias>$
+mswitch vdd sel_load bl0 vdd tpl w=$<param.wswitchbias>$
+mbias bl0 sel_bias bl vdd tpl w=$<param.wbias>$
 
-mswitch1 vdd sel_load bl01 vdd tp w=$<param.wswitchbias>$
-mbias1 bl01 sel_bias bl_ref vdd tp w=$<param.wbias>$
-mswitch2 vdd sel_load bl01 vdd tp w=$<param.wswitchbias>$
-mbias2 bl01 sel_bias bl_ref vdd tp w=$<param.wbias>$
+mswitch1 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
+mbias1 bl01 sel_bias bl_ref vdd tplp w=$<param.wbias>$
+mswitch2 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
+mbias2 bl01 sel_bias bl_ref vdd tplp w=$<param.wbias>$
+mswitch3 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
+mbias3 bl01 sel_bias bl_ref vdd tplp w=$<param.wbias>$
+mswitch4 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
+mbias4 bl01 sel_bias bl_ref vdd tpl w=$<param.wbias>$
+mswitch5 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
+mbias5 bl01 sel_bias bl_ref vdd tplp w=$<param.wbias>$
 
 statistics 
 {
-  correlate dev=[mswitch mswitch1] cc=0.75
-
+  correlate dev=[mswitch mswitch1] cc=1
+  correlate dev=[mswitch mswitch2] cc=1
+  correlate dev=[mswitch mswitch3] cc=1
+  correlate dev=[mswitch mswitch4] cc=1
+  correlate dev=[mswitch mswitch5] cc=1
+  correlate dev=[mbias mbias1] cc=1
+  correlate dev=[mbias mbias2] cc=1 
+  correlate dev=[mbias mbias3] cc=1
+  correlate dev=[mbias mbias4] cc=1 
+  correlate dev=[mbias mbias5] cc=1 
 }
 ends load
 

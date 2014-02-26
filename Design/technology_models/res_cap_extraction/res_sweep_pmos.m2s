@@ -4,22 +4,22 @@ simulator lang=spice
 
 simulator lang=spectre
 
-parameters Vgs = 1
+//parameters Vgs = 1
 parameters Vds = 0 
-parameters wpmos = 50e-9
+//parameters wpmos = 50e-9
 
-xM1 d g s b mosp l=$<sp.pmosL>$ w=wpmos 
+xM1 d g s b mosp l=$<sp.pmosL>$ w=$<sp.w>$
 
 Vbulk   ( b 0 ) vsource type=dc dc=$sp.Vdd
-Vsource ( s 0 ) vsource type=dc dc=$sp.Vdd
-Vgate   ( g 0 ) vsource type=dc dc=$<sp.Vdd>$-Vgs
-Vdrain  ( d 0 ) vsource type=dc dc=$<sp.Vdd>$-Vds
+Vsource ( s 0 ) vsource type=dc dc=$sp.Vs
+Vgate   ( g 0 ) vsource type=dc dc=$<sp.Vg>$
+Vdrain  ( d 0 ) vsource type=dc dc=$<sp.Vs>$-Vds
 
 
-// sweep Vds for the given values of w
-swp sweep param=wpmos values=[ $sp.w_values ] {
+//// sweep Vds for the given values of w
+//swp sweep param=wpmos values=[ $sp.w_values ] {
 mysweep dc param=Vds values=[ $sp.Vds_sweep ]
-printCapacitanceTable info what=captab where=file file="capNodes"
-}
+//printCapacitanceTable info what=captab where=file file="capNodes"
+//}
 
 
