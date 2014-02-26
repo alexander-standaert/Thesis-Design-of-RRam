@@ -33,7 +33,7 @@ $elseif sp.NoI==7
 xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-4)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder
 $for i=0:7
 xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
-xdec1L$<i>$ ($<bus('IN',[2:3])>$ tempbar$<strcat('_',int2str(i))>$ $<grid('temp',[0:3],i)>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
+xdec1L$<i>$ ($<bus('IN',[2:3])>$ tempbar$<strcat('_',int2str(i))>$ $<signalgrid('temp',[0:3],i)>$ vdd vss PBulkLine NBulkLine) twotofourdecoder
 $for j=0:3
 xinv$<strcat('_',int2str(j),'_',int2str(i))>$ (temp$<strcat('_',int2str(j),'_',int2str(i))>$ tempbar$<strcat('_',int2str(j),'_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter
 xdec2L$<strcat('_',int2str(j),'_',int2str(i))>$ ($<bus('IN',[0:1])>$ tempbar$<strcat('_',int2str(j),'_',int2str(i))>$ $<bus('OUT',[16*i+4*j:16*i+4*j+3])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder

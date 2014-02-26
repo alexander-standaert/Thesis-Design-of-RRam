@@ -42,3 +42,16 @@ $end
 $for i=1:2:sp.NoWLpB-1
 parameters Rref_$<i>$ = RMEMLow
 $end
+
+$for i=0:sp.NoGB-1
+parameters waveEnGB$<strcat('_',int2str(i))>$=$<sp.wavesin{i+1}>$
+$end
+$for i=0:1
+parameters waveEnLB$<strcat('_',int2str(i))>$=$<sp.wavesin{sp.NoGB+i+1}>$
+$end
+$for i=0:log2(sp.NoBLpLB)-1
+parameters waveBLstart$<strcat('_',int2str(i))>$=$<sp.wavesin{sp.NoGB+2+i+1}>$
+$end
+$for i=0:log2(sp.NoWLpB)-1
+parameters waveWLstart$<strcat('_',int2str(i))>$=$<sp.wavesin{sp.NoGB+2+log2(sp.NoBLpLB)+i+1}>$
+$end

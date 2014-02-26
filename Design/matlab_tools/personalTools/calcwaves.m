@@ -45,7 +45,7 @@ for i=1:length(wavenames)
 end
 
 %set absolute time + wavegen
-wavestrucs = []
+wavestrucs = [];
 for i=1:length(totalwave)
     totalwave{i}.time = cumsum([0 totalwave{i}.time(1:end-1)]); 
     wavevalues = wavegen([totalwave{i}.time;totalwave{i}.values],risetime, falltime, 0, vdd, TALT);

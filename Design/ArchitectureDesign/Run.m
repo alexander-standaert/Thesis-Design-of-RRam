@@ -1,10 +1,10 @@
 % Architecture parameters
-sp.NoWLpB=512;
-sp.NoBLpLB=256;
-sp.NoGB=16;
+sp.NoWLpB=2;
+sp.NoBLpLB=4;
+sp.NoGB=1;
 
 % TransistorWith parameters
-sp.WChargeBL=500e-9;
+sp.WChargeBL=100e-9;
 sp.WDischargeBL=500e-9;
 sp.WDischargeSL=500e-9;
 
@@ -19,7 +19,7 @@ sp.PWMmuxGB=200e-9;
 %Simulation parameters
 sp.MismatchOn=0;
 sp.numruns=1;
-sp.simlength=3e-9;
+sp.simlength=6e-9*(0+1*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
 
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);
@@ -33,13 +33,27 @@ for i=0:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB-1;
     testvectorin(i+1,sp.NoGB+b+1)=1;
     cstr=dec2bin(c,log2(sp.NoBLpLB));
     for k=1:log2(sp.NoBLpLB)
-        testvectorin(i+1,sp.NoGB+3+k)=str2num(cstr(k));
+        testvectorin(i+1,sp.NoGB+2+log2(sp.NoBLpLB)+1-k)=str2num(cstr(k));
     end
         dstr=dec2bin(d,log2(sp.NoWLpB));
     for k=1:log2(sp.NoWLpB)
-        testvectorin(i+1,sp.NoGB+3+log2(sp.NoBLpLB)+k)=str2num(dstr(k));
+        testvectorin(i+1,sp.NoGB+2+log2(sp.NoBLpLB)+log2(sp.NoWLpB)+1-k)=str2num(dstr(k));
     end
 end
+wavein = cell(sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2,1);
+for i=1:sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2
+    wavetempgroup=[];
+    for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
+        wavetemp = makewave(strcat('wave',num2str(i)),[1,4,1]*1e-9,[0,testvectorin(k,i),0]);
+        wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+        wavetempgroups(k) = wavetempgroup;
+    end
+    wave = calcwaves(wavetempgroups);
+    wavein{i}=getfield(wave,strcat('wave',num2str(i)));
+end
+sp.wavesin = wavein;
+
+
 
 inputfile = 'branch.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));
@@ -58,6 +72,10 @@ mat2spice(mat2spicepath,spicepath,sp)
 inputfile = 'parameters.m2s';
 mat2spicepath = strcat(currentpath,'/',inputfile);
 mat2spice(mat2spicepath,spicepath,sp)
+inputfile = 'drivers.m2s';
+mat2spicepath = strcat(currentpath,'/',inputfile);
+mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp')
+system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
+[sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');

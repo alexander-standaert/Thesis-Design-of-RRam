@@ -1,0 +1,21 @@
+simulator lang=spectre
+
+include "CMOSlogic.scs"
+include "transistorsPTM.scs"
+
+parameters PWmin = 100n
+parameters PLmin = 45n
+parameters enableMismatch = 0
+
+Vvdd     ( vdd     0 ) vsource dc=1
+VvddBulk ( PBulkLine 0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+Vin (in 0) vsource dc=0
+
+xinv in out vdd vss PBulkLine NBulkLine inverter
+
+dcana dc
+oper info what=oppoint
+option1 options rawfmt = psfascii
