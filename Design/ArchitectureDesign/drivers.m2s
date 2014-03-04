@@ -9,7 +9,7 @@ subckt drivers (vdd vss NBulkLine PBulkLine
 + $<bus('GBenable',[0:sp.NoGB-1])>$
 + $<bus('LBenable',[0,1])>$)
 
-$for i=0:sp.NoBLpLB-1
+$for i=0:log2(sp.NoBLpLB)-1
 $for j=0:sp.NoGB-1
 xnandbl_$<j>$_$<i>$ BLenc_start_$<i>$ GBenable_$<j>$ BL_$<j>$_$<i>$bar vdd vss PBulkLine NBulkLine twonand
 xinvbl_$<j>$_$<i>$ BL_$<j>$_$<i>$bar BL_$<j>$_$<i>$ vdd vss PBulkLine NBulkLine inverter
@@ -19,7 +19,7 @@ xinvbl_$<j>$_$<k>$_$<i>$ BLenc_$<j>$_$<k>$_$<i>$bar BLenc_$<j>$_$<k>$_$<i>$ vdd 
 $end
 $end
 $end
-$for i=0:sp.NoWLpB-1
+$for i=0:log2(sp.NoWLpB)-1
 $for j=0:sp.NoGB-1
 xnandwl_$<j>$_$<i>$ WLenc_start_$<i>$ GBenable_$<j>$ WL_$<j>$_$<i>$bar vdd vss PBulkLine NBulkLine twonand
 xinvwl_$<j>$_$<i>$ WL_$<j>$_$<i>$bar WL_$<j>$_$<i>$ vdd vss PBulkLine NBulkLine inverter

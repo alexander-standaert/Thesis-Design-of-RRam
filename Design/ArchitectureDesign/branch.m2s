@@ -11,7 +11,7 @@ xSwitchVdd LoadLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=PLmin
 xSwitchVss1 BitLine Discharge vss NBulkLine mc_nmos_lvt w=WDischargeBL l=PLmin
 xSwitchVss2 SourceLine SourceSelect vss NBulkLine mc_nmos_lvt w=WDischargeSL l=PLmin
 
-xLoad LoadLine BitLine load
+xLoad LoadLine BitLine PBulkLine load
 
 
 $for i=0:sp.NoWLpB-1

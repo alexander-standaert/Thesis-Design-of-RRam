@@ -72,7 +72,7 @@ sp.wavesin = wavein;
 end
 
 function [sim] = SpiceInit(sp)
-inputfile = 'decodersynthesis1o7.m2s';
+inputfile = 'decodersynthesis.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));
 mat2spicepath = strcat(currentpath,'/',inputfile);
 spicepath = strcat(strrep(currentpath,pwd,''),'/SPICE');

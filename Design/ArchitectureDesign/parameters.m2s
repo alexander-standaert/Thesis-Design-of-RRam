@@ -4,6 +4,7 @@ simulator lang=spectre
 parameters PWmin = 100n                         //MinimalTransistorWidth
 parameters PLmin = 45n                          //MinimalTransistorLenght
 parameters WChargeBL = $<sp.WChargeBL>$         //BitLineChargerWidth(perBL)
+parameters WBias = $<sp.WBias>$
 parameters WDischargeBL = $<sp.WDischargeBL>$   //BitLineDischargerWidth(perBL)
 parameters WDischargeSL = $<sp.WDischargeSL>$   //SourceLineDischargerWidth(perBL)
 parameters Cpar = 0.18e-15                      //ParasiticCapacitor(perCell)
@@ -19,8 +20,8 @@ parameters enableMismatch = $<sp.MismatchOn>$   //Mismatch
 parameters simlength = $<sp.simlength>$
 
 
-parameters RMEMHigh = 7500;
-parameters RMEMLow = 32500;
+parameters RMEMHigh = 32500;
+parameters RMEMLow = 7500;
 
 $for i=0:0
 $for j=0:1

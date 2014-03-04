@@ -1,0 +1,35 @@
+
+simulator lang=spectre
+
+include "transistorsPTM.scs"
+include "../../ArchitectureDesign/SPICE/decoder.sp"
+include "parameters2.sp"
+
+xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$ $<busconnect('multstage','dec1multstage',[1:decoderparameters(sp.NoI)])>$
+$for i=0:2^sp.NoI-1
+cLoad$<i>$ (OUT_$<i>$ 0) capacitor c=$<sp.CL>$
+$end
+
+Vvdd     ( vdd     0 ) vsource dc=1
+VvddBulk ( PBulkLine 0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+Ven (enable 0) vsource type=pwl wave=waveen
+
+$for i=0:sp.NoI-1
+Vin$<i>$ (IN$<strcat('_',int2str(i))>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
+$end
+
+
+mymc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=numberofruns
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes {
+mytran tran stop=simlength
+}
+
+option1 options rawfmt = psfascii

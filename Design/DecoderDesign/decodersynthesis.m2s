@@ -1,0 +1,72 @@
+
+subckt decoder$<sp.NoISTRING>$ ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine)
+parameters $<bus('multstage',[1:decoderparameters(sp.NoI)])>$
+
+
+$if sp.NoI==1
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xinv0 (IN_0 OUT_1pre vdd vss PBulkLine NBulkLine) inverter mult=multstage_1
+xnor1 (OUT_1pre enablebar OUT_1 vdd vss PBulkLine NBulkLine) twonor mult=multstage_2
+xnor2 (IN_0 enablebar OUT_0 vdd vss PBulkLine NBulkLine) twonor mult=multstage_2
+$elseif sp.NoI==2
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder multinv=multstage_1 multnor=multstage_2
+$elseif sp.NoI==3
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xdec ($<bus('IN',[0:sp.NoI-1])>$ enablebar $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_1 multnand=multstage_2 multnor=multstage_3
+$elseif sp.NoI==4
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder multinv=multstage_1 multnor=multstage_2
+$for i=0:3
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_3
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[i*2^(sp.NoI-2):2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder multinv=multstage_1 multnor=multstage_4
+$end
+$elseif sp.NoI==5
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xdec ($<bus('IN',[sp.NoI-2:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) twotofourdecoder multinv=multstage_1 multnor=multstage_2
+$for i=0:3
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_3
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-2)*i:2^(sp.NoI-2)*i+2^(sp.NoI-2)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_1 multnand=multstage_2 multnor=multstage_4
+$end
+$elseif sp.NoI==6
+xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter
+
+xdec ($<bus('IN',[sp.NoI-3:sp.NoI-1])>$ enablebar $<bus('temp',[0:2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_1 multnand=multstage_2 multnor=multstage_3
+$for i=0:7
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_4
+xdec$<i>$ ($<bus('IN',[0:sp.NoI-4])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[2^(sp.NoI-3)*i:2^(sp.NoI-3)*i+2^(sp.NoI-3)-1])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_1 multnand=multstage_2 multnor=multstage_5
+$end
+$elseif sp.NoI==7
+xdec ($<bus('IN',[3:6])>$ enable $<bus('temp',[0:15])>$ vdd vss NBulkLine PBulkLine) decoderfour multstage_1=multstage_1 multstage_2=multstage_2 multstage_3=multstage_3 multstage_4=multstage_4
+$for i=0:15
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_5
+xdec$<i>$ ($<bus('IN',[0:2])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[8*i:8*i+7])>$ vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_1 multnand=multstage_2 multnor=multstage_6
+$end
+$elseif sp.NoI==8
+xdec ($<bus('IN',[4:7])>$ enable $<bus('temp',[0:15])>$ vdd vss NBulkLine PBulkLine) decoderfour multstage_1=multstage_1 multstage_2=multstage_2 multstage_3=multstage_3 multstage_4=multstage_4
+$for i=0:15
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_5
+xdec$<i>$ ($<bus('IN',[0:3])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[16*i:16*i+15])>$ vdd vss PBulkLine NBulkLine) decoderfour multstage_1=multstage_1 multstage_2=multstage_6 multstage_3=multstage_7 multstage_4=multstage_8
+$end
+$elseif sp.NoI==9
+xdec ($<bus('IN',[5:8])>$ enable $<bus('temp',[0:15])>$ vdd vss NBulkLine PBulkLine) decoderfour multstage_1=multstage_1 multstage_2=multstage_2 multstage_3=multstage_3 multstage_4=multstage_4
+$for i=0:15
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_5
+xdec$<i>$ ($<bus('IN',[0:4])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[32*i:32*i+31])>$ vdd vss PBulkLine NBulkLine) decoderfive multstage_1=multstage_1 multstage_2=multstage_6 multstage_3=multstage_7 multstage_4=multstage_8
+$end
+$elseif sp.NoI==10
+xdec ($<bus('IN',[5:9])>$ enable $<bus('temp',[0:31])>$ vdd vss NBulkLine PBulkLine) decoderfive multstage_1=multstage_1 multstage_2=multstage_2 multstage_3=multstage_3 multstage_4=multstage_4
+$for i=0:31
+xinv$<i>$ (temp$<strcat('_',int2str(i))>$ tempbar$<strcat('_',int2str(i))>$ vdd vss PBulkLine NBulkLine) inverter mult=multstage_5
+xdec$<i>$ ($<bus('IN',[0:4])>$ tempbar$<strcat('_',int2str(i))>$ $<bus('OUT',[32*i:32*i+31])>$ vdd vss PBulkLine NBulkLine) decoderfive multstage_1=multstage_1 multstage_2=multstage_6 multstage_3=multstage_7 multstage_4=multstage_8
+$end
+$end
+
+ends decoder
+
+

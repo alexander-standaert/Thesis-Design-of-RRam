@@ -6,9 +6,6 @@ include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
 
-
-
-
 xDrivers (vdd vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$
 + $<bus('WLenc_start',[0:log2(sp.NoWLpB)-1])>$
@@ -17,13 +14,19 @@ xDrivers (vdd vss NBulkLine PBulkLine
 + $<bus('GBenable',[0:sp.NoGB-1])>$
 + $<bus('LBenable',[0,1])>$) drivers
 
+xNot_0_0 (GBenable_0 GBenable_0_1 vdd vss PBulkLine NBulkLine) inverter
+$for i=1:4
+xNot_$<i>$_0 (GBenable_0_$<i>$ GBenable_0_$<i+1>$ vdd vss PBulkLine NBulkLine) inverter
+$end
+xNot_0_5 (GBenable_0_5 Delay vdd vss PBulkLine NBulkLine) inverter
+
 
 xGB0 (vdd vss NBulkLine PBulkLine
 +$<grid3d('WLenc',0,[0:1],[0:log2(sp.NoWLpB)-1])>$
 +$<grid3d('BLenc',0,[0:1],[0:log2(sp.NoBLpLB)-1])>$
 +$<bus('LBenable',[0:1])>$
 +InOut InOutbar EnableSAP EnableSAN
-+$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PassRef)       
++$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PassRef Delay)       
 +globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(0)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
 xInv0 (InOut InOutbarBuf vdd vss PBulkLine NBulkLine) inverter
@@ -60,6 +63,7 @@ $for i=0:sp.NoWLpB-1
 VrefWL$<i>$ (RefWL_$<i>$ 0) vsource dc=0
 $end
 
+save InOut xGB0.xLB0.BL_0 xGB0.xLB0.SelLbar_0 xGB0.xLB0.SelLbarbar_0 xGB0.xLB0.BLCharge_0
 
 mymc montecarlo
 + donominal=no variations=mismatch
@@ -72,4 +76,4 @@ mytran tran stop=simlength
 }
 
 option1 options rawfmt = psfascii
-
+cap info what=captab where=file file="%C:r.info.what"

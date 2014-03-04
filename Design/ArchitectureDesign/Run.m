@@ -1,12 +1,13 @@
 % Architecture parameters
-sp.NoWLpB=2;
+sp.NoWLpB=64;
 sp.NoBLpLB=4;
 sp.NoGB=1;
 
 % TransistorWith parameters
 sp.WChargeBL=100e-9;
-sp.WDischargeBL=500e-9;
-sp.WDischargeSL=500e-9;
+sp.WBias=1.5*100e-9;
+sp.WDischargeBL=180e-9;
+sp.WDischargeSL=1.5*150e-9;
 
 sp.PWn=100e-9;
 sp.PWp=100e-9;
@@ -19,7 +20,7 @@ sp.PWMmuxGB=200e-9;
 %Simulation parameters
 sp.MismatchOn=0;
 sp.numruns=1;
-sp.simlength=6e-9*(0+1*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
+sp.simlength=6e-9*(5+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
 
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);
@@ -79,3 +80,4 @@ clear inputfile currentpath mat2spicepath spicepath
 
 system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
 [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
+sim.getSignal('xGB0.xLB0.BL_0').plotSignal

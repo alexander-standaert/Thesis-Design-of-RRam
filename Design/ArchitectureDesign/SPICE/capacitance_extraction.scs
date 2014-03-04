@@ -12,10 +12,12 @@ VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
-Vin (in 0) vsource dc=0
+// Vin (in 0) vsource dc=0.5
 
 xinv in out vdd vss PBulkLine NBulkLine inverter
+//xM1 BL gaten vss NBulkLine mc_nmos_lvt w=PWmin l=PLmin
+//xM2 BL gatep vdd PBulkLine mc_pmos_lvt w=PWmin l=PLmin
 
 dcana dc
-oper info what=oppoint
+oper info what=captab
 option1 options rawfmt = psfascii
