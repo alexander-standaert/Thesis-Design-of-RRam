@@ -98,7 +98,7 @@ cbl (bl gnd) capacitor c=$<param.Cbl>$
 mpulldown gnd sel_pulldown bl gnd tn 
 
 // sl
-msl gnd sel_sl sl gnd tn w=$<param.wsl>$
+msl gnd sel_sl sl gnd mosn w=$<param.wsl>$
 csl (sl gnd) capacitor c=$<param.Csl>$
 
 ends memarray
@@ -110,7 +110,7 @@ ends memarray
 
 subckt load ( bl bl_ref sel_load sel_bias gnd vdd)
 mswitch vdd sel_load bl0 vdd tpl w=$<param.wswitchbias>$
-mbias bl0 sel_bias bl vdd tpl w=$<param.wbias>$
+mbias bl0 sel_bias bl vdd tplp w=$<param.wbias>$
 
 mswitch1 vdd sel_load bl01 vdd tpl w=$<param.wswitchbias>$
 mbias1 bl01 sel_bias bl_ref vdd tplp w=$<param.wbias>$

@@ -33,12 +33,15 @@ function [] = load_analysis()
     % find_unitbit_param(gen_sig(param,15),1)
     %data_stats(data)
     
-     element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000]
+%      element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000]
 %mc_run(element,param,1,1,1,1,1) 
 %   mc_run_ref(element,param,50,20)
- mc_analize_ref()
+%  mc_analize_ref()
 %      mc_analize_data()
-% mc_finalload(param)
+%    mc_finalload(param)
+%     la_run_trippel(param,0,1)
+    mc_run_tripel(param,0,1)
+% la_run_ref2(element,param,4) 
 end
 
 function [param] = init_param(param)
@@ -64,6 +67,8 @@ function [param] = init_param(param)
     param.Rmemcellhl = 30000;
     param.Rmemcelllh = 10000;
     param.Rmemcellll = 5000;
+    param.Rmemcellh = 37500;
+    param.Rmemcelll = 7500;
     
     param.vbias = 0;
     
@@ -392,6 +397,372 @@ function [] = la_run_ref(element,param)
     system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/ref_analysis.sp'},''));
     
     
+    
+end
+
+function [] = la_run_ref2(element,param,refcellnb) 
+    param.wswitchbias = element(2);
+    param.wbias = element(3);
+    param.refnb = refcellnb;
+    param.wsl = 1000e-9;
+    
+    for o = 1:2
+        if o == 1
+            param.Vtswitch_sweep = [-0.08:0.01:0.08];
+            param.Vtbias_sweep = [0];
+            param.sweettype = 'VTswitchsweep';
+        else
+            param.Vtswitch_sweep = [0];
+            param.Vtbias_sweep = [-0.08:0.01:0.08];
+            param.sweettype = 'VTbiassweep';
+        end
+        
+        for k = 1:refcellnb
+            param.refnb = k;
+            
+            inputfile = 'ref_analysis2.m2s';
+            
+            [currentpath,~,~] = fileparts(which(mfilename));
+            
+            mat2spicepath = strcat(currentpath,'/',inputfile);
+            spicepath = strcat(strrep(currentpath,pwd,''),'/spice');
+            
+            mat2spice(mat2spicepath,spicepath,param)
+            clear inputfile currentpath mat2spicepath spicepath
+            
+            % make Sim folders
+            system('rm -rf /tmp/s0211331-loadana/');
+            system('mkdir /tmp/s0211331-loadana/');
+            system('mkdir /tmp/s0211331-loadana/spice');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+            system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+            
+            % Run spice
+            system(strjoin({'cp ./LoadAnalysis/spice/ref_analysis2.sp /tmp/s0211331-loadana/spice/ref_analysis2.sp'},''));
+            system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/ref_analysis2.sp'},''));
+            
+            [sim, ~] = readPsfAscii(strjoin({'/tmp/s0211331-loadana/spice/ref_analysis2.raw/',param.sweettype,'.dc'},''));
+            
+            bl101 = (sim.getSignal('bl01').getYValues)';
+            bl_bias = (sim.getSignal('bl_bias').getYValues)';
+            ivdd = (-1*(sim.getSignal('vvdd:p').getYValues))';
+            
+            bl102 = (sim.getSignal('bl02').getYValues)';
+            bl_mem = (sim.getSignal('bl_mem').getYValues)';
+            ivdd2 = (-1*(sim.getSignal('vvdd2:p').getYValues))';
+            
+            if o==1
+                sws_vgs_switch(k,:) = 1-param.Vtswitch_sweep;
+                sws_vgs_bias(k,:) = bl101-param.Vtbias_sweep;
+                sws_vds_switch(k,:) = 1-bl101;
+                sws_vds_bias(k,:) = bl101-bl_bias;
+                sws_gm_switch(k,:) = 2*ivdd./(sws_vgs_switch(k,:)-0.4);
+                sws_gm_bias(k,:) = 2*ivdd./(sws_vgs_bias(k,:)-0.4);
+                sws_r_switch(k,:) = sws_vds_switch(k,:)./ivdd;
+                sws_r_bias(k,:) = sws_vds_bias(k,:)./ivdd;
+                sws_vbias(k,:) = bl_bias;
+                
+                swsm_vgs_switch(k,:) = 1-param.Vtswitch_sweep;
+                swsm_vgs_bias(k,:) = bl102-param.Vtbias_sweep;
+                swsm_vds_switch(k,:) = 1-bl102;
+                swsm_vds_bias(k,:) = bl102-bl_mem;
+                swsm_gm_switch(k,:) = 2*ivdd2./(swsm_vgs_switch(k,:)-0.4);
+                swsm_gm_bias(k,:) = 2*ivdd2./(swsm_vgs_bias(k,:)-0.4);
+                swsm_r_switch(k,:) = swsm_vds_switch(k,:)./ivdd2;
+                swsm_r_bias(k,:) = swsm_vds_bias(k,:)./ivdd2;
+                swsm_vbias(k,:) = bl_mem;
+            else
+                swb_vgs_switch(k,:) = 1-param.Vtswitch_sweep;
+                swb_vgs_bias(k,:) = bl101-param.Vtbias_sweep;
+                swb_vds_switch(k,:) = 1-bl101;
+                swb_vds_bias(k,:) = bl101-bl_bias;
+                swb_gm_switch(k,:) = 2*ivdd./(swb_vgs_switch(k,:)-0.4);
+                swb_gm_bias(k,:) = 2*ivdd./(swb_vgs_bias(k,:)-0.4);
+                swb_r_switch(k,:) = swb_vds_switch(k,:)./ivdd;
+                swb_r_bias(k,:) = swb_vds_bias(k,:)./ivdd;
+                swb_vbias(k,:) = bl_bias;
+                
+                
+                swbm_vgs_switch(k,:) = 1-param.Vtswitch_sweep;
+                swbm_vgs_bias(k,:) = bl102-param.Vtbias_sweep;
+                swbm_vds_switch(k,:) = 1-bl102;
+                swbm_vds_bias(k,:) = bl102-bl_mem;
+                swbm_gm_switch(k,:) = 2*ivdd2./(swbm_vgs_switch(k,:)-0.4);
+                swbm_gm_bias(k,:) = 2*ivdd2./(swbm_vgs_bias(k,:)-0.4);
+                swbm_r_switch(k,:) = swbm_vds_switch(k,:)./ivdd2;
+                swbm_r_bias(k,:) = swbm_vds_bias(k,:)./ivdd2;
+                swbm_vbias(k,:) = bl_mem;
+            end
+        end
+        
+        
+    end
+    
+    makeplot(sws_vgs_switch,sws_vds_switch,sws_gm_switch,sws_r_switch,sws_vgs_bias,sws_vds_bias,sws_gm_bias,sws_r_bias,sws_vbias,'Vgs switch')
+    makeplot(swb_vgs_switch,swb_vds_switch,swb_gm_switch,swb_r_switch,swb_vgs_bias,swb_vds_bias,swb_gm_bias,swb_r_bias,swb_vbias,'Vgs bias')
+    
+    makeplot(swsm_vgs_switch,swsm_vds_switch,swsm_gm_switch,swsm_r_switch,swsm_vgs_bias,swsm_vds_bias,swsm_gm_bias,swsm_r_bias,swsm_vbias,'Vgs switch')
+    makeplot(swbm_vgs_switch,swbm_vds_switch,swbm_gm_switch,swbm_r_switch,swbm_vgs_bias,swbm_vds_bias,swbm_gm_bias,swbm_r_bias,swbm_vbias,'Vgs bias')
+    
+    function [] = makeplot(vgs_switch,vds_switch,gm_switch,r_switch,vgs_bias,vds_bias,gm_bias,r_bias,vbias,xlab)
+        if strcmp(xlab,'Vgs switch')
+           vgs = vgs_switch; 
+        else
+           vgs = vgs_bias; 
+        end
+        
+        xlimits = [min(min(vgs)),max(max(vgs))];
+  
+        v_th = 0.4;
+        vg_vt = vgs_switch(1,:) - v_th;
+        [y1, i1] = min(abs(vds_switch(1,:)-vg_vt));
+        
+        vg_vt = vgs_bias(1,:) - v_th;
+        [y2, i2] = min(abs(vds_bias(1,:)-vg_vt));
+        
+        figure
+        sp = 6;
+        h(1) = subplot(sp,2,1);
+        h(2) = subplot(sp,2,3);
+        h(3) = subplot(sp,2,5);
+        h(4) = subplot(sp,2,7);
+        h(5) = subplot(sp,2,9);
+        h(6) = subplot(sp,2,11);
+        h(7) = subplot(sp,2,[2,4,6,8,10,12]);
+        
+        hold all
+        for k = 1:size(vds_switch,1)
+            subplot(h(1))
+            hold all
+            plot(vgs(k,:),vds_switch(k,:))
+            plot([vgs(k,i1),vgs(k,i1)],[0.18,0.2],'r')
+            ylabel('vds_switch','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            subplot(h(2))
+            hold all
+            plot(vgs(k,:),gm_switch(k,:))
+            ylabel('gm_switch','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            subplot(h(3))
+            hold all
+            plot(vgs(k,:),r_switch(k,:))
+            ylabel('r_switch','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            subplot(h(4))
+            hold all
+            plot(vgs(k,:),vds_bias(k,:))
+            plot([vgs(k,i2),vgs(k,i2)],[0.4,0.6],'r')
+            ylabel('vds_bias','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            subplot(h(5))
+            hold all
+            plot(vgs(k,:),gm_bias(k,:))
+            ylabel('gm_bias','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            subplot(h(6))
+            hold all
+            plot(vgs(k,:),r_bias(k,:))
+            ylabel('r_bias','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            xlabel(xlab,'FontSize', 12,'FontWeight','bold','interpreter','none')    
+            subplot(h(7))
+            hold all
+            plot(vgs(k,:),vbias(k,:))
+            ylabel('v_bias','FontSize', 12,'FontWeight','bold','interpreter','none')
+            xlim(xlimits);
+            xlabel(xlab,'FontSize', 12,'FontWeight','bold','interpreter','none')  
+        end
+    end
+end
+
+function [] = la_run_trippel(param,simulate,analyse)
+   allelements = allcomb([100:50:500]*1e-9,[100:50:500]*1e-9,[100:50:500]*1e-9); 
+   
+   if simulate
+       notfinished = 1;
+       element_nb = 1;
+
+       while notfinished
+           calcelement(element_nb);
+           [notfinished,element_nb] = getelement_nb();
+       end
+
+       disp('========================================================')
+       disp('  ')
+       disp('SIM FINISHED')
+       disp('  ')
+       disp('========================================================')
+   end
+   
+   if analyse
+       for k = 1:size(allelements,1)
+          data = load(strjoin({'./LoadAnalysis/la_tripel/tripel_',num2str(k),'.mat'},'')); 
+          b = data.b;
+          element = data.element;
+          
+          elements(k,:) = [element,b(2)-b(3)];
+          
+          if k == 1
+             best_b = b;
+             best_element = element;
+          else
+              b_diff = b(2)-b(3);
+              best_b_diff = best_b(2)-best_b(3);
+              if b_diff > best_b_diff
+                  best_b = b;
+                  best_element = element;
+              end
+          end          
+       end
+       best_b
+       best_element
+       elements
+   end
+   
+    function [notfinished,element_nb] = getelement_nb()
+        system('ls ./LoadAnalysis/la_tripel > ./LoadAnalysis/monitor.txt')
+
+        fid = fopen('./LoadAnalysis/monitor.txt');
+        
+        sim_done = [];
+        i = 1;
+        tline = fgets(fid);
+        while ischar(tline)
+            [C,matches] = strsplit(tline,{'tripel_','.mat'});
+            sim_done(i) = str2num(cell2mat(C(2)));
+            tline = fgets(fid);
+            i = i+1;
+        end
+        
+        if size(allelements,1) == length(sim_done)
+            notfinished = 0;
+            element_nb = 1;
+        else
+            notfinished = 1;
+            index_pool = setdiff([1:size(allelements,1)],sim_done);
+            index = randi(size(index_pool,2));
+            element_nb = index_pool(index);
+            disp('========================================================')
+            disp('  ')
+            disp(strjoin({'CURRENT ELEMENT NUMBER ',num2str(element_nb)},''))
+            disp('  ')
+            disp('========================================================')
+            
+        end
+        
+    end
+    
+    function [] = calcelement(element_nb)
+        param.wswitch = allelements(element_nb,1);
+        param.wbias = allelements(element_nb,2);
+        param.wbias2 = allelements(element_nb,3);
+        
+        % make Sim folders
+        system('rm -rf /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/spice');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+        
+        inputfile = 'tripel.m2s';
+        
+        [currentpath,~,~] = fileparts(which(mfilename));
+        
+        mat2spicepath = strcat(currentpath,'/',inputfile)
+        spicepath = '../../../../../tmp/s0211331-loadana/spice/'
+        
+        mat2spice(mat2spicepath,spicepath,param)
+        clear inputfile currentpath mat2spicepath spicepath
+        
+        
+        
+        % Run spice
+        
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/tripel.sp'},''));
+        
+        [sim tree] = readPsfAscii('/tmp/s0211331-loadana/spice/tripel.raw/ana.tran', '.*');
+        
+        [b,tr,n] = gatherdata(sim,'bias');
+        element = allelements(element_nb,:)
+        
+        save(strjoin({'./LoadAnalysis/la_tripel/tripel_',num2str(element_nb)},''),'b','tr','n','element')
+        
+        function [b,tr,n] = gatherdata(sim,branch)
+            
+            sig = sim.getSignal(strcat('bl_',branch));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            ts_hh = 2;
+            ts_hl = 10;
+            ts_lh = 18;
+            ts_ll = 26;
+            
+            t_hh = 8;
+            t_hl = 16;
+            t_lh = 24;
+            t_ll = 32;
+            
+            [Y, i_hh] = min(abs(sigx - t_hh));
+            [Y, i_hl] = min(abs(sigx - t_hl));
+            [Y, i_lh] = min(abs(sigx - t_lh));
+            [Y, i_ll] = min(abs(sigx - t_ll));
+            
+            [Y, l_hh] = min(abs(sigx - ts_hh));
+            [Y, l_hl] = min(abs(sigx - ts_hl));
+            [Y, l_lh] = min(abs(sigx - ts_lh));
+            [Y, l_ll] = min(abs(sigx - ts_ll));
+            
+            b_hh = sigy(i_hh);
+            b_hl = sigy(i_hl);
+            b_lh = sigy(i_lh);
+            b_ll = sigy(i_ll);
+            
+            st_limit = 0.1;
+            
+            [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+            [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+            [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+            [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+            
+            tst_hh = sigx(k_hh+l_hh);
+            tst_hl = sigx(k_hl+l_hl);
+            tst_lh = sigx(k_lh+l_lh);
+            tst_ll = sigx(k_ll+l_ll);
+            
+            tr_hh = (tst_hh - ts_hh)*10^-9;
+            tr_hl = (tst_hl - ts_hl)*10^-9;
+            tr_lh = (tst_lh - ts_lh)*10^-9;
+            tr_ll = (tst_ll - ts_ll)*10^-9;
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+            sigy = sig.getYValues;
+            n_hh = sigy(i_hh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+            sigy = sig.getYValues;
+            n_hl = sigy(i_hl);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+            sigy = sig.getYValues;
+            n_lh = sigy(i_lh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+            sigy = sig.getYValues;
+            n_ll = sigy(i_ll);
+            
+            b = [b_hh,b_hl,b_lh,b_ll];
+            tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+            n = [n_hh,n_hl,n_lh,n_ll];
+            
+        end
+    end
     
 end
 
@@ -924,6 +1295,188 @@ function [] = mc_run(elements,param,mc_runs,noplot,id,nb_id,startele)
     
 end
 
+function [] = mc_run_tripel(param,simulate,analyse)
+    if simulate
+        param.VtMismatch = 1;
+        param.BMismatch = 0;
+        param.wswitch = 200e-9;%150e-9;
+        param.wbias = 200e-9;%300e-9;
+        param.wbias2 = 500e-9;
+        param.mcruns = 500;
+        
+        calcelement();
+
+        
+        disp('========================================================')
+        disp('  ')
+        disp('SIM FINISHED')
+        disp('  ')
+        disp('========================================================')
+    end
+    
+    if analyse
+        data = load('./LoadAnalysis/triple_allmismatch');
+        b_all = data.b_all;
+        b_memhigh = [b_all(:,1);b_all(:,2)];
+        b_memlow = [b_all(:,3);b_all(:,4)];
+        b_refall = data.b_refall
+        b_ref = [b_refall(:,1);b_refall(:,2);b_refall(:,3);b_refall(:,4)];
+        
+        x = [0:0.001:1];
+        p_b_memhigh = fitdist(b_memhigh(:),'Normal');
+        p_b_memlow = fitdist(b_memlow(:),'Normal');
+        p_b_ref = fitdist(b_ref(:),'Normal');
+        
+        cdf_blow = cdf(p_b_memhigh,x);
+        [y i1] = min(abs(cdf_blow-0.001));
+        cdf_blow = cdf(p_b_memlow,x);
+        [y i2] = min(abs(cdf_blow-0.999));
+        cdf_blow = cdf(p_b_ref,x);
+        [y i3] = min(abs(cdf_blow-0.001));
+        [y i4] = min(abs(cdf_blow-0.999));
+        
+                
+        figure
+        hold on
+        plot(x,pdf(p_b_memhigh,x),'LineWidth',3);
+        plot(x,pdf(p_b_memlow,x),'LineWidth',3);
+        plot(x,pdf(p_b_ref,x),'LineWidth',3,'Color','r');
+        
+        plot([x(i1),x(i1)],[0,4],'b','LineWidth',3)
+        plot([x(i2),x(i2)],[0,4],'b','LineWidth',3)
+        plot([x(i3),x(i3)],[0,4],'r','LineWidth',3)
+        plot([x(i4),x(i4)],[0,4],'r','LineWidth',3)
+        
+        figure
+        hold on 
+        hist(b_memhigh)
+        hist(b_memlow)
+    end
+    
+    function [] = calcelement()
+        element = [150e-9,300e-9,500e-9];
+        rng('shuffle');
+        
+        rndfilename = num2str(randi(1000000));
+        
+        % make Sim folders
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LoadAnalysis/tripel_mc.m2s ~/Thesis-Design-of-RRam/Design/LoadAnalysis/',rndfilename,'.m2s'},''));
+        system('rm -rf /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/spice');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+        
+        inputfile = strjoin({rndfilename,'.m2s'},'');
+        
+        [currentpath,~,~] = fileparts(which(mfilename));
+        
+        mat2spicepath = strcat(currentpath,'/',inputfile)
+        spicepath = '../../../../../tmp/s0211331-loadana/spice/'
+        
+        mat2spice(mat2spicepath,spicepath,param)
+        clear inputfile currentpath mat2spicepath spicepath
+        
+        
+        
+        % Run spice
+        
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/',rndfilename,'.sp'},''));
+        system(strjoin({'rm ~/Thesis-Design-of-RRam/Design/LoadAnalysis/',rndfilename,'.m2s'},''));
+        
+        for l=1:param.mcruns
+            istr=num2str(l+1000);
+            istr=istr(end-2:end);
+            [sim, ~] = readPsfAscii(strjoin({'/tmp/s0211331-loadana/spice/',rndfilename,'.raw/mc-',istr,'_ana.tran'},''), '.*');
+
+            [b,tr,n] = gatherdata(sim,'bias');
+            b_all(l,:) = b;
+            tr_all(l,:) = tr;
+            n_all(l,:) = n;
+            [b,tr,n] = gatherdata(sim,'ref');
+            b_refall(l,:) = b;
+            tr_refall(l,:) = tr;
+            n_refall(l,:) = n;
+            
+            save(strjoin({'./LoadAnalysis/triple_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+        end
+        
+        function [b,tr,n] = gatherdata(sim,branch)
+            
+            sig = sim.getSignal(strcat('bl_',branch));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            ts_hh = 2;
+            ts_hl = 10;
+            ts_lh = 18;
+            ts_ll = 26;
+            
+            t_hh = 8;
+            t_hl = 16;
+            t_lh = 24;
+            t_ll = 32;
+            
+            [Y, i_hh] = min(abs(sigx - t_hh));
+            [Y, i_hl] = min(abs(sigx - t_hl));
+            [Y, i_lh] = min(abs(sigx - t_lh));
+            [Y, i_ll] = min(abs(sigx - t_ll));
+            
+            [Y, l_hh] = min(abs(sigx - ts_hh));
+            [Y, l_hl] = min(abs(sigx - ts_hl));
+            [Y, l_lh] = min(abs(sigx - ts_lh));
+            [Y, l_ll] = min(abs(sigx - ts_ll));
+            
+            b_hh = sigy(i_hh);
+            b_hl = sigy(i_hl);
+            b_lh = sigy(i_lh);
+            b_ll = sigy(i_ll);
+            
+            st_limit = 0.1;
+            
+            [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+            [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+            [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+            [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+            
+            tst_hh = sigx(k_hh+l_hh);
+            tst_hl = sigx(k_hl+l_hl);
+            tst_lh = sigx(k_lh+l_lh);
+            tst_ll = sigx(k_ll+l_ll);
+            
+            tr_hh = (tst_hh - ts_hh)*10^-9;
+            tr_hl = (tst_hl - ts_hl)*10^-9;
+            tr_lh = (tst_lh - ts_lh)*10^-9;
+            tr_ll = (tst_ll - ts_ll)*10^-9;
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+            sigy = sig.getYValues;
+            n_hh = sigy(i_hh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+            sigy = sig.getYValues;
+            n_hl = sigy(i_hl);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+            sigy = sig.getYValues;
+            n_lh = sigy(i_lh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+            sigy = sig.getYValues;
+            n_ll = sigy(i_ll);
+            
+            b = [b_hh,b_hl,b_lh,b_ll];
+            tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+            n = [n_hh,n_hl,n_lh,n_ll];
+            
+        end
+    end
+    
+end
+
 function [] = mc_run_finalload(element,param,mc_runs,savename)
     param.simulationtype = 'mont';
     param.VtMismatch = 1;
@@ -1017,10 +1570,10 @@ function [] = mc_run_finalload(element,param,mc_runs,savename)
             a=[4:0.02:6]*1e-9;
             b=[2:0.02:3]*1e-8;
             
-            param.delta_Ip = b(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_I_I0_p);
-            param.delta_Vp = a(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_Vt_p);
-            param.delta_Ip2 = b(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_I_I0_p);
-            param.delta_Vp2 = a(randi(4))*(-1)^randi(2);%normrnd(0,sigma_LVT_Vt_p);
+            param.delta_Ip = normrnd(0,sigma_LVT_I_I0_p);%b(randi(4))*(-1)^randi(2);
+            param.delta_Vp = normrnd(0,sigma_LVT_Vt_p);
+            param.delta_Ip2 = normrnd(0,sigma_LVT_I_I0_p);
+            param.delta_Vp2 = normrnd(0,sigma_LVT_Vt_p);
             
             inputfile = 'final_load_analysis.m2s';
     
@@ -1089,7 +1642,7 @@ function [] = mc_run_finalload(element,param,mc_runs,savename)
             
             save(strjoin({'./LoadAnalysis/',savename},''),'b_min','b_max','b_refmin','b_refmax','vt1','ip1','vt2','ip2','element')
         end
-        save(strjoin({'./LoadAnalysis/',savename},''),'b_min','b_max','vt','ip','element')
+        save(strjoin({'./LoadAnalysis/',savename},''),'b_min','b_max','b_refmin','b_refmax','vt1','ip1','vt2','ip2','element')
     end
     
     function [b,tr,n] = gatherdata(sim,branch)
@@ -1902,8 +2455,8 @@ end
 function [] = mc_finalload(param)
     element = [2.000000000000000   0.000000100000000   0.000000180000000  0   0.250000000000000   0.000000001938000   0.351954746151612     0.000000000000013   0.080000000000000   0.058924686423743   0.089155067750199   0.000000003926000];
     param.fullmcsim = 'noo';
-%      mc_run_finalload(element,param,500,'loadanalysis_mc_finalloadextrems')
-    
+%     mc_run_finalload(element,param,500,'loadanalysis_mc_finalload.mat')
+   
      data = load('./LoadAnalysis/loadanalysis_mc_finalload.mat');
      b_memhigh = data.b_min;
      b_memlow = data.b_max;
@@ -2005,8 +2558,10 @@ function [] = mc_finalload(param)
 %     plot(x,y,'g')
 
     f3 = figure
+    sp = 2
+    subplot(sp,1,1)
     hold on
-    [B, IX] = sort(b_refhigh)
+    [B, IX] = sort(b_refhigh-b_reflow)
     plot(b_memhigh(IX))
     plot(b_memlow(IX))
     plot(b_refhigh(IX),'r')
@@ -2014,13 +2569,233 @@ function [] = mc_finalload(param)
     ylim([0.2,0.6])
     ylabel('BL voltage (V)','FontSize', 12,'FontWeight','bold')
     xlabel('SAMPLES','FontSize', 12,'FontWeight','bold')
-    
-    
+    subplot(sp,1,2)
+    plot(switch_vt(IX)./(sqrt(100e-9*45e-9)))
+           
 %     r = 150; % pixels per inch
 %     set(f2, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
 %     print(f2,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_samples_blv2.png');
 
-    
+%% PLOT verband in mem
+xst = 'switch_vt';
+yst = 'bias_vt';
+zst = 'b_memhigh';
+
+x = switch_vt./(sqrt(100e-9*45e-9));
+y = bias_vt./(sqrt(180e-9*45e-9));
+z = b_memhigh
+xlin = linspace(min(x),max(x),33);
+ylin = linspace(min(y),max(y),33);
+[X,Y] = meshgrid(xlin,ylin);
+f = scatteredInterpolant(x',y',z');
+Z = f(X,Y);
+
+f1 = figure
+subplot(3,3,1:6)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+subplot(3,3,7)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0, 0);
+subplot(3,3,8)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90, 0);
+subplot(3,3,9)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0,90);
+
+x = switch_vt./(sqrt(100e-9*45e-9));
+y = bias_vt./(sqrt(180e-9*45e-9));
+z = b_memlow
+xlin = linspace(min(x),max(x),33);
+ylin = linspace(min(y),max(y),33);
+[X,Y] = meshgrid(xlin,ylin);
+f = scatteredInterpolant(x',y',z');
+Z = f(X,Y);
+
+figure(f1)
+hold on
+subplot(3,3,1:6)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+subplot(3,3,7)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0, 0);
+subplot(3,3,8)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90, 0);
+subplot(3,3,9)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90,90);
+
+r = 150; % pixels per inch
+set(f2, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+print(f1,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_mem_distribution.png');
+
+%% PLOT verband in ref
+xst = 'switch_vt';
+yst = 'bias_vt';
+zst = 'b_refhigh,b_reflow ';
+
+x = switch_vt./(sqrt(100e-9*45e-9));
+y = bias_vt./(sqrt(180e-9*45e-9));
+z = b_refhigh;
+xlin = linspace(min(x),max(x),33);
+ylin = linspace(min(y),max(y),33);
+[X,Y] = meshgrid(xlin,ylin);
+f = scatteredInterpolant(x',y',z');
+Z = f(X,Y);
+
+f1 = figure
+subplot(3,3,1:6)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+subplot(3,3,7)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0, 0);
+subplot(3,3,8)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90, 0);
+subplot(3,3,9)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0,90);
+
+x = switch_vt./(sqrt(100e-9*45e-9));
+y = bias_vt./(sqrt(180e-9*45e-9));
+z = b_reflow;
+xlin = linspace(min(x),max(x),33);
+ylin = linspace(min(y),max(y),33);
+[X,Y] = meshgrid(xlin,ylin);
+f = scatteredInterpolant(x',y',z');
+Z = f(X,Y);
+
+figure(f1)
+hold on
+subplot(3,3,1:6)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+subplot(3,3,7)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(0, 0);
+subplot(3,3,8)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90, 0);
+subplot(3,3,9)
+mesh(X,Y,Z) %interpolated
+axis tight; hold on
+plot3(x,y,z,'.','MarkerSize',15) %nonuniform
+xlim([-0.08,0.08])
+ylim([-0.08,0.08])
+xlabel(xst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+ylabel(yst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+zlabel(zst,'FontSize', 12,'FontWeight','bold','interpreter','none')
+view(90,90);
+
+r = 150; % pixels per inch
+set(f2, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+print(f1,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/fl_ref_distribution.png');
+
 end
 
 function [] = mc_analize_ref()
