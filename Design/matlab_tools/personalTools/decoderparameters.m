@@ -16,11 +16,11 @@ elseif NoInputs ==6
 elseif NoInputs ==7
     NoStages = 6;
 elseif NoInputs ==8
-    NoStages = 8;
+    NoStages = 7;
 elseif NoInputs ==9
-    NoStages = 8;
+    NoStages = 7;
 elseif NoInputs ==10
-    NoStages = 8;
+    NoStages = 7;
 end
 
 end

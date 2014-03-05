@@ -1,5 +1,5 @@
-NoI=7;
-NoBLpLB=16;
+NoI=5;
+NoBLpLB=1024;
 
 sp.NoI=NoI;
 sp.NoISTRING = int2spelledstring(NoI);
@@ -13,8 +13,17 @@ testvectorin = zeros(2^sp.NoI,sp.NoI);
     
 sp.sizingcell = cell(decoderparameters(NoI),1);
 for i=1:decoderparameters(NoI)
-sp.sizingcell{i} = 1;
+sp.sizingcell{i} = 100^((decoderparameters(NoI)-i)/decoderparameters(NoI));
 end
+
+sp.sizingcell{1}=sp.sizingcell{1}/5*3;
+% sp.sizingcell{2}=80;
+% sp.sizingcell{3}=1;
+% sp.sizingcell{4}=1;
+% sp.sizingcell{5}=1;
+% sp.sizingcell{6}=1;
+
+
 
 j=1;
 for i=2:2^sp.NoI
@@ -60,6 +69,11 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre ./DecoderDesign/SPICE/sizingsim.sp');
+system('spectre -64 +aps ./DecoderDesign/SPICE/sizingsim.sp');
 
 [sim] = readPsfAscii(strcat('./DecoderDesign/SPICE/sizingsim.raw/mymc-001_mytran.tran'), '.*');
+
+sim.getSignal('enable').plotSignal
+hold all
+sim.getSignal('OUT_4').plotSignal
+hold off
