@@ -74,7 +74,26 @@ function [param] = set_vdd_speed_test_param(param)
 end
 
 function [param] = set_memory_architecture_param(param)
-     
+
+% Architecture parameters
+param.NoWLpB=64;
+param.NoBLpLB=4;
+param.NoGB=1;
+
+% TransistorWith parameters
+param.WChargeBL=100e-9;
+param.WBias=1.5*100e-9;
+param.WDischargeBL=180e-9;
+param.WDischargeSL=1.5*150e-9;
+
+param.PWn=100e-9;
+param.PWp=100e-9;
+param.PWpenable=100e-9;
+param.PWnenable=100e-9;
+
+param.PWMmuxLB=200e-9;
+param.PWMmuxGB=200e-9;
+
 end
 
 function [] = run_test(param,sim_name)
@@ -138,7 +157,33 @@ function [] = run_test(param,sim_name)
     end
 
     function [param] = generate_signals(param)
-        %TODO
+        testvectorin = zeros(1,param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2);
+        i=param.address;
+        a=floor(i/(2*param.NoBLpLB*param.NoWLpB));
+        b=floor((i-a*(2*param.NoBLpLB*param.NoWLpB))/(param.NoBLpLB*param.NoWLpB));
+        c=floor((i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB))/param.NoWLpB);
+        d=i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB)-c*param.NoWLpB;
+        
+        testvectorin(a+1)=1;
+        testvectorin(param.NoGB+b+1)=1;
+        cstr=dec2bin(c,log2(param.NoBLpLB));
+        for k=1:log2(param.NoBLpLB)
+            testvectorin(param.NoGB+2+log2(param.NoBLpLB)+1-k)=str2num(cstr(k));
+        end
+        dstr=dec2bin(d,log2(param.NoWLpB));
+        for k=1:log2(param.NoWLpB)
+            testvectorin(param.NoGB+2+log2(param.NoBLpLB)+log2(param.NoWLpB)+1-k)=str2num(dstr(k));
+        end
+        
+        wavein = cell(param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2,1);
+        for i=1:param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2
+            wavetempgroup=[];
+            wavetemp = makewave(strcat('wave',num2str(i)),[1,4,1]*1e-9,[0,testvectorin(i),0]);
+            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);      
+            wave = calcwaves(wavetempgroup);
+            wavein{i}=getfield(wave,strcat('wave',num2str(i)));
+        end
+        param.wavesin = wavein;
     end
 
     function [] = run_simulation(param)
