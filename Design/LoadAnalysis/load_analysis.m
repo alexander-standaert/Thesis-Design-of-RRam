@@ -40,7 +40,9 @@ function [] = load_analysis()
 %      mc_analize_data()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
-    mc_run_tripel(param,0,1)
+%       la_run_length(param,0,1)
+     mc_run_length(param,0,1)
+%     mc_run_tripel(param,0,1)
 % la_run_ref2(element,param,4) 
 end
 
@@ -61,7 +63,7 @@ function [param] = init_param(param)
     param.Csl = 18*10^-15;
     param.Cbl = 18*10^-15;
     
-    param.wsl = 100e-9;
+    param.wsl = 500e-9;
     
     param.Rmemcellhh = 35000;
     param.Rmemcellhl = 30000;
@@ -766,6 +768,210 @@ function [] = la_run_trippel(param,simulate,analyse)
     
 end
 
+function [] = la_run_length(param,simulate,analyse)
+   allelements = allcomb([100:50:500]*1e-9,[100:50:500]*1e-9,[45:10:100]*1e-9,[45:10:100]*1e-9); 
+	allelements = allcomb([100:50:500]*1e-9,[45:10:200]*1e-9); 
+      
+
+   if simulate
+       notfinished = 1;
+       element_nb = 1;
+
+       while notfinished
+           calcelement(element_nb);
+           [notfinished,element_nb] = getelement_nb();
+       end
+
+       disp('========================================================')
+       disp('  ')
+       disp('SIM FINISHED')
+       disp('  ')
+       disp('========================================================')
+   end
+   
+   if analyse
+       for k = 1:size(allelements,1)
+          data = load(strjoin({'./LoadAnalysis/la_length/length_',num2str(k),'.mat'},'')); 
+          b = data.b;
+          element = data.element;
+          
+          elements(k,:) = [element,b(2)-b(3)];
+          
+          if k == 1
+             best_b = b;
+             best_element = element;
+          else
+              b_diff = b(2)-b(3);
+              best_b_diff = best_b(2)-best_b(3);
+              if b_diff > best_b_diff
+                  best_b = b;
+                  best_element = element;
+              end
+          end          
+       end
+       best_b
+       best_element
+       elements
+   end
+   
+    function [notfinished,element_nb] = getelement_nb()
+        rng('shuffle');
+        rndname = num2str(randi(1000000)); % make unique random temp folder
+        system(strjoin({'ls ./LoadAnalysis/la_length > ./LoadAnalysis/',rndname,'.txt'},''))
+
+        fid = fopen(strjoin({'./LoadAnalysis/',rndname,'.txt'},''));
+        
+        sim_done = [];
+        i = 1;
+        tline = fgets(fid);
+        while ischar(tline)
+            [C,matches] = strsplit(tline,{'length_','.mat'});
+            sim_done(i) = str2num(cell2mat(C(2)));
+            tline = fgets(fid);
+            i = i+1;    
+        end
+        
+        if size(allelements,1) == length(sim_done)
+            notfinished = 0;
+            element_nb = 1;
+        else
+            notfinished = 1;
+            index_pool = setdiff([1:size(allelements,1)],sim_done);
+            index = randi(size(index_pool,2));
+            element_nb = index_pool(index);
+            disp('========================================================')
+            disp('  ')
+            disp(strjoin({'CURRENT ELEMENT NUMBER ',num2str(element_nb)},''))
+            disp('  ')
+            disp('========================================================')
+            
+        end
+        
+        system(strjoin({'rm ./LoadAnalysis/',rndname,'.txt'},''))
+        
+    end
+    
+    function [] = calcelement(element_nb)
+        %param.wswitch = allelements(element_nb,1);
+        %param.wbias = allelements(element_nb,2);
+        %param.lswitch = allelements(element_nb,3);
+        %param.lbias = allelements(element_nb,4);
+        
+		param.wswitch = allelements(element_nb,1);
+	    param.lswitch = allelements(element_nb,2);
+                
+
+        rng('shuffle');
+        rnddirname = num2str(randi(1000000)); % make unique random temp folder
+        param.rnddirname = rnddirname;
+        
+        % make Sim folders
+        system(strjoin({'mkdir /tmp/',rnddirname,'/'},''));
+        system(strjoin({'mkdir /tmp/',rnddirname,'/spice'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
+        
+        inputfile = 'length2.m2s';
+        
+        [currentpath,~,~] = fileparts(which(mfilename));
+        
+        mat2spicepath = strcat(currentpath,'/',inputfile)
+        spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'')
+        
+        mat2spice(mat2spicepath,spicepath,param)
+        clear inputfile currentpath mat2spicepath spicepath
+        
+        
+        
+        % Run spice
+        
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/',rnddirname,'/spice/length2.sp'},''));
+        
+        [sim tree] = readPsfAscii(strjoin({'/tmp/',rnddirname,'/spice/length2.raw/ana.tran'},''), '.*');
+        
+        [b,tr,n] = gatherdata(sim,'bias');
+        element = allelements(element_nb,:)
+        
+        save(strjoin({'./LoadAnalysis/la_length/length_',num2str(element_nb)},''),'b','tr','n','element')
+        system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
+        
+        clear sim tree
+        function [b,tr,n] = gatherdata(sim,branch)
+            
+            sig = sim.getSignal(strcat('bl_',branch));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            ts_hh = 2;
+            ts_hl = 10;
+            ts_lh = 18;
+            ts_ll = 26;
+            
+            t_hh = 8;
+            t_hl = 16;
+            t_lh = 24;
+            t_ll = 32;
+            
+            [Y, i_hh] = min(abs(sigx - t_hh));
+            [Y, i_hl] = min(abs(sigx - t_hl));
+            [Y, i_lh] = min(abs(sigx - t_lh));
+            [Y, i_ll] = min(abs(sigx - t_ll));
+            
+            [Y, l_hh] = min(abs(sigx - ts_hh));
+            [Y, l_hl] = min(abs(sigx - ts_hl));
+            [Y, l_lh] = min(abs(sigx - ts_lh));
+            [Y, l_ll] = min(abs(sigx - ts_ll));
+            
+            b_hh = sigy(i_hh);
+            b_hl = sigy(i_hl);
+            b_lh = sigy(i_lh);
+            b_ll = sigy(i_ll);
+            
+            st_limit = 0.1;
+            
+            [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+            [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+            [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+            [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+            
+            tst_hh = sigx(k_hh+l_hh);
+            tst_hl = sigx(k_hl+l_hl);
+            tst_lh = sigx(k_lh+l_lh);
+            tst_ll = sigx(k_ll+l_ll);
+            
+            tr_hh = (tst_hh - ts_hh)*10^-9;
+            tr_hl = (tst_hl - ts_hl)*10^-9;
+            tr_lh = (tst_lh - ts_lh)*10^-9;
+            tr_ll = (tst_ll - ts_ll)*10^-9;
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+            sigy = sig.getYValues;
+            n_hh = sigy(i_hh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+            sigy = sig.getYValues;
+            n_hl = sigy(i_hl);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+            sigy = sig.getYValues;
+            n_lh = sigy(i_lh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+            sigy = sig.getYValues;
+            n_ll = sigy(i_ll);
+            
+            b = [b_hh,b_hl,b_lh,b_ll];
+            tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+            n = [n_hh,n_hl,n_lh,n_ll];
+            
+        end
+    end
+    
+end
+
 function [best_elements] = la_reduce_data()
     
            all_elements = organize_data(1);
@@ -1319,7 +1525,7 @@ function [] = mc_run_tripel(param,simulate,analyse)
         b_all = data.b_all;
         b_memhigh = [b_all(:,1);b_all(:,2)];
         b_memlow = [b_all(:,3);b_all(:,4)];
-        b_refall = data.b_refall
+        b_refall = data.b_refall;
         b_ref = [b_refall(:,1);b_refall(:,2);b_refall(:,3);b_refall(:,4)];
         
         x = [0:0.001:1];
@@ -1351,6 +1557,9 @@ function [] = mc_run_tripel(param,simulate,analyse)
         hold on 
         hist(b_memhigh)
         hist(b_memlow)
+        
+        figure
+        hist(b_ref)
     end
     
     function [] = calcelement()
@@ -1402,6 +1611,219 @@ function [] = mc_run_tripel(param,simulate,analyse)
             n_refall(l,:) = n;
             
             save(strjoin({'./LoadAnalysis/triple_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+        end
+        
+        function [b,tr,n] = gatherdata(sim,branch)
+            
+            sig = sim.getSignal(strcat('bl_',branch));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            ts_hh = 2;
+            ts_hl = 10;
+            ts_lh = 18;
+            ts_ll = 26;
+            
+            t_hh = 8;
+            t_hl = 16;
+            t_lh = 24;
+            t_ll = 32;
+            
+            [Y, i_hh] = min(abs(sigx - t_hh));
+            [Y, i_hl] = min(abs(sigx - t_hl));
+            [Y, i_lh] = min(abs(sigx - t_lh));
+            [Y, i_ll] = min(abs(sigx - t_ll));
+            
+            [Y, l_hh] = min(abs(sigx - ts_hh));
+            [Y, l_hl] = min(abs(sigx - ts_hl));
+            [Y, l_lh] = min(abs(sigx - ts_lh));
+            [Y, l_ll] = min(abs(sigx - ts_ll));
+            
+            b_hh = sigy(i_hh);
+            b_hl = sigy(i_hl);
+            b_lh = sigy(i_lh);
+            b_ll = sigy(i_ll);
+            
+            st_limit = 0.1;
+            
+            [Y, k_hh] = min(abs(sigy(l_hh:i_hh) - (b_hh-b_hh*st_limit)));
+            [Y, k_hl] = min(abs(sigy(l_hl:i_hl) - (b_hl-b_hl*st_limit)));
+            [Y, k_lh] = min(abs(sigy(l_lh:i_lh) - (b_lh-b_lh*st_limit)));
+            [Y, k_ll] = min(abs(sigy(l_ll:i_ll) - (b_ll-b_ll*st_limit)));
+            
+            tst_hh = sigx(k_hh+l_hh);
+            tst_hl = sigx(k_hl+l_hl);
+            tst_lh = sigx(k_lh+l_lh);
+            tst_ll = sigx(k_ll+l_ll);
+            
+            tr_hh = (tst_hh - ts_hh)*10^-9;
+            tr_hl = (tst_hl - ts_hl)*10^-9;
+            tr_lh = (tst_lh - ts_lh)*10^-9;
+            tr_ll = (tst_ll - ts_ll)*10^-9;
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hh'));
+            sigy = sig.getYValues;
+            n_hh = sigy(i_hh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_hl'));
+            sigy = sig.getYValues;
+            n_hl = sigy(i_hl);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_lh'));
+            sigy = sig.getYValues;
+            n_lh = sigy(i_lh);
+            
+            sig = sim.getSignal(strcat('mmemarray_',branch,'.nodecell_ll'));
+            sigy = sig.getYValues;
+            n_ll = sigy(i_ll);
+            
+            b = [b_hh,b_hl,b_lh,b_ll];
+            tr = [tr_hh,tr_hl,tr_lh,tr_ll];
+            n = [n_hh,n_hl,n_lh,n_ll];
+            
+        end
+    end
+    
+end
+
+function [] = mc_run_length(param,simulate,analyse)
+    if simulate
+        param.VtMismatch = 1;
+        param.BMismatch = 0;
+%         param.wswitch = 200e-9;
+%         param.wbias = 500e-9;
+%         param.lswitch = 85e-9;
+%         param.lbias = 85e-9;
+        
+        param.wswitch = 300e-9;
+        param.lswitch = 195e-9;
+        
+        param.mcruns = 500;
+        
+        calcelement();
+
+        
+        disp('========================================================')
+        disp('  ')
+        disp('SIM FINISHED')
+        disp('  ')
+        disp('========================================================')
+    end
+    
+    if analyse
+        data = load('./LoadAnalysis/length2_allmismatch');
+        b_all = data.b_all;
+        b_memhigh = [b_all(:,1);b_all(:,2)];
+        b_memlow = [b_all(:,3);b_all(:,4)];
+        b_refall = data.b_refall;
+        b_ref = [b_refall(:,1);b_refall(:,2)];
+            
+        x = [0:0.001:1];
+        p_b_memhigh = fitdist(b_memhigh(:),'Normal');
+        p_b_memlow = fitdist(b_memlow(:),'LogNormal');
+        p_b_ref = fitdist(b_ref(:),'Normal');
+        
+        cdf_blow = cdf(p_b_memhigh,x);
+        [y i1] = min(abs(cdf_blow-0.001));
+        cdf_blow = cdf(p_b_memlow,x);
+        [y i2] = min(abs(cdf_blow-0.999));
+        cdf_blow = cdf(p_b_ref,x);
+        [y i3] = min(abs(cdf_blow-0.001));
+        [y i4] = min(abs(cdf_blow-0.999));
+        
+                
+        figure1 = figure;
+        hold on
+        plot(x,pdf(p_b_memhigh,x),'LineWidth',3);
+        plot(x,pdf(p_b_memlow,x),'LineWidth',3);
+        plot(x,pdf(p_b_ref,x),'LineWidth',3,'Color','r');
+        
+        plot([x(i1),x(i1)],[0,4],'b','LineWidth',3)
+        plot([x(i2),x(i2)],[0,4],'b','LineWidth',3)
+        plot([x(i3),x(i3)],[0,4],'r','LineWidth',3)
+        plot([x(i4),x(i4)],[0,4],'r','LineWidth',3)
+        plot([p_b_ref.mu,p_b_ref.mu],[0,4],'r','LineWidth',3)
+        
+        % Create textbox
+    annotation(figure1,'textbox',...
+        [0.511416666666667 0.13380788148074 0.028447742733457 0.0400593471810089],...
+        'Interpreter','none',...
+        'String',{num2str(p_b_ref.mu-x(i2))},...
+        'EdgeColor',[1 1 1],...
+        'LineWidth',2);
+    
+    % Create textbox
+    annotation(figure1,'textbox',...
+        [0.555375 0.135936437855871 0.028447742733457 0.0400593471810089],...
+        'Interpreter','none',...
+        'String',{num2str(x(i1)-p_b_ref.mu)},...
+        'EdgeColor',[1 1 1],...
+        'LineWidth',2);
+        
+        figure
+        hold on 
+        hist(b_memhigh,50)
+        hist(b_memlow,50)
+        
+        figure
+        hist(b_ref,50)
+     end
+    
+    function [] = calcelement()
+%         element = [param.wswitch,param.wbias,param.lswitch,param.lbias,param.mcruns];
+        element = [param.wswitch,param.lswitch];
+        rng('shuffle');
+        
+        rndfilename = num2str(randi(1000000));
+        
+        % make Sim folders
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LoadAnalysis/length_mc2.m2s ~/Thesis-Design-of-RRam/Design/LoadAnalysis/',rndfilename,'.m2s'},''));
+        system('rm -rf /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/');
+        system('mkdir /tmp/s0211331-loadana/spice');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/s0211331-loadana/spice/');
+        system('cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/s0211331-loadana/spice/');
+        
+        inputfile = strjoin({rndfilename,'.m2s'},'');
+        
+        [currentpath,~,~] = fileparts(which(mfilename));
+        
+        mat2spicepath = strcat(currentpath,'/',inputfile)
+        spicepath = '../../../../../tmp/s0211331-loadana/spice/'
+        
+        mat2spice(mat2spicepath,spicepath,param)
+        clear inputfile currentpath mat2spicepath spicepath
+        
+        
+        
+        % Run spice
+        
+        system(strjoin({'spectre -64 +aps  -format psfascii /tmp/s0211331-loadana/spice/',rndfilename,'.sp'},''));
+        system(strjoin({'rm ~/Thesis-Design-of-RRam/Design/LoadAnalysis/',rndfilename,'.m2s'},''));
+        
+        for l=1:param.mcruns
+            istr=num2str(l+1000);
+            istr=istr(end-2:end);
+            try
+                echo off
+            [sim, ~] = readPsfAscii(strjoin({'/tmp/s0211331-loadana/spice/',rndfilename,'.raw/mc-',istr,'_ana.tran'},''), '.*');
+                echo on
+            [b,tr,n] = gatherdata(sim,'bias');
+            b_all(l,:) = b;
+            tr_all(l,:) = tr;
+            n_all(l,:) = n;
+            [b,tr,n] = gatherdata(sim,'ref');
+            b_refall(l,:) = b;
+            tr_refall(l,:) = tr;
+            n_refall(l,:) = n;
+            
+            save(strjoin({'./LoadAnalysis/length2_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+            catch
+                disp('boeee')
+            end
         end
         
         function [b,tr,n] = gatherdata(sim,branch)
