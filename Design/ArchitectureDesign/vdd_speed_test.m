@@ -62,7 +62,7 @@ function [param] = set_vdd_speed_test_param(param)
     t_step = 1e-9;
     t_checkout = 3e-9;
     
-    mc_runs = 50;
+    mc_runs = 1;
     
     %% GENERATE THE RIGHT PARAM STRUC
     vdd_range = vdd_min:vdd_step:vdd_max;
@@ -72,7 +72,7 @@ function [param] = set_vdd_speed_test_param(param)
     param.t_range = t_range + t_checkout;
     param.simulation_space = [allcomb(vdd_range,t_range),t_checkout*ones(size(allcomb(vdd_range,t_range),1),1)];
     param.numruns = mc_runs;
-    param.MismatchOn = 1;
+    param.MismatchOn = 0;
     param.simlength = 1e-9 + t_max + t_checkout + 1e-9;
 end
 
@@ -168,6 +168,32 @@ function [] = run_test(param)
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
         end
         param.wavesin = wavein;
+        
+        wavetempgroup=[];
+        for k=1
+            wavetemp = makewave('samplehold',[1+t,0.5,1.5]*1e-9,[0,1,0]);
+            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+            wavetempgroups(k) = wavetempgroup;
+        end
+        wave = calcwaves(wavetempgroups);
+        param.SA_SH=getfield(wave,'samplehold');
+        for k=1
+            wavetemp = makewave('enableSAN',[1+t+0.5,1.4,0.1]*1e-9,[0,1,0]);
+            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+            wavetempgroups(k) = wavetempgroup;
+        end
+        wave = calcwaves(wavetempgroups);
+        param.en_SAN=getfield(wave,'enableSAN');
+        for k=1
+            wavetemp = makewave('enableSAP',[1+t+0.5,1.4,0.1]*1e-9,[1,0,1]);
+            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+            wavetempgroups(k) = wavetempgroup;
+        end
+        wave = calcwaves(wavetempgroups);
+        param.en_SAP=getfield(wave,'enableSAP');
+        
+        param.RMEMvalue = 'RMEMHigh';
+        param.randomizecells = 0;
     end
 
     function [param] = run_simulation(param)
@@ -183,7 +209,6 @@ function [] = run_test(param)
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/cell.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/load.scs /tmp/',rnddirname,'/spice/'},''));
@@ -228,6 +253,16 @@ function [] = run_test(param)
     function [nb_of_passes] = evaluate_simulation(param)
         nb_of_passes = 0;
         for k = 1:param.numruns
+            istr=num2str(k+1000);
+            istr=istr(end-2:end);
+            [sim, ~] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
+            
+            sig = sim.getSignal('InOut_0');
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            plot(sigx,sigy)
+            pause
             
             %TODO read file + extract passes
             
@@ -239,8 +274,9 @@ function [] = run_test(param)
         system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
     end
 
-    function [] = store_simulation(param,sim_name)
-        save(strjoin({'./ArchitectireDesign/vdd_speed_test/',sim_name,'_',num2str(param.vdd),'_',num2str(param.t + param.t_checkout)},''),'nb_of_passes')
+    function [] = store_simulation(param,nb_of_passes)
+        nb_of_passes
+        save(strjoin({'./ArchitectireDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(param.vdd),'_',num2str(param.t + param.t_checkout)},''),'nb_of_passes')
     end
 end
 

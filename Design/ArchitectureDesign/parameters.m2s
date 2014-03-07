@@ -29,10 +29,14 @@ $for i=0:0
 $for j=0:1
 $for k=0:sp.NoBLpLB-1
 $for l=0:sp.NoWLpB-1
-$if rand > 0.5
+$if sp.randomizecells 
+$   if rand > 0.5
 parameters Rcell_$<i>$_$<j>$_$<k>$_$<l>$ = RMEMHigh
-$else
+$   else
 parameters Rcell_$<i>$_$<j>$_$<k>$_$<l>$ = RMEMLow
+$   end
+$else
+parameters Rcell_$<i>$_$<j>$_$<k>$_$<l>$ = $<sp.RMEMvalue>$
 $end
 $end
 $end
