@@ -14,23 +14,33 @@ xDrivers (vdd vss NBulkLine PBulkLine
 + $<bus('GBenable',[0:sp.NoGB-1])>$
 + $<bus('LBenable',[0,1])>$) drivers
 
-xNot_0_0 (GBenable_0 GBenable_0_1 vdd vss PBulkLine NBulkLine) inverter
+$for j=0:sp.NoGB-1
+xNot_$<j>$_0 (GBenable_$<j>$ GBenable_$<j>$_1 vdd vss PBulkLine NBulkLine) inverter
 $for i=1:4
-xNot_$<i>$_0 (GBenable_0_$<i>$ GBenable_0_$<i+1>$ vdd vss PBulkLine NBulkLine) inverter
+xNot_$<j>$_$<i>$ (GBenable_$<j>$_$<i>$ GBenable_0_$<i+1>$ vdd vss PBulkLine NBulkLine) inverter
 $end
-xNot_0_5 (GBenable_0_5 Delay vdd vss PBulkLine NBulkLine) inverter
+xNot_$<j>$_5 (GBenable_$<j>$_5 Delay_$<j>$ vdd vss PBulkLine NBulkLine) inverter
+$end
 
+xNot_ref_0 (LBenable_0 LBenbar_0 vdd vss PBulkLine NBulkLine) inverter
+xNot_ref_1 (LBenable_1 LBenbar_1 vdd vss PBulkLine NBulkLine) inverter 
 
-xGB0 (vdd vss NBulkLine PBulkLine
-+$<grid3d('WLenc',0,[0:1],[0:log2(sp.NoWLpB)-1])>$
-+$<grid3d('BLenc',0,[0:1],[0:log2(sp.NoBLpLB)-1])>$
-+$<bus('LBenable',[0:1])>$
-+InOut InOutbar EnableSAP EnableSAN
-+$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PassRef Delay)       
-+globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(0)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+$for i=0:sp.NoGB-1
+xNand_ref_$<i>$_0 (LBenbar_0 GBenable_$<i>$ tempnand_$<i>$_0 vdd vss PBulkLine NBulkLine) twonand
+xNot_ref_$<i>$_0 (tempnand_$<i>$_0 Refenable_0 vdd vss PBulkLine NBulkLine) inverter
+xNand_ref_$<i>$_1 (LBenbar_1 GBenable_$<i>$ tempnand_$<i>$_1 vdd vss PBulkLine NBulkLine) twonand
+xNot_ref_$<i>$_1 (tempnand_$<i>$_1 Refenable_1 vdd vss PBulkLine NBulkLine) inverter
+$end
 
-xInv0 (InOut InOutbarBuf vdd vss PBulkLine NBulkLine) inverter
-xInv1 (InOutbar InOutBuf vdd vss PBulkLine NBulkLine) inverter
+$for i=0:sp.NoGB-1
+xGB$<i>$ (vdd vss NBulkLine PBulkLine
++$<grid3d('WLenc',i,[0:1],[0:log2(sp.NoWLpB)-1])>$
++$<grid3d('BLenc',i,[0:1],[0:log2(sp.NoBLpLB)-1])>$
++$<bus('LBenable',[0:1])>$ $<bus('Refenable',[0,1])>$
++InOut_$<i>$ InOutbar_$<i>$ SA_SH_$<i>$ EnableSAP_$<i>$ EnableSAN_$<i>$ Delay_$<i>$)       
++globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(i)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+$end
+
 
 $for i=0:sp.NoGB-1
 VGBen$<i>$ (GBenable_$<i>$ 0) vsource type=pwl wave=waveEnGB_$<i>$
@@ -45,25 +55,17 @@ $for i=0:log2(sp.NoWLpB)-1
 VWLenc$<i>$ (WLenc_start_$<i>$ 0) vsource type=pwl wave=waveWLstart_$<i>$
 $end
 
-
+VSH (SA_SH_0 0) vsource type=pwl wave=wave_SA_SH
+VSAN (EnableSAN_0 0) vsource type=pwl wave=wave_SAN
+VSAP (EnableSAP_0 0) vsource type=pwl wave=wave_SAP
 
 Vvdd     ( vdd     0 ) vsource dc=1
 VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
-Vsap (EnableSAP 0) vsource dc=1
-Vsan (EnableSAN 0) vsource dc=0
-VRefSS (RefSourceSelect 0) vsource dc=0
-VRefDC (RefDischarge 0) vsource dc=1
-VrefC (RefCharge 0) vsource dc=1
-Vpref (PassRef 0) vsource dc=0
+save InOut_0 InOutbar_0
 
-$for i=0:sp.NoWLpB-1
-VrefWL$<i>$ (RefWL_$<i>$ 0) vsource dc=0
-$end
-
-save InOut xGB0.xLB0.BL_0 xGB0.xLB0.SelLbar_0 xGB0.xLB0.SelLbarbar_0 xGB0.xLB0.BLCharge_0
 
 mymc montecarlo
 + donominal=no variations=mismatch

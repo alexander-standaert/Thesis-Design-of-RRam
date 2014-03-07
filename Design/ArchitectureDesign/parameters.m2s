@@ -37,10 +37,10 @@ $end
 $end
 $end
 
-$for i=0:2:sp.NoWLpB-1
+$for i=0:2:sp.NoBLpLB-1
 parameters Rref_$<i>$ = RMEMHigh
 $end
-$for i=1:2:sp.NoWLpB-1
+$for i=1:2:sp.NoBLpLB-1
 parameters Rref_$<i>$ = RMEMLow
 $end
 
@@ -56,3 +56,6 @@ $end
 $for i=0:log2(sp.NoWLpB)-1
 parameters waveWLstart$<strcat('_',int2str(i))>$=$<sp.wavesin{sp.NoGB+2+log2(sp.NoBLpLB)+i+1}>$
 $end
+parameters wave_SA_SH = $<sp.SA_SH>$
+parameters wave_SAN = $<sp.en_SAN>$
+parameters wave_SAP = $<sp.en_SAP>$

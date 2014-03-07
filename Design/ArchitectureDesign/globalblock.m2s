@@ -7,17 +7,16 @@ include "senseamplifier.scs"
 subckt globalblock (vdd vss NBulkLine PBulkLine
 +$<signalgrid('LWLencoded',[0:1],[0:log2(sp.NoWLpB)-1])>$
 +$<signalgrid('LBLencoded',[0:1],[0:log2(sp.NoBLpLB)-1])>$
-+$<bus('SelLB',[0:1])>$
-+InOut InOutbar EnableSAP EnableSAN
-+$<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PassRef Delay)
++$<bus('SelLB',[0:1])>$ $<bus('Refenable',[0,1])>$
++InOut InOutbar SA_SH EnableSAP EnableSAN Delay)
 parameters $<grid3d('Rcell',[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
-$for i=0:1
-xLB$<i>$ (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',i,[0:log2(sp.NoWLpB)-1])>$ SelLB_$<i>$ $<signalgrid('LBLencoded',i,[0:log2(sp.NoBLpLB)-1])>$ SelLB_$<i>$ BLout$<strcat('_',int2str(i))>$ Delay) localblock $<gridconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
-xM$<i>$ BLout$<strcat('_',int2str(i))>$ SelLB$<strcat('_',int2str(i))>$ InOut NBulkLine mc_nmos_lvt w=PWmuxGB l=PLmin
-$end
-xRefBranch (vdd vss RefBitLine $<bus('RefWL',[0:sp.NoWLpB-1])>$ RefSourceSelect RefCharge RefDischarge PBulkLine NBulkLine) branch $<busconnect('Rcell','Rref',[0:sp.NoWLpB-1])>$
-xPassgate (RefBitLine PassRef InOutbar NBulkLine) mc_nmos_lvt w=PWmuxGB l=PLmin
+
+xLB0 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',0,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',0,[0:log2(sp.NoBLpLB)-1])>$ SelLB_0 BLout$<strcat('_',int2str(0))>$ Delay Refenable_0) localblock $<gridconnect('Rcell',strcat('Rcell_',int2str(0)),[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+xM$0 BLout$<strcat('_',int2str(0))>$ SA_SH InOut NBulkLine mc_nmos_lvt w=PWmuxGB l=PLmin
+
+xLB1 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',1,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',1,[0:log2(sp.NoBLpLB)-1])>$ SelLB_$1 BLout$<strcat('_',int2str(1))>$ Delay Refenable_1) localblock $<gridconnect('Rcell',strcat('Rcell_',int2str(1)),[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+xM$1 BLout$<strcat('_',int2str(1))>$ SA_SH InOutbar NBulkLine mc_nmos_lvt w=PWmuxGB l=PLmin
 
 xSA (vdd vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN) senseamplifier
 

@@ -1,6 +1,6 @@
 
 subckt decoder$<sp.NoISTRING>$ ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine)
-parameters $<bus('multstage',[1:decoderparameters(sp.NoI)])>$
+parameters $<busassignparam('multstage',[1:decoderparameters(sp.NoI)],'1')>$
 
 
 $if sp.NoI==1

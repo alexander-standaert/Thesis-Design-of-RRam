@@ -20,7 +20,7 @@ sp.PWMmuxGB=200e-9;
 %Simulation parameters
 sp.MismatchOn=0;
 sp.numruns=1;
-sp.simlength=6e-9*(5+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
+sp.simlength=6e-9*(10+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
 
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);
@@ -53,7 +53,28 @@ for i=1:sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2
     wavein{i}=getfield(wave,strcat('wave',num2str(i)));
 end
 sp.wavesin = wavein;
-
+wavetempgroup=[];
+for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
+    wavetemp = makewave('samplehold',[4,0.5,1.5]*1e-9,[0,1,0]);
+    wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+    wavetempgroups(k) = wavetempgroup;
+end
+wave = calcwaves(wavetempgroups);
+sp.SA_SH=getfield(wave,'samplehold');
+for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
+    wavetemp = makewave('enableSAN',[4.5,1.4,0.1]*1e-9,[0,1,0]);
+    wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+    wavetempgroups(k) = wavetempgroup;
+end
+wave = calcwaves(wavetempgroups);
+sp.en_SAN=getfield(wave,'enableSAN');
+for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
+    wavetemp = makewave('enableSAP',[4.5,1.4,0.1]*1e-9,[1,0,1]);
+    wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
+    wavetempgroups(k) = wavetempgroup;
+end
+wave = calcwaves(wavetempgroups);
+sp.en_SAP=getfield(wave,'enableSAP');
 
 
 inputfile = 'branch.m2s';
@@ -80,4 +101,4 @@ clear inputfile currentpath mat2spicepath spicepath
 
 system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
 [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
-sim.getSignal('xGB0.xLB0.BL_0').plotSignal
+

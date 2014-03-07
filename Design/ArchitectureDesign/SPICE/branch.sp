@@ -4,8 +4,8 @@ simulator lang=spectre
 include "cell.scs"
 include "load.scs"
 
-subckt branch (vdd vss BitLine WL_0 WL_1 WL_2 WL_3 WL_4 WL_5 WL_6 WL_7 WL_8 WL_9 WL_10 WL_11 WL_12 WL_13 WL_14 WL_15 WL_16 WL_17 WL_18 WL_19 WL_20 WL_21 WL_22 WL_23 WL_24 WL_25 WL_26 WL_27 WL_28 WL_29 WL_30 WL_31 WL_32 WL_33 WL_34 WL_35 WL_36 WL_37 WL_38 WL_39 WL_40 WL_41 WL_42 WL_43 WL_44 WL_45 WL_46 WL_47 WL_48 WL_49 WL_50 WL_51 WL_52 WL_53 WL_54 WL_55 WL_56 WL_57 WL_58 WL_59 WL_60 WL_61 WL_62 WL_63 SourceSelect Charge Discharge PBulkLine NBulkLine)
-parameters Rcell_0 Rcell_1 Rcell_2 Rcell_3 Rcell_4 Rcell_5 Rcell_6 Rcell_7 Rcell_8 Rcell_9 Rcell_10 Rcell_11 Rcell_12 Rcell_13 Rcell_14 Rcell_15 Rcell_16 Rcell_17 Rcell_18 Rcell_19 Rcell_20 Rcell_21 Rcell_22 Rcell_23 Rcell_24 Rcell_25 Rcell_26 Rcell_27 Rcell_28 Rcell_29 Rcell_30 Rcell_31 Rcell_32 Rcell_33 Rcell_34 Rcell_35 Rcell_36 Rcell_37 Rcell_38 Rcell_39 Rcell_40 Rcell_41 Rcell_42 Rcell_43 Rcell_44 Rcell_45 Rcell_46 Rcell_47 Rcell_48 Rcell_49 Rcell_50 Rcell_51 Rcell_52 Rcell_53 Rcell_54 Rcell_55 Rcell_56 Rcell_57 Rcell_58 Rcell_59 Rcell_60 Rcell_61 Rcell_62 Rcell_63
+subckt branch (vdd vss BitLine WL_0 WL_1 WL_2 WL_3 WL_4 WL_5 WL_6 WL_7 WL_8 WL_9 WL_10 WL_11 WL_12 WL_13 WL_14 WL_15 WL_16 WL_17 WL_18 WL_19 WL_20 WL_21 WL_22 WL_23 WL_24 WL_25 WL_26 WL_27 WL_28 WL_29 WL_30 WL_31 WL_32 WL_33 WL_34 WL_35 WL_36 WL_37 WL_38 WL_39 WL_40 WL_41 WL_42 WL_43 WL_44 WL_45 WL_46 WL_47 WL_48 WL_49 WL_50 WL_51 WL_52 WL_53 WL_54 WL_55 WL_56 WL_57 WL_58 WL_59 WL_60 WL_61 WL_62 WL_63 WL_64 SourceSelect Charge Discharge PBulkLine NBulkLine)
+parameters Rcell_0 Rcell_1 Rcell_2 Rcell_3 Rcell_4 Rcell_5 Rcell_6 Rcell_7 Rcell_8 Rcell_9 Rcell_10 Rcell_11 Rcell_12 Rcell_13 Rcell_14 Rcell_15 Rcell_16 Rcell_17 Rcell_18 Rcell_19 Rcell_20 Rcell_21 Rcell_22 Rcell_23 Rcell_24 Rcell_25 Rcell_26 Rcell_27 Rcell_28 Rcell_29 Rcell_30 Rcell_31 Rcell_32 Rcell_33 Rcell_34 Rcell_35 Rcell_36 Rcell_37 Rcell_38 Rcell_39 Rcell_40 Rcell_41 Rcell_42 Rcell_43 Rcell_44 Rcell_45 Rcell_46 Rcell_47 Rcell_48 Rcell_49 Rcell_50 Rcell_51 Rcell_52 Rcell_53 Rcell_54 Rcell_55 Rcell_56 Rcell_57 Rcell_58 Rcell_59 Rcell_60 Rcell_61 Rcell_62 Rcell_63 Rref
 
 xSwitchVdd LoadLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=PLmin
 xSwitchVss1 BitLine Discharge vss NBulkLine mc_nmos_lvt w=WDischargeBL l=PLmin
@@ -78,6 +78,7 @@ xCell60 (BitLine SourceLine WL_60 NBulkLine) cell RMEM=Rcell_60
 xCell61 (BitLine SourceLine WL_61 NBulkLine) cell RMEM=Rcell_61
 xCell62 (BitLine SourceLine WL_62 NBulkLine) cell RMEM=Rcell_62
 xCell63 (BitLine SourceLine WL_63 NBulkLine) cell RMEM=Rcell_63
+xCell64 (BitLine SourceLine WL_64 NBulkLine) cell RMEM=Rref
  
 cParBLC (BitLine vss) capacitor c=Cpar*64
 cParSLC (SourceLine vss) capacitor c=Cpar*64

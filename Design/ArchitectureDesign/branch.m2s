@@ -4,8 +4,8 @@ simulator lang=spectre
 include "cell.scs"
 include "load.scs"
 
-subckt branch (vdd vss BitLine $<bus('WL',[0:sp.NoWLpB-1])>$ SourceSelect Charge Discharge PBulkLine NBulkLine)
-parameters $<bus('Rcell',[0:sp.NoWLpB-1])>$
+subckt branch (vdd vss BitLine $<bus('WL',[0:sp.NoWLpB])>$ SourceSelect Charge Discharge PBulkLine NBulkLine)
+parameters $<bus('Rcell',[0:sp.NoWLpB-1])>$ Rref
 
 xSwitchVdd LoadLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=PLmin
 xSwitchVss1 BitLine Discharge vss NBulkLine mc_nmos_lvt w=WDischargeBL l=PLmin
@@ -17,6 +17,7 @@ xLoad LoadLine BitLine PBulkLine load
 $for i=0:sp.NoWLpB-1
 xCell$<i>$ (BitLine SourceLine WL_$<i>$ NBulkLine) cell RMEM=Rcell_$<i>$
 $end
+xCell$<sp.NoWLpB>$ (BitLine SourceLine WL_$<sp.NoWLpB>$ NBulkLine) cell RMEM=Rref
  
 cParBLC (BitLine vss) capacitor c=Cpar*$<sp.NoWLpB>$
 cParSLC (SourceLine vss) capacitor c=Cpar*$<sp.NoWLpB>$
