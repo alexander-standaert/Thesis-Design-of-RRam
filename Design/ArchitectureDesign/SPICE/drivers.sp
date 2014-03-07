@@ -3,9 +3,9 @@ simulator lang=spectre
 
 subckt drivers (vdd vss NBulkLine PBulkLine
 + BLenc_start_0 BLenc_start_1
-+ WLenc_start_0 WLenc_start_1 WLenc_start_2 WLenc_start_3 WLenc_start_4 WLenc_start_5
++ WLenc_start_0 WLenc_start_1 WLenc_start_2 WLenc_start_3
 + BLenc_0_0_0 BLenc_0_0_1 BLenc_0_1_0 BLenc_0_1_1
-+ WLenc_0_0_0 WLenc_0_0_1 WLenc_0_0_2 WLenc_0_0_3 WLenc_0_0_4 WLenc_0_0_5 WLenc_0_1_0 WLenc_0_1_1 WLenc_0_1_2 WLenc_0_1_3 WLenc_0_1_4 WLenc_0_1_5
++ WLenc_0_0_0 WLenc_0_0_1 WLenc_0_0_2 WLenc_0_0_3 WLenc_0_1_0 WLenc_0_1_1 WLenc_0_1_2 WLenc_0_1_3
 + GBenable_0
 + LBenable_0 LBenable_1)
 
@@ -45,17 +45,5 @@ xnandwl_0_0_3 WL_0_3 LBenable_0 WLenc_0_0_3bar vdd vss PBulkLine NBulkLine twona
 xinvwl_0_0_3 WLenc_0_0_3bar WLenc_0_0_3 vdd vss PBulkLine NBulkLine inverter
 xnandwl_0_1_3 WL_0_3 LBenable_1 WLenc_0_1_3bar vdd vss PBulkLine NBulkLine twonand
 xinvwl_0_1_3 WLenc_0_1_3bar WLenc_0_1_3 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_4 WLenc_start_4 GBenable_0 WL_0_4bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_4 WL_0_4bar WL_0_4 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_0_4 WL_0_4 LBenable_0 WLenc_0_0_4bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_0_4 WLenc_0_0_4bar WLenc_0_0_4 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_1_4 WL_0_4 LBenable_1 WLenc_0_1_4bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_1_4 WLenc_0_1_4bar WLenc_0_1_4 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_5 WLenc_start_5 GBenable_0 WL_0_5bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_5 WL_0_5bar WL_0_5 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_0_5 WL_0_5 LBenable_0 WLenc_0_0_5bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_0_5 WLenc_0_0_5bar WLenc_0_0_5 vdd vss PBulkLine NBulkLine inverter
-xnandwl_0_1_5 WL_0_5 LBenable_1 WLenc_0_1_5bar vdd vss PBulkLine NBulkLine twonand
-xinvwl_0_1_5 WLenc_0_1_5bar WLenc_0_1_5 vdd vss PBulkLine NBulkLine inverter
 
 ends drivers

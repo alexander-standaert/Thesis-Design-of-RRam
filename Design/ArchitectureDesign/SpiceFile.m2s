@@ -64,7 +64,6 @@ VvddBulk ( PBulkLine 0 ) vsource dc=vdd
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
-save InOut_0 InOutbar_0
 
 
 mymc montecarlo

@@ -7,11 +7,11 @@ include "load.scs"
 subckt branch (vdd vss BitLine $<bus('WL',[0:sp.NoWLpB])>$ SourceSelect Charge Discharge PBulkLine NBulkLine)
 parameters $<bus('Rcell',[0:sp.NoWLpB-1])>$ Rref
 
-xSwitchVdd LoadLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=PLmin
+xSwitchVdd BitLine Charge vdd PBulkLine mc_pmos_lvt w=WChargeBL l=LChargeBL
 xSwitchVss1 BitLine Discharge vss NBulkLine mc_nmos_lvt w=WDischargeBL l=PLmin
 xSwitchVss2 SourceLine SourceSelect vss NBulkLine mc_nmos_lvt w=WDischargeSL l=PLmin
 
-xLoad LoadLine BitLine PBulkLine load
+//xLoad LoadLine BitLine PBulkLine load
 
 
 $for i=0:sp.NoWLpB-1

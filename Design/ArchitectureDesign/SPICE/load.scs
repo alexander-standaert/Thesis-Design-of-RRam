@@ -1,6 +1,5 @@
-subckt load (LoadLine Bitline PBulkLine)
+subckt load (LoadLine BitLine PBulkLine)
 
-xM Bitline gate LoadLine PBulkLine mc_pmos_lvt w=WBias l=PLmin
-Vg gate 0 vsource dc=0 
+rLoad (LoadLine BitLine) resistor r=0;
 
 ends load

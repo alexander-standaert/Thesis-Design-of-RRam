@@ -1,13 +1,13 @@
 % Architecture parameters
-sp.NoWLpB=64;
+sp.NoWLpB=16;
 sp.NoBLpLB=4;
 sp.NoGB=1;
 
 % TransistorWith parameters
-sp.WChargeBL=100e-9;
-sp.WBias=1.5*100e-9;
-sp.WDischargeBL=180e-9;
-sp.WDischargeSL=1.5*150e-9;
+sp.WChargeBL=300e-9;
+sp.LChargeBL=195e-9;
+sp.WDischargeBL=100e-9;
+sp.WDischargeSL=500e-9;
 
 sp.PWn=100e-9;
 sp.PWp=100e-9;
@@ -20,7 +20,8 @@ sp.PWMmuxGB=200e-9;
 %Simulation parameters
 sp.MismatchOn=0;
 sp.numruns=1;
-sp.simlength=6e-9*(10+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
+sp.simlength=6e-9*(3+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
+sp.randomizecells =1;
 
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);
@@ -55,21 +56,21 @@ end
 sp.wavesin = wavein;
 wavetempgroup=[];
 for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
-    wavetemp = makewave('samplehold',[4,0.5,1.5]*1e-9,[0,1,0]);
+    wavetemp = makewave('samplehold',[3,1,2]*1e-9,[0,1,0]);
     wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
     wavetempgroups(k) = wavetempgroup;
 end
 wave = calcwaves(wavetempgroups);
 sp.SA_SH=getfield(wave,'samplehold');
 for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
-    wavetemp = makewave('enableSAN',[4.5,1.4,0.1]*1e-9,[0,1,0]);
+    wavetemp = makewave('enableSAN',[4,1.5,0.5]*1e-9,[0,1,0]);
     wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
     wavetempgroups(k) = wavetempgroup;
 end
 wave = calcwaves(wavetempgroups);
 sp.en_SAN=getfield(wave,'enableSAN');
 for k=1:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB
-    wavetemp = makewave('enableSAP',[4.5,1.4,0.1]*1e-9,[1,0,1]);
+    wavetemp = makewave('enableSAP',[4,1.5,0.5]*1e-9,[1,0,1]);
     wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
     wavetempgroups(k) = wavetempgroup;
 end
@@ -101,4 +102,13 @@ clear inputfile currentpath mat2spicepath spicepath
 
 system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
 [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
+
+sim.getSignal('InOut_0').plotSignal;
+hold all
+sim.getSignal('InOutbar_0').plotSignal;
+
+figure
+sim.getSignal('xGB0.xLB0.BL_0').plotSignal;
+hold all
+sim.getSignal('xGB0.xLB1.BL_0').plotSignal;
 

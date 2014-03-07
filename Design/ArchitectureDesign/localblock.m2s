@@ -15,7 +15,7 @@ xnor$<i>$ (BLencLine_$<i>$ Refenable temp_$<i>$ vdd vss PBulkLine NBulkLine) two
 xnot$<i>$_0 (temp_$<i>$ SelL_$<i>$ vdd vss PBulkLine NBulkLine) inverter
 xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd vss PBulkLine NBulkLine) inverter
 xnot$<i>$_2 (SelLbar_$<i>$ SelLbarbar_$<i>$ vdd vss PBulkLine NBulkLine) inverter
-xnand$<i>$ (SelL_$<i>$ Delay Selbarbarbar_$<i>$ vdd vss PBulkLine NBulkLine) twonand
+xnand$<i>$ (SelL_$<i>$ Delay SelLbarbarbar_$<i>$ vdd vss PBulkLine NBulkLine) twonand
 $end
 
 
@@ -26,6 +26,6 @@ $end
 $for i=0:sp.NoWLpB-1
 cParWL$<i>$ WL_$<i>$ vss capacitor c=Cpar*$<sp.NoBLpLB>$
 $end
-cParWL$<sp.NoWLpB>$ RefWL vss capacitor c=Cpar*$<sp.NoBLpLB>$
+cParWL$<sp.NoWLpB>$ Refenable vss capacitor c=Cpar*$<sp.NoBLpLB>$
 
 ends localblock
