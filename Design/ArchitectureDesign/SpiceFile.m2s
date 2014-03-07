@@ -1,7 +1,7 @@
 
 simulator lang=spectre
 
-include "transistorsPTM.scs"
+include "monte_carlo_models.scs"
 include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
@@ -59,8 +59,8 @@ VSH (SA_SH_0 0) vsource type=pwl wave=wave_SA_SH
 VSAN (EnableSAN_0 0) vsource type=pwl wave=wave_SAN
 VSAP (EnableSAP_0 0) vsource type=pwl wave=wave_SAP
 
-Vvdd     ( vdd     0 ) vsource dc=1
-VvddBulk ( PBulkLine 0 ) vsource dc=1
+Vvdd     ( vdd     0 ) vsource dc=vdd
+VvddBulk ( PBulkLine 0 ) vsource dc=vdd
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 

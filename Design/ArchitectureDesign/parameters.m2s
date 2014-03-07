@@ -1,6 +1,8 @@
 
 simulator lang=spectre
 
+parameters vdd = $<sp.vdd>$
+
 parameters PWmin = 100n                         //MinimalTransistorWidth
 parameters PLmin = 45n                          //MinimalTransistorLenght
 parameters WChargeBL = $<sp.WChargeBL>$         //BitLineChargerWidth(perBL)

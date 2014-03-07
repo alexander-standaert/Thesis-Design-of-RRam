@@ -1,0 +1,114 @@
+///////////////////////////////////////////////////////////////////////////
+// SIMULATION SETTINGS
+
+simulator lang=spice
+.include 'monte_carlo_res.scs'
+.include 'monte_carlo_models.scs' 
+.lib 'tech_wrapper.lib' tt
+
+.OPTIONS METHOD=trap
+.TEMP $<param.temp>$
+
+simulator lang=spectre
+
+mc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=$<param.mcruns>$
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes 
+{
+	ana tran step=$<param.steptime>$ stop=$<param.stoptime>$
+    
+}
+
+parameters tp = mc_pmos_lvt
+parameters tn = mc_nmos_lvt
+
+parameters enableVtMismatch=$<param.VtMismatch>$
+parameters enableBMismatch=$<param.BMismatch>$
+
+
+
+///////////////////////////////////////////////////////////////////////////
+// TEST BENCH + SIGNALS
+
+mmemarray_bias ( bl_bias wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref2 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref3 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+mmemarray_ref4 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+//mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+
+
+mload ( bl_bias bl_ref sel_load sel_bias gnd vdd) loads
+
+vwl_1 wl_1 gnd vsource type=pwl wave=$<param.wl_1>$
+vwl_2 wl_2 gnd vsource type=pwl wave=$<param.wl_2>$
+vwl_3 wl_3 gnd vsource type=pwl wave=$<param.wl_3>$
+vwl_4 wl_4 gnd vsource type=pwl wave=$<param.wl_4>$
+
+vsel_pulldown sel_pulldown gnd vsource type=pwl wave=$<param.sel_pulldown>$
+vsel_load sel_load gnd vsource type=pwl wave=$<param.sel_load>$
+vsel_bias sel_bias gnd vsource type=pwl wave=$<param.sel_bias>$
+vsel_bulk sel_bulk gnd vsource type=pwl wave=$<param.sel_bulk>$
+vsel_sl sel_sl gnd vsource type=pwl wave=$<param.sel_sl>$
+
+vgnd gnd 0 vsource type=dc dc=0
+vvdd vdd 0 vsource type=pwl wave=[0 0 0.01n 1]
+
+
+///////////////////////////////////////////////////////////////////////////
+// MEMARRAY
+
+subckt memarray ( bl wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd)
+
+// mem cell high high
+rmemcell_hh (bl nodecell_hh) resistor r=Rmemcellhh
+mcell_hh nodecell_hh wl_1 sl gnd tn
+// mem cell high low
+rmemcell_hl (bl nodecell_hl) resistor r=Rmemcellhl
+mcell_hl nodecell_hl wl_2 sl gnd tn
+
+// mem cell low high
+rmemcell_lh (bl nodecell_lh) resistor r=Rmemcelllh
+mcell_lh nodecell_lh wl_3 sl gnd tn
+// mem cell low low
+rmemcell_ll (bl nodecell_ll) resistor r=Rmemcellll
+mcell_ll nodecell_ll wl_4 sl gnd tn
+
+// bl
+cbl (bl gnd) capacitor c=$<param.Cbl>$
+mpulldown gnd sel_pulldown bl gnd tn 
+
+// sl
+msl gnd sel_sl sl gnd mosn w=$<param.wsl>$
+csl (sl gnd) capacitor c=$<param.Csl>$
+
+ends memarray
+
+
+///////////////////////////////////////////////////////////////////////////
+// LOADS
+
+
+subckt loads ( bl bl_ref sel_load sel_bias gnd vdd)
+
+mloadmem ( bl sel_load sel_bias bl0 gnd vdd) load
+
+mloadref1 ( bl_ref sel_load sel_bias bl1 gnd vdd) load
+mloadref2 ( bl_ref sel_load sel_bias bl1 gnd vdd) load
+mloadref3 ( bl_ref sel_load sel_bias bl1 gnd vdd) load
+mloadref4 ( bl_ref sel_load sel_bias bl1 gnd vdd) load
+//mloadref5 ( bl_ref sel_load sel_bias bl1 gnd vdd) load
+
+ends loads
+
+subckt load ( bl sel_load sel_bias bl0 gnd vdd)
+mswitch vdd sel_load bl0 vdd tp l=$<param.lswitch>$ w=$<param.wswitch>$
+mbias bl0 sel_bias bl vdd tp l=$<param.lbias>$ w=$<param.wbias>$
+ends load
+
+
+

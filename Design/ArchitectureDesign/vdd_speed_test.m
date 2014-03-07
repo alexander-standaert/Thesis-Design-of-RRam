@@ -13,21 +13,23 @@ function [] = vdd_speed_test()
     clc
     close all
     
-    function_mode = 'evaluation';
+    function_mode = 'simulation';
     sim_name = 'bestsimever';
     
     if strcmp(function_mode,'simulation')
         % set parameters and run simulation
         param = [];
+        param.sim_name = sim_name;
         param = set_vdd_speed_test_param(param);
         param = set_memory_architecture_param(param);
-        run_test(param,sim_name)        
+        run_test(param)        
     else
         % read and plot results
         param = [];
+        param.sim_name = sim_name;
         param = set_vdd_speed_test_param(param);
-        results = read_results(param,sim_name);
-        plot_results(results,param,sim_name)
+        results = read_results(param);
+        plot_results(results,param)
     end
 
 end
@@ -69,38 +71,40 @@ function [param] = set_vdd_speed_test_param(param)
     param.vdd_range = vdd_range;
     param.t_range = t_range + t_checkout;
     param.simulation_space = [allcomb(vdd_range,t_range),t_checkout*ones(size(allcomb(vdd_range,t_range),1),1)];
-    param.mc_runs = mc_runs;
-    
+    param.numruns = mc_runs;
+    param.MismatchOn = 1;
+    param.simlength = 1e-9 + t_max + t_checkout + 1e-9;
 end
 
 function [param] = set_memory_architecture_param(param)
-
-% Architecture parameters
-param.NoWLpB=64;
-param.NoBLpLB=4;
-param.NoGB=1;
-
-% TransistorWith parameters
-param.WChargeBL=100e-9;
-param.WBias=1.5*100e-9;
-param.WDischargeBL=180e-9;
-param.WDischargeSL=1.5*150e-9;
-
-param.PWn=100e-9;
-param.PWp=100e-9;
-param.PWpenable=100e-9;
-param.PWnenable=100e-9;
-
-param.PWMmuxLB=200e-9;
-param.PWMmuxGB=200e-9;
+    param.address = 1;
+    
+    % Architecture parameters
+    param.NoWLpB=4;
+    param.NoBLpLB=4;
+    param.NoGB=1;
+    
+    % TransistorWith parameters
+    param.WChargeBL=100e-9;
+    param.WBias=1.5*100e-9;
+    param.WDischargeBL=180e-9;
+    param.WDischargeSL=1.5*150e-9;
+    
+    param.PWn=100e-9;
+    param.PWp=100e-9;
+    param.PWpenable=100e-9;
+    param.PWnenable=100e-9;
+    
+    param.PWMmuxLB=200e-9;
+    param.PWMmuxGB=200e-9;
 
 end
 
-function [] = run_test(param,sim_name)
+function [] = run_test(param)
     %% MAIN function for the simulation
     % the simulation is done as follows:
     % 1) choose an unused occurance in the simulation space: this is one Vdd and
-    %    one t instance
+    %    one t instance : this done in the for loop
     % 2) generate the requiered control signals
     % 3) performs N monte carlo simulations, where only the output signal
     %    and the resistance values are saved
@@ -109,15 +113,21 @@ function [] = run_test(param,sim_name)
     % 5) write the result under the write sim name
     % 6) go to step 1 and repeat until all occurances in the simulation
     %    space are done
+    try
+        system(strjoin({'mkdir ./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/'},''))
+    catch
+        
+    end
     
-    [vdd,t,sim_not_finished] = choose_occurence(param,sim_name);
-    
-    while sim_not_finished
-        [param] = generate_signals(param,vdd,t);
-        run_simulation(param);
+    for i = 1:size(param.simulation_space,1)
+        
+        vdd = param.simulation_space(i,1);
+        t = param.simulation_space(i,2);
+        [param] = generate_signals(param,t,vdd);
+        param = run_simulation(param);
         [nb_of_passes] = evaluate_simulation(param);
-        store_simulation(param,sim_name,nb_of_passes);
-        [vdd,t,sim_not_finished] = choose_occurence(param,sim_name);
+%         store_simulation(param,nb_of_passes);
+%         [vdd,t,sim_not_finished] = choose_occurence(param,sim_name);
     end
     
     disp('========================================================')
@@ -128,41 +138,15 @@ function [] = run_test(param,sim_name)
     
     %% SIMULATION HELP FUNCTIONS
     
-    function [vdd,t,sim_not_finished] = choose_occurence(param,sim_name)
-        system('ls ./ArchitectireDesign/vdd_speed_test/ > ./ArchitectireDesign/vdd_speed_test/monitor.txt')
+    function [param] = generate_signals(param,t,vdd)
+        param.vdd = vdd;
         
-        fid = fopen('./ArchitectireDesign/vdd_speed_test/monitor.txt');
-        
-        sim_done = [];
-        i = 1;
-        tline = fgets(fid);
-        while ischar(tline)
-            [C,matches] = strsplit(tline,{'tripel_','.mat'});
-            sim_done(i,1) = str2num(cell2mat(C(2)));
-            sim_done(i,2) = str2num(cell2mat(C(2)));
-            tline = fgets(fid);
-            i = i+1;
-        end
-        
-        if size(allelements,1) == length(sim_done)
-            notfinished = 0;
-            element_nb = 1;
-        else
-            notfinished = 1;
-            index_pool = setdiff([1:size(allelements,1)],sim_done);
-            index = randi(size(index_pool,2));
-            element_nb = index_pool(index);
-        end
-        
-    end
-
-    function [param] = generate_signals(param)
         testvectorin = zeros(1,param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2);
         i=param.address;
-        a=floor(i/(2*param.NoBLpLB*param.NoWLpB));
-        b=floor((i-a*(2*param.NoBLpLB*param.NoWLpB))/(param.NoBLpLB*param.NoWLpB));
-        c=floor((i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB))/param.NoWLpB);
-        d=i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB)-c*param.NoWLpB;
+        a=floor(i/(2*param.NoBLpLB*param.NoWLpB)); %set GB
+        b=floor((i-a*(2*param.NoBLpLB*param.NoWLpB))/(param.NoBLpLB*param.NoWLpB)); %set LB
+        c=floor((i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB))/param.NoWLpB); %set BL
+        d=i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB)-c*param.NoWLpB; %set WL
         
         testvectorin(a+1)=1;
         testvectorin(param.NoGB+b+1)=1;
@@ -178,7 +162,7 @@ function [] = run_test(param,sim_name)
         wavein = cell(param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2,1);
         for i=1:param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2
             wavetempgroup=[];
-            wavetemp = makewave(strcat('wave',num2str(i)),[1,4,1]*1e-9,[0,testvectorin(i),0]);
+            wavetemp = makewave(strcat('wave',num2str(i)),[1,4]*1e-9,[0,testvectorin(i)]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);      
             wave = calcwaves(wavetempgroup);
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
@@ -186,7 +170,7 @@ function [] = run_test(param,sim_name)
         param.wavesin = wavein;
     end
 
-    function [] = run_simulation(param)
+    function [param] = run_simulation(param)
         
         rng('shuffle');
         rnddirname = num2str(randi(1000000)); % make unique random temp folder
@@ -200,16 +184,51 @@ function [] = run_test(param,sim_name)
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/cell.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/load.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/decoder.sp /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/senseamplifier.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/CMOSlogic.scs /tmp/',rnddirname,'/spice/'},''));
         
-        %TODO mat2spice files to rnd temp folder
-        %TODO run spice
+        spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'');
+        [currentpath,~,~] = fileparts(which(mfilename));
+        sp = param;
         
+        inputfile = 'branch.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+        inputfile = 'localblock.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+        inputfile = 'globalblock.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+        inputfile = 'SpiceFile.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+        inputfile = 'parameters.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+        inputfile = 'drivers.m2s';
+        mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spice(mat2spicepath,spicepath,sp)
+        
+         
+        system(strjoin({'spectre -64 +aps ',spicepath,'SpiceFile.sp'},''));
+        clear inputfile currentpath mat2spicepath spicepath
         
     end
 
     function [nb_of_passes] = evaluate_simulation(param)
         nb_of_passes = 0;
-        for k = 1:param.mc_runs
+        for k = 1:param.numruns
+            
             %TODO read file + extract passes
             
 %             if %...
@@ -225,15 +244,16 @@ function [] = run_test(param,sim_name)
     end
 end
 
-function [results] = read_results(param,sim_name)
-    
+function [results] = read_results(param)
+    sim_name = param.sim_name;
 
 
-    results = round(rand(length(param.t_range),length(param.vdd_range)))
+    results = round(rand(length(param.t_range),length(param.vdd_range)));
 
 end
 
-function [] = plot_results(results,param,sim_name)
+function [] = plot_results(results,param)
+    sim_name = param.sim_name;
     % plots and saves results
     
     results = [flipud(results) zeros(size(results,1),1);zeros(1,size(results,2)+1)];
