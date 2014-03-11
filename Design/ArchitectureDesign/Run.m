@@ -1,6 +1,6 @@
 % Architecture parameters
-sp.NoWLpB=16;
-sp.NoBLpLB=4;
+sp.NoWLpB=128;
+sp.NoBLpLB=32;
 sp.NoGB=1;
 
 % TransistorWith parameters
@@ -17,12 +17,14 @@ sp.PWnenable=100e-9;
 sp.PWMmuxLB=200e-9;
 sp.PWMmuxGB=200e-9;
 
-%Simulation parameters
+% Simulation parameters
 sp.MismatchOn=0;
 sp.numruns=1;
-sp.simlength=6e-9*(3+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
+sp.simlength=6e-9*(1+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
 sp.randomizecells =1;
 
+% Additional parameters
+sp.vdd = 1;
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);
 for i=0:2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB-1;
@@ -103,12 +105,12 @@ clear inputfile currentpath mat2spicepath spicepath
 system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
 [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
 
-sim.getSignal('InOut_0').plotSignal;
-hold all
-sim.getSignal('InOutbar_0').plotSignal;
 
-figure
-sim.getSignal('xGB0.xLB0.BL_0').plotSignal;
-hold all
-sim.getSignal('xGB0.xLB1.BL_0').plotSignal;
+% sim.getSignal('InOut_0').plotSignal;
+% hold all
+% sim.getSignal('xGB0.xLB0.BL_0').plotSignal
+% figure
+% sim.getSignal('InOutbar_0').plotSignal;
+% hold all
+% sim.getSignal('xGB0.xLB1.BL_0').plotSignal;
 

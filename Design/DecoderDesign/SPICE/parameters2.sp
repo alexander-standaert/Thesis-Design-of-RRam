@@ -15,7 +15,7 @@ parameters wavein_3=[0 0 1e-09 0 1.05e-09 0 2e-09 0 2.05e-09 0 7.5e-09 0]
 parameters wavein_4=[0 0 1e-09 0 1.05e-09 0 2e-09 0 2.05e-09 0 7.5e-09 0]
 parameters waveen = [0 0 1e-09 0 1.1e-09 1 2e-09 1 2.05e-09 0 7.5e-09 0]
 
-parameters dec1multstage_1 = 18.973666
-parameters dec1multstage_2 = 10
-parameters dec1multstage_3 = 3.1622777
+parameters dec1multstage_1 = 0.6
+parameters dec1multstage_2 = 1
+parameters dec1multstage_3 = 1
 parameters dec1multstage_4 = 1

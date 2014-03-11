@@ -1,0 +1,21 @@
+
+parameters sigma_Rhigh= ((35000-30000)/6)
+parameters sigma_Rlow= ((10000-5000)/6) 
+
+parameters Rmemcellhh= ((35000-30000)/2) + 30000
+parameters Rmemcellhl= ((35000-30000)/2) + 30000
+parameters Rmemcellll= ((10000-5000)/2) + 5000
+parameters Rmemcelllh= ((10000-5000)/2) + 5000
+
+
+statistics {
+  mismatch{	
+    vary Rmemcellhl dist=gauss std=sigma_Rhigh
+    vary Rmemcellhh dist=gauss std=sigma_Rhigh
+    vary Rmemcellll dist=gauss std=sigma_Rlow
+    vary Rmemcelllh dist=gauss std=sigma_Rlow
+    
+  }
+
+}
+

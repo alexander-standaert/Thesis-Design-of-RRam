@@ -11,12 +11,16 @@ subckt globalblock (vdd vss NBulkLine PBulkLine
 +InOut InOutbar SA_SH EnableSAP EnableSAN Delay)
 parameters $<grid3d('Rcell',[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
+xNOT0 (SA_SH SA_SHbar vdd vss PBulkLine NBulkLine) inverter
+xNOT1 (SA_SHbar SA_SHbuf vdd vss PBulkLine NBulkLine) inverter
 
-xLB0 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',0,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',0,[0:log2(sp.NoBLpLB)-1])>$ SelLB_0 BLout$<strcat('_',int2str(0))>$ Delay Refenable_0) localblock $<gridconnect('Rcell',strcat('Rcell_',int2str(0)),[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
-xM$0 BLout$<strcat('_',int2str(0))>$ SA_SH InOut NBulkLine mc_nmos_lvt w=PWmuxGB l=PLmin
+xLB0 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',0,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',0,[0:log2(sp.NoBLpLB)-1])>$ SelLB_0 BLout_0 Delay Refenable_0) localblock $<gridconnect('Rcell','Rcell_0',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+xM0n BLout_0 SA_SHbuf InOut NBulkLine mosn_h w=PWmuxGB l=PLmin
+//xM0p BLout_0 SA_SHbar InOut PBulkLine mosp_h w=PWmuxGB l=PLmin
 
-xLB1 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',1,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',1,[0:log2(sp.NoBLpLB)-1])>$ SelLB_$1 BLout$<strcat('_',int2str(1))>$ Delay Refenable_1) localblock $<gridconnect('Rcell',strcat('Rcell_',int2str(1)),[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
-xM$1 BLout$<strcat('_',int2str(1))>$ SA_SH InOutbar NBulkLine mc_nmos_lvt w=PWmuxGB l=PLmin
+xLB1 (vdd vss NBulkLine PBulkLine $<signalgrid('LWLencoded',1,[0:log2(sp.NoWLpB)-1])>$ $<signalgrid('LBLencoded',1,[0:log2(sp.NoBLpLB)-1])>$ SelLB_$1 BLout_1 Delay Refenable_1) localblock $<gridconnect('Rcell','Rcell_1',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+xM1n BLout_1 SA_SHbuf InOutbar NBulkLine mosn_h w=PWmuxGB l=PLmin
+//xM1p BLout_1 SA_SHbar InOutbar PBulkLine mosp_h w=PWmuxGB l=PLmin
 
 xSA (vdd vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN) senseamplifier
 

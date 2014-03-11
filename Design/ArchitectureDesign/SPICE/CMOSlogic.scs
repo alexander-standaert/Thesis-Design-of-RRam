@@ -89,7 +89,7 @@ xnand6 a0 a1bar a2 N5pre vdd vss bp bn threenand mult=multnand
 xnand7 a0bar a1 a2 N6pre vdd vss bp bn threenand mult=multnand
 xnand8 a0 a1 a2 N7pre vdd vss bp bn threenand mult=multnand
 
-xnor1 N0pre enablebar N0 vdd vss bp bn twonor mult=multnor
+xnor1 enablebar N0pre N0 vdd vss bp bn twonor mult=multnor
 xnor2 N1pre enablebar N1 vdd vss bp bn twonor mult=multnor
 xnor3 N2pre enablebar N2 vdd vss bp bn twonor mult=multnor
 xnor4 N3pre enablebar N3 vdd vss bp bn twonor mult=multnor

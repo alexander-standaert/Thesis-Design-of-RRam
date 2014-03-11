@@ -1,6 +1,6 @@
 function [yield,tdelay,E,Pstat] = MClatch( DeltaV,multP,multN,multPen,multNen )
 % tic
-sp.numruns = 200;
+sp.numruns = 1;
 
 sp.Pmult=multP;
 sp.Nmult=multN;
@@ -45,7 +45,7 @@ Pstatvector=[];
 for i=1:sp.numruns
 istr=num2str(i+1000);
 istr=istr(end-2:end);
-[temp, ~] = readPsfAscii(strcat('./LatchAnalysis/BasicLatch/test.raw/mymc-',istr,'_mytran.tran'), '.*');
+[temp] = readPsfAscii(strcat('./LatchAnalysis/BasicLatch/test.raw/mymc-',istr,'_mytran.tran'), '.*');
 sim=[sim;temp];
 a=sim(i).getSignal('inout');
 b=sim(i).getSignal('inoutbar');

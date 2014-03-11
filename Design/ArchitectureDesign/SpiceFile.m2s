@@ -1,4 +1,7 @@
 
+simulator lang=spice
+.lib 'tech_wrapper.lib' tt
+
 simulator lang=spectre
 
 include "monte_carlo_models.scs"
@@ -39,6 +42,8 @@ xGB$<i>$ (vdd vss NBulkLine PBulkLine
 +$<bus('LBenable',[0:1])>$ $<bus('Refenable',[0,1])>$
 +InOut_$<i>$ InOutbar_$<i>$ SA_SH_$<i>$ EnableSAP_$<i>$ EnableSAN_$<i>$ Delay_$<i>$)       
 +globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(i)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
+xNOTout$<i>$ (InOutbar_$<i>$ Out_$<i>$ vdd vss PBulkLine NBulkLine) inverter
+xNOToutbar$<i>$ (InOut_$<i>$ Outbar_$<i>$ vdd vss PBulkLine NBulkLine) inverter
 $end
 
 
@@ -63,6 +68,9 @@ Vvdd     ( vdd     0 ) vsource dc=vdd
 VvddBulk ( PBulkLine 0 ) vsource dc=vdd
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
+
+
+save Out_0
 
 
 

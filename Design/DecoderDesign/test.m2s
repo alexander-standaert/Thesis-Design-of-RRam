@@ -3,10 +3,10 @@
 simulator lang=spectre
 
 include "transistorsPTM.scs"
-include "decodersynthesis.sp"
+include "../../ArchitectureDesign/SPICE/decoder.sp"
 include "parameters.sp"
 
-xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder
+xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$
 
 Vvdd     ( vdd     0 ) vsource dc=1
 VvddBulk ( PBulkLine 0 ) vsource dc=1

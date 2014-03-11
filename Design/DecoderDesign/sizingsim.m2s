@@ -5,9 +5,18 @@ include "transistorsPTM.scs"
 include "../../ArchitectureDesign/SPICE/decoder.sp"
 include "parameters2.sp"
 
-xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$ $<busconnect('multstage','dec1multstage',[1:decoderparameters(sp.NoI)])>$
+xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('TEMP_0',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$ // $<busconnect('multstage','dec1multstage',[1:decoderparameters(sp.NoI)])>$
 $for i=0:2^sp.NoI-1
 cLoad$<i>$ (OUT_$<i>$ 0) capacitor c=$<sp.CL>$
+$end
+
+$for i=0:sp.NoIS-2
+$for j=0:2^sp.NoI-1
+xNOT_$<i>$_$<j>$ (TEMP_$<i>$_$<j>$ TEMP_$<i+1>$_$<j>$ vdd vss PBulkLine NBulkLine) inverter mult=$<sp.invsize{i+1}>$
+$end
+$end
+$for j=0:2^sp.NoI-1
+xNOT_$<sp.NoIS-1>$_$<j>$ (TEMP_$<sp.NoIS-1>$_$<j>$ OUT_$<j>$ vdd vss PBulkLine NBulkLine) inverter mult=$<sp.invsize{sp.NoIS}>$
 $end
 
 Vvdd     ( vdd     0 ) vsource dc=1
@@ -21,6 +30,8 @@ $for i=0:sp.NoI-1
 Vin$<i>$ (IN$<strcat('_',int2str(i))>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$
 $end
 
+
+// save $<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ Vvdd:currents
 
 mymc montecarlo
 + donominal=no variations=mismatch

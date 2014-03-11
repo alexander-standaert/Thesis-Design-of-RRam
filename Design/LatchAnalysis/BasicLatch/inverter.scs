@@ -1,7 +1,7 @@
 subckt inverter (in out vdd vss bp bn)
 parameters PWinvp = 200n PWinvn = 100n
 
-xM1 out in vdd bp mc_pmos_lvt w=PWinvp l=PLmin
-xM2 out in vss bn mc_nmos_lvt w=PWinvn l=PLmin
+xM1 out in vdd bp mosp_h w=PWinvp l=PLmin
+xM2 out in vss bn mosn_h w=PWinvn l=PLmin
 
 ends inverter
