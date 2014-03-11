@@ -8,7 +8,7 @@
 % ----------------------------
 
 currentPath = pwd();
-cd( '~' );
+cd; %cd( '~' );  aanpassing door alexander voor condor
 home = pwd();
 cd( currentPath );
 

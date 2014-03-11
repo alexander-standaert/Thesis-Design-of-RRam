@@ -19,10 +19,12 @@ function [] = vdd_speed_test()
     if strcmp(function_mode,'simulation')
         % set parameters and run simulation
         param = [];
-        param.sim_name = sim_name;
-        param = set_vdd_speed_test_param(param);
         param = set_memory_architecture_param(param);
-        run_test(param)        
+        param = set_vdd_speed_test_param(param);
+        param.sim_name = sim_name;
+        param = split_param(param,2);
+        generate_codor_job_file(param)
+%         vdd_speed_test_run(1,sim_name);       
     else
         % read and plot results
         param = [];
@@ -53,13 +55,13 @@ function [param] = set_vdd_speed_test_param(param)
     % mc_runs: number of Monte Carlo simulations on each vdd/speed point
     % (MUST be a even number because half of the mc simulations are with a LRH and half with a HRS)
     
-    vdd_min = 0.8;
+    vdd_min = 1;
     vdd_max = 1.2;
     vdd_step = 0.1;
     
-    t_min = 10e-9;
-    t_max = 20e-9;
-    t_step = 1e-9;
+    t_min = 2e-9;
+    t_max = 6e-9;
+    t_step = 2e-9;
     t_checkout = 3e-9;
     
     mc_runs = 1;
@@ -70,222 +72,89 @@ function [param] = set_vdd_speed_test_param(param)
     
     param.vdd_range = vdd_range;
     param.t_range = t_range + t_checkout;
+    param.t_checkout = t_checkout;
     param.simulation_space = [allcomb(vdd_range,t_range),t_checkout*ones(size(allcomb(vdd_range,t_range),1),1)];
     param.numruns = mc_runs;
-    param.MismatchOn = 0;
+    param.MismatchOn = 1;
     param.simlength = 1e-9 + t_max + t_checkout + 1e-9;
 end
 
-function [param] = set_memory_architecture_param(param)
+function [param] = set_memory_architecture_param(param)    
+%     % Architecture parameters
+%     param.NoWLpB=4;
+%     param.NoBLpLB=4;
+%     param.NoGB=1;
+%     
+%     % TransistorWith parameters
+%     param.WChargeBL=300e-9;
+%     param.LChargeBL=195e-9;
+%     param.WDischargeBL=100e-9;
+%     param.WDischargeSL=500e-9;
+%     
+%     param.PWn=100e-9;
+%     param.PWp=100e-9;
+%     param.PWpenable=100e-9;
+%     param.PWnenable=100e-9;
+%     
+%     param.PWMmuxLB=200e-9;
+%     param.PWMmuxGB=200e-9;
+    
+    data = load('./ArchitectureDesign/architecture_param');
+    param = data.sp;
     param.address = 1;
-    
-    % Architecture parameters
-    param.NoWLpB=4;
-    param.NoBLpLB=4;
-    param.NoGB=1;
-    
-    % TransistorWith parameters
-    param.WChargeBL=100e-9;
-    param.WBias=1.5*100e-9;
-    param.WDischargeBL=180e-9;
-    param.WDischargeSL=1.5*150e-9;
-    
-    param.PWn=100e-9;
-    param.PWp=100e-9;
-    param.PWpenable=100e-9;
-    param.PWnenable=100e-9;
-    
-    param.PWMmuxLB=200e-9;
-    param.PWMmuxGB=200e-9;
-
 end
 
-function [] = run_test(param)
-    %% MAIN function for the simulation
-    % the simulation is done as follows:
-    % 1) choose an unused occurance in the simulation space: this is one Vdd and
-    %    one t instance : this done in the for loop
-    % 2) generate the requiered control signals
-    % 3) performs N monte carlo simulations, where only the output signal
-    %    and the resistance values are saved
-    % 4) read the spectre results of the mc simulations and determin is the
-    %    Vdd/t occurance is a PASS or FAIL
-    % 5) write the result under the write sim name
-    % 6) go to step 1 and repeat until all occurances in the simulation
-    %    space are done
-    try
-        system(strjoin({'mkdir ./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/'},''))
-    catch
-        
+function [param] = split_param(param,nb_of_blocks)
+    param.nb_of_blocks = nb_of_blocks;
+    totalparam = param;
+    blok_size = ceil(size(param.simulation_space,1)/nb_of_blocks);
+    split_matrix = ones(1,nb_of_blocks)*blok_size;
+    split_matrix(end) = split_matrix(end) - (blok_size*nb_of_blocks-size(param.simulation_space,1));
+    
+    if split_matrix(end) == 0
+       error('Split is badly conditioned, please use an other number of blocks to split') 
     end
     
-    for i = 1:size(param.simulation_space,1)
-        
-        vdd = param.simulation_space(i,1);
-        t = param.simulation_space(i,2);
-        [param] = generate_signals(param,t,vdd);
-        param = run_simulation(param);
-        [nb_of_passes] = evaluate_simulation(param);
-%         store_simulation(param,nb_of_passes);
-%         [vdd,t,sim_not_finished] = choose_occurence(param,sim_name);
-    end
+    split_space = mat2cell(totalparam.simulation_space,split_matrix,3);
     
-    disp('========================================================')
-    disp('  ')
-    disp('SIM FINISHED')
-    disp('  ')
-    disp('========================================================')
-    
-    %% SIMULATION HELP FUNCTIONS
-    
-    function [param] = generate_signals(param,t,vdd)
-        param.vdd = vdd;
-        
-        testvectorin = zeros(1,param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2);
-        i=param.address;
-        a=floor(i/(2*param.NoBLpLB*param.NoWLpB)); %set GB
-        b=floor((i-a*(2*param.NoBLpLB*param.NoWLpB))/(param.NoBLpLB*param.NoWLpB)); %set LB
-        c=floor((i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB))/param.NoWLpB); %set BL
-        d=i-a*(2*param.NoBLpLB*param.NoWLpB)-b*(param.NoBLpLB*param.NoWLpB)-c*param.NoWLpB; %set WL
-        
-        testvectorin(a+1)=1;
-        testvectorin(param.NoGB+b+1)=1;
-        cstr=dec2bin(c,log2(param.NoBLpLB));
-        for k=1:log2(param.NoBLpLB)
-            testvectorin(param.NoGB+2+log2(param.NoBLpLB)+1-k)=str2num(cstr(k));
-        end
-        dstr=dec2bin(d,log2(param.NoWLpB));
-        for k=1:log2(param.NoWLpB)
-            testvectorin(param.NoGB+2+log2(param.NoBLpLB)+log2(param.NoWLpB)+1-k)=str2num(dstr(k));
-        end
-        
-        wavein = cell(param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2,1);
-        for i=1:param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2
-            wavetempgroup=[];
-            wavetemp = makewave(strcat('wave',num2str(i)),[1,4]*1e-9,[0,testvectorin(i)]);
-            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);      
-            wave = calcwaves(wavetempgroup);
-            wavein{i}=getfield(wave,strcat('wave',num2str(i)));
-        end
-        param.wavesin = wavein;
-        
-        wavetempgroup=[];
-        for k=1
-            wavetemp = makewave('samplehold',[1+t,0.5,1.5]*1e-9,[0,1,0]);
-            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
-            wavetempgroups(k) = wavetempgroup;
-        end
-        wave = calcwaves(wavetempgroups);
-        param.SA_SH=getfield(wave,'samplehold');
-        for k=1
-            wavetemp = makewave('enableSAN',[1+t+0.5,1.4,0.1]*1e-9,[0,1,0]);
-            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
-            wavetempgroups(k) = wavetempgroup;
-        end
-        wave = calcwaves(wavetempgroups);
-        param.en_SAN=getfield(wave,'enableSAN');
-        for k=1
-            wavetemp = makewave('enableSAP',[1+t+0.5,1.4,0.1]*1e-9,[1,0,1]);
-            wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
-            wavetempgroups(k) = wavetempgroup;
-        end
-        wave = calcwaves(wavetempgroups);
-        param.en_SAP=getfield(wave,'enableSAP');
-        
-        param.RMEMvalue = 'RMEMHigh';
-        param.randomizecells = 0;
-    end
+    for i = 1:nb_of_blocks
+        param = totalparam;
+        param.simulation_space = split_space{i};
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/input_',totalparam.sim_name,'_',num2str(i-1),'.mat'},''),'param');
+    end    
+end
 
-    function [param] = run_simulation(param)
-        
-        rng('shuffle');
-        rnddirname = num2str(randi(1000000)); % make unique random temp folder
-        param.rnddirname = rnddirname;
-        
-        % make Sim folders
-        system(strjoin({'mkdir /tmp/',rnddirname,'/'},''));
-        system(strjoin({'mkdir /tmp/',rnddirname,'/spice'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/cell.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/load.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/decoder.sp /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/senseamplifier.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/CMOSlogic.scs /tmp/',rnddirname,'/spice/'},''));
-        
-        spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'');
-        [currentpath,~,~] = fileparts(which(mfilename));
-        sp = param;
-        
-        inputfile = 'branch.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-        inputfile = 'localblock.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-        inputfile = 'globalblock.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-        inputfile = 'SpiceFile.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-        inputfile = 'parameters.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-        inputfile = 'drivers.m2s';
-        mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
-        
-         
-        system(strjoin({'spectre -64 +aps ',spicepath,'SpiceFile.sp'},''));
-        clear inputfile currentpath mat2spicepath spicepath
-        
-    end
-
-    function [nb_of_passes] = evaluate_simulation(param)
-        nb_of_passes = 0;
-        for k = 1:param.numruns
-            istr=num2str(k+1000);
-            istr=istr(end-2:end);
-            [sim, ~] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
-            
-            sig = sim.getSignal('InOut_0');
-            sigx = sig.getXValues*10^9;
-            sigy = sig.getYValues;
-            
-            plot(sigx,sigy)
-            pause
-            
-            %TODO read file + extract passes
-            
-%             if %...
-%                 nb_of_passes = nb_of_passes + 1;
-%             end
-        end
-        
-        system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
-    end
-
-    function [] = store_simulation(param,nb_of_passes)
-        nb_of_passes
-        save(strjoin({'./ArchitectireDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(param.vdd),'_',num2str(param.t + param.t_checkout)},''),'nb_of_passes')
-    end
+function [] = generate_codor_job_file(param)
+       
+    fileID = fopen('./ArchitectureDesign/vdd_speed_test.job','w');
+    fprintf(fileID,'Universe         = vanilla \n');
+    fprintf(fileID,'RequestCpus      = 4 \n');
+    fprintf(fileID,'RequestMemory    = 4G \n');
+    fprintf(fileID,'+RequestWalltime = 400 \n');
+    fprintf(fileID,'Requirements = machine == "idesbald.esat.kuleuven.be" \n');
+    
+    fprintf(fileID,'Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design \n');
+    fprintf(fileID,'Executable       = /software/bin/matlab2013b \n');
+    fprintf(fileID,strjoin({'Arguments        = " -nodisplay -r ',char(39),'maxNumCompThreads(4);startup;vdd_speed_test_run($(Process),',char(39),char(39),param.sim_name,char(39),char(39),');exit();',char(39),' " \n'},''));                            %' "');
+    
+    fprintf(fileID,'NiceUser = true \n');
+    fprintf(fileID,'Log          = matlab_is_awesome.$(Process).log \n');
+    fprintf(fileID,'Error        = matlab_is_awesome.$(Process).err \n');
+    fprintf(fileID,strjoin({'Queue ',num2str(param.nb_of_blocks),' \n'},''));
+    
+    fclose(fileID);
 end
 
 function [results] = read_results(param)
-    sim_name = param.sim_name;
-
-
-    results = round(rand(length(param.t_range),length(param.vdd_range)));
-
+    results = zeros(length(param.t_range),length(param.vdd_range));
+    for k  = 1:length(param.t_range)
+       for l = 1:length(param.vdd_range) 
+          t = param.t_range(k)*1e9;
+          vdd = param.vdd_range(l);
+          data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
+          results(k,l) = data.nb_of_passes;
+       end
+    end    
 end
 
 function [] = plot_results(results,param)

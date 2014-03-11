@@ -1,3 +1,5 @@
+simulator lang=spice
+.lib 'tech_wrapper.lib' tt
 
 simulator lang=spice
 .lib 'tech_wrapper.lib' tt
