@@ -73,6 +73,81 @@ probe1 ( rs s ) iprobe
 
 ends mc_pmos_lvt
 
+
+subckt mc_nmos_hvt ( d g s b ) 
+parameters
++ mismatchVt=1 * enableMismatch
++ mismatchBeta=1 * enableMismatch
++ shiftVt=0
++ shiftBeta=0
++ w=100e-9
++ l=45e-9
++ beta_factor = ( delta_1um_LVT_I_I0_n / sqrt(w*l) ) * mismatchBeta + shiftBeta
++ vt_factor   = ( delta_1um_LVT_Vt_n   / sqrt(w*l) ) * mismatchVt + shiftVt
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
+
+mnmos ( d rg rs b ) mosn_h l=l w=w
+probe1 ( rs s ) iprobe
+
+ends mc_nmos_hvt
+
+
+subckt mc_pmos_hvt ( d g s b ) 
+parameters
++ mismatchVt=1 * enableMismatch
++ mismatchBeta=1 * enableMismatch
++ shiftVt=0
++ shiftBeta=0
++ w=100e-9
++ l=45e-9
++ beta_factor = ( delta_1um_LVT_I_I0_p /sqrt(w*l) ) * mismatchBeta + shiftBeta
++ vt_factor   = ( delta_1um_LVT_Vt_p / sqrt(w*l) ) * mismatchVt + shiftVt
+
+v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
+i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
+
+mpmos ( d rg rs b ) mosp_h l=l w=w
+probe1 ( rs s ) iprobe
+
+ends mc_pmos_hvt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 subckt mc_pmos_m ( d g s b) 
 parameters
 + mismatchVt=1 * enableMismatch
