@@ -31,7 +31,7 @@ Vin$<i>$ (IN$<strcat('_',int2str(i))>$ 0) vsource type=pwl wave=wavein$<strcat('
 $end
 
 
-// save $<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ Vvdd:currents
+save $<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ Vvdd:currents
 
 mymc montecarlo
 + donominal=no variations=mismatch

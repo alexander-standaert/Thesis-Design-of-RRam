@@ -42,7 +42,7 @@ end
 wavein = cell(sp.NoI,1);
 for i=1:sp.NoI
     wavetempgroup=[];
-    for k=5             %1:2^sp.NoI
+    for k=3             %1:2^sp.NoI
         wavetemp = makewave(strcat('wave',num2str(i)),[1,1,1]*1e-9,[0,testvectorin(k,sp.NoI+1-i),0]);
         wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
         wavetempgroups(1) = wavetempgroup;
@@ -79,12 +79,12 @@ system('spectre -64 +aps ./DecoderDesign/SPICE/sizingsim.sp');
 [sim] = readPsfAscii(strcat('./DecoderDesign/SPICE/sizingsim.raw/mymc-001_mytran.tran'), '.*');
 
 
-a=sim.getSignal('OUT_4');
+a=sim.getSignal('OUT_2');
 v=a.getYValues;
 t=a.getXValues;
 [~, tstart] = min(abs(t - 1e-9));
 [~, tstop] = min(abs(t - 2*1e-9));
-delay=t(tstart+min(find(v(tstart:end)>0.99)))-1e-9
+delay=t(tstart+min(find(v(tstart:end)>0.9)))-1e-9
 
 c=sim.getSignal('Vvdd:p');
 t2=c.getXValues;
