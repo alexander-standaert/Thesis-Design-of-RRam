@@ -56,7 +56,12 @@ Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
 
-
+save InOut_0
+save xGB0.xLB0.BL_0
+save xGB0.BLout_0
+save xGB0.xLB1.BL_0
+save xGB0.BLout_1
+save xGB0.xLB1.BL_1
 
 mymc montecarlo
 + donominal=no variations=mismatch
@@ -69,4 +74,4 @@ mytran tran stop=simlength method=trap
 }
 
 option1 options rawfmt = psfascii
-cap info what=captab where=file file="%C:r.info.what"
+//cap info what=captab where=file file="%C:r.info.what"

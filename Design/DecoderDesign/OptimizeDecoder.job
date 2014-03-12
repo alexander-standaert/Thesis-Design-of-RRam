@@ -1,0 +1,11 @@
+Universe         = vanilla 
+RequestCpus      = 2 
+RequestMemory    = 4G 
+Requirements = machineowner == "PSI/Spraak" 
+Requirements = distribution == "CentOS" 
+Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design 
+Executable = /software/bin/matlab2013b 
+Arguments = " -nodisplay -r 'maxNumCompThreads(2);startup;SizingSim($(Process));exit();' " 
+NiceUser = true 
+Error        = ./DecoderDesign/OptimizeDecoder/log/optimizedecoder.$(Process).err 
+Queue 10 

@@ -1,8 +1,10 @@
+simulator lang=spice
+.lib 'tech_wrapper.lib' tt
 
 simulator lang=spectre
 
-include "transistorsPTM.scs"
-include "../../ArchitectureDesign/SPICE/decoder.sp"
+include "monte_carlo_models.scs"
+include "decoder.sp"
 include "parameters2.sp"
 
 xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('TEMP_0',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$ // $<busconnect('multstage','dec1multstage',[1:decoderparameters(sp.NoI)])>$

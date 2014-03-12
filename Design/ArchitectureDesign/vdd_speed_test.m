@@ -13,8 +13,8 @@ function [] = vdd_speed_test()
     clc
     close all
     
-    function_mode = 'evaluation';
-%     function_mode = 'simulation';
+%     function_mode = 'evaluation';
+    function_mode = 'simulation';
     sim_name = 'bestsimever';
     
     if strcmp(function_mode,'simulation')
@@ -66,7 +66,7 @@ function [param] = set_vdd_speed_test_param(param)
     t_step = 1e-9;
     t_checkout = 3e-9;
     
-    mc_runs = 50;
+    mc_runs = 3;
     
     %% GENERATE THE RIGHT PARAM STRUC
     vdd_range = vdd_min:vdd_step:vdd_max;
@@ -197,12 +197,38 @@ function [] = analyse_node(vdd,t,param)
     memout_high = data.memout((numruns/2)+1:end);
     membl_low = data.membl(1:numruns/2);
     membl_high = data.membl((numruns/2)+1:end);
+    memhold_low = data.memhold(1:numruns/2);
+    memhold_high = data.memhold((numruns/2)+1:end);
+    refbl_low = data.refbl(1:numruns/2);
+    refbl_high = data.refbl((numruns/2)+1:end);
+    refhold_low = data.refhold(1:numruns/2);
+    refhold_high = data.refhold((numruns/2)+1:end);
     
     figure
     subplot(3,1,1)
-    bar([memout_low,membl_low])
+    b = bar([memout_low,membl_low,refbl_low],0.5)
+    set(b(1),'FaceColor',[0 1 0],'EdgeColor',[0 1 0]);
+    set(b(2),'FaceColor',[1 0 0],'EdgeColor',[1 0 0]);     
+    set(b(3),'FaceColor',[0 0 1],'EdgeColor',[0 0 1]);
+    hold on
+    b = bar([memout_low,memhold_low,refhold_low],0.25);
+    set(b(1),'FaceColor',[0 1 0],'EdgeColor',[0 1 0]);
+    set(b(2),'FaceColor',[1 0 0]*0.7,'EdgeColor',[1 0 0]*0.7);     
+    set(b(3),'FaceColor',[0 0 1]*0.7,'EdgeColor',[0 0 1]*0.7);
+    ylim([-0.1,vdd+0.1])
+    hold off
     subplot(3,1,2)
-    bar([memout_high,membl_high])
+    b = bar([memout_high,membl_high,refbl_high])
+    set(b(1),'FaceColor',[0 1 0],'EdgeColor',[0 1 0]);
+    set(b(2),'FaceColor',[1 0 0],'EdgeColor',[1 0 0]);     
+    set(b(3),'FaceColor',[0 0 1],'EdgeColor',[0 0 1]);
+    hold on
+    b = bar([memout_high,memhold_high,refhold_high],0.25);
+    set(b(1),'FaceColor',[0 1 0],'EdgeColor',[0 1 0]);
+    set(b(2),'FaceColor',[1 0 0]*0.7,'EdgeColor',[1 0 0]*0.7);     
+    set(b(3),'FaceColor',[0 0 1]*0.7,'EdgeColor',[0 0 1]*0.7);
+    ylim([-0.1,vdd+0.1])
+    hold off
     subplot(3,1,3)
     hold on
     hist(membl_high,20)

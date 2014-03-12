@@ -72,10 +72,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
         end
         param.wavesin = wavein;
-        
+        param.thold = 1;
         wavetempgroup=[];
         for k=1
-            wavetemp = makewave('samplehold',[1+t*1e9-2,2,1.5]*1e-9,[0,1,0]);
+            wavetemp = makewave('samplehold',[1+t*1e9-param.thold,param.thold,1.5]*1e-9,[0,1,0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
             wavetempgroups(k) = wavetempgroup;
         end
@@ -156,29 +156,73 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     function [param] = evaluate_simulation(param,t,vdd,appendparam)
         memout = zeros(param.numruns,1);
         membl = zeros(param.numruns,1);
+        memhold = zeros(param.numruns,1);
+        refbl = zeros(param.numruns,1);
+        refhold = zeros(param.numruns,1);
         cellvalue = zeros(param.numruns,1);
         for k = 1:param.numruns
             istr=num2str(k+1000);
             istr=istr(end-2:end);
             [sim, ~] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
-                       
+            
+                        
             sig = sim.getSignal('InOut_0');
-            sigx = sig.getXValues*10^9;
-            sigy = sig.getYValues;
-            
-            [Y i] = min(abs(sigx-(1+(t + param.t_checkout)*1e9)));
-            simmemvalue = sigy(i);
-            
+            sigx1 = sig.getXValues*10^9;
+            sigy1 = sig.getYValues;
+            [Y i] = min(abs(sigx1-(1+(t + param.t_checkout)*1e9)));
+            simmemvalue = sigy1(i);
             memout(k) = simmemvalue;
             
-            sig = sim.getSignal('xGB0.xLB0.BL_0');%xGB0.BLout_0
-            sigx = sig.getXValues*10^9;
-            sigy = sig.getYValues;
-            
-            [Y i] = min(abs(sigx-(1+(t)*1e9)));
-            simblvalue = sigy(i);
-            
+            sig = sim.getSignal('xGB0.xLB0.BL_0');
+            sigx2 = sig.getXValues*10^9;
+            sigy2 = sig.getYValues;
+            [Y i] = min(abs(sigx2-(1+(t)*1e9)));
+            simblvalue = sigy2(i);
             membl(k) = simblvalue;
+            
+            sig = sim.getSignal('xGB0.BLout_0');
+            sigx3 = sig.getXValues*10^9;
+            sigy3 = sig.getYValues;
+            [Y i] = min(abs(sigx3-(1+(t)*1e9)));
+            simholdvalue = sigy3(i);
+            memhold(k) = simholdvalue;
+            
+            sig = sim.getSignal('xGB0.xLB1.BL_0');
+            sigx4 = sig.getXValues*10^9;
+            sigy4 = sig.getYValues;
+            [Y i] = min(abs(sigx4-(1+(t)*1e9)));
+            simrefblvalue = sigy4(i);
+            refbl(k) = simrefblvalue;
+            
+            sig = sim.getSignal('xGB0.BLout_1');
+            sigx5 = sig.getXValues*10^9;
+            sigy5 = sig.getYValues;
+            [Y i] = min(abs(sigx5-(1+(t)*1e9)));
+            simrefholdvalue = sigy5(i);
+            refhold(k) = simrefholdvalue;
+                        
+            debugon = 1;
+            if debugon
+                sig = sim.getSignal('xGB0.xLB1.BL_1');
+                sigx6 = sig.getXValues*10^9;
+                sigy6 = sig.getYValues;
+                
+            
+                figure
+                hold all
+                plot(sigx1,sigy1)
+                plot(sigx2,sigy2)
+                plot(sigx3,sigy3)
+                plot(sigx4,sigy4)
+                plot(sigx5,sigy5)
+                plot(sigx6,sigy6)
+                plot([1,1],[-0.1,vdd],'r')
+                plot([(1+(t)*1e9-param.thold),(1+(t)*1e9-param.thold)],[-0.1,vdd],'r')
+                plot([(1+(t)*1e9),(1+(t)*1e9)],[-0.1,vdd],'r')
+                plot([(1+(t + param.t_checkout)*1e9),(1+(t + param.t_checkout)*1e9)],[-0.1,vdd],'r')
+                legend('out','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')
+                error('ssdfsdfsd')
+            end
             
             if strcmp(param.RMEMvalue,'RMEMHigh')
                 cellvalue(k) = 1;
@@ -191,10 +235,16 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         if appendparam
             param.memout = [param.memout;memout];
             param.membl = [param.membl;membl];
+            param.memhold = [param.memhold;memhold];
+            param.refbl = [param.refbl;refbl];
+            param.refhold = [param.refhold;refhold];
             param.cellvalue = [param.cellvalue;cellvalue];
         else
             param.memout = memout;
             param.membl = membl;
+            param.memhold = memhold;
+            param.refbl = refbl;
+            param.refhold = refhold;
             param.cellvalue = cellvalue;
         end
         
@@ -204,7 +254,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     function [] = store_simulation(param,t,vdd)
         memout = param.memout;
         membl = param.membl;
+        memhold = param.memhold;
+        refbl = param.refbl;
+        refhold = param.refhold;
         cellvalue = param.cellvalue;
-        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','cellvalue')
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','memhold','refbl','refhold','cellvalue')
     end
 end
