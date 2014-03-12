@@ -11,31 +11,33 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     % 5) write the result under the write sim name
     % 6) go to step 1 and repeat until all occurances in the simulation
     %    space are done
-    diary('diary_log')
-    disp('sdfsdfsd')
+    system(strjoin({'rm -rf ./ArchitectureDesign/vdd_speed_test/log/diary_log',num2str(process_id)},''))
+    diary(strjoin({'./ArchitectureDesign/vdd_speed_test/log/diary_log',num2str(process_id)},''))
     data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/input_',sim_name,'_',num2str(process_id),'.mat'},''));
     param = data.param;
     
     system('source /users/start2012/s0211331/Thesis-Design-of-RRam/Design/bashrc_thesis.rc')
     try
-        system(strjoin({'mkdir ./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/'},''))
+        system(strjoin({'mkdir ./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/'},''));
     catch
         
     end
-    
-    fileID = fopen('./ArchitectureDesign/test.txt','w');
-    fprintf(fileID,strjoin({'Universe  ',num2str(process_id),'       = vanilla \n'},''));
-       
-    fclose(fileID);
     
     for s = 1:size(param.simulation_space,1)
         
         vdd = param.simulation_space(s,1);
         t = param.simulation_space(s,2);
         [param] = generate_signals(param,t,vdd);
+        
+        param.RMEMvalue = 'RMEMLow';
         param = run_simulation(param);
-        [nb_of_passes] = evaluate_simulation(param,t,vdd);
-        store_simulation(param,nb_of_passes,t,vdd);
+        [param] = evaluate_simulation(param,t,vdd,0);
+        
+        param.RMEMvalue = 'RMEMHigh';
+        param = run_simulation(param);
+        [param] = evaluate_simulation(param,t,vdd,1);
+                
+        store_simulation(param,t,vdd);
     end
         
     %% SIMULATION HELP FUNCTIONS
@@ -94,7 +96,6 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         wave = calcwaves(wavetempgroups);
         param.en_SAP=getfield(wave,'enableSAP');
         
-        param.RMEMvalue = 'RMEMLow';
         param.randomizecells = 0;
         
     end
@@ -125,51 +126,42 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         
         inputfile = 'branch.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
         inputfile = 'localblock.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
         inputfile = 'globalblock.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
         inputfile = 'SpiceFile.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
         inputfile = 'parameters.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
         inputfile = 'drivers.m2s';
         mat2spicepath = strcat(currentpath,'/',inputfile);
-        mat2spice(mat2spicepath,spicepath,sp)
+        mat2spice2(mat2spicepath,spicepath,sp)
         
-        system(strjoin({'spectre ',spicepath,'SpiceFile.sp'},''));
+        system(strjoin({'source ~/Thesis-Design-of-RRam/Design/bashrc_thesis.rc;spectre ',spicepath,'SpiceFile.sp'},''));
         clear inputfile currentpath mat2spicepath spicepath
         
     end
 
-    function [nb_of_passes] = evaluate_simulation(param,t,vdd)
-        nb_of_passes = 0;
-        system(strjoin({'ls /tmp/',param.rnddirname,'/spice > rndname.txt'},''))
+    function [param] = evaluate_simulation(param,t,vdd,appendparam)
+        memout = zeros(param.numruns,1);
+        membl = zeros(param.numruns,1);
+        cellvalue = zeros(param.numruns,1);
         for k = 1:param.numruns
             istr=num2str(k+1000);
             istr=istr(end-2:end);
             [sim, ~] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
-            
-            sim.getSignal('InOut_0').plotSignal;
-            hold all
-            sim.getSignal('InOutbar_0').plotSignal;
-
-            figure
-            sim.getSignal('xGB0.xLB0.BL_0').plotSignal;
-            hold all
-            sim.getSignal('xGB0.xLB1.BL_0').plotSignal;
-            error('sdfsdfsdf')
-            
+                       
             sig = sim.getSignal('InOut_0');
             sigx = sig.getXValues*10^9;
             sigy = sig.getYValues;
@@ -177,22 +169,42 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             [Y i] = min(abs(sigx-(1+(t + param.t_checkout)*1e9)));
             simmemvalue = sigy(i);
             
-            if strcmp(param.RMEMvalue,'RMEMHigh')
-                acmemvalue = vdd;
-            else
-                acmemvalue = 0;
-            end
+            memout(k) = simmemvalue;
             
-            if simmemvalue-acmemvalue < 0.1
-                nb_of_passes = nb_of_passes + 1
+            sig = sim.getSignal('xGB0.xLB0.BL_0');%xGB0.BLout_0
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            
+            [Y i] = min(abs(sigx-(1+(t)*1e9)));
+            simblvalue = sigy(i);
+            
+            membl(k) = simblvalue;
+            
+            if strcmp(param.RMEMvalue,'RMEMHigh')
+                cellvalue(k) = 1;
+            else
+                cellvalue(k) = 0;
             end
+               
+        end
+        
+        if appendparam
+            param.memout = [param.memout;memout];
+            param.membl = [param.membl;membl];
+            param.cellvalue = [param.cellvalue;cellvalue];
+        else
+            param.memout = memout;
+            param.membl = membl;
+            param.cellvalue = cellvalue;
         end
         
         system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
     end
 
-    function [] = store_simulation(param,nb_of_passes,t,vdd)
-        nb_of_passes
-        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'nb_of_passes')
+    function [] = store_simulation(param,t,vdd)
+        memout = param.memout;
+        membl = param.membl;
+        cellvalue = param.cellvalue;
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','cellvalue')
     end
 end

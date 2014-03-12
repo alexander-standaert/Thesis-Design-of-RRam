@@ -13,7 +13,8 @@ function [] = vdd_speed_test()
     clc
     close all
     
-    function_mode = 'simulation';
+    function_mode = 'evaluation';
+%     function_mode = 'simulation';
     sim_name = 'bestsimever';
     
     if strcmp(function_mode,'simulation')
@@ -22,16 +23,17 @@ function [] = vdd_speed_test()
         param = set_memory_architecture_param(param);
         param = set_vdd_speed_test_param(param);
         param.sim_name = sim_name;
-        param = split_param(param,2);
+        param = split_param(param,9);
         generate_codor_job_file(param)
 %         vdd_speed_test_run(1,sim_name);       
-    else
+    elseif strcmp(function_mode,'evaluation')
         % read and plot results
         param = [];
         param.sim_name = sim_name;
         param = set_vdd_speed_test_param(param);
         results = read_results(param);
         plot_results(results,param)
+        analyse_node(1,5,param)
     end
 
 end
@@ -55,16 +57,16 @@ function [param] = set_vdd_speed_test_param(param)
     % mc_runs: number of Monte Carlo simulations on each vdd/speed point
     % (MUST be a even number because half of the mc simulations are with a LRH and half with a HRS)
     
-    vdd_min = 1;
+    vdd_min = 0.4;
     vdd_max = 1.2;
     vdd_step = 0.1;
     
     t_min = 2e-9;
-    t_max = 6e-9;
-    t_step = 2e-9;
+    t_max = 7e-9;
+    t_step = 1e-9;
     t_checkout = 3e-9;
     
-    mc_runs = 1;
+    mc_runs = 50;
     
     %% GENERATE THE RIGHT PARAM STRUC
     vdd_range = vdd_min:vdd_step:vdd_max;
@@ -128,18 +130,18 @@ function [] = generate_codor_job_file(param)
        
     fileID = fopen('./ArchitectureDesign/vdd_speed_test.job','w');
     fprintf(fileID,'Universe         = vanilla \n');
-    fprintf(fileID,'RequestCpus      = 4 \n');
+    fprintf(fileID,'RequestCpus      = 2 \n');
     fprintf(fileID,'RequestMemory    = 4G \n');
-    fprintf(fileID,'+RequestWalltime = 400 \n');
-    fprintf(fileID,'Requirements = machine == "idesbald.esat.kuleuven.be" \n');
-    
+    fprintf(fileID,'+RequestWalltime = 7200 \n');
+    %fprintf(fileID,'Requirements = machine == "idesbald.esat.kuleuven.be" \n');
+    fprintf(fileID,'Requirements = machineowner == "PSI/Spraak" \n');
+    fprintf(fileID,'Requirements = distribution == "CentOS" \n');
     fprintf(fileID,'Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design \n');
-    fprintf(fileID,'Executable       = /software/bin/matlab2013b \n');
-    fprintf(fileID,strjoin({'Arguments        = " -nodisplay -r ',char(39),'maxNumCompThreads(4);startup;vdd_speed_test_run($(Process),',char(39),char(39),param.sim_name,char(39),char(39),');exit();',char(39),' " \n'},''));                            %' "');
+    fprintf(fileID,'Executable = /software/bin/matlab2013b \n');
+    fprintf(fileID,strjoin({'Arguments = " -nodisplay -r ',char(39),'maxNumCompThreads(2);startup;vdd_speed_test_run($(Process),',char(39),char(39),param.sim_name,char(39),char(39),');exit();',char(39),' " \n'},''));
     
     fprintf(fileID,'NiceUser = true \n');
-    fprintf(fileID,'Log          = matlab_is_awesome.$(Process).log \n');
-    fprintf(fileID,'Error        = matlab_is_awesome.$(Process).err \n');
+    fprintf(fileID,strjoin({'Error        = ./ArchitectureDesign/vdd_speed_test/log/',param.sim_name,'.$(Process).err \n'},''));
     fprintf(fileID,strjoin({'Queue ',num2str(param.nb_of_blocks),' \n'},''));
     
     fclose(fileID);
@@ -151,8 +153,15 @@ function [results] = read_results(param)
        for l = 1:length(param.vdd_range) 
           t = param.t_range(k)*1e9;
           vdd = param.vdd_range(l);
-          data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
-          results(k,l) = data.nb_of_passes;
+          try
+              data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
+              
+              numruns = length(data.cellvalue);
+              results(k,l) = sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2);
+              results(k,l) = sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2);
+          catch
+              results(k,l) = nan;
+          end
        end
     end    
 end
@@ -160,7 +169,7 @@ end
 function [] = plot_results(results,param)
     sim_name = param.sim_name;
     % plots and saves results
-    
+    results
     results = [flipud(results) zeros(size(results,1),1);zeros(1,size(results,2)+1)];
 
     f1 = figure;
@@ -178,4 +187,25 @@ function [] = plot_results(results,param)
     set(f1, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
     print(f1,'-dpng',sprintf('-r%d',r), strjoin({'./ArchitectureDesign/fig/results_vdd_speed_test_',sim_name,'.png'},''));
 
+end
+
+function [] = analyse_node(vdd,t,param)
+    data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
+              
+    numruns = length(data.cellvalue);
+    memout_low = data.memout(1:numruns/2);
+    memout_high = data.memout((numruns/2)+1:end);
+    membl_low = data.membl(1:numruns/2);
+    membl_high = data.membl((numruns/2)+1:end);
+    
+    figure
+    subplot(3,1,1)
+    bar([memout_low,membl_low])
+    subplot(3,1,2)
+    bar([memout_high,membl_high])
+    subplot(3,1,3)
+    hold on
+    hist(membl_high,20)
+    hist(membl_low,20)
+    
 end
