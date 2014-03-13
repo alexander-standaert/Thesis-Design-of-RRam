@@ -13,7 +13,8 @@ xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('BLencLine',[
 $for i=0:sp.NoBLpLB-1
 xnor$<i>$ (BLencLine_$<i>$ Refenable temp_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
 xnot$<i>$_0 (temp_$<i>$ SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
+xDelay$<i>$ (SelL_$<i>$ SelL_$<i>$Delay vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(4)>$
+xnot$<i>$_1 (SelL_$<i>$Delay SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
 xnot$<i>$_2 (SelLbar_$<i>$ SelLbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
 xnand$<i>$ (SelL_$<i>$ Delay SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonand
 $end
