@@ -13,6 +13,10 @@ VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
+$for i=0:2^sp.NoI-1
+xinv_$<i>$ (OUT_$<i>$ whatevs_$<i>$ vdd vss PBulkLine NBulkLine) inverter
+$end
+
 Ven (enable 0) vsource type=pwl wave=waveen
 
 $for i=0:sp.NoI-1
