@@ -14,12 +14,7 @@ parameters Rcell_0_0_0 Rcell_0_0_1 Rcell_0_0_2 Rcell_0_0_3 Rcell_0_0_4 Rcell_0_0
 xNOT0 (SA_SH SA_SHbar vdd_0 vss PBulkLine NBulkLine) inverter // mux driver
 xNOT1 (SA_SHbar SA_SHbuf vdd_0 vss PBulkLine NBulkLine) inverter
 
-xNot_0 (GBenable GBenable_1 vdd_0 vss PBulkLine NBulkLine) inverter // delay for timing
-xNot_1 (GBenable_1 GBenable_2 vdd_0 vss PBulkLine NBulkLine) inverter
-xNot_2 (GBenable_2 GBenable_3 vdd_0 vss PBulkLine NBulkLine) inverter
-xNot_3 (GBenable_3 GBenable_4 vdd_0 vss PBulkLine NBulkLine) inverter
-xNot_4 (GBenable_4 GBenable_5 vdd_0 vss PBulkLine NBulkLine) inverter
-xNot_5 (GBenable_5 Delay vdd_0 vss PBulkLine NBulkLine) inverter
+xDelay (GBenable Delay vdd_0 vss PBulkLine NBulkLine) delaytwentyfive
 
 xNand_ref_0 (LBenbar_0 GBenable tempnand_0 vdd_0 vss PBulkLine NBulkLine) twonand
 xNot_ref_0 (tempnand_0 Refenable_0 vdd_0 vss PBulkLine NBulkLine) inverter

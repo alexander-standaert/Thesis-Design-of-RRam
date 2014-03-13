@@ -1,6 +1,5 @@
 simulator lang=spectre
 
-include "CMOSlogic.scs"
 subckt decoderone (IN_0 enable OUT_0 OUT_1 vdd vss NBulkLine PBulkLine)
 parameters multstage_1 = 1 multstage_2 = 1
 
@@ -62,7 +61,6 @@ parameters multstage_1 = 1 multstage_2 = 1 multstage_3 = 1 multstage_4 = 1
 xinv (enable enablebar vdd vss PBulkLine NBulkLine) inverter mult=multstage_4
 
 xdec (IN_3 IN_4 enablebar temp_0 temp_1 temp_2 temp_3 vdd vss PBulkLine NBulkLine) twotofourdecoder multinv=multstage_4 multnor=2*multstage_3
-
 xinv0 (temp_0 tempbar_0 vdd vss PBulkLine NBulkLine) inverter mult=4*multstage_2
 xdec0 (IN_0 IN_1 IN_2 tempbar_0 OUT_0 OUT_1 OUT_2 OUT_3 OUT_4 OUT_5 OUT_6 OUT_7 vdd vss PBulkLine NBulkLine) threetoeightdecoder multinv=multstage_3 multnand=multstage_2 multnor=multstage_1
 xinv1 (temp_1 tempbar_1 vdd vss PBulkLine NBulkLine) inverter mult=4*multstage_2

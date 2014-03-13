@@ -22,8 +22,8 @@ parameters PWmin = 100n
 parameters PLmin = 45n
 
 xLatch inout inoutbar vdd vss bp bn latchEnableP latchEnableN latch
-//xInv1 inout whatevs vdd2 vss bp bn inverter PWinvp=200n PWinvn=100n
-//XInv2 inoutbar whatevs2 vdd2 vss bp bn inverter PWinvp=300n PWinvn=150n
+xInv1 inout whatevs vdd2 vss bp bn inverter PWinvp=200n PWinvn=100n
+XInv2 inoutbar whatevs2 vdd2 vss bp bn inverter PWinvp=200n PWinvn=100n
 
 Vvdd     ( vdd     0 ) vsource dc=1
 Vvdd2    (vdd2      0) vsource dc=1

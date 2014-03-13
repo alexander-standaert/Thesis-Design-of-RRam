@@ -1,19 +1,19 @@
 function [yield,tdelay,E,Pstat] = MClatch( DeltaV,multP,multN,multPen,multNen )
 % tic
-sp.numruns = 1;
+sp.numruns = 500;
 
 sp.Pmult=multP;
 sp.Nmult=multN;
 sp.Pmultenable=multPen;
 sp.Nmultenable=multNen;
 
-sp.inout = 0.3;
-sp.inoutbar = sp.inout+DeltaV;
+sp.inout = 0.3-DeltaV;
+sp.inoutbar = 0.3;
 
 starttransition = 0.5e-9;
 
 sp.lep = wavegen([0,starttransition;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
-sp.len = wavegen([0,starttransition;1,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
+sp.len = wavegen([0,starttransition;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
 
 inputfile = 'parameters.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));
@@ -27,6 +27,7 @@ system('spectre ./LatchAnalysis/BasicLatch/test.scs');
 correct=zeros(sp.numruns,1);
 td=[];
 sim=[];
+
 % figure(1)
 % subplot(1,2,1)
 % xlabel('time [ns]')
@@ -78,6 +79,7 @@ end
 % hold off
 % subplot(1,2,2)
 % hold off
+
 yield=mean(correctvector)
 tdelay=mean(tdelayvector)
 E=mean(Evector)

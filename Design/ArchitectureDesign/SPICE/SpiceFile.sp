@@ -7,6 +7,8 @@ include "monte_carlo_models.scs"
 include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
+include "delay.sp"
+include "CMOSlogic.scs"
 
 xDrivers (vdd_0 vss NBulkLine PBulkLine
 + BLenc_start_0 BLenc_start_1
@@ -45,21 +47,21 @@ VSH (SA_SH_0 0) vsource type=pwl wave=wave_SA_SH
 VSAN (EnableSAN_0 0) vsource type=pwl wave=wave_SAN
 VSAP (EnableSAP_0 0) vsource type=pwl wave=wave_SAP
 
-Vvdd0     ( vdd_0     0 ) vsource dc=vdd // logic
-Vvdd1     ( vdd_1     0 ) vsource dc=vdd // SA
-Vvdd2     ( vdd_2     0 ) vsource dc=vdd // mem array
-Vvdd3     ( vdd_3     0 ) vsource dc=vdd // buffers
+Vvdd_0     ( vdd_0     0 ) vsource dc=vdd // logic
+Vvdd_1     ( vdd_1     0 ) vsource dc=vdd // SA
+Vvdd_2     ( vdd_2     0 ) vsource dc=vdd // mem array
+Vvdd_3     ( vdd_3     0 ) vsource dc=vdd // buffers
 VvddBulk ( PBulkLine 0 ) vsource dc=vdd
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
 
 save InOut_0
-save xGB0.xLB0.BL_0
-save xGB0.BLout_0
-save xGB0.xLB1.BL_0
-save xGB0.BLout_1
-save xGB0.xLB1.BL_1
+save xGB0.*
+save Vvdd_0:p
+save Vvdd_1:p
+save Vvdd_2:p
+save Vvdd_3:p
 
 mymc montecarlo
 + donominal=no variations=mismatch

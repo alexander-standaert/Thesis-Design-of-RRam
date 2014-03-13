@@ -8,6 +8,7 @@ include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
 include "delay.sp"
+include "CMOSlogic.scs"
 
 xDrivers (vdd_0 vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$
@@ -61,11 +62,7 @@ VvssBulk ( NBulkLine 0 ) vsource dc=0
 
 
 save InOut_0
-save xGB0.xLB0.BL_0
-save xGB0.BLout_0
-save xGB0.xLB1.BL_0
-save xGB0.BLout_1
-save xGB0.xLB1.BL_1
+save xGB0.*
 save Vvdd_0:p
 save Vvdd_1:p
 save Vvdd_2:p

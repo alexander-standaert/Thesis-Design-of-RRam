@@ -14,7 +14,7 @@ parameters $<grid3d('Rcell',[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 xNOT0 (SA_SH SA_SHbar vdd_0 vss PBulkLine NBulkLine) inverter // mux driver
 xNOT1 (SA_SHbar SA_SHbuf vdd_0 vss PBulkLine NBulkLine) inverter
 
-xDelay (GBenable Delay vdd vss PBulkLine NBulkLine) delay$<int2spelledstring(5)>$
+xDelay (GBenable Delay vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(25)>$
 
 xNand_ref_0 (LBenbar_0 GBenable tempnand_0 vdd_0 vss PBulkLine NBulkLine) twonand
 xNot_ref_0 (tempnand_0 Refenable_0 vdd_0 vss PBulkLine NBulkLine) inverter

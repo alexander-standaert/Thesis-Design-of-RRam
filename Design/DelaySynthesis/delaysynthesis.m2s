@@ -1,5 +1,5 @@
 
-subckt delay$<sp.NoDSTRING>$ (a_0 a_$<2*sp.NoD>$ vss PBulkLine NBulkLine)
+subckt delay$<sp.NoDSTRING>$ (a_0 a_$<2*sp.NoD>$ vdd vss PBulkLine NBulkLine)
 
 $for i=1:2:2*sp.NoD-1
 xinv_$<i-1>$ (a_$<i-1>$ a_$<i>$ vdd vss PBulkLine NBulkLine) inverter

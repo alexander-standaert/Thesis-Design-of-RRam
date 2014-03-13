@@ -105,12 +105,6 @@ clear inputfile currentpath mat2spicepath spicepath
 system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
 [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
 
-sim.getSignal('InOut_0').plotSignal;
-hold all
-sim.getSignal('InOutbar_0').plotSignal;
+sim.getSignal('xGB0.Delay').plotSignal;
 
-figure
-sim.getSignal('xGB0.xLB0.BL_0').plotSignal;
-hold all
-sim.getSignal('xGB0.xLB1.BL_0').plotSignal;
 
