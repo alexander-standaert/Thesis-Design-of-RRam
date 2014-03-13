@@ -6,3 +6,4 @@
 *.log
 *.ahdlSimDB
 **/m2s_run.m
+Design/ArchitectureDesign/vdd_speed_test/log/*

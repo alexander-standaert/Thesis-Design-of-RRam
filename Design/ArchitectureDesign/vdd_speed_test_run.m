@@ -66,7 +66,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         wavein = cell(param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2,1);
         for i=1:param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2
             wavetempgroup=[];
-            wavetemp = makewave(strcat('wave',num2str(i)),[1,4]*1e-9,[0,testvectorin(i)]);
+            wavetemp = makewave(strcat('wave',num2str(i)),[1,t*1e9+3,4]*1e-9,[0,testvectorin(i),0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);      
             wave = calcwaves(wavetempgroup);
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
@@ -208,19 +208,22 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             sig = sim.getSignal('Vvdd_0:p');
             sigxi0 = sig.getXValues;
             sigyi0 = -1*sig.getYValues;
+            energy0(k) = trapz(sigxi0,sigyi0*vdd);
                         
             sig = sim.getSignal('Vvdd_1:p');
             sigxi1 = sig.getXValues;
             sigyi1 = -1*sig.getYValues;
+            energy1(k) = trapz(sigxi1,sigyi1*vdd);
             
             sig = sim.getSignal('Vvdd_2:p');
             sigxi2 = sig.getXValues;
             sigyi2 = -1*sig.getYValues;
+            energy2(k) = trapz(sigxi2,sigyi2*vdd);
             
             sig = sim.getSignal('Vvdd_3:p');
             sigxi3 = sig.getXValues;
             sigyi3 = -1*sig.getYValues;
-            
+            energy3(k) = trapz(sigxi3,sigyi3*vdd);          
             
             
 
@@ -269,6 +272,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             param.refbl = [param.refbl;refbl];
             param.refhold = [param.refhold;refhold];
             param.cellvalue = [param.cellvalue;cellvalue];
+            param.energy0 = [param.energy0;energy0];
+            param.energy1 = [param.energy1;energy1];
+            param.energy2 = [param.energy2;energy2];
+            param.energy3 = [param.energy3;energy3];
         else
             param.memout = memout;
             param.membl = membl;
@@ -276,6 +283,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             param.refbl = refbl;
             param.refhold = refhold;
             param.cellvalue = cellvalue;
+            param.energy0 = energy0;
+            param.energy1 = energy1;
+            param.energy2 = energy2;
+            param.energy3 = energy3;
         end
         
         system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
@@ -288,6 +299,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         refbl = param.refbl;
         refhold = param.refhold;
         cellvalue = param.cellvalue;
-        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','memhold','refbl','refhold','cellvalue')
+        energy0 = param.energy0;
+        energy1 = param.energy1;
+        energy2 = param.energy2;
+        energy3 = param.energy3;
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','memhold','refbl','refhold','cellvalue','energy0','energy1','energy2','energy3')
     end
 end
