@@ -13,7 +13,7 @@ function [] = vdd_speed_test()
     clc
     close all
     
-    function_mode = 'evaluation';
+%     function_mode = 'evaluation';
     function_mode = 'simulation';
     sim_name = 'bestsimever';
     
@@ -30,9 +30,10 @@ function [] = vdd_speed_test()
         % read and plot results
         param = [];
         param.sim_name = sim_name;
+        param.debugon = 0;
         param = set_vdd_speed_test_param(param);
         results = read_results(param);
-        plot_results(results,param)
+        plot_results(results,param,0.95)
         analyse_node(1,3,param)
     end
 
@@ -178,12 +179,14 @@ function [results] = read_results(param)
     end    
 end
 
-function [] = plot_results(results,param)
+function [] = plot_results(results,param,paspercentage)
     sim_name = param.sim_name;
     % plots and saves results
     results
+    results = (results >= paspercentage)
     results = [flipud(results) zeros(size(results,1),1);zeros(1,size(results,2)+1)];
-
+    
+    
     f1 = figure;
     colormap([0.9,0,0;0,0.7,0])
     pcolor(results)   

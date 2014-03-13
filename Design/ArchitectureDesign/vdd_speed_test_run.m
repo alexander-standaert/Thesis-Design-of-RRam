@@ -66,7 +66,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         wavein = cell(param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2,1);
         for i=1:param.NoGB+log2(param.NoWLpB)+log2(param.NoBLpLB)+2
             wavetempgroup=[];
-            wavetemp = makewave(strcat('wave',num2str(i)),[1,t*1e9+3,4]*1e-9,[0,testvectorin(i),0]);
+            wavetemp = makewave(strcat('wave',num2str(i)),[1,t*1e9+0.2,4]*1e-9,[0,testvectorin(i),0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);      
             wave = calcwaves(wavetempgroup);
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
@@ -231,7 +231,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 sig = sim.getSignal('xGB0.xLB1.BL_1');
                 sigx6 = sig.getXValues*10^9;
                 sigy6 = sig.getYValues;
-                            
+                close all    
+                
                 figure
                 hold all
                 plot(sigx1,sigy1)

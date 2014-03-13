@@ -43,12 +43,14 @@ $end
 $end
 $end
 
-$for i=0:2:sp.NoBLpLB-1
+$for i=0:1:sp.NoBLpLB-1
+$if sp.refcells(i+1)
 parameters Rref_$<i>$ = RMEMHigh
-$end
-$for i=1:2:sp.NoBLpLB-1
+$else
 parameters Rref_$<i>$ = RMEMLow
 $end
+$end
+
 
 $for i=0:sp.NoGB-1
 parameters waveEnGB$<strcat('_',int2str(i))>$=$<sp.wavesin{i+1}>$
