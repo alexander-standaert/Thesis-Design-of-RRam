@@ -21,6 +21,86 @@ elseif integer ==9
     spelledstring = 'nine';
 elseif integer ==10
     spelledstring = 'ten';
+elseif integer ==11
+    spelledstring = 'eleven';
+elseif integer ==12
+    spelledstring = 'twelve';
+elseif integer ==13
+    spelledstring = 'thirteen';
+elseif integer ==14
+    spelledstring = 'fourteen';
+elseif integer ==15
+    spelledstring = 'fifteen';
+elseif integer ==16
+    spelledstring = 'sixteen';
+elseif integer ==17
+    spelledstring = 'seventeen';
+elseif integer ==18
+    spelledstring = 'eighteen';
+elseif integer ==19
+    spelledstring = 'nineteen';
+elseif integer ==20
+    spelledstring = 'twenty';
+elseif integer ==21
+    spelledstring = 'twentyone';
+elseif integer ==22
+    spelledstring = 'twentytwo';
+elseif integer ==23
+    spelledstring = 'twentythree';
+elseif integer ==24
+    spelledstring = 'twentyfour';
+elseif integer ==25
+    spelledstring = 'twentyfive';
+elseif integer ==26
+    spelledstring = 'twentysix';
+elseif integer ==27
+    spelledstring = 'twentyseven';
+elseif integer ==28
+    spelledstring = 'twentyeight';
+elseif integer ==29
+    spelledstring = 'twentynine';
+elseif integer ==30
+    spelledstring = 'thirty';
+elseif integer ==31
+    spelledstring = 'thirtyone';
+elseif integer ==32
+    spelledstring = 'thirtytwo';
+elseif integer ==33
+    spelledstring = 'thirtythree';
+elseif integer ==34
+    spelledstring = 'thirtyfour';
+elseif integer ==35
+    spelledstring = 'thirtyfive';
+elseif integer ==36
+    spelledstring = 'thirtysix';
+elseif integer ==37
+    spelledstring = 'thirtyseven';
+elseif integer ==38
+    spelledstring = 'thirtyeigth';
+elseif integer ==39
+    spelledstring = 'thirtynine';
+elseif integer ==40
+    spelledstring = 'forty';
+elseif integer ==41
+    spelledstring = 'fortyone';
+elseif integer ==42
+    spelledstring = 'fortytwo';
+elseif integer ==43
+    spelledstring = 'fortythree';
+elseif integer ==44
+    spelledstring = 'fortyfour';
+elseif integer ==45
+    spelledstring = 'fortyfive';
+elseif integer ==46
+    spelledstring = 'fortysix';
+elseif integer ==47
+    spelledstring = 'fortyseven';
+elseif integer ==48
+    spelledstring = 'fortyeight';
+elseif integer ==49
+    spelledstring = 'fortynine';
+elseif integer ==50
+    spelledstring = 'fifty';
 end
 
 end

@@ -7,6 +7,7 @@ include "monte_carlo_models.scs"
 include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
+include "delay.sp"
 
 xDrivers (vdd_0 vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$
