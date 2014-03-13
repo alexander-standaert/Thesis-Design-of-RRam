@@ -13,7 +13,7 @@ function [] = vdd_speed_test()
     clc
     close all
     
-%     function_mode = 'evaluation';
+    function_mode = 'evaluation';
     function_mode = 'simulation';
     sim_name = 'bestsimever';
     
@@ -21,11 +21,11 @@ function [] = vdd_speed_test()
         % set parameters and run simulation
         param = [];
         param = set_memory_architecture_param(param);
+        param.debugon = 1;
         param = set_vdd_speed_test_param(param);
         param.sim_name = sim_name;
-        param = split_param(param,9);
-        generate_codor_job_file(param)
-%         vdd_speed_test_run(1,sim_name);       
+        param = split_param(param,15);
+        generate_codor_job_file(param)      
     elseif strcmp(function_mode,'evaluation')
         % read and plot results
         param = [];
@@ -33,7 +33,7 @@ function [] = vdd_speed_test()
         param = set_vdd_speed_test_param(param);
         results = read_results(param);
         plot_results(results,param)
-        analyse_node(1,5,param)
+        analyse_node(1,3,param)
     end
 
 end
@@ -61,12 +61,17 @@ function [param] = set_vdd_speed_test_param(param)
     vdd_max = 1.2;
     vdd_step = 0.1;
     
-    t_min = 2e-9;
-    t_max = 7e-9;
-    t_step = 1e-9;
-    t_checkout = 3e-9;
+    t_min = 0.5e-9;
+    t_max = 3e-9;
+    t_step = 0.5e-9;
+    t_checkout = 1e-9;
+    param.thold = 0.2e-9;
     
-    mc_runs = 3;
+    if param.debugon
+        mc_runs = 1;
+    else
+        mc_runs = 50;
+    end
     
     %% GENERATE THE RIGHT PARAM STRUC
     vdd_range = vdd_min:vdd_step:vdd_max;
@@ -111,8 +116,9 @@ function [param] = split_param(param,nb_of_blocks)
     totalparam = param;
     blok_size = ceil(size(param.simulation_space,1)/nb_of_blocks);
     split_matrix = ones(1,nb_of_blocks)*blok_size;
-    split_matrix(end) = split_matrix(end) - (blok_size*nb_of_blocks-size(param.simulation_space,1));
-    
+    oversize = (blok_size*nb_of_blocks-size(param.simulation_space,1));
+    split_matrix(1:oversize) = split_matrix(1:oversize)-1;
+
     if split_matrix(end) == 0
        error('Split is badly conditioned, please use an other number of blocks to split') 
     end
@@ -134,6 +140,7 @@ function [] = generate_codor_job_file(param)
     fprintf(fileID,'RequestMemory    = 4G \n');
     fprintf(fileID,'+RequestWalltime = 7200 \n');
     %fprintf(fileID,'Requirements = machine == "idesbald.esat.kuleuven.be" \n');
+    fprintf(fileID,'Requirements = (machine != "donovan.esat.kuleuven.be") \n');
     fprintf(fileID,'Requirements = machineowner == "PSI/Spraak" \n');
     fprintf(fileID,'Requirements = distribution == "CentOS" \n');
     fprintf(fileID,'Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design \n');
@@ -157,8 +164,13 @@ function [results] = read_results(param)
               data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
               
               numruns = length(data.cellvalue);
-              results(k,l) = sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2);
-              results(k,l) = sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2);
+              results_low = sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2);
+              results_high = sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2);
+              if results_high == 0 && results_low == 1
+                results(k,l) = 0;  
+              else
+                results(k,l) = (sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2) + sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2))/2;
+              end
           catch
               results(k,l) = nan;
           end

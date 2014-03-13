@@ -8,28 +8,28 @@ include "globalblock.sp"
 include "drivers.sp"
 include "parameters.sp"
 
-xDrivers (vdd vss NBulkLine PBulkLine
+xDrivers (vdd_0 vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$
 + $<bus('WLenc_start',[0:log2(sp.NoWLpB)-1])>$
 + $<grid3d('BLenc',[0:sp.NoGB-1],[0:1],[0:log2(sp.NoBLpLB)-1])>$
 + $<grid3d('WLenc',[0:sp.NoGB-1],[0,1],[0:log2(sp.NoWLpB)-1])>$
 + $<bus('GBenable',[0:sp.NoGB-1])>$
-+ $<bus('LBenable',[0,1])>$) drivers
++ $<bus('LBenable',[0,1])>$) drivers // line drives: kiest local en global block
 
 
-xNot_ref_0 (LBenable_0 LBenbar_0 vdd vss PBulkLine NBulkLine) inverter
-xNot_ref_1 (LBenable_1 LBenbar_1 vdd vss PBulkLine NBulkLine) inverter 
+xNot_ref_0 (LBenable_0 LBenbar_0 vdd_0 vss PBulkLine NBulkLine) inverter // inv localblok enble voor ref
+xNot_ref_1 (LBenable_1 LBenbar_1 vdd_0 vss PBulkLine NBulkLine) inverter 
 
 
 $for i=0:sp.NoGB-1
-xGB$<i>$ (vdd vss NBulkLine PBulkLine
+xGB$<i>$ ($<bus('vdd',[0:3])>$ vss NBulkLine PBulkLine
 +$<grid3d('WLenc',i,[0:1],[0:log2(sp.NoWLpB)-1])>$
 +$<grid3d('BLenc',i,[0:1],[0:log2(sp.NoBLpLB)-1])>$
 +$<bus('LBenable',[0:1])>$ $<bus('LBenbar',[0,1])>$ GBenable_0
 +InOut_$<i>$ InOutbar_$<i>$ SA_SH_$<i>$ EnableSAP_$<i>$ EnableSAN_$<i>$)       
-+globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(i)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
-xNOTout$<i>$ (InOutbar_$<i>$ Out_$<i>$ vdd vss PBulkLine NBulkLine) inverter
-xNOToutbar$<i>$ (InOut_$<i>$ Outbar_$<i>$ vdd vss PBulkLine NBulkLine) inverter
++globalblock $<grid3dconnect('Rcell',strcat('Rcell_',int2str(i)),[0:1],[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$ //maak GB aan
+xNOTout$<i>$ (InOutbar_$<i>$ Out_$<i>$ vdd_3 vss PBulkLine NBulkLine) inverter // inverter achter SA
+xNOToutbar$<i>$ (InOut_$<i>$ Outbar_$<i>$ vdd_3 vss PBulkLine NBulkLine) inverter
 $end
 
 
@@ -50,7 +50,10 @@ VSH (SA_SH_0 0) vsource type=pwl wave=wave_SA_SH
 VSAN (EnableSAN_0 0) vsource type=pwl wave=wave_SAN
 VSAP (EnableSAP_0 0) vsource type=pwl wave=wave_SAP
 
-Vvdd     ( vdd     0 ) vsource dc=vdd
+Vvdd_0     ( vdd_0     0 ) vsource dc=vdd // logic
+Vvdd_1     ( vdd_1     0 ) vsource dc=vdd // SA
+Vvdd_2     ( vdd_2     0 ) vsource dc=vdd // mem array
+Vvdd_3     ( vdd_3     0 ) vsource dc=vdd // buffers
 VvddBulk ( PBulkLine 0 ) vsource dc=vdd
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
@@ -62,6 +65,10 @@ save xGB0.BLout_0
 save xGB0.xLB1.BL_0
 save xGB0.BLout_1
 save xGB0.xLB1.BL_1
+save Vvdd_0:p
+save Vvdd_1:p
+save Vvdd_2:p
+save Vvdd_3:p
 
 mymc montecarlo
 + donominal=no variations=mismatch
@@ -70,8 +77,9 @@ mymc montecarlo
 + firstrun=1
 + saveprocessparams=yes
 + savefamilyplots= yes {
-mytran tran stop=simlength method=trap
+mytran tran stop=simlength method=trap  
 }
 
 option1 options rawfmt = psfascii
+option2 options dc_pivot_check = yes
 //cap info what=captab where=file file="%C:r.info.what"
