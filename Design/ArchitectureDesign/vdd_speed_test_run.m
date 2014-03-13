@@ -72,10 +72,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             wavein{i}=getfield(wave,strcat('wave',num2str(i)));
         end
         param.wavesin = wavein;
-        param.thold = 1;
+        
         wavetempgroup=[];
         for k=1
-            wavetemp = makewave('samplehold',[1+t*1e9-param.thold,param.thold,1.5]*1e-9,[0,1,0]);
+            wavetemp = makewave('samplehold',[1+t*1e9-param.thold*1e9,param.thold*1e9,1.5]*1e-9,[0,1,0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
             wavetempgroups(k) = wavetempgroup;
         end
@@ -148,7 +148,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         mat2spicepath = strcat(currentpath,'/',inputfile);
         mat2spice2(mat2spicepath,spicepath,sp)
         
-        system(strjoin({'source ~/Thesis-Design-of-RRam/Design/bashrc_thesis.rc;spectre ',spicepath,'SpiceFile.sp'},''));
+        system(strjoin({'source ~/Thesis-Design-of-RRam/Design/bashrc_thesis.rc;spectre -64 +aps ',spicepath,'SpiceFile.sp'},''));
         clear inputfile currentpath mat2spicepath spicepath
         
     end
@@ -160,6 +160,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         refbl = zeros(param.numruns,1);
         refhold = zeros(param.numruns,1);
         cellvalue = zeros(param.numruns,1);
+        energy0 = zeros(param.numruns,1);
+        energy1 = zeros(param.numruns,1);
+        energy2 = zeros(param.numruns,1);
+        energy3 = zeros(param.numruns,1);
         for k = 1:param.numruns
             istr=num2str(k+1000);
             istr=istr(end-2:end);
@@ -176,38 +180,55 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             sig = sim.getSignal('xGB0.xLB0.BL_0');
             sigx2 = sig.getXValues*10^9;
             sigy2 = sig.getYValues;
-            [Y i] = min(abs(sigx2-(1+(t)*1e9)));
+            [Y i] = min(abs(sigx2-(1+t*1e9)));
             simblvalue = sigy2(i);
             membl(k) = simblvalue;
             
             sig = sim.getSignal('xGB0.BLout_0');
             sigx3 = sig.getXValues*10^9;
             sigy3 = sig.getYValues;
-            [Y i] = min(abs(sigx3-(1+(t)*1e9)));
+            [Y i] = min(abs(sigx3-(1+t*1e9)));
             simholdvalue = sigy3(i);
             memhold(k) = simholdvalue;
             
             sig = sim.getSignal('xGB0.xLB1.BL_0');
             sigx4 = sig.getXValues*10^9;
             sigy4 = sig.getYValues;
-            [Y i] = min(abs(sigx4-(1+(t)*1e9)));
+            [Y i] = min(abs(sigx4-(1+t*1e9)));
             simrefblvalue = sigy4(i);
             refbl(k) = simrefblvalue;
             
             sig = sim.getSignal('xGB0.BLout_1');
             sigx5 = sig.getXValues*10^9;
             sigy5 = sig.getYValues;
-            [Y i] = min(abs(sigx5-(1+(t)*1e9)));
+            [Y i] = min(abs(sigx5-(1+t*1e9)));
             simrefholdvalue = sigy5(i);
             refhold(k) = simrefholdvalue;
+            
+            sig = sim.getSignal('Vvdd_0:p');
+            sigxi0 = sig.getXValues;
+            sigyi0 = -1*sig.getYValues;
                         
-            debugon = 1;
-            if debugon
+            sig = sim.getSignal('Vvdd_1:p');
+            sigxi1 = sig.getXValues;
+            sigyi1 = -1*sig.getYValues;
+            
+            sig = sim.getSignal('Vvdd_2:p');
+            sigxi2 = sig.getXValues;
+            sigyi2 = -1*sig.getYValues;
+            
+            sig = sim.getSignal('Vvdd_3:p');
+            sigxi3 = sig.getXValues;
+            sigyi3 = -1*sig.getYValues;
+            
+            
+            
+
+            if param.debugon
                 sig = sim.getSignal('xGB0.xLB1.BL_1');
                 sigx6 = sig.getXValues*10^9;
                 sigy6 = sig.getYValues;
-                
-            
+                            
                 figure
                 hold all
                 plot(sigx1,sigy1)
@@ -217,10 +238,19 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigx5,sigy5)
                 plot(sigx6,sigy6)
                 plot([1,1],[-0.1,vdd],'r')
-                plot([(1+(t)*1e9-param.thold),(1+(t)*1e9-param.thold)],[-0.1,vdd],'r')
+                plot([(1+(t)*1e9-param.thold*1e9),(1+(t)*1e9-param.thold*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t)*1e9),(1+(t)*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t + param.t_checkout)*1e9),(1+(t + param.t_checkout)*1e9)],[-0.1,vdd],'r')
                 legend('out','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')
+                
+                figure 
+                hold all
+                plot(sigxi0,sigyi0)
+                plot(sigxi1,sigyi1)
+                plot(sigxi2,sigyi2)
+                plot(sigxi3,sigyi3)
+                legend('Ilogic','ISA','Imemarray','IBuffers')
+                
                 error('ssdfsdfsd')
             end
             

@@ -9,10 +9,10 @@ sp.LChargeBL=195e-9;
 sp.WDischargeBL=100e-9;
 sp.WDischargeSL=500e-9;
 
-sp.PWn=100e-9;
-sp.PWp=100e-9;
-sp.PWpenable=100e-9;
-sp.PWnenable=100e-9;
+sp.PWn=200e-9;
+sp.PWp=400e-9;
+sp.PWpenable=500e-9;
+sp.PWnenable=500e-9;
 
 sp.PWMmuxLB=200e-9;
 sp.PWMmuxGB=200e-9;

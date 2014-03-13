@@ -2,6 +2,7 @@ Universe         = vanilla
 RequestCpus      = 2 
 RequestMemory    = 4G 
 +RequestWalltime = 7200 
+Requirements = (machine != "donovan.esat.kuleuven.be") 
 Requirements = machineowner == "PSI/Spraak" 
 Requirements = distribution == "CentOS" 
 Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design 
@@ -9,4 +10,4 @@ Executable = /software/bin/matlab2013b
 Arguments = " -nodisplay -r 'maxNumCompThreads(2);startup;vdd_speed_test_run($(Process),''bestsimever'');exit();' " 
 NiceUser = true 
 Error        = ./ArchitectureDesign/vdd_speed_test/log/bestsimever.$(Process).err 
-Queue 9 
+Queue 15 
