@@ -8,11 +8,4 @@ parameters numberofruns = $<sp.numruns>$
 parameters enableMismatch = $<sp.MismatchOn>$  
 parameters simlength = $<sp.simlength>$
 
-$for i=0:sp.NoI-1
-parameters wavein$<strcat('_',int2str(i))>$=$<sp.wavesin{i+1}>$
-$end
-parameters waveen = $<sp.enablewave>$
-
-$for i=1:decoderparameters(sp.NoI)
-parameters dec1multstage_$<i>$ = $<sp.sizingcell{i}>$
-$end
+parameters wavein = $<sp.wavein>$
