@@ -1,7 +1,7 @@
 simulator lang=spectre
 
 include "branch.sp"
-include "decoder.sp"
+include "decoder2.sp"
 
 subckt localblock (vdd_0 vdd_2 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout Delay Refenable)
 parameters $<signalgrid('Rcell',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
@@ -13,15 +13,17 @@ xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('BLencLine',[
 $for i=0:sp.NoBLpLB-1
 xnor$<i>$ (BLencLine_$<i>$ Refenable temp_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
 xnot$<i>$_0 (temp_$<i>$ SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-xDelay$<i>$ (SelL_$<i>$ SelL_$<i>$Delay vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(4)>$
-xnot$<i>$_1 (SelL_$<i>$Delay SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
+//xDelay$<i>$ (SelL_$<i>$ SelL_$<i>$Delay vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(4)>$
+xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
 xnot$<i>$_2 (SelLbar_$<i>$ SelLbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-xnand$<i>$ (SelL_$<i>$ Delay SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonand
+//xnot$<i>$_3 (SelLbarbar_$<i>$ SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
+xnand$<i>$ (SelL_$<i>$ vdd_0 SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonand
 $end
 
+xDelayrefenable (Refenable WL_Ref vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(2)>$ // moet min 2 delays lang zijn
 
 $for i=0:sp.NoBLpLB-1
-xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('WL',[0:sp.NoWLpB-1])>$ Refenable SelLbarbar_$<i>$ SelLbarbarbar_$<i>$ SelLbar_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
+xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('WL',[0:sp.NoWLpB-1])>$ WL_Ref SelLbarbar_$<i>$ SelLbarbarbar_$<i>$ SelLbar_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
 xMn$<i>$ BL_$<i>$ SelLbarbar_$<i>$ BLout NBulkLine mc_nmos_hvt w=PWmuxLB l=PLmin //mux
 //xMp$<i>$ BL_$<i>$ SelLbar_$<i>$ BLout PBulkLine mc_pmos_hvt w=PWmuxLB l=PLmin
 $end

@@ -13,15 +13,15 @@ function [] = vdd_speed_test()
     clc
     close all
     
-%     function_mode = 'evaluation';
-    function_mode = 'simulation';
+    function_mode = 'evaluation';
+%     function_mode = 'simulation';
     sim_name = 'bestsimever';
     
     if strcmp(function_mode,'simulation')
         % set parameters and run simulation
         param = [];
         param = set_memory_architecture_param(param);
-        param.debugon = 1;
+        param.debugon = 0;
         param = set_vdd_speed_test_param(param);
         param.sim_name = sim_name;
         param = split_param(param,15);
@@ -34,7 +34,7 @@ function [] = vdd_speed_test()
         param = set_vdd_speed_test_param(param);
         results = read_results(param);
         plot_results(results,param,0.95)
-        analyse_node(1,3,param)
+%         analyse_node(1,2.5,param)
     end
 
 end
@@ -71,7 +71,7 @@ function [param] = set_vdd_speed_test_param(param)
     if param.debugon
         mc_runs = 1;
     else
-        mc_runs = 50;
+        mc_runs = 1;
     end
     
     %% GENERATE THE RIGHT PARAM STRUC
@@ -83,7 +83,7 @@ function [param] = set_vdd_speed_test_param(param)
     param.t_checkout = t_checkout;
     param.simulation_space = [allcomb(vdd_range,t_range),t_checkout*ones(size(allcomb(vdd_range,t_range),1),1)];
     param.numruns = mc_runs;
-    param.MismatchOn = 1;
+    param.MismatchOn = 0;
     param.simlength = 1e-9 + t_max + t_checkout + 1e-9;
 end
 
@@ -163,15 +163,17 @@ function [results] = read_results(param)
           vdd = param.vdd_range(l);
           try
               data = load(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t)),'.mat'},''));
-              
+              vdd;
+              t;
+              data.cellvalue;
+              data.memout;
               numruns = length(data.cellvalue);
-              results_low = sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2);
-              results_high = sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2);
-              if results_high == 0 && results_low == 1
-                results(k,l) = 0;  
-              else
-                results(k,l) = (sum(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01)/(numruns/2) + sum(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01)/(numruns/2))/2;
-              end
+              abs((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd))<0.01
+              abs((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end))/vdd)<0.01
+              results_low = sum(abs(((data.cellvalue(1:numruns/2)*vdd-data.memout(1:numruns/2)/vdd)))<0.01)/(numruns/2)
+              results_high = sum(abs(((data.cellvalue((numruns/2)+1:end)*vdd-data.memout((numruns/2)+1:end)))/vdd)<0.01)/(numruns/2)
+              results(k,l) = (results_high + results_low)/2;
+              
           catch
               results(k,l) = nan;
           end
@@ -182,9 +184,10 @@ end
 function [] = plot_results(results,param,paspercentage)
     sim_name = param.sim_name;
     % plots and saves results
-    results
-    results = (results >= paspercentage)
-    results = [flipud(results) zeros(size(results,1),1);zeros(1,size(results,2)+1)];
+    flipud(results)
+    results1 = (results >= paspercentage);
+    results = results1.*results;
+    results = [results zeros(size(results,1),1);zeros(1,size(results,2)+1)];
     
     
     f1 = figure;

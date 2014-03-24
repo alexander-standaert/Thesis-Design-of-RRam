@@ -9,6 +9,7 @@ include "drivers.sp"
 include "parameters.sp"
 include "delay.sp"
 include "CMOSlogic.scs"
+include "buffers_INVNOR.sp"
 
 xDrivers (vdd_0 vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$
@@ -67,6 +68,7 @@ save Vvdd_0:p
 save Vvdd_1:p
 save Vvdd_2:p
 save Vvdd_3:p
+save LBenable_0
 
 mymc montecarlo
 + donominal=no variations=mismatch

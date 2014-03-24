@@ -24,9 +24,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     end
     
     for s = 1:size(param.simulation_space,1)
-        
-        vdd = param.simulation_space(s,1);
-        t = param.simulation_space(s,2);
+%         param.debugon = 1
+        vdd = param.simulation_space(s,1)
+        t = param.simulation_space(s,2)
+%         pause
         [param] = generate_signals(param,t,vdd);
         
         param.RMEMvalue = 'RMEMLow';
@@ -118,8 +119,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/load.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/delay.sp /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/decoder.sp /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/decoder2.sp /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/senseamplifier.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/CMOSlogic.scs /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/buffers_INVNOR.sp /tmp/',rnddirname,'/spice/'},''));
         
         spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'');
         [currentpath,~,~] = fileparts(which(mfilename));
@@ -256,7 +259,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigxi3,sigyi3)
                 legend('Ilogic','ISA','Imemarray','IBuffers')
                 
-                error('ssdfsdfsd')
+                plotTiming(sim)
+                 error('ssdfsdfsd')
             end
             
             if strcmp(param.RMEMvalue,'RMEMHigh')

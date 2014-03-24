@@ -41,8 +41,8 @@ function [] = load_analysis()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
 %       la_run_length(param,0,1)
-     mc_run_length(param,0,1)
-%     mc_run_tripel(param,0,1)
+      mc_run_length(param,0,1)
+%     mc_run_tripel(param,1,0)
 % la_run_ref2(element,param,4) 
 end
 
@@ -1503,13 +1503,14 @@ end
 
 function [] = mc_run_tripel(param,simulate,analyse)
     if simulate
-        param.VtMismatch = 1;
+        param.VtMismatch = 0;
         param.BMismatch = 0;
-        param.wswitch = 200e-9;%150e-9;
-        param.wbias = 200e-9;%300e-9;
+        param.enableMismatch = 0;
+        param.wswitch = 150e-9;
+        param.wbias = 300e-9;
         param.wbias2 = 500e-9;
-        param.mcruns = 500;
-        
+        param.mcruns = 1
+        param.wsl = 100e-9;
         calcelement();
 
         
@@ -1541,17 +1542,23 @@ function [] = mc_run_tripel(param,simulate,analyse)
         [y i3] = min(abs(cdf_blow-0.001));
         [y i4] = min(abs(cdf_blow-0.999));
         
-                
-        figure
+        p_b_memhigh = fitdist(b_memhigh(:),'Kernel');
+        p_b_memlow = fitdist(b_memlow(:),'Kernel');
+        p_b_ref = fitdist(b_ref(:),'Kernel');        
+        f1 = figure
         hold on
         plot(x,pdf(p_b_memhigh,x),'LineWidth',3);
         plot(x,pdf(p_b_memlow,x),'LineWidth',3);
         plot(x,pdf(p_b_ref,x),'LineWidth',3,'Color','r');
-        
-        plot([x(i1),x(i1)],[0,4],'b','LineWidth',3)
-        plot([x(i2),x(i2)],[0,4],'b','LineWidth',3)
-        plot([x(i3),x(i3)],[0,4],'r','LineWidth',3)
-        plot([x(i4),x(i4)],[0,4],'r','LineWidth',3)
+        xlabel('BITLINE VOLTAGE (V)','FontSize', 12,'FontWeight','bold')
+    ylabel('PDF (V)','FontSize', 12,'FontWeight','bold')
+        r = 150; % pixels per inch
+         set(f1, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+         print(f1,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/bitline_distribution_tripel.png');
+%         plot([x(i1),x(i1)],[0,4],'b','LineWidth',3)
+%         plot([x(i2),x(i2)],[0,4],'b','LineWidth',3)
+%         plot([x(i3),x(i3)],[0,4],'r','LineWidth',3)
+%         plot([x(i4),x(i4)],[0,4],'r','LineWidth',3)
         
         figure
         hold on 
@@ -1600,20 +1607,20 @@ function [] = mc_run_tripel(param,simulate,analyse)
             istr=num2str(l+1000);
             istr=istr(end-2:end);
             [sim, ~] = readPsfAscii(strjoin({'/tmp/s0211331-loadana/spice/',rndfilename,'.raw/mc-',istr,'_ana.tran'},''), '.*');
-
-            [b,tr,n] = gatherdata(sim,'bias');
+            
+            [b,tr,n,bO,b00] = gatherdata(sim,'bias')
             b_all(l,:) = b;
             tr_all(l,:) = tr;
             n_all(l,:) = n;
-            [b,tr,n] = gatherdata(sim,'ref');
+            [b,tr,n,bO,b00] = gatherdata(sim,'ref');
             b_refall(l,:) = b;
             tr_refall(l,:) = tr;
             n_refall(l,:) = n;
-            
+            error('dfsdfsdf')
             save(strjoin({'./LoadAnalysis/triple_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
         end
         
-        function [b,tr,n] = gatherdata(sim,branch)
+        function [b,tr,n,bO,b00] = gatherdata(sim,branch)
             
             sig = sim.getSignal(strcat('bl_',branch));
             sigx = sig.getXValues*10^9;
@@ -1643,6 +1650,18 @@ function [] = mc_run_tripel(param,simulate,analyse)
             b_hl = sigy(i_hl);
             b_lh = sigy(i_lh);
             b_ll = sigy(i_ll);
+            
+             sig = sim.getSignal(strcat('blOO'));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            b00(1) = sigy(i_hl);
+            b00(2) = sigy(i_lh);
+            
+             sig = sim.getSignal(strcat('bl0'));
+            sigx = sig.getXValues*10^9;
+            sigy = sig.getYValues;
+            b0(1) = sigy(i_hl);
+            b0(2) = sigy(i_lh);
             
             st_limit = 0.1;
             
@@ -1711,12 +1730,12 @@ function [] = mc_run_length(param,simulate,analyse)
     end
     
     if analyse
-        data = load('./LoadAnalysis/length2_allmismatch');
+        data = load('./LoadAnalysis/length3_allmismatch');
         b_all = data.b_all;
         b_memhigh = [b_all(:,1);b_all(:,2)];
         b_memlow = [b_all(:,3);b_all(:,4)];
         b_refall = data.b_refall;
-        b_ref = [b_refall(:,1);b_refall(:,2)];
+        b_ref = [b_refall(:,3);b_refall(:,4)];
             
         x = [0:0.001:1];
         p_b_memhigh = fitdist(b_memhigh(:),'Normal');
@@ -1820,7 +1839,7 @@ function [] = mc_run_length(param,simulate,analyse)
             tr_refall(l,:) = tr;
             n_refall(l,:) = n;
             
-            save(strjoin({'./LoadAnalysis/length2_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+            save(strjoin({'./LoadAnalysis/length3_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
             catch
                 disp('boeee')
             end

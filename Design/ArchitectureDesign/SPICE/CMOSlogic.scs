@@ -53,32 +53,32 @@ ends threenor
 subckt twotofourdecoder (a0 a1 enablebar N0 N1 N2 N3 vdd vss bp bn)
 parameters multinv=1 multnor=1
 
-xinv1 a0 a0bar vdd vss bp bn inverter mult=multinv
-xinv2 a1 a1bar vdd vss bp bn inverter mult=multinv
+xinv1 a0 a0bar vdd vss bp bn inverter mult=multinv*1.2
+xinv2 a1 a1bar vdd vss bp bn inverter mult=multinv*1.2
 
-// xnand1 a0bar a1bar N0pre vdd vss bp bn twonand
-// xnand2 a0 a1bar N1pre vdd vss bp bn twonand
-// xnand3 a0bar a1 N2pre vdd vss bp bn twonand
-// xnand4 a0 a1 N3pre vdd vss bp bn twonand
+ xnand1 a0bar a1bar N0pre vdd vss bp bn twonand
+ xnand2 a0 a1bar N1pre vdd vss bp bn twonand
+ xnand3 a0bar a1 N2pre vdd vss bp bn twonand
+ xnand4 a0 a1 N3pre vdd vss bp bn twonand
 
-// xnor1 N0pre enablebar N0 vdd vss bp bn twonor
-// xnor2 N1pre enablebar N1 vdd vss bp bn twonor
-// xnor3 N2pre enablebar N2 vdd vss bp bn twonor
-// xnor4 N3pre enablebar N3 vdd vss bp bn twonor
+ xnor1 N0pre enablebar N0 vdd vss bp bn twonor mult=multnor
+ xnor2 N1pre enablebar N1 vdd vss bp bn twonor mult=multnor
+ xnor3 N2pre enablebar N2 vdd vss bp bn twonor mult=multnor
+ xnor4 N3pre enablebar N3 vdd vss bp bn twonor mult=multnor
 
-xnor1 a0 a1 enablebar N0 vdd vss bp bn threenor mult=multnor
-xnor2 a0bar a1 enablebar N1 vdd vss bp bn threenor mult=multnor
-xnor3 a0 a1bar enablebar N2 vdd vss bp bn threenor mult=multnor
-xnor4 a0bar a1bar enablebar N3 vdd vss bp bn threenor mult=multnor
+//xnor1 a0 a1 enablebar N0 vdd vss bp bn threenor mult=multnor
+//xnor2 a0bar a1 enablebar N1 vdd vss bp bn threenor mult=multnor
+//xnor3 a0 a1bar enablebar N2 vdd vss bp bn threenor mult=multnor
+//xnor4 a0bar a1bar enablebar N3 vdd vss bp bn threenor mult=multnor
 
 ends twotofourdecoder
 
 subckt threetoeightdecoder (a0 a1 a2 enablebar N0 N1 N2 N3 N4 N5 N6 N7 vdd vss bp bn)
 parameters multinv=1 multnand=1 multnor=1
 
-xinv1 a0 a0bar vdd vss bp bn inverter mult=multinv
-xinv2 a1 a1bar vdd vss bp bn inverter mult=multinv
-xinv3 a2 a2bar vdd vss bp bn inverter mult=multinv
+xinv1 a0 a0bar vdd vss bp bn inverter mult=multinv*1.2
+xinv2 a1 a1bar vdd vss bp bn inverter mult=multinv*1.2
+xinv3 a2 a2bar vdd vss bp bn inverter mult=multinv*1.2
 
 xnand1 a0bar a1bar a2bar N0pre vdd vss bp bn threenand mult=multnand
 xnand2 a0 a1bar a2bar N1pre vdd vss bp bn threenand mult=multnand
@@ -89,7 +89,7 @@ xnand6 a0 a1bar a2 N5pre vdd vss bp bn threenand mult=multnand
 xnand7 a0bar a1 a2 N6pre vdd vss bp bn threenand mult=multnand
 xnand8 a0 a1 a2 N7pre vdd vss bp bn threenand mult=multnand
 
-xnor1 enablebar N0pre N0 vdd vss bp bn twonor mult=multnor
+xnor1 N0pre enablebar N0 vdd vss bp bn twonor mult=multnor
 xnor2 N1pre enablebar N1 vdd vss bp bn twonor mult=multnor
 xnor3 N2pre enablebar N2 vdd vss bp bn twonor mult=multnor
 xnor4 N3pre enablebar N3 vdd vss bp bn twonor mult=multnor

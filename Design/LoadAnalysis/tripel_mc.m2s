@@ -28,6 +28,7 @@ parameters tn = mc_nmos_lvt
 
 parameters enableVtMismatch=$<param.VtMismatch>$
 parameters enableBMismatch=$<param.BMismatch>$
+parameters enableMismatch=$<param.enableMismatch>$
 
 
 
@@ -42,7 +43,7 @@ mmemarray_ref4 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarra
 //mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
 
 
-mload ( bl_bias bl_ref sel_load sel_bias gnd vdd) loads
+mload ( bl_bias bl_ref sel_load sel_bias gnd vdd bl0 bl00) loads
 
 vwl_1 wl_1 gnd vsource type=pwl wave=$<param.wl_1>$
 vwl_2 wl_2 gnd vsource type=pwl wave=$<param.wl_2>$
@@ -88,12 +89,12 @@ csl (sl gnd) capacitor c=$<param.Csl>$
 
 ends memarray
 
-
+//save mload.mloadmem
 ///////////////////////////////////////////////////////////////////////////
 // LOADS
 
 
-subckt loads ( bl bl_ref sel_load sel_bias gnd vdd)
+subckt loads ( bl bl_ref sel_load sel_bias gnd vdd bl0 bl00)
 
 mloadmem ( bl sel_load sel_bias bl0 bl00 gnd vdd) load
 

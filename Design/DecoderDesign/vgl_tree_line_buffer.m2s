@@ -1,0 +1,46 @@
+simulator lang=spice
+.lib '../../technology_models/tech_wrapper.lib' tt
+.OPTIONS METHOD=trap
+.TEMP 30
+
+simulator lang=spectre
+include "../../technology_models/monte_carlo_models.scs"
+include "../../ArchitectureDesign/SPICE/CMOSlogic.scs"
+parameters enableMismatch=0
+ana tran step=1e-12 stop=4e-08
+option1 options rawfmt = psfascii
+option2 options dc_pivot_check = yes
+
+vin in vss vsource type=pwl wave=[0 0 1e-09 0 1.001e-09 1]
+vgnd vss 0 vsource type=dc dc=0
+
+vvdd vdd 0 vsource type=dc dc=1
+vvdd1 vdd1 0 vsource type=dc dc=1
+vvdd2 vdd2 0 vsource type=dc dc=1
+
+parameters PWmin = 100n                         //MinimalTransistorWidth
+parameters PLmin = 45n                          //MinimalTransistorLenght
+
+xinv11 (in in1bar vdd1 vss PBulkLine NBulkLine) inverter mult=2
+xinv12 (in1bar in1barbar vdd1 vss PBulkLine NBulkLine) inverter mult=4
+xinv13 (in1barbar in1barbarbar vdd1 vss PBulkLine NBulkLine) inverter mult=16
+
+xinv21 (in in2bar vdd2 vss PBulkLine NBulkLine) inverter mult=1
+xinv221 (in2bar in21barbar vdd2 vss PBulkLine NBulkLine) inverter mult=2
+xinv222 (in2bar in22barbar vdd2 vss PBulkLine NBulkLine) inverter mult=2
+xinv231 (in21barbar in21barbarbar vdd2 vss PBulkLine NBulkLine) inverter mult=4
+xinv232 (in21barbar in22barbarbar vdd2 vss PBulkLine NBulkLine) inverter mult=4
+xinv233 (in22barbar in23barbarbar vdd2 vss PBulkLine NBulkLine) inverter mult=4
+xinv234 (in22barbar in24barbarbar vdd2 vss PBulkLine NBulkLine) inverter mult=4
+
+$for i = 0:63
+xnor_1_$<i>$ (in1barbarbar vss OUT1_$<i>$ vdd vss PBulkLine NBulkLine) twonor 
+$end 
+
+$for i = 0:15
+xnor_21_$<i>$ (in21barbarbar vss OUT21_$<i>$ vdd vss PBulkLine NBulkLine) twonor 
+xnor_22_$<i>$ (in22barbarbar vss OUT22_$<i>$ vdd vss PBulkLine NBulkLine) twonor 
+xnor_23_$<i>$ (in23barbarbar vss OUT23_$<i>$ vdd vss PBulkLine NBulkLine) twonor 
+xnor_24_$<i>$ (in24barbarbar vss OUT24_$<i>$ vdd vss PBulkLine NBulkLine) twonor 
+$end 
+

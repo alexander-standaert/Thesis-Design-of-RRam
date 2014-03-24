@@ -1,0 +1,2192 @@
+
+************************
+Capacitance Table `cap':
+************************
+Capacitance values computed in info analysis `cap' at T = 30 C.
+
+in : in fixed=0           , variable=0           , sum=0           .
+
+out_buffered_8 : out_buffered_8 fixed=1.7099 f    , variable=1.32405 f   ,
+        sum=3.03395 f   .
+
+out_buffered_16 : out_buffered_16       fixed=3.97332 f   , variable=5.32563 f 
+        , sum=9.29895 f   .
+
+out_buffered_32 : out_buffered_32       fixed=6.85332 f   , variable=5.32563 f 
+        , sum=12.179 f    .
+
+out_buffered_64 : out_buffered_64       fixed=15.907 f    , variable=21.3319 f 
+        , sum=37.239 f    .
+
+out_buffered_128 : out_buffered_128     fixed=27.427 f    , variable=21.3319 f 
+        , sum=48.759 f    .
+
+out_buffered_256 : out_buffered_256     fixed=63.6418 f   , variable=85.3572 f 
+        , sum=148.999 f   .
+
+out_buffered_512 : out_buffered_512     fixed=109.722 f   , variable=85.3572 f 
+        , sum=195.079 f   .
+
+out_buffered_1024 : out_buffered_1024   fixed=254.581 f   , variable=341.458 f 
+        , sum=596.039 f   .
+
+out_notbuffered_8 : out_notbuffered_8   fixed=1.50404 f   , variable=323.658 a 
+        , sum=1.8277 f    .
+
+out_notbuffered_16 : out_notbuffered_16 fixed=2.94404 f   , variable=323.658 a 
+        , sum=3.2677 f    .
+
+out_notbuffered_32 : out_notbuffered_32 fixed=5.82404 f   , variable=323.658 a 
+        , sum=6.1477 f    .
+
+out_notbuffered_64 : out_notbuffered_64 fixed=11.584 f    , variable=323.658 a 
+        , sum=11.9077 f   .
+
+out_notbuffered_128 : out_notbuffered_128       fixed=23.104 f    ,
+        variable=323.658 a   , sum=23.4277 f   .
+
+out_notbuffered_256 : out_notbuffered_256       fixed=46.144 f    ,
+        variable=323.658 a   , sum=46.4677 f   .
+
+out_notbuffered_512 : out_notbuffered_512       fixed=92.224 f    ,
+        variable=323.658 a   , sum=92.5477 f   .
+
+out_notbuffered_1024 : out_notbuffered_1024     fixed=184.384 f   ,
+        variable=323.658 a   , sum=184.708 f   .
+
+vdd : vdd       fixed=0           , variable=0           , sum=0           .
+
+vss : vss       fixed=734.4 f     , variable=0           , sum=734.4 f     .
+
+xbuffer_notsized.temp_8 : xbuffer_notsized.temp_8       fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_16 : xbuffer_notsized.temp_16     fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_32 : xbuffer_notsized.temp_32     fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_64 : xbuffer_notsized.temp_64     fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_128 : xbuffer_notsized.temp_128   fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_256 : xbuffer_notsized.temp_256   fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_512 : xbuffer_notsized.temp_512   fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.temp_1024 : xbuffer_notsized.temp_1024 fixed=64.0431 a   ,
+        variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_notsized.xNot_8_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_8_a.xM1.mpmos:dbnode fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_8_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_8_a.xM1.mpmos:int_b   fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_8_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_8_a.xM1.mpmos:int_g   fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_8_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_8_a.xM1.mpmos:sbnode fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_8_a.xM1.rg : xbuffer_notsized.xNot_8_a.xM1.rg     fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_8_a.xM1.rs : xbuffer_notsized.xNot_8_a.xM1.rs    
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_8_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_8_a.xM2.mnmos:dbnode fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_8_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_8_a.xM2.mnmos:int_b   fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_8_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_8_a.xM2.mnmos:int_g   fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_8_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_8_a.xM2.mnmos:sbnode fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_8_a.xM2.rg : xbuffer_notsized.xNot_8_a.xM2.rg     fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_8_a.xM2.rs : xbuffer_notsized.xNot_8_a.xM2.rs    
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_8_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_8_b.xM1.mpmos:dbnode fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_8_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_8_b.xM1.mpmos:int_b   fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_8_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_8_b.xM1.mpmos:int_g   fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_8_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_8_b.xM1.mpmos:sbnode fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_8_b.xM1.rg : xbuffer_notsized.xNot_8_b.xM1.rg     fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_8_b.xM1.rs : xbuffer_notsized.xNot_8_b.xM1.rs    
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_8_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_8_b.xM2.mnmos:dbnode fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_8_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_8_b.xM2.mnmos:int_b   fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_8_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_8_b.xM2.mnmos:int_g   fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_8_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_8_b.xM2.mnmos:sbnode fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_8_b.xM2.rg : xbuffer_notsized.xNot_8_b.xM2.rg     fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_8_b.xM2.rs : xbuffer_notsized.xNot_8_b.xM2.rs    
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_16_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_16_a.xM1.mpmos:dbnode       fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_16_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_16_a.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_16_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_16_a.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_16_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_16_a.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_16_a.xM1.rg : xbuffer_notsized.xNot_16_a.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_16_a.xM1.rs : xbuffer_notsized.xNot_16_a.xM1.rs  
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_16_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_16_a.xM2.mnmos:dbnode       fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_16_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_16_a.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_16_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_16_a.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_16_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_16_a.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_16_a.xM2.rg : xbuffer_notsized.xNot_16_a.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_16_a.xM2.rs : xbuffer_notsized.xNot_16_a.xM2.rs  
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_16_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_16_b.xM1.mpmos:dbnode       fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_16_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_16_b.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_16_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_16_b.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_16_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_16_b.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_16_b.xM1.rg : xbuffer_notsized.xNot_16_b.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_16_b.xM1.rs : xbuffer_notsized.xNot_16_b.xM1.rs  
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_16_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_16_b.xM2.mnmos:dbnode       fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_16_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_16_b.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_16_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_16_b.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_16_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_16_b.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_16_b.xM2.rg : xbuffer_notsized.xNot_16_b.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_16_b.xM2.rs : xbuffer_notsized.xNot_16_b.xM2.rs  
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_32_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_32_a.xM1.mpmos:dbnode       fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_32_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_32_a.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_32_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_32_a.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_32_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_32_a.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_32_a.xM1.rg : xbuffer_notsized.xNot_32_a.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_32_a.xM1.rs : xbuffer_notsized.xNot_32_a.xM1.rs  
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_32_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_32_a.xM2.mnmos:dbnode       fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_32_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_32_a.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_32_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_32_a.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_32_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_32_a.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_32_a.xM2.rg : xbuffer_notsized.xNot_32_a.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_32_a.xM2.rs : xbuffer_notsized.xNot_32_a.xM2.rs  
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_32_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_32_b.xM1.mpmos:dbnode       fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_32_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_32_b.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_32_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_32_b.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_32_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_32_b.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_32_b.xM1.rg : xbuffer_notsized.xNot_32_b.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_32_b.xM1.rs : xbuffer_notsized.xNot_32_b.xM1.rs  
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_32_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_32_b.xM2.mnmos:dbnode       fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_32_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_32_b.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_32_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_32_b.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_32_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_32_b.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_32_b.xM2.rg : xbuffer_notsized.xNot_32_b.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_32_b.xM2.rs : xbuffer_notsized.xNot_32_b.xM2.rs  
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_64_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_64_a.xM1.mpmos:dbnode       fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_64_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_64_a.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_64_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_64_a.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_64_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_64_a.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_64_a.xM1.rg : xbuffer_notsized.xNot_64_a.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_64_a.xM1.rs : xbuffer_notsized.xNot_64_a.xM1.rs  
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_64_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_64_a.xM2.mnmos:dbnode       fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_64_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_64_a.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_64_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_64_a.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_64_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_64_a.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_64_a.xM2.rg : xbuffer_notsized.xNot_64_a.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_64_a.xM2.rs : xbuffer_notsized.xNot_64_a.xM2.rs  
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_64_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_64_b.xM1.mpmos:dbnode       fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_64_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_64_b.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_64_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_64_b.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_64_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_64_b.xM1.mpmos:sbnode       fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_64_b.xM1.rg : xbuffer_notsized.xNot_64_b.xM1.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_64_b.xM1.rs : xbuffer_notsized.xNot_64_b.xM1.rs  
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_64_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_64_b.xM2.mnmos:dbnode       fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_64_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_64_b.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_64_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_64_b.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_64_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_64_b.xM2.mnmos:sbnode       fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_64_b.xM2.rg : xbuffer_notsized.xNot_64_b.xM2.rg   fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_64_b.xM2.rs : xbuffer_notsized.xNot_64_b.xM2.rs  
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_128_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_128_a.xM1.mpmos:dbnode     fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_128_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_128_a.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_128_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_128_a.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_128_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_128_a.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_128_a.xM1.rg : xbuffer_notsized.xNot_128_a.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_128_a.xM1.rs : xbuffer_notsized.xNot_128_a.xM1.rs
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_128_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_128_a.xM2.mnmos:dbnode     fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_128_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_128_a.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_128_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_128_a.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_128_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_128_a.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_128_a.xM2.rg : xbuffer_notsized.xNot_128_a.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_128_a.xM2.rs : xbuffer_notsized.xNot_128_a.xM2.rs
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_128_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_128_b.xM1.mpmos:dbnode     fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_128_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_128_b.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_128_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_128_b.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_128_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_128_b.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_128_b.xM1.rg : xbuffer_notsized.xNot_128_b.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_128_b.xM1.rs : xbuffer_notsized.xNot_128_b.xM1.rs
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_128_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_128_b.xM2.mnmos:dbnode     fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_128_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_128_b.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_128_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_128_b.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_128_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_128_b.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_128_b.xM2.rg : xbuffer_notsized.xNot_128_b.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_128_b.xM2.rs : xbuffer_notsized.xNot_128_b.xM2.rs
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_256_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_256_a.xM1.mpmos:dbnode     fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_256_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_256_a.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_256_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_256_a.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_256_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_256_a.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_256_a.xM1.rg : xbuffer_notsized.xNot_256_a.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_256_a.xM1.rs : xbuffer_notsized.xNot_256_a.xM1.rs
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_256_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_256_a.xM2.mnmos:dbnode     fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_256_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_256_a.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_256_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_256_a.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_256_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_256_a.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_256_a.xM2.rg : xbuffer_notsized.xNot_256_a.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_256_a.xM2.rs : xbuffer_notsized.xNot_256_a.xM2.rs
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_256_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_256_b.xM1.mpmos:dbnode     fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_256_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_256_b.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_256_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_256_b.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_256_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_256_b.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_256_b.xM1.rg : xbuffer_notsized.xNot_256_b.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_256_b.xM1.rs : xbuffer_notsized.xNot_256_b.xM1.rs
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_256_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_256_b.xM2.mnmos:dbnode     fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_256_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_256_b.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_256_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_256_b.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_256_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_256_b.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_256_b.xM2.rg : xbuffer_notsized.xNot_256_b.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_256_b.xM2.rs : xbuffer_notsized.xNot_256_b.xM2.rs
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_512_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_512_a.xM1.mpmos:dbnode     fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_512_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_512_a.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_512_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_512_a.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_512_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_512_a.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_512_a.xM1.rg : xbuffer_notsized.xNot_512_a.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_512_a.xM1.rs : xbuffer_notsized.xNot_512_a.xM1.rs
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_512_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_512_a.xM2.mnmos:dbnode     fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_512_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_512_a.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_512_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_512_a.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_512_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_512_a.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_512_a.xM2.rg : xbuffer_notsized.xNot_512_a.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_512_a.xM2.rs : xbuffer_notsized.xNot_512_a.xM2.rs
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_512_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_512_b.xM1.mpmos:dbnode     fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_512_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_512_b.xM1.mpmos:int_b       fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_512_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_512_b.xM1.mpmos:int_g       fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_512_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_512_b.xM1.mpmos:sbnode     fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_512_b.xM1.rg : xbuffer_notsized.xNot_512_b.xM1.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_512_b.xM1.rs : xbuffer_notsized.xNot_512_b.xM1.rs
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_512_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_512_b.xM2.mnmos:dbnode     fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_512_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_512_b.xM2.mnmos:int_b       fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_512_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_512_b.xM2.mnmos:int_g       fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_512_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_512_b.xM2.mnmos:sbnode     fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_512_b.xM2.rg : xbuffer_notsized.xNot_512_b.xM2.rg fixed=0
+        , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_512_b.xM2.rs : xbuffer_notsized.xNot_512_b.xM2.rs
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_notsized.xNot_1024_a.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_1024_a.xM1.mpmos:dbnode   fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_notsized.xNot_1024_a.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_1024_a.xM1.mpmos:int_b     fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_notsized.xNot_1024_a.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_1024_a.xM1.mpmos:int_g     fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_notsized.xNot_1024_a.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_1024_a.xM1.mpmos:sbnode   fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_1024_a.xM1.rg : xbuffer_notsized.xNot_1024_a.xM1.rg      
+        fixed=0           , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_1024_a.xM1.rs : xbuffer_notsized.xNot_1024_a.xM1.rs      
+        fixed=43.4431 a   , variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_notsized.xNot_1024_a.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_1024_a.xM2.mnmos:dbnode   fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_notsized.xNot_1024_a.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_1024_a.xM2.mnmos:int_b     fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_notsized.xNot_1024_a.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_1024_a.xM2.mnmos:int_g     fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_notsized.xNot_1024_a.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_1024_a.xM2.mnmos:sbnode   fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_1024_a.xM2.rg : xbuffer_notsized.xNot_1024_a.xM2.rg      
+        fixed=0           , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_1024_a.xM2.rs : xbuffer_notsized.xNot_1024_a.xM2.rs      
+        fixed=20.6001 a   , variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_notsized.xNot_1024_b.xM1.mpmos:dbnode :
+        xbuffer_notsized.xNot_1024_b.xM1.mpmos:dbnode   fixed=0           ,
+        variable=100.3 a     , sum=100.3 a     .
+
+xbuffer_notsized.xNot_1024_b.xM1.mpmos:int_b :
+        xbuffer_notsized.xNot_1024_b.xM1.mpmos:int_b     fixed=1.152 a     ,
+        variable=34.9189 a   , sum=36.0709 a   .
+
+xbuffer_notsized.xNot_1024_b.xM1.mpmos:int_g :
+        xbuffer_notsized.xNot_1024_b.xM1.mpmos:int_g     fixed=88.0381 a   ,
+        variable=261.663 a   , sum=349.702 a   .
+
+xbuffer_notsized.xNot_1024_b.xM1.mpmos:sbnode :
+        xbuffer_notsized.xNot_1024_b.xM1.mpmos:sbnode   fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_notsized.xNot_1024_b.xM1.rg : xbuffer_notsized.xNot_1024_b.xM1.rg      
+        fixed=0           , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_1024_b.xM1.rs : xbuffer_notsized.xNot_1024_b.xM1.rs      
+        fixed=43.4431 a   , variable=244.593 a   , sum=288.036 a   .
+
+xbuffer_notsized.xNot_1024_b.xM2.mnmos:dbnode :
+        xbuffer_notsized.xNot_1024_b.xM2.mnmos:dbnode   fixed=0           ,
+        variable=39.7964 a   , sum=39.7964 a   .
+
+xbuffer_notsized.xNot_1024_b.xM2.mnmos:int_b :
+        xbuffer_notsized.xNot_1024_b.xM2.mnmos:int_b     fixed=1.152 a     ,
+        variable=20.5052 a   , sum=21.6572 a   .
+
+xbuffer_notsized.xNot_1024_b.xM2.mnmos:int_g :
+        xbuffer_notsized.xNot_1024_b.xM2.mnmos:int_g     fixed=42.3521 a   ,
+        variable=38.3494 a   , sum=80.7015 a   .
+
+xbuffer_notsized.xNot_1024_b.xM2.mnmos:sbnode :
+        xbuffer_notsized.xNot_1024_b.xM2.mnmos:sbnode   fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_notsized.xNot_1024_b.xM2.rg : xbuffer_notsized.xNot_1024_b.xM2.rg      
+        fixed=0           , variable=0           , sum=0           .
+
+xbuffer_notsized.xNot_1024_b.xM2.rs : xbuffer_notsized.xNot_1024_b.xM2.rs      
+        fixed=20.6001 a   , variable=95.5956 a   , sum=116.196 a   .
+
+xbuffer_sized.xbuffer_8.node_1 : xbuffer_sized.xbuffer_8.node_1 fixed=64.0431 a
+        , variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:dbnode   fixed=0           ,
+        variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:int_b     fixed=1.152 a    
+        , variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:int_g     fixed=88.0381 a  
+        , variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.mpmos:sbnode   fixed=0           ,
+        variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.rg :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM1.rs :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM1.rs       fixed=43.4431 a   ,
+        variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:dbnode   fixed=0           ,
+        variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:int_b     fixed=1.152 a    
+        , variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:int_g     fixed=42.3521 a  
+        , variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.mnmos:sbnode   fixed=0           ,
+        variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.rg :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_8.xNot_8_1.xM2.rs :
+        xbuffer_sized.xbuffer_8.xNot_8_1.xM2.rs       fixed=20.6001 a   ,
+        variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:dbnode   fixed=0           ,
+        variable=401.2 a     , sum=401.2 a     .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:int_b     fixed=1.152 a    
+        , variable=145.189 a   , sum=146.341 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:int_g     fixed=362.415 a  
+        , variable=1.08797 f   , sum=1.45038 f   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.mpmos:sbnode   fixed=0           ,
+        variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.rg :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM1.rs :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM1.rs       fixed=180.632 a   ,
+        variable=991.654 a   , sum=1.17229 f   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:dbnode   fixed=0           ,
+        variable=159.186 a   , sum=159.186 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:int_b     fixed=1.152 a    
+        , variable=88.8561 a   , sum=90.0081 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:int_g     fixed=179.686 a  
+        , variable=166.181 a   , sum=345.867 a   .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.mnmos:sbnode   fixed=0           ,
+        variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.rg :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_8.xNot_8_2.xM2.rs :
+        xbuffer_sized.xbuffer_8.xNot_8_2.xM2.rs       fixed=89.2669 a   ,
+        variable=387.501 a   , sum=476.768 a   .
+
+xbuffer_sized.xbuffer_16.node_1 : xbuffer_sized.xbuffer_16.node_1      
+        fixed=269.899 a   , variable=933.055 a   , sum=1.20295 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:dbnode       fixed=0      
+        , variable=318.371 a   , sum=318.371 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=172.768 a   , sum=173.92 a    .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:int_g fixed=362.415 a   ,
+        variable=329.399 a   , sum=691.815 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.mpmos:sbnode       fixed=0      
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.rg :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM1.rs :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM1.rs   fixed=180.632 a   ,
+        variable=776.708 a   , sum=957.34 a    .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:dbnode       fixed=0      
+        , variable=200.6 a     , sum=200.6 a     .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=73.5478 a   , sum=74.6998 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:int_g fixed=179.686 a   ,
+        variable=545.483 a   , sum=725.169 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.mnmos:sbnode       fixed=0      
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.rg :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_16.xNot_16_2.xM2.rs :
+        xbuffer_sized.xbuffer_16.xNot_16_2.xM2.rs   fixed=89.2669 a   ,
+        variable=489.211 a   , sum=578.478 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:dbnode       fixed=0      
+        , variable=1.6048 f    , sum=1.6048 f    .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=586.27 a    , sum=587.422 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:int_g fixed=1.45992 f   ,
+        variable=4.39319 f   , sum=5.85312 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.mpmos:sbnode       fixed=0      
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.rg :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM1.rs :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM1.rs   fixed=729.386 a   ,
+        variable=3.9799 f    , sum=4.70928 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:dbnode       fixed=0      
+        , variable=636.743 a   , sum=636.743 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=362.259 a   , sum=363.411 a   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:int_g fixed=729.021 a   ,
+        variable=677.506 a   , sum=1.40653 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.mnmos:sbnode       fixed=0      
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.rg :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_16.xNot_16_3.xM2.rs :
+        xbuffer_sized.xbuffer_16.xNot_16_3.xM2.rs   fixed=363.934 a   ,
+        variable=1.55512 f   , sum=1.91906 f   .
+
+xbuffer_sized.xbuffer_32.node_1 : xbuffer_sized.xbuffer_32.node_1      
+        fixed=269.899 a   , variable=933.055 a   , sum=1.20295 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:dbnode       fixed=0      
+        , variable=318.371 a   , sum=318.371 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=172.768 a   , sum=173.92 a    .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:int_g fixed=362.415 a   ,
+        variable=329.399 a   , sum=691.815 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.mpmos:sbnode       fixed=0      
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.rg :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM1.rs :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM1.rs   fixed=180.632 a   ,
+        variable=776.708 a   , sum=957.34 a    .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:dbnode       fixed=0      
+        , variable=200.6 a     , sum=200.6 a     .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=73.5478 a   , sum=74.6998 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:int_g fixed=179.686 a   ,
+        variable=545.483 a   , sum=725.169 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.mnmos:sbnode       fixed=0      
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.rg :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_32.xNot_32_2.xM2.rs :
+        xbuffer_sized.xbuffer_32.xNot_32_2.xM2.rs   fixed=89.2669 a   ,
+        variable=489.211 a   , sum=578.478 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:dbnode       fixed=0      
+        , variable=1.6048 f    , sum=1.6048 f    .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=586.27 a    , sum=587.422 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:int_g fixed=1.45992 f   ,
+        variable=4.39319 f   , sum=5.85312 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.mpmos:sbnode       fixed=0      
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.rg :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM1.rs :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM1.rs   fixed=729.386 a   ,
+        variable=3.9799 f    , sum=4.70928 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:dbnode       fixed=0      
+        , variable=636.743 a   , sum=636.743 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=362.259 a   , sum=363.411 a   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:int_g fixed=729.021 a   ,
+        variable=677.506 a   , sum=1.40653 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.mnmos:sbnode       fixed=0      
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.rg :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_32.xNot_32_3.xM2.rs :
+        xbuffer_sized.xbuffer_32.xNot_32_3.xM2.rs   fixed=363.934 a   ,
+        variable=1.55512 f   , sum=1.91906 f   .
+
+xbuffer_sized.xbuffer_64.node_1 : xbuffer_sized.xbuffer_64.node_1      
+        fixed=64.0431 a   , variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_sized.xbuffer_64.node_2 : xbuffer_sized.xbuffer_64.node_2      
+        fixed=269.899 a   , variable=1.32405 f   , sum=1.59395 f   .
+
+xbuffer_sized.xbuffer_64.node_3 : xbuffer_sized.xbuffer_64.node_3      
+        fixed=1.09332 f   , variable=3.76322 f   , sum=4.85654 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:dbnode       fixed=0      
+        , variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:int_g fixed=88.0381 a   ,
+        variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.mpmos:sbnode       fixed=0      
+        , variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM1.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM1.rs   fixed=43.4431 a   ,
+        variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:dbnode       fixed=0      
+        , variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:int_g fixed=42.3521 a   ,
+        variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.mnmos:sbnode       fixed=0      
+        , variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_1.xM2.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_1.xM2.rs   fixed=20.6001 a   ,
+        variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:dbnode       fixed=0      
+        , variable=401.2 a     , sum=401.2 a     .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=145.189 a   , sum=146.341 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:int_g fixed=362.415 a   ,
+        variable=1.08797 f   , sum=1.45038 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.mpmos:sbnode       fixed=0      
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM1.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM1.rs   fixed=180.632 a   ,
+        variable=991.655 a   , sum=1.17229 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:dbnode       fixed=0      
+        , variable=159.186 a   , sum=159.186 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=88.8561 a   , sum=90.0081 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:int_g fixed=179.686 a   ,
+        variable=166.181 a   , sum=345.867 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.mnmos:sbnode       fixed=0      
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_2.xM2.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_2.xM2.rs   fixed=89.2669 a   ,
+        variable=387.501 a   , sum=476.768 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:dbnode       fixed=0      
+        , variable=1.27349 f   , sum=1.27349 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=697.631 a   , sum=698.783 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:int_g fixed=1.45992 f   ,
+        variable=1.33011 f   , sum=2.79003 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.mpmos:sbnode       fixed=0      
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM1.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM1.rs   fixed=729.386 a   ,
+        variable=3.11195 f   , sum=3.84134 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:dbnode       fixed=0      
+        , variable=802.4 a     , sum=802.4 a     .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=299.849 a   , sum=301.001 a   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:int_g fixed=729.021 a   ,
+        variable=2.22389 f   , sum=2.95291 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.mnmos:sbnode       fixed=0      
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_3.xM2.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_3.xM2.rs   fixed=363.934 a   ,
+        variable=1.96979 f   , sum=2.33372 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:dbnode       fixed=0      
+        , variable=6.4192 f    , sum=6.4192 f    .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:int_b fixed=1.152 a     ,
+        variable=2.35059 f   , sum=2.35174 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:int_g fixed=5.84996 f   ,
+        variable=17.6141 f   , sum=23.464 f    .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.mpmos:sbnode       fixed=0      
+        , variable=10.2707 f   , sum=10.2707 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM1.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM1.rs   fixed=2.9244 f    ,
+        variable=15.9329 f   , sum=18.8573 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:dbnode       fixed=0      
+        , variable=2.54697 f   , sum=2.54697 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:int_b fixed=1.152 a     ,
+        variable=1.45587 f   , sum=1.45702 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:int_g fixed=2.92636 f   ,
+        variable=2.72281 f   , sum=5.64917 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.mnmos:sbnode       fixed=0      
+        , variable=5.13536 f   , sum=5.13536 f   .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.rg :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_64.xNot_64_4.xM2.rs :
+        xbuffer_sized.xbuffer_64.xNot_64_4.xM2.rs   fixed=1.4626 f    ,
+        variable=6.22561 f   , sum=7.68821 f   .
+
+xbuffer_sized.xbuffer_128.node_1 : xbuffer_sized.xbuffer_128.node_1    
+        fixed=64.0431 a   , variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_sized.xbuffer_128.node_2 : xbuffer_sized.xbuffer_128.node_2    
+        fixed=269.899 a   , variable=1.32405 f   , sum=1.59395 f   .
+
+xbuffer_sized.xbuffer_128.node_3 : xbuffer_sized.xbuffer_128.node_3    
+        fixed=1.09332 f   , variable=3.76322 f   , sum=4.85654 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:dbnode   fixed=0        
+        , variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:int_g     fixed=88.0381
+        a   , variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.mpmos:sbnode   fixed=0        
+        , variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM1.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM1.rs       fixed=43.4431 a   ,
+        variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:dbnode   fixed=0        
+        , variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:int_g     fixed=42.3521
+        a   , variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.mnmos:sbnode   fixed=0        
+        , variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_1.xM2.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_1.xM2.rs       fixed=20.6001 a   ,
+        variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:dbnode   fixed=0        
+        , variable=401.2 a     , sum=401.2 a     .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=145.189 a   , sum=146.341 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:int_g     fixed=362.415
+        a   , variable=1.08797 f   , sum=1.45038 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.mpmos:sbnode   fixed=0        
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM1.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM1.rs       fixed=180.632 a   ,
+        variable=991.655 a   , sum=1.17229 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:dbnode   fixed=0        
+        , variable=159.186 a   , sum=159.186 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=88.8561 a   , sum=90.0081 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:int_g     fixed=179.686
+        a   , variable=166.181 a   , sum=345.867 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.mnmos:sbnode   fixed=0        
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_2.xM2.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_2.xM2.rs       fixed=89.2669 a   ,
+        variable=387.501 a   , sum=476.768 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:dbnode   fixed=0        
+        , variable=1.27349 f   , sum=1.27349 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=697.631 a   , sum=698.783 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:int_g     fixed=1.45992
+        f   , variable=1.33011 f   , sum=2.79003 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.mpmos:sbnode   fixed=0        
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM1.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM1.rs       fixed=729.386 a   ,
+        variable=3.11195 f   , sum=3.84134 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:dbnode   fixed=0        
+        , variable=802.4 a     , sum=802.4 a     .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=299.849 a   , sum=301.001 a   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:int_g     fixed=729.021
+        a   , variable=2.22389 f   , sum=2.95291 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.mnmos:sbnode   fixed=0        
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_3.xM2.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_3.xM2.rs       fixed=363.934 a   ,
+        variable=1.96979 f   , sum=2.33372 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:dbnode   fixed=0        
+        , variable=6.4192 f    , sum=6.4192 f    .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=2.35059 f   , sum=2.35174 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:int_g     fixed=5.84996
+        f   , variable=17.6141 f   , sum=23.464 f    .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.mpmos:sbnode   fixed=0        
+        , variable=10.2707 f   , sum=10.2707 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM1.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM1.rs       fixed=2.9244 f    ,
+        variable=15.9329 f   , sum=18.8573 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:dbnode   fixed=0        
+        , variable=2.54697 f   , sum=2.54697 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=1.45587 f   , sum=1.45702 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:int_g     fixed=2.92636
+        f   , variable=2.72281 f   , sum=5.64917 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.mnmos:sbnode   fixed=0        
+        , variable=5.13536 f   , sum=5.13536 f   .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.rg :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_128.xNot_128_4.xM2.rs :
+        xbuffer_sized.xbuffer_128.xNot_128_4.xM2.rs       fixed=1.4626 f    ,
+        variable=6.22561 f   , sum=7.68821 f   .
+
+xbuffer_sized.xbuffer_256.node_1 : xbuffer_sized.xbuffer_256.node_1    
+        fixed=269.899 a   , variable=933.055 a   , sum=1.20295 f   .
+
+xbuffer_sized.xbuffer_256.node_2 : xbuffer_sized.xbuffer_256.node_2    
+        fixed=1.09332 f   , variable=5.32563 f   , sum=6.41895 f   .
+
+xbuffer_sized.xbuffer_256.node_3 : xbuffer_sized.xbuffer_256.node_3    
+        fixed=4.38701 f   , variable=15.0839 f   , sum=19.4709 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:dbnode   fixed=0        
+        , variable=318.371 a   , sum=318.371 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=172.768 a   , sum=173.92 a    .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:int_g     fixed=362.415
+        a   , variable=329.399 a   , sum=691.815 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.mpmos:sbnode   fixed=0        
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM1.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM1.rs       fixed=180.632 a   ,
+        variable=776.708 a   , sum=957.34 a    .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:dbnode   fixed=0        
+        , variable=200.6 a     , sum=200.6 a     .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=73.5478 a   , sum=74.6998 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:int_g     fixed=179.686
+        a   , variable=545.483 a   , sum=725.169 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.mnmos:sbnode   fixed=0        
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_2.xM2.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_2.xM2.rs       fixed=89.2669 a   ,
+        variable=489.211 a   , sum=578.478 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:dbnode   fixed=0        
+        , variable=1.6048 f    , sum=1.6048 f    .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=586.27 a    , sum=587.422 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:int_g     fixed=1.45992
+        f   , variable=4.39319 f   , sum=5.85312 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.mpmos:sbnode   fixed=0        
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM1.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM1.rs       fixed=729.386 a   ,
+        variable=3.9799 f    , sum=4.70929 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:dbnode   fixed=0        
+        , variable=636.743 a   , sum=636.743 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=362.259 a   , sum=363.411 a   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:int_g     fixed=729.021
+        a   , variable=677.506 a   , sum=1.40653 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.mnmos:sbnode   fixed=0        
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_3.xM2.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_3.xM2.rs       fixed=363.934 a   ,
+        variable=1.55512 f   , sum=1.91906 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:dbnode   fixed=0        
+        , variable=5.09394 f   , sum=5.09394 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=2.79708 f   , sum=2.79824 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:int_g     fixed=5.84996
+        f   , variable=5.33293 f   , sum=11.1829 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.mpmos:sbnode   fixed=0        
+        , variable=10.2707 f   , sum=10.2707 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM1.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM1.rs       fixed=2.9244 f    ,
+        variable=12.4529 f   , sum=15.3773 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:dbnode   fixed=0        
+        , variable=3.2096 f    , sum=3.2096 f    .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=1.20505 f   , sum=1.2062 f    .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:int_g     fixed=2.92636
+        f   , variable=8.93752 f   , sum=11.8639 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.mnmos:sbnode   fixed=0        
+        , variable=5.13536 f   , sum=5.13536 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_4.xM2.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_4.xM2.rs       fixed=1.4626 f    ,
+        variable=7.89209 f   , sum=9.35469 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:dbnode   fixed=0        
+        , variable=25.6768 f   , sum=25.6768 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=9.40788 f   , sum=9.40903 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:int_g     fixed=23.4101
+        f   , variable=70.4976 f   , sum=93.9077 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.mpmos:sbnode   fixed=0        
+        , variable=41.0829 f   , sum=41.0829 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM1.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM1.rs       fixed=11.7045 f   ,
+        variable=63.7448 f   , sum=75.4493 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:dbnode   fixed=0        
+        , variable=10.1879 f   , sum=10.1879 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=5.83032 f   , sum=5.83148 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:int_g     fixed=11.7157
+        f   , variable=10.904 f    , sum=22.6197 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.mnmos:sbnode   fixed=0        
+        , variable=20.5414 f   , sum=20.5414 f   .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.rg :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_256.xNot_256_5.xM2.rs :
+        xbuffer_sized.xbuffer_256.xNot_256_5.xM2.rs       fixed=5.85728 f   ,
+        variable=24.9075 f   , sum=30.7648 f   .
+
+xbuffer_sized.xbuffer_512.node_1 : xbuffer_sized.xbuffer_512.node_1    
+        fixed=269.899 a   , variable=933.055 a   , sum=1.20295 f   .
+
+xbuffer_sized.xbuffer_512.node_2 : xbuffer_sized.xbuffer_512.node_2    
+        fixed=1.09332 f   , variable=5.32563 f   , sum=6.41895 f   .
+
+xbuffer_sized.xbuffer_512.node_3 : xbuffer_sized.xbuffer_512.node_3    
+        fixed=4.38701 f   , variable=15.0839 f   , sum=19.4709 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:dbnode   fixed=0        
+        , variable=318.371 a   , sum=318.371 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=172.768 a   , sum=173.92 a    .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:int_g     fixed=362.415
+        a   , variable=329.399 a   , sum=691.815 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.mpmos:sbnode   fixed=0        
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM1.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM1.rs       fixed=180.632 a   ,
+        variable=776.708 a   , sum=957.34 a    .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:dbnode   fixed=0        
+        , variable=200.6 a     , sum=200.6 a     .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=73.5478 a   , sum=74.6998 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:int_g     fixed=179.686
+        a   , variable=545.483 a   , sum=725.169 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.mnmos:sbnode   fixed=0        
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_2.xM2.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_2.xM2.rs       fixed=89.2669 a   ,
+        variable=489.211 a   , sum=578.478 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:dbnode   fixed=0        
+        , variable=1.6048 f    , sum=1.6048 f    .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=586.27 a    , sum=587.422 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:int_g     fixed=1.45992
+        f   , variable=4.39319 f   , sum=5.85312 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.mpmos:sbnode   fixed=0        
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM1.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM1.rs       fixed=729.386 a   ,
+        variable=3.9799 f    , sum=4.70929 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:dbnode   fixed=0        
+        , variable=636.743 a   , sum=636.743 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=362.259 a   , sum=363.411 a   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:int_g     fixed=729.021
+        a   , variable=677.506 a   , sum=1.40653 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.mnmos:sbnode   fixed=0        
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_3.xM2.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_3.xM2.rs       fixed=363.934 a   ,
+        variable=1.55512 f   , sum=1.91906 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:dbnode   fixed=0        
+        , variable=5.09394 f   , sum=5.09394 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=2.79708 f   , sum=2.79824 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:int_g     fixed=5.84996
+        f   , variable=5.33293 f   , sum=11.1829 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.mpmos:sbnode   fixed=0        
+        , variable=10.2707 f   , sum=10.2707 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM1.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM1.rs       fixed=2.9244 f    ,
+        variable=12.4529 f   , sum=15.3773 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:dbnode   fixed=0        
+        , variable=3.2096 f    , sum=3.2096 f    .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=1.20505 f   , sum=1.2062 f    .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:int_g     fixed=2.92636
+        f   , variable=8.93752 f   , sum=11.8639 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.mnmos:sbnode   fixed=0        
+        , variable=5.13536 f   , sum=5.13536 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_4.xM2.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_4.xM2.rs       fixed=1.4626 f    ,
+        variable=7.89209 f   , sum=9.35469 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:dbnode   fixed=0        
+        , variable=25.6768 f   , sum=25.6768 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:int_b     fixed=1.152 a 
+        , variable=9.40788 f   , sum=9.40903 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:int_g     fixed=23.4101
+        f   , variable=70.4976 f   , sum=93.9077 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.mpmos:sbnode   fixed=0        
+        , variable=41.0829 f   , sum=41.0829 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM1.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM1.rs       fixed=11.7045 f   ,
+        variable=63.7448 f   , sum=75.4493 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:dbnode   fixed=0        
+        , variable=10.1879 f   , sum=10.1879 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:int_b     fixed=1.152 a 
+        , variable=5.83032 f   , sum=5.83148 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:int_g     fixed=11.7157
+        f   , variable=10.904 f    , sum=22.6197 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.mnmos:sbnode   fixed=0        
+        , variable=20.5414 f   , sum=20.5414 f   .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.rg :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.rg       fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_512.xNot_512_5.xM2.rs :
+        xbuffer_sized.xbuffer_512.xNot_512_5.xM2.rs       fixed=5.85728 f   ,
+        variable=24.9075 f   , sum=30.7648 f   .
+
+xbuffer_sized.xbuffer_1024.node_1 : xbuffer_sized.xbuffer_1024.node_1  
+        fixed=64.0431 a   , variable=225.513 a   , sum=289.556 a   .
+
+xbuffer_sized.xbuffer_1024.node_2 : xbuffer_sized.xbuffer_1024.node_2  
+        fixed=269.899 a   , variable=1.32405 f   , sum=1.59395 f   .
+
+xbuffer_sized.xbuffer_1024.node_3 : xbuffer_sized.xbuffer_1024.node_3  
+        fixed=1.09332 f   , variable=3.76322 f   , sum=4.85654 f   .
+
+xbuffer_sized.xbuffer_1024.node_4 : xbuffer_sized.xbuffer_1024.node_4  
+        fixed=4.38701 f   , variable=21.3319 f   , sum=25.7189 f   .
+
+xbuffer_sized.xbuffer_1024.node_5 : xbuffer_sized.xbuffer_1024.node_5  
+        fixed=17.5618 f   , variable=60.3666 f   , sum=77.9283 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:dbnode       fixed=0  
+        , variable=79.5928 a   , sum=79.5928 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=41.5517 a   , sum=42.7037 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:int_g fixed=88.0381 a 
+        , variable=79.2226 a   , sum=167.261 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.mpmos:sbnode       fixed=0  
+        , variable=160.48 a    , sum=160.48 a    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM1.rs   fixed=43.4431 a   ,
+        variable=192.897 a   , sum=236.34 a    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:dbnode       fixed=0  
+        , variable=50.15 a     , sum=50.15 a     .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=16.9726 a   , sum=18.1246 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:int_g fixed=42.3521 a 
+        , variable=125.881 a   , sum=168.233 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.mnmos:sbnode       fixed=0  
+        , variable=80.24 a     , sum=80.24 a     .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_1.xM2.rs   fixed=20.6001 a   ,
+        variable=119.067 a   , sum=139.667 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:dbnode       fixed=0  
+        , variable=401.2 a     , sum=401.2 a     .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=145.189 a   , sum=146.341 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:int_g fixed=362.415 a 
+        , variable=1.08797 f   , sum=1.45038 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.mpmos:sbnode       fixed=0  
+        , variable=641.92 a    , sum=641.92 a    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM1.rs   fixed=180.632 a   ,
+        variable=991.655 a   , sum=1.17229 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:dbnode       fixed=0  
+        , variable=159.186 a   , sum=159.186 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=88.8561 a   , sum=90.0081 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:int_g fixed=179.686 a 
+        , variable=166.181 a   , sum=345.867 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.mnmos:sbnode       fixed=0  
+        , variable=320.96 a    , sum=320.96 a    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_2.xM2.rs   fixed=89.2669 a   ,
+        variable=387.501 a   , sum=476.768 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:dbnode       fixed=0  
+        , variable=1.27349 f   , sum=1.27349 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=697.631 a   , sum=698.783 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:int_g fixed=1.45992 f 
+        , variable=1.33011 f   , sum=2.79003 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.mpmos:sbnode       fixed=0  
+        , variable=2.56768 f   , sum=2.56768 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM1.rs   fixed=729.386 a   ,
+        variable=3.11195 f   , sum=3.84134 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:dbnode       fixed=0  
+        , variable=802.4 a     , sum=802.4 a     .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=299.849 a   , sum=301.001 a   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:int_g fixed=729.021 a 
+        , variable=2.22389 f   , sum=2.95291 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.mnmos:sbnode       fixed=0  
+        , variable=1.28384 f   , sum=1.28384 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_3.xM2.rs   fixed=363.934 a   ,
+        variable=1.96979 f   , sum=2.33372 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:dbnode       fixed=0  
+        , variable=6.4192 f    , sum=6.4192 f    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=2.35059 f   , sum=2.35174 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:int_g fixed=5.84996 f 
+        , variable=17.6141 f   , sum=23.464 f    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.mpmos:sbnode       fixed=0  
+        , variable=10.2707 f   , sum=10.2707 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM1.rs   fixed=2.9244 f    ,
+        variable=15.9329 f   , sum=18.8573 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:dbnode       fixed=0  
+        , variable=2.54697 f   , sum=2.54697 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=1.45587 f   , sum=1.45702 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:int_g fixed=2.92636 f 
+        , variable=2.72281 f   , sum=5.64917 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.mnmos:sbnode       fixed=0  
+        , variable=5.13536 f   , sum=5.13536 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_4.xM2.rs   fixed=1.4626 f    ,
+        variable=6.22561 f   , sum=7.68821 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:dbnode       fixed=0  
+        , variable=20.3758 f   , sum=20.3758 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=11.1949 f   , sum=11.1961 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:int_g fixed=23.4101 f 
+        , variable=21.3442 f   , sum=44.7543 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.mpmos:sbnode       fixed=0  
+        , variable=41.0829 f   , sum=41.0829 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM1.rs   fixed=11.7045 f   ,
+        variable=49.8168 f   , sum=61.5213 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:dbnode       fixed=0  
+        , variable=12.8384 f   , sum=12.8384 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=4.82587 f   , sum=4.82702 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:int_g fixed=11.7157 f 
+        , variable=35.7921 f   , sum=47.5078 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.mnmos:sbnode       fixed=0  
+        , variable=20.5414 f   , sum=20.5414 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_5.xM2.rs   fixed=5.85728 f   ,
+        variable=31.5813 f   , sum=37.4386 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:dbnode       fixed=0  
+        , variable=102.707 f   , sum=102.707 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:int_b fixed=1.152 a   
+        , variable=37.637 f    , sum=37.6382 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:int_g fixed=93.6507 f 
+        , variable=282.032 f   , sum=375.682 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.mpmos:sbnode       fixed=0  
+        , variable=164.332 f   , sum=164.332 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM1.rs   fixed=46.8248 f   ,
+        variable=254.992 f   , sum=301.817 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:dbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:dbnode       fixed=0  
+        , variable=40.7515 f   , sum=40.7515 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:int_b :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:int_b fixed=1.152 a   
+        , variable=23.3281 f   , sum=23.3293 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:int_g :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:int_g fixed=46.8732 f 
+        , variable=43.6288 f   , sum=90.502 f    .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:sbnode :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.mnmos:sbnode       fixed=0  
+        , variable=82.1658 f   , sum=82.1658 f   .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.rg :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.rg   fixed=0           ,
+        variable=0           , sum=0           .
+
+xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.rs :
+        xbuffer_sized.xbuffer_1024.xNot_1024_6.xM2.rs   fixed=23.436 f    ,
+        variable=99.6353 f   , sum=123.071 f   .
+

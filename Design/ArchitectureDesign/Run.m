@@ -1,8 +1,8 @@
 % Architecture parameters
 sp.NoWLpB=16;
-sp.NoBLpLB=4;
+sp.NoBLpLB=16;
 sp.NoGB=1;
-sp.PercentageHighRef = 0.8; %getal tussen 0 en 1
+sp.PercentageHighRef = 0.5; %getal tussen 0 en 1
 
 % TransistorWith parameters
 sp.WChargeBL=300e-9;
@@ -10,10 +10,10 @@ sp.LChargeBL=195e-9;
 sp.WDischargeBL=100e-9;
 sp.WDischargeSL=500e-9;
 
-sp.PWn=2500e-9;
-sp.PWp=2000e-9;
-sp.PWpenable=1500e-9;
-sp.PWnenable=1000e-9;
+sp.PWn=100e-9;
+sp.PWp=100e-9;
+sp.PWpenable=100e-9;
+sp.PWnenable=100e-9;
 
 sp.PWMmuxLB=200e-9;
 sp.PWMmuxGB=200e-9;
@@ -106,9 +106,9 @@ mat2spicepath = strcat(currentpath,'/',inputfile);
 mat2spice(mat2spicepath,spicepath,sp)
 clear inputfile currentpath mat2spicepath spicepath
 
-system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
-[sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
-
-sim.getSignal('xGB0.Delay').plotSignal;
+% system('spectre -64 +aps ./ArchitectureDesign/SPICE/SpiceFile.sp');
+% [sim] = readPsfAscii(strcat('./ArchitectureDesign/SPICE/SpiceFile.raw/mymc-001_mytran.tran'), '.*');
+% 
+% sim.getSignal('xGB0.Delay').plotSignal;
 
 

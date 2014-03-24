@@ -28,7 +28,7 @@ parameters tn = mc_nmos_lvt
 
 parameters enableVtMismatch=$<param.VtMismatch>$
 parameters enableBMismatch=$<param.BMismatch>$
-
+parameters enableMismatch=$<param.VtMismatch>$
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -39,9 +39,9 @@ mmemarray_ref ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
 mmemarray_ref2 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
 mmemarray_ref3 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
 mmemarray_ref4 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref6 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref7 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+//mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+//mmemarray_ref6 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+//mmemarray_ref7 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
 
 mload ( bl_bias bl_ref sel_load sel_bias gnd vdd) loads
 
@@ -101,9 +101,9 @@ mloadref1 ( bl_ref sel_load sel_bias gnd vdd) load
 mloadref2 ( bl_ref sel_load sel_bias gnd vdd) load
 mloadref3 ( bl_ref sel_load sel_bias gnd vdd) load
 mloadref4 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref5 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref6 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref7 ( bl_ref sel_load sel_bias gnd vdd) load
+//mloadref5 ( bl_ref sel_load sel_bias gnd vdd) load
+//mloadref6 ( bl_ref sel_load sel_bias gnd vdd) load
+//mloadref7 ( bl_ref sel_load sel_bias gnd vdd) load
 
 ends loads
 

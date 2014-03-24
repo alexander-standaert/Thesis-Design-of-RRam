@@ -1,0 +1,36 @@
+simulator lang=spice
+.lib '../../technology_models/tech_wrapper.lib' tt
+.OPTIONS METHOD=trap
+.TEMP 30
+
+simulator lang=spectre
+include "../../technology_models/monte_carlo_models.scs"
+include "../../ArchitectureDesign/SPICE/CMOSlogic.scs"
+include "decoder$<sp.decodertype>$.sp"
+parameters enableMismatch=0
+ana tran step=1e-12 stop=4e-08
+option1 options rawfmt = psfascii
+option2 options dc_pivot_check = yes
+
+vin in vss vsource type=pwl wave=[0 0 1e-09 0 1.001e-09 1]
+vgnd vss 0 vsource type=dc dc=0
+
+
+parameters PWmin = 100n                         //MinimalTransistorWidth
+parameters PLmin = 45n                          //MinimalTransistorLenght
+
+$l = 8;
+$for i = 4:9
+vvdd_$<num2str(i)>$ vdd_$<num2str(i)>$ 0 vsource type=dc dc=1
+vvddb_$<num2str(i)>$ vddb_$<num2str(i)>$ 0 vsource type=dc dc=1
+xdecoder$<int2spelledstring(i)>$ ($<repmat(['vss '],1,i-1)>$in vdd_$<num2str(i)>$ $<bus(strjoin({'out_',num2str(i)},''),[0:(2^i)-1])>$ vdd_$<num2str(i)>$ vss vss vdd_$<num2str(i)>$ vddb_$<num2str(i)>$) decoder$<int2spelledstring(i)>$
+$for k = 0:(2^i)-1
+cPar_$<i>$_$<k>$ out_$<num2str(i)>$_$<num2str(k)>$ vss capacitor c=0.18e-15
+$end
+save out_$<num2str(i)>$_$<num2str(l)>$
+//save out_$<num2str(i)>$_2
+save vvdd_$<num2str(i)>$:p
+save vvddb_$<num2str(i)>$:p
+$l = l*2
+$end
+save in

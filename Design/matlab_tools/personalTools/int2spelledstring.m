@@ -101,6 +101,16 @@ elseif integer ==49
     spelledstring = 'fortynine';
 elseif integer ==50
     spelledstring = 'fifty';
+elseif integer ==64
+    spelledstring = 'sixtyfour';
+elseif integer ==128
+    spelledstring = 'onehundredtwentyeight';
+elseif integer ==256
+    spelledstring = 'twohundredfiftysix';
+elseif integer ==512
+    spelledstring = 'fivehundredandtwelve';
+elseif integer ==1024
+    spelledstring = 'onethousandtwentyfour';
 end
 
 end
