@@ -23,9 +23,11 @@ xMpassbarp inbar passEnablep outbar bp mc_pmos_hvt w=1e-07 controlledOffset = 1 
 
 Vvdd     ( vdd     0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
+Vbp      ( bp      0 ) vsource dc=1
+Vbn      ( bn      0 ) vsource dc=0
 
-Vin     ( in     0 ) vsource dc=0.55
-Vinbar  ( inbar     0 ) vsource dc=0.4;
+Vin     ( in     0 ) vsource dc=0.54
+Vinbar  ( inbar     0 ) vsource dc=0.4
 
 Venn (latchenablen 0) vsource type=pwl wave=[0 0 1.5e-09 0 1.6e-09 1 2.5e-09 1 2.55e-09 0 8e-09 0]
 Venp (latchenablep 0) vsource type=pwl wave=[0 1 1.5e-09 1 1.55e-09 0 2.5e-09 0 2.6e-09 1 8e-09 1]
