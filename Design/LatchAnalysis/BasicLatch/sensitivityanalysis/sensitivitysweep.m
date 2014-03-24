@@ -9,10 +9,10 @@ sp.PWnenable = PWmin;
 sp.PWpassN = PWmin;
 sp.PWpassP = PWmin;
 
-numberofsigma = [-10:1:10];
+numberofsigma = [-4:1:4];
 whichMismatch = eye(20);
 
-offsets = [-0.8:0.005:0.8];
+offsets = [-0.3:0.005:0.3];
 
 mega=allcomb(numberofsigma,[1:20]);
 
