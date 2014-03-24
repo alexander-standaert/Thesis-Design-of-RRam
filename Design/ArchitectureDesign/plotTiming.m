@@ -9,7 +9,7 @@ function [] = plotTiming(sim)
     set(gca, 'ActivePositionProperty', 'OuterPosition');
     
     ax(1) = subplot(nb_subplots,1,1);
-    sig = sim.getSignal('xGB0.xLB1.BLencLine_1');
+    sig = sim.getSignal('xGB0.xLB1.WL_Ref');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);
@@ -19,7 +19,7 @@ function [] = plotTiming(sim)
     ylabel('xGB0.xLB1.BLencLine_1','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(2) = subplot(nb_subplots,1,2);
-    sig = sim.getSignal('xGB0.Refenable_1');
+    sig = sim.getSignal('xGB0.SelREF_1');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);
@@ -32,17 +32,17 @@ function [] = plotTiming(sim)
     ylabel('xGB0.Refenable_1','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(3) = subplot(nb_subplots,1,3);
-    sig = sim.getSignal('xGB0.xLB1.temp_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*2; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.temp_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+%     sig = sim.getSignal('xGB0.xLB1.temp_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*2; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.temp_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(4) = subplot(nb_subplots,1,4);
     sig = sim.getSignal('xGB0.xLB1.SelL_0');
@@ -58,30 +58,30 @@ function [] = plotTiming(sim)
     ylabel('xGB0.xLB1.SelL_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(5) = subplot(nb_subplots,1,5);
-    sig = sim.getSignal('xGB0.Delay');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*4; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.Delay','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+%     sig = sim.getSignal('xGB0.Delay');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*4; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.Delay','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(6) = subplot(nb_subplots,1,6);
-    sig = sim.getSignal('xGB0.xLB1.SelLbarbarbar_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*5; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.SelLbarbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(6) = subplot(nb_subplots,1,6);
+%     sig = sim.getSignal('xGB0.xLB1.SelLbarbarbar_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*5; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.SelLbarbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(7) = subplot(nb_subplots,1,7);
     sig = sim.getSignal('xGB0.xLB1.SelLbar_0');
@@ -96,18 +96,18 @@ function [] = plotTiming(sim)
     ylabh = get(gca,'YLabel');
     ylabel('xGB0.xLB1.SelLbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(8) = subplot(nb_subplots,1,8);
-    sig = sim.getSignal('xGB0.xLB1.SelLbarbar_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*7; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.SelLbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(8) = subplot(nb_subplots,1,8);
+%     sig = sim.getSignal('xGB0.xLB1.SelLbarbar_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*7; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.SelLbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(9) = subplot(nb_subplots,1,9:10);
     sig = sim.getSignal('xGB0.xLB1.BL_0');
@@ -146,7 +146,7 @@ function [] = plotTiming(sim)
     set(gca, 'ActivePositionProperty', 'OuterPosition');
     
     ax(1) = subplot(nb_subplots,1,1);
-    sig = sim.getSignal('xGB0.xLB0.BLencLine_0');
+    sig = sim.getSignal('xGB0.xLB0.selBL_0');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);
@@ -156,7 +156,7 @@ function [] = plotTiming(sim)
     ylabel('xGB0.xLB1.BLencLine_1','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(2) = subplot(nb_subplots,1,2);
-    sig = sim.getSignal('xGB0.xLB0.WL_3');
+    sig = sim.getSignal('xGB0.xLB0.selWL_3');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);
@@ -166,20 +166,20 @@ function [] = plotTiming(sim)
     pos(2)=pos(2)+yshift; 
     set(gca,'Position',pos);
     ylabh = get(gca,'YLabel');
-    ylabel('xGB0.Refenable_1','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+    ylabel('WL3','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(3) = subplot(nb_subplots,1,3);
-    sig = sim.getSignal('xGB0.xLB0.temp_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*2; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.temp_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(3) = subplot(nb_subplots,1,3);
+%     sig = sim.getSignal('xGB0.xLB0.temp_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*2; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.temp_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(4) = subplot(nb_subplots,1,4);
     sig = sim.getSignal('xGB0.xLB0.SelL_0');
@@ -194,31 +194,31 @@ function [] = plotTiming(sim)
     ylabh = get(gca,'YLabel');
     ylabel('xGB0.xLB1.SelL_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(5) = subplot(nb_subplots,1,5);
-    sig = sim.getSignal('xGB0.Delay');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*4; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.Delay','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(5) = subplot(nb_subplots,1,5);
+%     sig = sim.getSignal('xGB0.Delay');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*4; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.Delay','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(6) = subplot(nb_subplots,1,6);
-    sig = sim.getSignal('xGB0.xLB0.SelLbarbarbar_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*5; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.SelLbarbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(6) = subplot(nb_subplots,1,6);
+%     sig = sim.getSignal('xGB0.xLB0.SelLbarbarbar_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*5; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.SelLbarbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(7) = subplot(nb_subplots,1,7);
     sig = sim.getSignal('xGB0.xLB0.SelLbar_0');
@@ -233,18 +233,18 @@ function [] = plotTiming(sim)
     ylabh = get(gca,'YLabel');
     ylabel('xGB0.xLB1.SelLbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
-    ax(8) = subplot(nb_subplots,1,8);
-    sig = sim.getSignal('xGB0.xLB0.SelLbarbar_0');
-    sigx = sig.getXValues*10^9;
-    sigy = sig.getYValues;
-    plot(sigx,sigy,'LineWidth',3);
-    ylim(ylimits);xlim(xlimits);
-    set(gca,'XTickLabel',{''})
-    pos=get(gca,'Position');
-    pos(2)=pos(2)+yshift*7; 
-    set(gca,'Position',pos);
-    ylabh = get(gca,'YLabel');
-    ylabel('xGB0.xLB1.SelLbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
+     ax(8) = subplot(nb_subplots,1,8);
+%     sig = sim.getSignal('xGB0.xLB0.SelLbarbar_0');
+%     sigx = sig.getXValues*10^9;
+%     sigy = sig.getYValues;
+%     plot(sigx,sigy,'LineWidth',3);
+%     ylim(ylimits);xlim(xlimits);
+%     set(gca,'XTickLabel',{''})
+%     pos=get(gca,'Position');
+%     pos(2)=pos(2)+yshift*7; 
+%     set(gca,'Position',pos);
+%     ylabh = get(gca,'YLabel');
+%     ylabel('xGB0.xLB1.SelLbarbar_0','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(9) = subplot(nb_subplots,1,9:10);
     sig = sim.getSignal('xGB0.xLB0.BL_0');

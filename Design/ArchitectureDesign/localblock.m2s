@@ -3,32 +3,31 @@ simulator lang=spectre
 include "branch.sp"
 include "decoder2.sp"
 
-subckt localblock (vdd_0 vdd_2 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout Delay Refenable)
+subckt localblock (vdd_0 vdd_2 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout Refenable)
 parameters $<signalgrid('Rcell',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
-xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ LBenable $<bus('WL',[0:sp.NoWLpB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$ //decoders
-xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('BLencLine',[0:sp.NoBLpLB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoBLpLB))>$
+//xbuffer_INVNOR_ref_0 (vdd_3 vss NBulkLine PBulkLine SelREF_0 SelREF_0_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
+//xbuffer_INVNOR_ref_1 (vdd_3 vss NBulkLine PBulkLine SelREF_1 SelREF_1_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
+
+
+xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ LBenable $<bus('selWL',[0:sp.NoWLpB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$ //decoders
+xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('selBL',[0:sp.NoBLpLB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoBLpLB))>$
 
 
 $for i=0:sp.NoBLpLB-1
-xnor$<i>$ (BLencLine_$<i>$ Refenable temp_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
-xnot$<i>$_0 (temp_$<i>$ SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-//xDelay$<i>$ (SelL_$<i>$ SelL_$<i>$Delay vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(4)>$
+xnor$<i>$_0 (selBL_$<i>$ Refenable SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
 xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-xnot$<i>$_2 (SelLbar_$<i>$ SelLbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-//xnot$<i>$_3 (SelLbarbar_$<i>$ SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
-xnand$<i>$ (SelL_$<i>$ vdd_0 SelLbarbarbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonand
 $end
 
 xDelayrefenable (Refenable WL_Ref vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(2)>$ // moet min 2 delays lang zijn
 
 $for i=0:sp.NoBLpLB-1
-xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('WL',[0:sp.NoWLpB-1])>$ WL_Ref SelLbarbar_$<i>$ SelLbarbarbar_$<i>$ SelLbar_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
-xMn$<i>$ BL_$<i>$ SelLbarbar_$<i>$ BLout NBulkLine mc_nmos_hvt w=PWmuxLB l=PLmin //mux
-//xMp$<i>$ BL_$<i>$ SelLbar_$<i>$ BLout PBulkLine mc_pmos_hvt w=PWmuxLB l=PLmin
+xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('selWL',[0:sp.NoWLpB-1])>$ WL_Ref SelLbar_$<i>$ SelL_$<i>$ SelL_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
+xMn$<i>$ BL_$<i>$ SelLbar_$<i>$ BLout NBulkLine mc_nmos_hvt w=PWmuxLB l=PLmin //mux
+//xMp$<i>$ BL_$<i>$ SelL_$<i>$ BLout PBulkLine mc_pmos_hvt w=PWmuxLB l=PLmin
 $end
 $for i=0:sp.NoWLpB-1
-cParWL$<i>$ WL_$<i>$ vss capacitor c=Cpar*$<sp.NoBLpLB>$
+cParWL$<i>$ selWL_$<i>$ vss capacitor c=Cpar*$<sp.NoBLpLB>$
 $end
 cParWL$<sp.NoWLpB>$ Refenable vss capacitor c=Cpar*$<sp.NoBLpLB>$
 
