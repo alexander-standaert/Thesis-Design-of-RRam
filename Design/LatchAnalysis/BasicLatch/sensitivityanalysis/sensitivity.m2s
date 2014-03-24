@@ -34,6 +34,9 @@ Venp (latchenablep 0) vsource type=pwl wave=$<sp.enableP>$
 Vpassn (passEnablen 0) vsource type=pwl wave=$<sp.passN>$
 Vpassp (passEnablep 0) vsource type=pwl wave=$<sp.passP>$
 
+ic out = 0
+ic outbar = 1
+
 
 mymc montecarlo
 + donominal=no variations=mismatch
