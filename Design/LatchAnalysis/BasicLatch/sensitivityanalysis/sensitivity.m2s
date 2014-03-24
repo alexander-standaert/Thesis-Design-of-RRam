@@ -1,0 +1,45 @@
+
+simulator lang=spice
+.lib '../../../../technology_models/tech_wrapper.lib' tt
+
+simulator lang=spectre
+include "../../../../technology_models/monte_carlo_models.scs"
+
+parameters enableMismatch=0
+
+
+xMup out outbar n1 bp mc_pmos_hvt w=$<sp.PWp>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(1)>$ enableBetaMismatch = $<sp.whichMismatch(2)>$ sigmamult = $<sp.sigmamult>$
+xMupbar outbar out n1 bp mc_pmos_hvt w=$<sp.PWp>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(3)>$ enableBetaMismatch = $<sp.whichMismatch(4)>$ sigmamult = $<sp.sigmamult>$
+xMdown out outbar n2 bn mc_nmos_hvt w=$<sp.PWn>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(5)>$ enableBetaMismatch = $<sp.whichMismatch(6)>$ sigmamult = $<sp.sigmamult>$
+xMdownbar outbar out n2 bn mc_nmos_hvt w=$<sp.PWn>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(7)>$ enableBetaMismatch = $<sp.whichMismatch(8)>$ sigmamult = $<sp.sigmamult>$
+
+xMtop n1 latchenablep vdd bp mc_pmos_hvt w=$<sp.PWpenable>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(9)>$ enableBetaMismatch = $<sp.whichMismatch(10)>$ sigmamult = $<sp.sigmamult>$
+xMbottom n2 latchenablen vss bn mc_nmos_hvt w=$<sp.PWnenable>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(11)>$ enableBetaMismatch = $<sp.whichMismatch(12)>$ sigmamult = $<sp.sigmamult>$
+
+xMpassn in passEnablen out bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(13)>$ enableBetaMismatch = $<sp.whichMismatch(14)>$ sigmamult = $<sp.sigmamult>$
+xMpassp in passEnablep out bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(15)>$ enableBetaMismatch = $<sp.whichMismatch(16)>$ sigmamult = $<sp.sigmamult>$
+xMpassbarn inbar passEnablen outbar bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(17)>$ enableBetaMismatch = $<sp.whichMismatch(18)>$ sigmamult = $<sp.sigmamult>$
+xMpassbarp inbar passEnablep outbar bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(19)>$ enableBetaMismatch = $<sp.whichMismatch(20)>$ sigmamult = $<sp.sigmamult>$
+
+Vvdd     ( vdd     0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+
+Vin     ( in     0 ) vsource dc=$<sp.highlow>$
+Vinbar  ( inbar     0 ) vsource dc=0.4;
+
+Venn (latchenablen 0) vsource type=pwl wave=$<sp.enableN>$
+Venp (latchenablep 0) vsource type=pwl wave=$<sp.enableP>$
+Vpassn (passEnablen 0) vsource type=pwl wave=$<sp.passN>$
+Vpassp (passEnablep 0) vsource type=pwl wave=$<sp.passP>$
+
+
+mymc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=$<sp.numruns>$
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes {
+mytran tran stop=3n
+}
+option1 options rawfmt = psfascii

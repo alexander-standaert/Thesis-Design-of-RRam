@@ -4,6 +4,7 @@ simulator lang=spectre
 
 include "transistorsPTM.scs"
 include "../../ArchitectureDesign/SPICE/decoder.sp"
+include "../../ArchitectureDesign/SPICE/CMOSlogic.scs"
 include "parameters.sp"
 
 xdecoder ($<bus('IN',[0:sp.NoI-1])>$ enable $<bus('OUT',[0:2^sp.NoI-1])>$ vdd vss NBulkLine PBulkLine) decoder$<sp.NoISTRING>$
