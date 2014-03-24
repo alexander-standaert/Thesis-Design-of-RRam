@@ -123,6 +123,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/senseamplifier.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/CMOSlogic.scs /tmp/',rnddirname,'/spice/'},''));
         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/buffers_INVNOR.sp /tmp/',rnddirname,'/spice/'},''));
+        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/ArchitectureDesign/SPICE/buffers_WL.sp /tmp/',rnddirname,'/spice/'},''));
         
         spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'');
         [currentpath,~,~] = fileparts(which(mfilename));
@@ -171,7 +172,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         for k = 1:param.numruns
             istr=num2str(k+1000);
             istr=istr(end-2:end);
-            [sim, ~] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
+            [sim] = readPsfAscii(strjoin({'/tmp/',param.rnddirname,'/spice/SpiceFile.raw/mymc-',istr,'_mytran.tran'},''), '.*');
             
                         
             sig = sim.getSignal('InOut_0');

@@ -9,7 +9,7 @@ function [] = plotTiming(sim)
     set(gca, 'ActivePositionProperty', 'OuterPosition');
     
     ax(1) = subplot(nb_subplots,1,1);
-    sig = sim.getSignal('xGB0.xLB1.WL_Ref');
+    sig = sim.getSignal('xGB0.xLB1.SelREF_b');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);
@@ -156,7 +156,7 @@ function [] = plotTiming(sim)
     ylabel('xGB0.xLB1.BLencLine_1','Rotation',0,'Position',get(ylabh,'Position')-labelshift,'interpreter','none','FontSize', 10,'FontWeight','bold'); 
     
     ax(2) = subplot(nb_subplots,1,2);
-    sig = sim.getSignal('xGB0.xLB0.selWL_3');
+    sig = sim.getSignal('xGB0.xLB0.selWL_b_3');
     sigx = sig.getXValues*10^9;
     sigy = sig.getYValues;
     plot(sigx,sigy,'LineWidth',3);

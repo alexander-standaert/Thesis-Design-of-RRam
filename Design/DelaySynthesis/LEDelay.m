@@ -1,12 +1,12 @@
 
 sp.fanout = 2.^[3:10];
 sp.stageeffort = 4;
-sp.cload = 5+3+0; % NOR + INV + CAP
-sp.buffertype = 'INVNOR';
+sp.cload = 0+3+0; % NOR + INV + CAP
+sp.buffertype = 'WL';
 max_N = round(log10(sp.fanout(end)*sp.cload/3)/log10(sp.stageeffort)) % geld enkel voor NOR output
 sp.sizing = cumprod([1 ones(1,max_N-1)*4])
 
-sp.debugon = 1;
+sp.debugon = 0;
 
 inputfile = 'LEDelay.m2s';
 [currentpath,~,~] = fileparts(which(mfilename));

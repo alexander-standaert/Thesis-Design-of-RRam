@@ -10,6 +10,7 @@ include "parameters.sp"
 include "delay.sp"
 include "CMOSlogic.scs"
 include "buffers_INVNOR.sp"
+include "buffers_WL.sp"
 
 xDrivers (vdd_0 vss NBulkLine PBulkLine
 + $<bus('BLenc_start',[0:log2(sp.NoBLpLB)-1])>$

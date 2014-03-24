@@ -85,29 +85,29 @@ clear
 % save('./DecoderDesign/energy_decoder2.mat','energy2','energy2b')
 
 
-sp.decodertype = ''; % '' or 2
-
-inputfile = 'vgl_tree_line_buffer.m2s';
-%   inputfile = 'decoder2b.m2s';
-[currentpath,~,~] = fileparts(which(mfilename));
-mat2spicepath = strcat(currentpath,'/',inputfile);
-spicepath = strcat(strrep(currentpath,pwd,''),'/SPICE');
-mat2spice(mat2spicepath,spicepath,sp)
-clear inputfile currentpath mat2spicepath spicepath
-
-system('spectre -64 +aps ./DecoderDesign/SPICE/vgl_tree_line_buffer.sp')
-
-[sim, ~] = readPsfAscii(strjoin({'./DecoderDesign/SPICE/vgl_tree_line_buffer.raw/ana.tran'},''), '.*');
-
-sig = sim.getSignal(strjoin({'vvdd1:p'},''));
-sigx = sig.getXValues;
-sigy = sig.getYValues*-1;
-energy2line = trapz(sigx(3:end),sigy(3:end))  
-
-sig = sim.getSignal(strjoin({'vvdd2:p'},''));
-sigx = sig.getXValues;
-sigy = sig.getYValues*-1;
-energy2tree = trapz(sigx(3:end),sigy(3:end)) 
+% sp.decodertype = ''; % '' or 2
+% 
+% inputfile = 'vgl_tree_line_buffer.m2s';
+% %   inputfile = 'decoder2b.m2s';
+% [currentpath,~,~] = fileparts(which(mfilename));
+% mat2spicepath = strcat(currentpath,'/',inputfile);
+% spicepath = strcat(strrep(currentpath,pwd,''),'/SPICE');
+% mat2spice(mat2spicepath,spicepath,sp)
+% clear inputfile currentpath mat2spicepath spicepath
+% 
+% system('spectre -64 +aps ./DecoderDesign/SPICE/vgl_tree_line_buffer.sp')
+% 
+% [sim, ~] = readPsfAscii(strjoin({'./DecoderDesign/SPICE/vgl_tree_line_buffer.raw/ana.tran'},''), '.*');
+% 
+% sig = sim.getSignal(strjoin({'vvdd1:p'},''));
+% sigx = sig.getXValues;
+% sigy = sig.getYValues*-1;
+% energy2line = trapz(sigx(3:end),sigy(3:end))  
+% 
+% sig = sim.getSignal(strjoin({'vvdd2:p'},''));
+% sigx = sig.getXValues;
+% sigy = sig.getYValues*-1;
+% energy2tree = trapz(sigx(3:end),sigy(3:end)) 
 
 
 
@@ -125,7 +125,7 @@ close all
 % xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 
 % f1 = figure
-% data = load('./DecoderDesign/comp_e_d.mat')
+data = load('./DecoderDesign/comp_e_d.mat')
 % [ha,l1,l2] = plotyy([4:9],data.delay1(4:9),[4:9],data.energy1(4:9))
 % set(l1,'Color','r')
 % set(l2,'Color','r','LineStyle','--')
@@ -147,21 +147,21 @@ close all
 % xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 % set(ha,{'ycolor'},{'r';'b'})
 % 
-% bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
-% decoderdelay = data.delay2(4:9)
-% wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
-% 
-% figure
-% hold all
-% cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
-% for i = 1:6
-%     plot([4:9],wldelay(i,:),'Color',cmp(i,:))
-% end
-% plot([4:9],decoderdelay+0.15e-9,'b')
-% xlim([3.5,9.5])
-% legend({'WL decoder 4 delay','WL decoder 5 delay', ...
-%        'WL decoder 6 delay','WL decoder 7 delay', ...
-%        'WL decoder 8 delay','WL decoder 9 delay', ...
-%        'BL decoder delay'},'interpreter','none')
-% ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
-% xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
+decoderdelay = data.delay2(4:9)
+wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
+
+figure
+hold all
+cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
+for i = 1:6
+    plot([4:9],wldelay(i,:),'Color',cmp(i,:))
+end
+plot([4:9],decoderdelay+0.1e-9,'b')
+xlim([3.5,9.5])
+legend({'WL decoder 4 delay','WL decoder 5 delay', ...
+       'WL decoder 6 delay','WL decoder 7 delay', ...
+       'WL decoder 8 delay','WL decoder 9 delay', ...
+       'BL decoder delay'},'interpreter','none')
+ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
+xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')

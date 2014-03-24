@@ -3,23 +3,24 @@ simulator lang=spectre
 include "branch.sp"
 include "decoder2.sp"
 
-subckt localblock (vdd_0 vdd_2 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout Refenable)
+subckt localblock (vdd_0 vdd_2 vdd_3 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout SelREF_b)
 parameters $<signalgrid('Rcell',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
-//xbuffer_INVNOR_ref_0 (vdd_3 vss NBulkLine PBulkLine SelREF_0 SelREF_0_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
-//xbuffer_INVNOR_ref_1 (vdd_3 vss NBulkLine PBulkLine SelREF_1 SelREF_1_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
-
+//xbuffer_INVNOR_ref (vdd_3 vss NBulkLine PBulkLine SelREF SelREF_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
+$for i=0:sp.NoBLpLB-1
+//xbuffer_WL_ref_$<i>$ (vdd_3 vss NBulkLine PBulkLine selWL_$<i>$ selWL_b_$<i>$) buffer_WL_$<int2spelledstring(sp.NoBLpLB)>$
+$end
 
 xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ LBenable $<bus('selWL',[0:sp.NoWLpB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$ //decoders
 xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('selBL',[0:sp.NoBLpLB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoBLpLB))>$
 
 
 $for i=0:sp.NoBLpLB-1
-xnor$<i>$_0 (selBL_$<i>$ Refenable SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
+xnor$<i>$_0 (selBL_$<i>$ SelREF_b SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
 xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
 $end
 
-xDelayrefenable (Refenable WL_Ref vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(2)>$ // moet min 2 delays lang zijn
+xDelayrefenable (SelREF_b WL_Ref vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(2)>$ // moet min 2 delays lang zijn
 
 $for i=0:sp.NoBLpLB-1
 xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('selWL',[0:sp.NoWLpB-1])>$ WL_Ref SelLbar_$<i>$ SelL_$<i>$ SelL_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
@@ -29,6 +30,6 @@ $end
 $for i=0:sp.NoWLpB-1
 cParWL$<i>$ selWL_$<i>$ vss capacitor c=Cpar*$<sp.NoBLpLB>$
 $end
-cParWL$<sp.NoWLpB>$ Refenable vss capacitor c=Cpar*$<sp.NoBLpLB>$
+cParWL$<sp.NoWLpB>$ SelREF_b vss capacitor c=Cpar*$<sp.NoBLpLB>$
 
 ends localblock
