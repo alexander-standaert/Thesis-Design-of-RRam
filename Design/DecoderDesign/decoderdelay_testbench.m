@@ -1,4 +1,5 @@
-clear
+% clear
+
 % sp.decodertype = ''; % '' or 2
 % 
 % inputfile = 'decoderdelay_testbench.m2s';
@@ -126,42 +127,42 @@ close all
 
 % f1 = figure
 data = load('./DecoderDesign/comp_e_d.mat')
-% [ha,l1,l2] = plotyy([4:9],data.delay1(4:9),[4:9],data.energy1(4:9))
-% set(l1,'Color','r')
-% set(l2,'Color','r','LineStyle','--')
-% set(ha(1),'XLim',[3.5,9.5])
-% set(ha(2),'XLim',[3.5,9.5])
-% set(ha(1),'YLim',[0.1e-9,1e-9])
-% set(ha(2),'YLim',[-3e-14,7e-14])
-% set(ha,{'ycolor'},{'r';'b'})
-% hold on
-% [ha,l1,l2] = plotyy([4:9],data.delay2(4:9),[4:9],data.energy2(4:9))
-% set(l1,'Color','b')
-% set(l2,'Color','b','LineStyle','--')
-% set(ha(1),'XLim',[3.5,9.5])
-% set(ha(2),'XLim',[3.5,9.5])
-% set(ha(1),'YLim',[0.1e-9,1e-9])
-% set(ha(2),'YLim',[-3e-14,7e-14])
-% ylabel(ha(1),'Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
-% ylabel(ha(2),'Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold')
-% xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
-% set(ha,{'ycolor'},{'r';'b'})
-% 
-bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
-decoderdelay = data.delay2(4:9)
-wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
+[ha,l1,l2] = plotyy([4:9],data.delay1(4:9),[4:9],data.energy1(4:9))
+set(l1,'Color','r')
+set(l2,'Color','r','LineStyle','--')
+set(ha(1),'XLim',[3.5,9.5])
+set(ha(2),'XLim',[3.5,9.5])
+set(ha(1),'YLim',[0.1e-9,1e-9])
+set(ha(2),'YLim',[-4e-13,3.5e-13])
+set(ha,{'ycolor'},{'r';'b'})
+hold on
+[ha,l1,l2] = plotyy([4:9],data.delay2(4:9),[4:9],data.energy2(4:9))
+set(l1,'Color','b')
+set(l2,'Color','b','LineStyle','--')
+set(ha(1),'XLim',[3.5,9.5])
+set(ha(2),'XLim',[3.5,9.5])
+set(ha(1),'YLim',[0.1e-9,1e-9])
+set(ha(2),'YLim',[-4e-13,3.5e-13])
+ylabel(ha(1),'Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
+ylabel(ha(2),'Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold')
+xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+set(ha,{'ycolor'},{'r';'b'})
 
-figure
-hold all
-cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
-for i = 1:6
-    plot([4:9],wldelay(i,:),'Color',cmp(i,:))
-end
-plot([4:9],decoderdelay+0.1e-9,'b')
-xlim([3.5,9.5])
-legend({'WL decoder 4 delay','WL decoder 5 delay', ...
-       'WL decoder 6 delay','WL decoder 7 delay', ...
-       'WL decoder 8 delay','WL decoder 9 delay', ...
-       'BL decoder delay'},'interpreter','none')
-ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
-xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+% bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
+% decoderdelay = data.delay2(4:9)
+% wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
+% 
+% figure
+% hold all
+% cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
+% for i = 1:6
+%     plot([4:9],wldelay(i,:),'Color',cmp(i,:))
+% end
+% plot([4:9],decoderdelay+0.1e-9,'b')
+% xlim([3.5,9.5])
+% legend({'WL decoder 4 delay','WL decoder 5 delay', ...
+%        'WL decoder 6 delay','WL decoder 7 delay', ...
+%        'WL decoder 8 delay','WL decoder 9 delay', ...
+%        'BL decoder delay'},'interpreter','none')
+% ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
+% xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')

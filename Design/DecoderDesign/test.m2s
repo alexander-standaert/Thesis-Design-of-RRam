@@ -3,7 +3,7 @@
 simulator lang=spectre
 
 include "transistorsPTM.scs"
-include "../../ArchitectureDesign/SPICE/decoder.sp"
+include "../../ArchitectureDesign/SPICE/decoder$<sp.whichdecoder>$.sp"
 include "../../ArchitectureDesign/SPICE/CMOSlogic.scs"
 include "parameters.sp"
 
@@ -14,11 +14,14 @@ VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
+
 $for i=0:2^sp.NoI-1
 xinv_$<i>$ (OUT_$<i>$ whatevs_$<i>$ vdd vss PBulkLine NBulkLine) inverter
+//cCap$<i>$ OUT_$<i>$ 0 capacitor c=0.18e-15
 $end
 
 Ven (enable 0) vsource type=pwl wave=waveen
+//Ven (enable 0) vsource dc=1
 
 $for i=0:sp.NoI-1
 Vin$<i>$ (IN$<strcat('_',int2str(i))>$ 0) vsource type=pwl wave=wavein$<strcat('_',int2str(i))>$

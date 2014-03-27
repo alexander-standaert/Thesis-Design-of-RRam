@@ -2,12 +2,12 @@
 
 
 simulator lang=spice
-.lib '../../ArchitectureDesign/SPICE/tech_wrapper.lib' tt
+.lib 'tech_wrapper.lib' tt
 
 
 simulator lang=spectre
 
-include "../../ArchitectureDesign/SPICE/monte_carlo_models.scs"
+include "monte_carlo_models.scs"
 include "latch.scs"
 include "inverter.scs"
 include "parameters.sp"
