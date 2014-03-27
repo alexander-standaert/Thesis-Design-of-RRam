@@ -1,8 +1,9 @@
 % Architecture parameters
-sp.NoWLpB=16;
-sp.NoBLpLB=16;
+sp.NoWLpB=128;
+sp.NoBLpLB=128;
 sp.NoGB=1;
 sp.PercentageHighRef = 0.5; %getal tussen 0 en 1
+sp.PercentageUsedRef = 0.5; %getal tussen 0 en 1
 
 % TransistorWith parameters
 sp.WChargeBL=300e-9;
@@ -27,7 +28,7 @@ sp.randomizecells =1;
 
 
 sp.refcells = zeros(1,sp.NoBLpLB);
-sp.refcells(1:round(sp.NoBLpLB*sp.PercentageHighRef)) = 1
+sp.refcells(1:round(sp.NoBLpLB*sp.PercentageUsedRef*sp.PercentageHighRef)) = 1
 save('./ArchitectureDesign/architecture_param.mat','sp')
 
 testvectorin = zeros(2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB,sp.NoGB+log2(sp.NoWLpB)+log2(sp.NoBLpLB)+2);

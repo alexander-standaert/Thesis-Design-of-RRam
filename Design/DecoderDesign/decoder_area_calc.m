@@ -22,6 +22,7 @@ a1_decoder9 = fa1_9(1,1,1,1,1,1,1);
 
 a1 = [a1_decoder4,a1_decoder5,a1_decoder6,a1_decoder7,a1_decoder8,a1_decoder9]
 a2 = [fa2_4(),fa2_5(),fa2_6(),fa2_7(),fa2_8(),fa2_9()]
+
 close all
 figure
 hold on
@@ -31,6 +32,10 @@ plot([4:9],a2/(45e-9*45e-9))
 xlim([3.5,9.5])
 ylabel('Area (F^2)','FontSize', 12,'FontWeight','bold')
 xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+
+a2 = [a_2to4,a_3to8,a2]'
+save('./DecoderDesign/decoder_area.mat','a2') 
+
 
 function [a] = fa_2to4(m1,m2)
   a = m2*2*1.2*a_inv + m2*a_inv + 4*a_2nand + m1*4*a_2nor;  

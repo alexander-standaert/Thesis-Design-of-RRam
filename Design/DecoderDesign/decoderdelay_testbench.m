@@ -1,5 +1,4 @@
-% clear
-
+clear
 % sp.decodertype = ''; % '' or 2
 % 
 % inputfile = 'decoderdelay_testbench.m2s';
@@ -14,8 +13,8 @@
 % 
 % [sim, ~] = readPsfAscii(strjoin({'./DecoderDesign/SPICE/decoderdelay_testbench.raw/ana.tran'},''), '.*');
 % 
-% for i = 2:9
-% sig = sim.getSignal(strjoin({'out_',num2str(i),'_',num2str(2^(i-1))},''));
+% for i = 4:9
+% sig = sim.getSignal(strjoin({'out_',num2str(i),'_',num2str(2)},''));
 % sigx = sig.getXValues;
 % sigy = sig.getYValues;
 % [Y I] = min(abs(sigy-0.98));
@@ -23,7 +22,7 @@
 % sig = sim.getSignal(strjoin({'vvdd_',num2str(i),':p'},''));
 % sigx = sig.getXValues;
 % sigy = sig.getYValues*-1;
-% energy1(i) = trapz(sigx(3:I),sigy(3:I))  
+% energy1(i) = trapz(sigx,sigy)  
 % 
 % end
 % 
@@ -41,16 +40,16 @@
 % 
 % [sim, ~] = readPsfAscii(strjoin({'./DecoderDesign/SPICE/decoderdelay_testbench.raw/ana.tran'},''), '.*');
 % 
-% for i = 2:9
-% sig = sim.getSignal(strjoin({'out_',num2str(i),'_',num2str(2^(i-1))},''));
+% for i = 4:9
+% sig = sim.getSignal(strjoin({'out_',num2str(i),'_',num2str(2)},''));
 % sigx = sig.getXValues;
 % sigy = sig.getYValues;
 % [Y I] = min(abs(sigy-0.98));
-% delay2(i) = sigx(I)-1e-9;
+% delay2(i) = sigx(I)-1e-9
 % sig = sim.getSignal(strjoin({'vvdd_',num2str(i),':p'},''));
 % sigx = sig.getXValues;
 % sigy = sig.getYValues*-1;
-% energy2(i) = trapz(sigx(3:I),sigy(3:I))  
+% energy2(i) = trapz(sigx,sigy)  
 % 
 % end
 
@@ -115,17 +114,17 @@
 
 close all
 
-% f1 = figure
-% hold on
-% data = load('./DecoderDesign/energy_decoder2.mat')
-% plot([4:9],data.energy2b(4:9))
-% plot([4:9],data.energy2b(4:9)+data.energy2(4:9),'r')
-% xlim([3.5,9.5])
-% legend('energy buffers inside decoder','total energy decoder')
-% ylabel('Energy (J)','FontSize', 12,'FontWeight','bold')
-% xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+f1 = figure
+hold on
+data = load('./DecoderDesign/energy_decoder2.mat')
+plot([4:9],data.energy2b(4:9))
+plot([4:9],data.energy2b(4:9)+data.energy2(4:9),'r')
+xlim([3.5,9.5])
+legend('energy buffers inside decoder','total energy decoder')
+ylabel('Energy (J)','FontSize', 12,'FontWeight','bold')
+xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 
-% f1 = figure
+f1 = figure
 data = load('./DecoderDesign/comp_e_d.mat')
 [ha,l1,l2] = plotyy([4:9],data.delay1(4:9),[4:9],data.energy1(4:9))
 set(l1,'Color','r')
@@ -133,8 +132,8 @@ set(l2,'Color','r','LineStyle','--')
 set(ha(1),'XLim',[3.5,9.5])
 set(ha(2),'XLim',[3.5,9.5])
 set(ha(1),'YLim',[0.1e-9,1e-9])
-set(ha(2),'YLim',[-4e-13,3.5e-13])
-set(ha,{'ycolor'},{'r';'b'})
+set(ha(2),'YLim',[-3e-14,7e-14])
+set(ha,{'ycolor'},{'k';'k'})
 hold on
 [ha,l1,l2] = plotyy([4:9],data.delay2(4:9),[4:9],data.energy2(4:9))
 set(l1,'Color','b')
@@ -142,12 +141,12 @@ set(l2,'Color','b','LineStyle','--')
 set(ha(1),'XLim',[3.5,9.5])
 set(ha(2),'XLim',[3.5,9.5])
 set(ha(1),'YLim',[0.1e-9,1e-9])
-set(ha(2),'YLim',[-4e-13,3.5e-13])
+set(ha(2),'YLim',[-3e-14,7e-14])
 ylabel(ha(1),'Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
 ylabel(ha(2),'Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold')
 xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
-set(ha,{'ycolor'},{'r';'b'})
-
+set(ha,{'ycolor'},{'k';'k'})
+% 
 % bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
 % decoderdelay = data.delay2(4:9)
 % wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)

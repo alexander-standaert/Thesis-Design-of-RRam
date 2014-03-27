@@ -3,12 +3,12 @@ simulator lang=spectre
 include "branch.sp"
 include "decoder2.sp"
 
-subckt localblock (vdd_0 vdd_2 vdd_3 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout SelREF_b)
+subckt localblock (vdd_0 vdd_2 vdd_3 vss NBulkLine PBulkLine $<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ $<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable BLout SelREF)
 parameters $<signalgrid('Rcell',[0:sp.NoBLpLB-1],[0:sp.NoWLpB-1])>$
 
-//xbuffer_INVNOR_ref (vdd_3 vss NBulkLine PBulkLine SelREF SelREF_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB)>$
-$for i=0:sp.NoBLpLB-1
-//xbuffer_WL_ref_$<i>$ (vdd_3 vss NBulkLine PBulkLine selWL_$<i>$ selWL_b_$<i>$) buffer_WL_$<int2spelledstring(sp.NoBLpLB)>$
+xbuffer_INVNOR_ref (vdd_3 vss NBulkLine PBulkLine SelREF SelREF_b) buffer_INVNOR_$<int2spelledstring(sp.NoBLpLB*sp.PercentageUsedRef)>$
+$for i=0:sp.NoWLpB-1
+xbuffer_WL_ref_$<i>$ (vdd_3 vss NBulkLine PBulkLine selWL_$<i>$ selWL_b_$<i>$) buffer_WL_$<int2spelledstring(sp.NoBLpLB*sp.PercentageUsedRef)>$
 $end
 
 xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ LBenable $<bus('selWL',[0:sp.NoWLpB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$ //decoders
@@ -16,14 +16,22 @@ xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('selBL',[0:sp
 
 
 $for i=0:sp.NoBLpLB-1
+$if i < sp.PercentageUsedRef*sp.NoBLpLB-1
 xnor$<i>$_0 (selBL_$<i>$ SelREF_b SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
+$else
+xnor$<i>$_0 (selBL_$<i>$ vss SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
+$end
 xnot$<i>$_1 (SelL_$<i>$ SelLbar_$<i>$ vdd_0 vss PBulkLine NBulkLine) inverter
 $end
 
 xDelayrefenable (SelREF_b WL_Ref vdd_0 vss PBulkLine NBulkLine) delay$<int2spelledstring(2)>$ // moet min 2 delays lang zijn
 
 $for i=0:sp.NoBLpLB-1
-xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('selWL',[0:sp.NoWLpB-1])>$ WL_Ref SelLbar_$<i>$ SelL_$<i>$ SelL_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
+$if i < sp.PercentageUsedRef*sp.NoBLpLB-1
+xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('selWL_b',[0:sp.NoWLpB-1])>$ WL_Ref SelLbar_$<i>$ SelL_$<i>$ SelL_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
+$else
+xBranch$<i>$ (vdd_2 vss BL_$<i>$ $<bus('selWL_b',[0:sp.NoWLpB-1])>$ vss SelLbar_$<i>$ SelL_$<i>$ SelL_$<i>$ PBulkLine NBulkLine) branch $<busconnect('Rcell',strcat('Rcell_',int2str(i)),[0:sp.NoWLpB-1])>$ Rref = Rref_$<i>$
+$end
 xMn$<i>$ BL_$<i>$ SelLbar_$<i>$ BLout NBulkLine mc_nmos_hvt w=PWmuxLB l=PLmin //mux
 //xMp$<i>$ BL_$<i>$ SelL_$<i>$ BLout PBulkLine mc_pmos_hvt w=PWmuxLB l=PLmin
 $end

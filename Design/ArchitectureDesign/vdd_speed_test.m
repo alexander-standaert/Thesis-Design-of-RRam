@@ -13,9 +13,9 @@ function [] = vdd_speed_test()
     clc
     close all
     
-    function_mode = 'evaluation';
+    function_mode = 'simulation';
 %     function_mode = 'simulation';
-    sim_name = 'bestsimever';
+    sim_name = 'test128';
     
     if strcmp(function_mode,'simulation')
         % set parameters and run simulation
@@ -24,7 +24,7 @@ function [] = vdd_speed_test()
         param.debugon = 0;
         param = set_vdd_speed_test_param(param);
         param.sim_name = sim_name;
-        param = split_param(param,15);
+        param = split_param(param,1);
         generate_codor_job_file(param)      
     elseif strcmp(function_mode,'evaluation')
         % read and plot results

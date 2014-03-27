@@ -64,7 +64,12 @@ VvssBulk ( NBulkLine 0 ) vsource dc=0
 
 
 save InOut_0
-save xGB0.*
+save xGB0.xLB0.BL_0
+save xGB0.BLout_0
+save xGB0.xLB1.BL_0
+save xGB0.BLout_1
+save xGB0.xLB1.BL_1
+               
 save Vvdd_0:p
 save Vvdd_1:p
 save Vvdd_2:p
