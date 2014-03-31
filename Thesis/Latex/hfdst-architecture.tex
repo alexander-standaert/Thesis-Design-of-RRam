@@ -12,57 +12,60 @@ Het is daarom aangewezen om meer abstractie te maken en de componenten vanop een
 %nodig zijn. Dit kan zowel naar on-line documenten\cite{wiki} als naar
 %boeken\cite{pratchett06:_good_omens}.
 Zoals besproken in hoofdstuk \ref{cel} zal dit het bouwblok zijn dat het vaakst terug zal te vinden zijn op het geheugensysteem.
-De cel bestaat uit een memristor en een transistor. De geheugencel heeft drie terminals: de gate van de transistor, die zal verbonden worden met een wordline, de source van de stransistor, die zal verbonden worden met een sourceline en tenslotte de terminal van de memristor, die zal verbonden worden met een bitline.
+De cel bestaat uit een memristor en een transistor. De geheugencel heeft drie terminals: de gate van de transistor, die zal verbonden worden met een wordline, de source van de transistor, die zal verbonden worden met een sourceline en tenslotte de terminal van de memristor, die zal verbonden worden met een bitline.
 Een cel wiens memristor zich in een willekeurige resistieve staat bevindt is een datacel, terwijl de memristor van referentiecellen in een voorgeprogrammeerde en dus gekende resistieve staat verkeert.
 
 \subsection{Branch}
-In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of WL per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. In elke branch 
+In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of WL per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. Naast alle datacellen is er ook nog één referentiecel verbonden aan de BL en SL van de branch.
+Elke BL wordt via een pMOS-transistor verbonden aan de voedingspanning Vdd en via een nMOS-transistor aan de grondspanning Vss. In dit werk is er enkel een nMOS-transistor die de SL verbindt met Vss.\footnote{In een volledig geheugensysteem zou de SL via een pMOS-transistor ook nog verbonden zijn met een niet onderzochte spanningsknoop Vdd\_write. De pMOS zou dan worden aangezet voor schrijfwerking.}
 
-\section{Figuren}
-Figuren worden gebruikt om illustraties toe te voegen. Dit is dan ook de
-manier om beeldmateriaal toe te voegen zoals getoond wordt in
-figuur~\ref{fig:logo}.
-
-\begin{figure}
-  \centering
-  \includegraphics{logokul}
-  \caption{Het KU~Leuven logo.}
-  \label{fig:logo}
-\end{figure}
-
-\section{Tabellen}
-Tabellen kunnen gebruikt worden om informatie op een overzichtelijke te
-groeperen. Een tabel is echter geen rekenblad! Vergelijk maar eens
-tabel~\ref{tab:verkeerd} en tabel~\ref{tab:juist}. Welke tabel vind jij het
-duidelijkst?
-
-\begin{table}
-  \centering
-  \begin{tabular}{||l|lr||} \hline
-    gnats     & gram      & \$13.65 \\ \cline{2-3}
-              & each      & .01 \\ \hline
-    gnu       & stuffed   & 92.50 \\ \cline{1-1} \cline{3-3}
-    emu       &           & 33.33 \\ \hline
-    armadillo & frozen    & 8.99 \\ \hline
-  \end{tabular}
-  \caption{Een tabel zoals het niet moet.}
-  \label{tab:verkeerd}
-\end{table}
-
-\begin{table}
-  \centering
-  \begin{tabular}{@{}llr@{}} \toprule
-    \multicolumn{2}{c}{Item} \\ \cmidrule(r){1-2}
-    Animal    & Description & Price (\$)\\ \midrule
-    Gnat      & per gram    & 13.65 \\
-              & each        & 0.01 \\
-    Gnu       & stuffed     & 92.50 \\
-    Emu       & stuffed     & 33.33 \\
-    Armadillo & frozen      & 8.99 \\ \bottomrule
-  \end{tabular}
-  \caption{Een tabel zoals het beter is.}
-  \label{tab:juist}
-\end{table}
+\subsection{Local Block}
+Verschillende BLs en SLs worden samengebracht in een Local Block, wiens vrijheidsgraad \emph{Number of Bit Lines per Local Block} (NoBLpLB) heet. In een LB bevinden er zich dus NoBLpLB*NoWLpB datacellen en NoBLpLB referentiecellen. Ook zitten er in een Local Block zowel BL- als WL-decoders.
+%\section{Figuren}
+%Figuren worden gebruikt om illustraties toe te voegen. Dit is dan ook de
+%manier om beeldmateriaal toe te voegen zoals getoond wordt in
+%figuur~\ref{fig:logo}.
+%
+%\begin{figure}
+%  \centering
+%  \includegraphics{logokul}
+%  \caption{Het KU~Leuven logo.}
+%  \label{fig:logo}
+%\end{figure}
+%
+%\section{Tabellen}
+%Tabellen kunnen gebruikt worden om informatie op een overzichtelijke te
+%groeperen. Een tabel is echter geen rekenblad! Vergelijk maar eens
+%tabel~\ref{tab:verkeerd} en tabel~\ref{tab:juist}. Welke tabel vind jij het
+%duidelijkst?
+%
+%\begin{table}
+%  \centering
+%  \begin{tabular}{||l|lr||} \hline
+%    gnats     & gram      & \$13.65 \\ \cline{2-3}
+%              & each      & .01 \\ \hline
+%    gnu       & stuffed   & 92.50 \\ \cline{1-1} \cline{3-3}
+%    emu       &           & 33.33 \\ \hline
+%    armadillo & frozen    & 8.99 \\ \hline
+%  \end{tabular}
+%  \caption{Een tabel zoals het niet moet.}
+%  \label{tab:verkeerd}
+%\end{table}
+%
+%\begin{table}
+%  \centering
+%  \begin{tabular}{@{}llr@{}} \toprule
+%    \multicolumn{2}{c}{Item} \\ \cmidrule(r){1-2}
+%    Animal    & Description & Price (\$)\\ \midrule
+%    Gnat      & per gram    & 13.65 \\
+%              & each        & 0.01 \\
+%    Gnu       & stuffed     & 92.50 \\
+%    Emu       & stuffed     & 33.33 \\
+%    Armadillo & frozen      & 8.99 \\ \bottomrule
+%  \end{tabular}
+%  \caption{Een tabel zoals het beter is.}
+%  \label{tab:juist}
+%\end{table}
 
 \section{Lorem ipsum}
 Tenslotte gaan we hier nog wat tekst voorzien zodat er minstens een
