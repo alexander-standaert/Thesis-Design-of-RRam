@@ -1,11 +1,12 @@
 function [total_area] = area_calc()
-    
-    
+     
     
     all_solutions = calc_solutions(4194304);
+    save('./ArchitectureAnalysis/all_sol.mat','all_solutions')
     all_solutions = eval_solutions(all_solutions)
-    plot(all_solutions(:,end))
-     
+    save('./ArchitectureAnalysis/area_sol.mat','all_solutions')
+    plot(all_solutions)
+    
     function [a] = a_cell()
         a = (1.5*6*45e-9)*(2*6*45e-9);
         % volgens presentatie van stefan, indien SL//BL
@@ -18,7 +19,7 @@ function [total_area] = area_calc()
         n_lmin = 45e-9;
         p_wmin = 100e-9;
         n_wmin = 100e-9;
-
+        
         a_inv = p_lmin*2*p_wmin + n_lmin*n_wmin;
         a_2nand = 8*p_lmin*4*p_wmin;
         a_2nor = 10*4*p_lmin*2*p_wmin;
@@ -39,7 +40,7 @@ function [total_area] = area_calc()
         a_2nor = 10*4*p_lmin*2*p_wmin;
         a_3nand = 15*6*p_lmin*2*p_wmin;
         a_3nor = 21*4*p_lmin*2*p_wmin;
-    
+        
         a = a_2nand*4 + a_inv*4;
     end
     
@@ -103,7 +104,7 @@ function [total_area] = area_calc()
     function [a] = a_total(nb_wordlines,nb_bitlines,nb_globalblock,nb_ref)
         a = nb_globalblock*a_globalblock(nb_wordlines,nb_bitlines,nb_ref);
     end
- 
+    
     function [solutions] = calc_solutions(memsize)
         maxdecoder = 9;
         range_wordlines = 2.^[3:maxdecoder]; %WL
@@ -125,10 +126,10 @@ function [total_area] = area_calc()
         eval_solutions = [solutions,zeros(length(solutions(:,1)),3)];
         
         for i = 1:length(solutions(:,1))
-%             eval_solutions(i,5) = calc_delay(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
-%             eval_solutions(i,6) = calc_energy(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
+            %             eval_solutions(i,5) = calc_delay(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
+            %             eval_solutions(i,6) = calc_energy(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4));
             eval_solutions(i,7) = a_total(solutions(i,1),solutions(i,2),solutions(i,3),solutions(i,4))*1e10;
         end
-        
+         eval_solutions = eval_solutions(:,7);
     end
 end

@@ -35,4 +35,5 @@ xM1p BLout_1 SA_SHbar InOutbar PBulkLine mc_pmos_hvt w=PWmuxGB l=PLmin
 xSA (vdd_1 vss NBulkLine PBulkLine InOut InOutbar EnableSAP EnableSAN) senseamplifier
 
 ic InOut = 0
+ic InOutbar = 0
 ends globalblock

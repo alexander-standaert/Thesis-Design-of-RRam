@@ -38,7 +38,7 @@ function [NoSims] = sim_setup()
     mega(A,:)=[]; %pmos driver kleiner dan 3x pmos diff pair -> weg
     
     
-    split_data(mega,20) 
+    split_data(mega,50) 
     
     function [] = split_data(data,nb_of_blocks)
     totaldata = data;

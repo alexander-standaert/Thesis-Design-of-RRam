@@ -1,12 +1,11 @@
 Universe         = vanilla 
-RequestCpus      = 4 
-RequestMemory    = 4G 
-+RequestWalltime = 86400
+RequestCpus      = 16
+RequestMemory    = 16G 
++RequestWalltime = 7200 
 Requirements = (machine != "donovan.esat.kuleuven.be") && (machineowner == "PSI/Spraak") && (distribution == "CentOS") 
 Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design 
 Executable = /software/bin/matlab2013b 
-Arguments = " -nodisplay -r 'maxNumCompThreads(4);startup;sweepbin($(Process));exit();' " 
+Arguments = " -nodisplay -r 'maxNumCompThreads(16);startup;architecture_analysis();exit();' " 
 NiceUser = true 
-Error        = ./LatchAnalysis/BasicLatch/UltimateSweep/log/bestsimever.$(Process).err 
-Queue 50
-
+Error        = ./ArchitectureAnalysis/delay_calc/delay_calc.err 
+Queue 1 

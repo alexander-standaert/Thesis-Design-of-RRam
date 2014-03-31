@@ -40,8 +40,8 @@ function [] = load_analysis()
 %      mc_analize_data()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
-%       la_run_length(param,0,1)
-      mc_run_length(param,0,1)
+      la_run_length(param,0,1)
+%       mc_run_length(param,0,1)
 %     mc_run_tripel(param,1,0)
 % la_run_ref2(element,param,4) 
 end
@@ -793,25 +793,34 @@ function [] = la_run_length(param,simulate,analyse)
        for k = 1:size(allelements,1)
           data = load(strjoin({'./LoadAnalysis/la_length/length_',num2str(k),'.mat'},'')); 
           b = data.b;
+          n = data.n
           element = data.element;
           
-          elements(k,:) = [element,b(2)-b(3)];
-          
-          if k == 1
-             best_b = b;
-             best_element = element;
-          else
-              b_diff = b(2)-b(3);
-              best_b_diff = best_b(2)-best_b(3);
-              if b_diff > best_b_diff
-                  best_b = b;
-                  best_element = element;
-              end
-          end          
+%           elements(k,:) = [element,b(2)-b(3)];
+          woverl = element(1)/element(2);
+            b_diff = b(2)-b(3);
+            vcellmax = b(1)-n(1);
+            datamatrix(k,:) = [woverl,b_diff,vcellmax]
+%           if k == 1
+%              best_b = b;
+%              best_element = element;
+%           else
+%               b_diff = b(2)-b(3);
+%               best_b_diff = best_b(2)-best_b(3);
+%               if b_diff > best_b_diff
+%                   best_b = b;
+%                   best_element = element;
+%               end
+%           end          
        end
-       best_b
-       best_element
-       elements
+       
+       figure
+      scatter(datamatrix(:,1),datamatrix(:,2))
+       figure
+      scatter(datamatrix(:,1),datamatrix(:,3))
+%        best_b
+%        best_element
+%        elements
    end
    
     function [notfinished,element_nb] = getelement_nb()

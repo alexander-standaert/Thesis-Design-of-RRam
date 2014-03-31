@@ -59,7 +59,11 @@
 %
 
 function mat2spice2(inputfile,outpath,varargin)
-rndfilename = strjoin({'m2s_run',num2str(randi(1000000))},'');
+    rng(randi(1000000));
+    a = randi(100);
+    rng('shuffle');
+    b = randi(1000000);
+rndfilename = strjoin({'m2s_run',num2str(a+b)},'');
 m2s = struct('m2s',struct);
 
 %default mode=spice

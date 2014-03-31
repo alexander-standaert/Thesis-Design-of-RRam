@@ -7,14 +7,24 @@ end
 data = load(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/inputs/inputs_',num2str(process_id),'.mat'},''));
 mega = data.data;
 
-for z = 1:length(mega)
+z = 0
+while z <length(mega)
+    z = z+1
     
-    [yield,tdelay,E,Pstat]=simdata(mega(z,1),mega(z,2),mega(z,3),mega(z,4),mega(z,5));
-    
-    datamatrix = [yield,tdelay,E,Pstat,mega(z,:)];
-    save(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(process_id*length(mega)+z),'.mat'},''),'datamatrix')%save(strjoin({'./DecoderDesign/OptimizeDecoder/outputs/outputs_',num2str(mega(i,1)),'_',num2str(mega(i,2)),'_',num2str(mega(i,3)),'.mat'},''),'datamatrix')
+    try
+        
+        if ~exist(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(process_id*length(mega)+z),'.mat'},''), 'file')
+        [yield,tdelay,E,Pstat]=simdata(mega(z,1),mega(z,2),mega(z,3),mega(z,4),mega(z,5));
+        
+        datamatrix = [yield,tdelay,E,Pstat,mega(z,:)];
+        save(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(process_id*length(mega)+z),'.mat'},''),'datamatrix')%save(strjoin({'./DecoderDesign/OptimizeDecoder/outputs/outputs_',num2str(mega(i,1)),'_',num2str(mega(i,2)),'_',num2str(mega(i,3)),'.mat'},''),'datamatrix')
+        end
+    catch
+        z = z-1
+    end
 end
-
+    
+    
     function [yield,delay,energy,Pstat] = simdata(DeltaV,Wuppair,Wdownpair,Wtop,Wbottom)
         %%
         
