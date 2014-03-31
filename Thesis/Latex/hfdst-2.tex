@@ -1,16 +1,22 @@
-\chapter{Een volgend hoofdstuk}
-\label{hoofdstuk:2}
-Een hoofdstuk behandelt een samenhangend geheel dat min of meer op zichzelf
-staat. Het is dan ook logisch dat het begint met een inleiding, namelijk
-het gedeelte van de tekst dat je nu aan het lezen bent.
+\chapter{Geheugenarchitectuur}
+\label{architectuur}
+De afzonderlijke geheugencellen zullen uiteindelijk samengebracht moeten worden in een geheel.
+In dit hoofdstuk zal de algemene structuur besproken worden alsook de vrijheidsgraden die in hoofdstuk \ref{optimalisatie} onderzocht worden voor een optimaal werkend systeem. Ten slotte zullen ook nog de bouwblokken aangekaard worden die meer uitvoerig besproken worden in de volgende hoofdstukken. 
 
-\section{Eerste onderwerp in dit hoofdstuk}
-De inleidende informatie van dit onderwerp.
+\section{Van transistorniveau tot systeemniveau}
+Hoewel het hele systeem op de chip in weze bestaat uit transistoren en passieve componenten, zal dit nog onmogelijk te begrijpen vallen op zulke grote schaal.
+Het is daarom aangewezen om meer abstractie te maken en de componenten vanop een hoger niveau te bekijken.
 
-\subsection{Een item}
-Een tekst staat nooit alleen. Dit wil zeggen dat er zeker ook referenties
-nodig zijn. Dit kan zowel naar on-line documenten\cite{wiki} als naar
-boeken\cite{pratchett06:_good_omens}.
+\subsection{Cel}
+%Een tekst staat nooit alleen. Dit wil zeggen dat er zeker ook referenties
+%nodig zijn. Dit kan zowel naar on-line documenten\cite{wiki} als naar
+%boeken\cite{pratchett06:_good_omens}.
+Zoals besproken in hoofdstuk \ref{cel} zal dit het bouwblok zijn dat het vaakst terug zal te vinden zijn op het geheugensysteem.
+De cel bestaat uit een memristor en een transistor. De geheugencel heeft drie terminals: de gate van de transistor, die zal verbonden worden met een wordline, de source van de stransistor, die zal verbonden worden met een sourceline en tenslotte de terminal van de memristor, die zal verbonden worden met een bitline.
+Een cel wiens memristor zich in een willekeurige resistieve staat bevindt is een datacel, terwijl de memristor van referentiecellen in een voorgeprogrammeerde en dus gekende resistieve staat verkeert.
+
+\subsection{Branch}
+In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of WL per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. In elke branch 
 
 \section{Figuren}
 Figuren worden gebruikt om illustraties toe te voegen. Dit is dan ook de

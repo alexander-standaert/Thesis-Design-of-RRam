@@ -1,0 +1,59 @@
+
+simulator lang=spice
+.lib '../../technology_models/tech_wrapper.lib' tt
+
+simulator lang=spectre
+include "../../technology_models/monte_carlo_models.scs"
+
+parameters enableMismatch=0
+
+xMpassnlvtcomp in passEnablen outlvtcomp bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.nvtmismatch>$ enableBetaMismatch = $<sp.nbetamismatch>$ sigmamult = $<sp.sigmamult>$
+xMpassplvtcomp in passEnablep outlvtcomp bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.pvtmismatch>$ enableBetaMismatch = $<sp.pbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOutlvtcomp (outlvtcomp 0) capacitor c=0.16e-15
+
+xMpassnhvtcomp in passEnablen outhvtcomp bn mc_nmos_lvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.nvtmismatch>$ enableBetaMismatch = $<sp.nbetamismatch>$ sigmamult = $<sp.sigmamult>$
+xMpassphvtcomp in passEnablep outhvtcomp bp mc_pmos_lvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.pvtmismatch>$ enableBetaMismatch = $<sp.pbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOuthvtcomp (outhvtcomp 0) capacitor c=0.16e-15
+
+xMpassnlvt in passEnablen outnlvt bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.nvtmismatch>$ enableBetaMismatch = $<sp.nbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOutnlvt (outnlvt 0) capacitor c=0.16e-15
+
+xMpassplvt in passEnablep outplvt bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.pvtmismatch>$ enableBetaMismatch = $<sp.pbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOutplvt (outplvt 0) capacitor c=0.16e-15
+
+xMpassnhvt in passEnablen outnhvt bn mc_nmos_lvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.nvtmismatch>$ enableBetaMismatch = $<sp.nbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOutnhvt (outnhvt 0) capacitor c=0.16e-15
+
+xMpassphvt in passEnablep outphvt bp mc_pmos_lvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.pvtmismatch>$ enableBetaMismatch = $<sp.pbetamismatch>$ sigmamult = $<sp.sigmamult>$
+cOutphvt (outphvt 0) capacitor c=0.16e-15
+
+
+Vvdd     ( vdd     0 ) vsource dc=1
+Vvss     ( vss     0 ) vsource dc=0
+Vbp      ( bp      0 ) vsource dc=1
+Vbn      ( bn      0 ) vsource dc=0
+
+Vin     ( in     0 ) vsource dc=$<sp.vin>$
+
+Vpassn (passEnablen 0) vsource type=pwl wave=$<sp.passN>$
+Vpassp (passEnablep 0) vsource type=pwl wave=$<sp.passP>$
+
+ic outlvtcomp = $<sp.outinit>$
+ic outhvtcomp = $<sp.outinit>$
+ic outnlvt = $<sp.outinit>$
+ic outplvt = $<sp.outinit>$
+ic outnhvt = $<sp.outinit>$
+ic outphvt = $<sp.outinit>$
+
+
+
+mymc montecarlo
++ donominal=no variations=mismatch
++ seed=1234
++ numruns=1
++ firstrun=1
++ saveprocessparams=yes
++ savefamilyplots= yes {
+mytran tran stop=2n
+}
+option1 options rawfmt = psfascii
