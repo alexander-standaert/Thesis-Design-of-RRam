@@ -23,13 +23,8 @@
 \contentsline {subsection}{\numberline {3.1.1}Cel}{5}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Branch}{5}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}Local Block}{6}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Lorem ipsum}{6}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Lorem ipsum dolor sit amet, consectetur adipiscing elit}{6}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Praesent auctor venenatis posuere}{6}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Cras vulputate ultricies venenatis}{7}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Donec nibh ante, consectetur et posuere id, tempus nec arcu}{7}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Morbi et mauris tempus purus ornare vehicula}{7}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}Besluit van dit hoofdstuk}{8}{section.3.3}
+\contentsline {subsection}{\numberline {3.1.4}Global Block}{6}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Besluit van dit hoofdstuk}{7}{section.3.2}
 \contentsline {chapter}{\chapternumberline {4}Het laatste hoofdstuk}{9}{chapter.4}
 \contentsline {section}{\numberline {4.1}Eerste onderwerp in dit hoofdstuk}{9}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Een item}{9}{subsection.4.1.1}
