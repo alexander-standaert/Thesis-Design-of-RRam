@@ -26,13 +26,14 @@
 % Tenslotte wordt hyperref gebruikt voor pdf bestanden.
 % Dit mag verwijderd worden voor de af te drukken versie.
 \usepackage[pdfusetitle,colorlinks,plainpages=false]{hyperref}
-
+\usepackage{subfig}
 %%%%%%%
 % Om wat tekst te genereren wordt hier het lipsum pakket gebruikt.
 % Bij een echte masterproef heb je dit natuurlijk nooit nodig!
 \IfFileExists{lipsum.sty}%
  {\usepackage{lipsum}\setlipsumdefault{11-13}}%
  {\newcommand{\lipsum}[1][11-13]{\par Hier komt wat tekst: lipsum ##1.\par}}
+
 %%%%%%%
 
 %\includeonly{hfdst-n}

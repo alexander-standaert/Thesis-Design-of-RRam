@@ -24,7 +24,7 @@ De timing begint in het globalblock. Het circuit en timings diagram word geillus
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-gb1.png}
-  \caption{Globalblock logica}
+  \caption{Globalblock}
   \label{fig:gb_timing1}
 \end{figure}
 
@@ -42,40 +42,22 @@ De timing van de controle logica voor de memory array staat in het circuit vast 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbcell1.png}
-  \caption{Controle logica memory array}
+  \caption{Localblock}
   \label{fig:lbcell_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbcell2.png}
-  \caption{Timing controle logica memory array}
+  \caption{Timing localblock}
   \label{fig:lbcell_timing2}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-decoder-dep.png}
-  \caption{Delay van woordlijn decoders + buffers ifv bitlijn decoders}
+  \caption{Timing localblock}
   \label{fig:decoder_dep}
-\end{figure}
-
-\paragraph{}
-De timings voorwaarden voor het selecteren en deselecteren van de referentie cell, zijn het zelfde als die van de memory cellen. Het circuit en timing diagram is geillustreerd in figuren \ref{fig:lbref_timing1} en \ref{fig:lbref_timing2}. Anders als bij de memory cellen worden de timings voorwaarden al in de logica zelf voldaan door dat de woorlijnen worden aangestuurd door een signaal dat rechtstreeks van de bitlijn decoder komt. Dit signaal word dan vertraagt door twee invertoren om de juiste timing te verwezelijken.
-
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbref1.png}
-  \caption{Controle logica memory array}
-  \label{fig:lbref_timing1}
-\end{figure}
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbref2.png}
-  \caption{Timing controle logica memory array}
-  \label{fig:lbref_timing2}
 \end{figure}
 
 \subsection{Critische timing voor het uitlezen van de cell}
