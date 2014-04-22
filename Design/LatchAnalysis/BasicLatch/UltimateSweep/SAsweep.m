@@ -1,8 +1,9 @@
 function [] = SAsweep()
     
-[NoSims] = sim_setup()  ;
+% [NoSims] = sim_setup()  ;
 % sweepbin(0);
-sim_evaluate(NoSims);
+%sim_evaluate();
+plot_results()
 end
 
 function [NoSims] = sim_setup()
@@ -62,52 +63,115 @@ end
 
 end
 
-function [] = sim_evaluate(NoSims)
-    data = zeros(NoSims,9);
-    for i=1:NoSims
-        temp = load(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(i),'.mat'},''));
-        data(i,:) = temp.datamatrix;
-    end
-    A=find(data(:,1)~=1);
-    data(A,:)=[];
+function [] = sim_evaluate()
 
-    x=data(:,[2,3,5]);
-    N=size(data,1);
-    f = zeros(N,1);
-    front=1;
-    elements = N;
-    while (elements > 0)
-        for i=1:N
-            flag = 0;
-            if f(i)==0
-                rowi = x(i,:);
-                for j=1:N
-                    if( (i ~= j) & ( (f(j) == 0 ) | (f(j) == front ) ) )
-                        rowj = x(j,:);
-                        
-                        if( all(rowj-rowi <= 0) )
-                            if(all(rowj-rowi ~= 0))
-                                flag = 1;
-                                break;
-                            end
+    load('./LatchAnalysis/BasicLatch/UltimateSweep/solutions_UltimateSweep.mat');
+    
+    A=find(datamatrix(:,1)~=1);
+    datamatrix(A,:)=[];
+
+    x=datamatrix(:,[4,6,7,8,9,2,3,5]);
+%     N=size(datamatrix,1);
+%     f = zeros(N,1);
+%     front=1;
+%     elements = N;
+%  
+%     while (elements > 0)
+%         for i=1:N
+%             flag = 0;
+%             if f(i)==0
+%                 rowi = x(i,:);
+%                 for j=1:N
+%                     if( (i ~= j) & ( (f(j) == 0 ) | (f(j) == front ) ) )
+%                         rowj = x(j,:);
+%                         
+%                         if( all(rowj-rowi <= 0) )
+%                             if(all(rowj-rowi ~= 0))
+%                                 flag = 1;
+%                                 break;
+%                             end
+%                         end
+%                         
+%                     end
+%                 end
+%                 
+%                 if(flag == 0)
+%                     f(i) = front;
+%                     elements = elements - 1;
+%                 end
+%                 
+%             end
+%         end
+%         front=front+1;
+%     end
+%     
+%     pareto = datamatrix(find(f==1),:);
+
+        N = size(x,1);
+        
+        M = 3;
+        V = 5;
+        
+        x(:,V+M+1) = ones(N,1);
+        
+        [c2,ia,ic] = unique(x(:,V+1:V+M),'rows');
+        x = x(ia,:);
+        
+        out_of_fronts = 0;
+        front = 1;
+        while out_of_fronts == 0
+            x_index = find(x(:,V+M+1) == front);
+            N_new = size(x_index,1);
+            
+            if isempty(x_index)
+                out_of_fronts = 1;
+            else
+                for i = 1:N_new
+                    continu = 1;
+                    x_index_temp = x_index;
+                    x_index_temp(i) = [];
+                    x_temp = x(x_index_temp,:);
+                    k = 0;
+                    while k < M && continu
+                        k=k+1;
+                        f = x(x_index(i),V+k);
+                        x_temp = x_temp(find(x_temp(:,V+k) <= f),:);
+                        if isempty(x_temp)
+                            continu = 0;
+                        elseif k == M
+                            x(x_index(i),V+M+1) = front + 1;
                         end
-                        
                     end
                 end
-                
-                if(flag == 0)
-                    f(i) = front;
-                    elements = elements - 1;
-                end
-                
             end
+            front = front+1;
         end
-        front=front+1;
-    end
-    
-    pareto = data(find(f==1),:);
+        
+        pareto = x(find(x(:,(V+M+1))==1),1:V+M);
+        pareto = pareto(:,[6,7,8,1,2,3,4,5]);
+        
+        pareto(:,9) = 2*pareto(:,5)*100e-9*45e-9 + 2*pareto(:,6)*100e-9*45e-9 + pareto(:,7)*100e-9*45e-9 + pareto(:,8)*100e-9*45e-9;
     
     save('./LatchAnalysis/BasicLatch/UltimateSweep/pareto.mat','pareto')
+
 end
 
+function [] = plot_results()
+    load('./LatchAnalysis/BasicLatch/UltimateSweep/pareto.mat');
+    a=min(pareto(:,3));
+    b=max(pareto(:,3));
+    NoScatters=(b-a)/0.005
+    figure
+    hold all
+    
+    for i=0:NoScatters
+        DeltaV=a+0.005*i;
+        c=find(pareto(:,3)==DeltaV);
+        x=pareto(c,:);
+        scatter(x(:,1),x(:,2))
+    end
+    
+    figure
+    scatter3(pareto(:,1),pareto(:,2),pareto(:,3),pareto(:,end)*50/max(pareto(:,end)))
+end
 

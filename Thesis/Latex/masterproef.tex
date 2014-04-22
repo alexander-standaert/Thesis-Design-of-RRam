@@ -3,7 +3,7 @@
   author={Wouter Diels\and Alexander Standaert},
   promotor={Prof.\,dr.\,ir.\ W. Dehaene},
   assessor={Prof.\,dr.\,ir.\,R. Lauwereins\and Prof.\,dr.\,ir.\, M. Verhelst},
-  assistant={B.~Buran \and dr.\,ir.\ S.~Cosemans}}
+  assistant={ir.\ B.~Baran \and dr.\,ir.\ S.~Cosemans}}
 % De volgende \setup mag verwijderd worden als geen fiche gewenst is.
 \setup{filingcard,
   translatedtitle={The best master thesis ever},
@@ -65,10 +65,20 @@
 \section*{Afkortingen}
 \begin{flushleft}
   \renewcommand{\arraystretch}{1.1}
-  \begin{tabularx}{\textwidth}{@{}p{12mm}X@{}}
-    LoG   & Laplacian-of-Gaussian \\
-    MSE   & Mean Square error \\
-    PSNR  & Peak Signal-to-Noise ratio \\
+  \begin{tabularx}{\textwidth}{@{}p{18mm}X@{}}
+    BL   & Bit Line \\
+    CDF & Cumulative Distribution Function  \\
+    GB & Global Block \\
+    LB & Local Block \\
+    NoBLpLB & Number of Bit Lines per Local Block \\
+    NoGB & Number of Global Blocks \\
+    NoWLpB & Number of Word Lines per Branch \\
+    PDF & Probability Distribution Function \\
+    RAM   & Random Access Memory \\
+    RRAM & Resistive Random Access Memory \\
+    SA & Sense Amplifier \\
+    SL & Source Line \\
+    WL  & Word Line \\
   \end{tabularx}
 \end{flushleft}
 \section*{Symbolen}
@@ -90,8 +100,10 @@
 \include{inleiding}
 \include{hfdst-cell}
 \include{hfdst-architecture}
-% ... en zo verder tot
-\include{hfdst-n}
+\include{hfdst-loadanalysis}
+\include{hfdst-sensamp}
+\include{hfdst-periphery}
+\include{hfdst-timing-optimization}
 \include{besluit}
 
 % Indien er bijlagen zijn:

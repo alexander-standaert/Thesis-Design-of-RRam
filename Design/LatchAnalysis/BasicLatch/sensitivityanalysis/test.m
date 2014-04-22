@@ -4,5 +4,5 @@ figure
 sim.getSignal('outbar').plotSignal
 hold all
 sim.getSignal('out').plotSignal
-% sim.getSignal('n1').plotSignal
-% sim.getSignal('n2').plotSignal
+sim.getSignal('n1').plotSignal
+sim.getSignal('n2').plotSignal

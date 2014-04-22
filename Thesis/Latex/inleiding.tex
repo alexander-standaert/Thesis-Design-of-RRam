@@ -1,18 +1,24 @@
 \chapter{Inleiding}
 \label{inleiding}
-In dit hoofdstuk wordt het werk ingeleid. Het doel wordt gedefinieerd en er
-wordt uitgelegd wat de te volgen weg is (beter bekend als de rode draad).
 
-Als je niet goed weet wat een masterproef is, kan je altijd
-Wikipedia\cite{wiki} eens nakijken.
+Vandaag de dag is elektronica niet meer uit het leven weg te denken. Van de smartphone tot het digitaal horloge, van de boordcomputer in de moderne wagen tot de microprocessor in de vaatwasser, overal vind je wel elektronica terug.
+Sinds Gordon Moore ongeveer 50 jaar geleden de uitspraak deed dat het aantal transistoren op eenzelfde oppervlakte per twee jaar zou verdubbelen, is de industrie er over het algemeen goed in geslaagd dit te verwezenlijken. Dit leidde tot de snelle en uiterst complexe chips die we vandaag allemaal goedkoop aankopen.
 
-\section{Lorem ipsum 4--5}
-\lipsum[4-5]
+Naarmate de processorkracht groter werd, steeg ook de vraag voor grotere en snellere geheugens om deze processorkracht ook effectief uit te buiten. Static Random Access Memory (SRAM) blijft een populaire keuze voor snelle ingebedde geheugens, maar heeft het nadeel vluchtig te zijn: eenmaal de voedingspanning wordt afgeschakeld, verdwijnt de informatie. Flash-geheugens, door veel mensen gebruikt voor massa-opslag in USB-sticks of SSDs, hebben ook hun weg gevonden tot het ingebedde domein en behoren wel tot de klasse van niet-vluchtige geheugens.
+Het blijkt echter bijzonder moeilijk om flqsh-geheugens verder te verkleinen.
 
-\section{Lorem ipsum 6--7}
-\lipsum[6-7]
+Onderzoek naar nieuwe geheugens is dan ook onontbeerlijk. Zo zijn er al nieuwe nieuwe kandidaten in opmars die hoopgevende tekens geven om te concurreren met (ingebedde) flash-geheugens. MRAMs (Magnetic RAMs) en in het bijzonder STT-RAM (Spin-Transfer Torque) zullen op termijn een belangrijke rol gaan spelen.
 
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "masterproef"
-%%% End: 
+Een andere kandidaat is Resistive RAM (RRAM of ReRAM). Daar waar SRAM- en flash-cellen de informatie bevatten via het al dan niet aanwezig zijn van lading, bevat een RRAM-cel informatie door een bepaalde elektrische weerstand aan te nemen. RRAM zou geen problemen hebben om nog even op de klassieke manier mee te schalen en is dus zonder meer een interessante piste om te onderzoeken. Bovendien zou het gefabriceerd kunnen worden met goedkopere processen dan flash-geheugens - de elementfabricatie kan geïntegreerd worden met .
+
+\section{Doel en beperkingen van dit werk}
+In wat volgt wordt een 4MB RRAM-geheugen gepresenteerd, geschikt voor ingebedde toepassingen, waarbij de nadruk ligt op het uitlezen van woorden. Wat schrijven betreft, worden mogelijke oplossingen aangereikt, maar deze werden niet uitdrukkelijk onderzocht.
+Alle data die worden getoond, komen voort uit Spectre-simulaties met 45nm PTM transistormodellen. Daar er geen onderzoek werd gedaan op schrijven van bits en dus op het setten/resetten van memristors, werden deze gemodelleerd als een eenvoudige weerstand, wiens resistiviteit stochastisch varieerde. Wel werd er rekening gehouden met data-retentie bij het uitlezen van een bit.
+Het primaire doel van het ontwerp is dat het werkt en dit ook wanneer er variabiliteit - ongecorreleerde gedragsvariaties van componenten in het circuit - in rekening wordt genomen.
+Voorts werd er ontworpen zodat de snelheid zo groot mogelijk is en het energieverbruik zo laag mogelijk. Ook de totale oppervlakte wordt berekend.
+Temperatuursvariaties werden niet in rekening genomen, maar aangezien dit een globale variabele is en het systeem differentieel werkt, wordt niet verwacht dat de performantie aanzienlijk zal verminderen.
+
+\section{Structuur van de tekst}
+In hoofdstuk \ref{cell} zal de technologie van een RRAM geheugen uiteengezet worden, alsook diens toepassingen. Ook zal het (eenvoudige) principe om uit een weerstand een nuttige elektrische spanning te vormen uitgelegd worden. In hoofdstuk \ref{architecture} wordt een oppervlakkige kijk gegeven op hoe het geheugensysteem in elkaar zit, zonder al te diep in details te gaan. Er wordt hier ook aangehaald wat de speelparameters zijn van de architectuur. Voor een robuuste, snelle en laag-energetische leesoperatie uit te voeren zal het belangrijk zijn het geheugenelement te combineren met een zorgvuldig gekozen impedantie, dit wordt onderzocht in hoofdstuk \ref{loadanalysis}. Uiteindelijk zullen er bits moeten verschijnen aan de uitgang van het systeem, de sense amplifier zorgt hiervoor en wordt besproken in hoofdstuk \ref{sensamp}.
+In de geheugenstructuur zijn ook bepaalde logische (digitale) operaties nodig om uit een ingangsadres de juiste cel aan te spreken, de hiervoor gebruikte blokken worden beschreven en geanalyseerd in hoofdstuk \ref{periphery}.
+Ten slotte zal in hoofdstuk \ref{timing-optimization} de timing van controlesignalen onderzocht worden en het effect van te spelen met de architectuurparameters.
