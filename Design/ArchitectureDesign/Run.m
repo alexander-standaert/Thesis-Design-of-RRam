@@ -1,8 +1,8 @@
 % Architecture parameters
-sp.NoWLpB=128;
-sp.NoBLpLB=128;
+sp.NoWLpB=32;
+sp.NoBLpLB=32;
 sp.NoGB=1;
-sp.PercentageHighRef = 0.5; %getal tussen 0 en 1
+sp.PercentageHighRef = 0.3; %getal tussen 0 en 1
 sp.PercentageUsedRef = 0.5; %getal tussen 0 en 1
 
 % TransistorWith parameters
@@ -21,7 +21,7 @@ sp.PWMmuxGB=200e-9;
 sp.vdd = 1;
 
 %Simulation parameters
-sp.MismatchOn=0;
+sp.MismatchOn=1;
 sp.numruns=1;
 sp.simlength=6e-9*(3+0*2*sp.NoGB*sp.NoBLpLB*sp.NoWLpB);
 sp.randomizecells =1;

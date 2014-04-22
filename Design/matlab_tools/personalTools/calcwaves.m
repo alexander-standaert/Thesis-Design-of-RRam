@@ -45,35 +45,35 @@ function [ wavestrucs ] = calcwaves( wavegroups)
     end
      
 %     set absolute time + wavegen
-    try
-        wavestrucs = [];
-        for i=1:length(totalwave)
-            totalwave{i}.time = cumsum([0 totalwave{i}.time(1:end-1)]);
-            residu=[];
-            for j=1:length(totalwave{i}.time)-1
-                if totalwave{i}.values(j) == totalwave{i}.values(j+1)
-                    if totalwave{i}.values(j) ==1
-                        residu(end+1)=j;
-                    end
-                end
-            end
-            timenew=totalwave{i}.time;
-            timenew(residu)=[];
-            valuesnew=totalwave{i}.values;
-            valuesnew(residu)=[];
-            
-            wavevalues = wavegen([timenew;valuesnew],risetime, falltime, 0, vdd, TALT);
-            wavestrucs.(num2str(cell2mat(totalwave{i}.name))) = wavevalues;
-            
-            
-        end
-    catch
+%     try
+%         wavestrucs = [];
+%         for i=1:length(totalwave)
+%             totalwave{i}.time = cumsum([0 totalwave{i}.time(1:end-1)]);
+%             residu=[];
+%             for j=1:length(totalwave{i}.time)-1
+%                 if totalwave{i}.values(j) == totalwave{i}.values(j+1)
+%                     if totalwave{i}.values(j) ==1
+%                         residu(end+1)=j;
+%                     end
+%                 end
+%             end
+%             timenew=totalwave{i}.time;
+%             timenew(residu)=[];
+%             valuesnew=totalwave{i}.values;
+%             valuesnew(residu)=[];
+%             
+%             wavevalues = wavegen([timenew;valuesnew],risetime, falltime, 0, vdd, TALT);
+%             wavestrucs.(num2str(cell2mat(totalwave{i}.name))) = wavevalues;
+%             
+%             
+%         end
+%     catch
         wavestrucs = [];
         for i=1:length(totalwave)
             totalwave{i}.time = cumsum([0 totalwave{i}.time(1:end-1)]);
             wavevalues = wavegen([totalwave{i}.time;totalwave{i}.values],risetime, falltime, 0, vdd, TALT);
             wavestrucs.(num2str(cell2mat(totalwave{i}.name))) = wavevalues;
         end
-    end
+%     end
 end
 

@@ -26,8 +26,6 @@ mc montecarlo
 parameters tp = mc_pmos_lvt
 parameters tn = mc_nmos_lvt
 
-parameters enableVtMismatch=$<param.VtMismatch>$
-parameters enableBMismatch=$<param.BMismatch>$
 parameters enableMismatch=$<param.VtMismatch>$
 
 
@@ -35,13 +33,17 @@ parameters enableMismatch=$<param.VtMismatch>$
 // TEST BENCH + SIGNALS
 
 mmemarray_bias ( bl_bias wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref2 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref3 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-mmemarray_ref4 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
-//mmemarray_ref5 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-//mmemarray_ref6 ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
-//mmemarray_ref7 ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+
+mmemarray_ref ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+$pers_high = 0.75
+$for i = 2:32
+$if i < pers_high*32
+mmemarray_ref$<i>$ ( bl_ref wl_3 wl_4 wl_1 wl_2 sel_sl sel_pulldown gnd vdd) memarray
+$else
+mmemarray_ref$<i>$ ( bl_ref wl_1 wl_2 wl_3 wl_4 sel_sl sel_pulldown gnd vdd) memarray
+$end
+$end
+
 
 mload ( bl_bias bl_ref sel_load sel_bias gnd vdd) loads
 
@@ -83,7 +85,7 @@ cbl (bl gnd) capacitor c=$<param.Cbl>$
 mpulldown gnd sel_pulldown bl gnd tn 
 
 // sl
-msl gnd sel_sl sl gnd mosn w=$<param.wsl>$
+msl gnd sel_sl sl gnd mosn w=$<param.wsl>$ l=$<param.lsl>$
 csl (sl gnd) capacitor c=$<param.Csl>$
 
 ends memarray
@@ -97,13 +99,10 @@ subckt loads ( bl bl_ref sel_load sel_bias gnd vdd)
 
 mloadmem ( bl sel_load sel_bias gnd vdd) load
 
-mloadref1 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref2 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref3 ( bl_ref sel_load sel_bias gnd vdd) load
-mloadref4 ( bl_ref sel_load sel_bias gnd vdd) load
-//mloadref5 ( bl_ref sel_load sel_bias gnd vdd) load
-//mloadref6 ( bl_ref sel_load sel_bias gnd vdd) load
-//mloadref7 ( bl_ref sel_load sel_bias gnd vdd) load
+
+$for i = 1:32
+mloadref$<i>$ ( bl_ref sel_load sel_bias gnd vdd) load
+$end
 
 ends loads
 

@@ -1,31 +1,53 @@
 function [] = sweepbin(process_id)
-try
-    system(strjoin({'rm -rf ./LatchAnalysis/BasicLatch/UltimateSweep/log/diary_log',num2str(process_id)},''));
-    diary(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/log/diary_log',num2str(process_id)},''));
-catch
-end
-data = load(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/inputs/inputs_',num2str(process_id),'.mat'},''));
-mega = data.data;
-
-z = 0
-while z <length(mega)
-    z = z+1
-    
     try
-        
-        if ~exist(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(process_id*length(mega)+z),'.mat'},''), 'file')
-        [yield,tdelay,E,Pstat]=simdata(mega(z,1),mega(z,2),mega(z,3),mega(z,4),mega(z,5));
-        
-        datamatrix = [yield,tdelay,E,Pstat,mega(z,:)];
-        save(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs/outputs_',num2str(process_id*length(mega)+z),'.mat'},''),'datamatrix')%save(strjoin({'./DecoderDesign/OptimizeDecoder/outputs/outputs_',num2str(mega(i,1)),'_',num2str(mega(i,2)),'_',num2str(mega(i,3)),'.mat'},''),'datamatrix')
-        end
+        system(strjoin({'rm -rf ./LatchAnalysis/BasicLatch/UltimateSweep/log/diary_log',num2str(process_id)},''));
+        diary(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/log/diary_log',num2str(process_id)},''));
     catch
-        z = z-1
     end
-end
+    data = load(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/inputs/inputs_',num2str(process_id),'.mat'},''));
+    mega = data.data;
     
     
-    function [yield,delay,energy,Pstat] = simdata(DeltaV,Wuppair,Wdownpair,Wtop,Wbottom)
+    rng('shuffle');
+    rnddirname = num2str(randi(1000000)); % make unique random temp folder
+    
+    
+    % make Sim folders
+    system(strjoin({'mkdir /tmp/',rnddirname,'/'},''));
+    system(strjoin({'mkdir /tmp/',rnddirname,'/spice'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/test.scs /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/latch.scs /tmp/',rnddirname,'/spice/'},''));
+    system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/inverter.scs /tmp/',rnddirname,'/spice/'},''));
+    
+    starttransition = 0.5e-9;
+    
+    sp.lep = wavegen([0,starttransition;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+    sp.len = wavegen([0,starttransition;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
+    
+    z = 2400
+    savenb = 1;
+    savefilenb = 1;
+    while z <length(mega)
+        z = z+1
+        
+        try
+                [yield,tdelay,E,Pstat]=simdata(mega(z,1),mega(z,2),mega(z,3),mega(z,4),mega(z,5),rnddirname,sp);
+                    
+                    datamatrix(z,:) = [yield,tdelay,E,Pstat,mega(z,:)];
+                    save(strjoin({'./LatchAnalysis/BasicLatch/UltimateSweep/outputs3/outputs_',num2str(process_id),'_',num2str(z),'.mat'},''),'datamatrix')
+                                
+        catch
+             z = z-1
+        end
+    end
+
+    
+    function [yield,delay,energy,Pstat] = simdata(DeltaV,Wuppair,Wdownpair,Wtop,Wbottom,rnddirname,sp)
         %%
         
         sp.numruns = 250;
@@ -38,40 +60,41 @@ end
         sp.inout = 0.4-DeltaV;
         sp.inoutbar = 0.4;
         
-        starttransition = 0.5e-9;
-        
-        sp.lep = wavegen([0,starttransition;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
-        sp.len = wavegen([0,starttransition;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
-        
-        
-        rng('shuffle');
-        rnddirname = num2str(randi(1000000)); % make unique random temp folder
+        %         starttransition = 0.5e-9;
+        %
+        %         sp.lep = wavegen([0,starttransition;1,0],0.1e-9,0.05e-9,0,1,5e-9); %pmos gate
+        %         sp.len = wavegen([0,starttransition;0,1],0.1e-9,0.05e-9,0,1,5e-9); %nmos gate
         
         
-        % make Sim folders
-        system(strjoin({'mkdir /tmp/',rnddirname,'/'},''));
-        system(strjoin({'mkdir /tmp/',rnddirname,'/spice'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/test.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/latch.scs /tmp/',rnddirname,'/spice/'},''));
-        system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/inverter.scs /tmp/',rnddirname,'/spice/'},''));
+        %         rng('shuffle');
+        %         rnddirname = num2str(randi(1000000)); % make unique random temp folder
+        %
+        %
+        %         % make Sim folders
+        %         system(strjoin({'mkdir /tmp/',rnddirname,'/'},''));
+        %         system(strjoin({'mkdir /tmp/',rnddirname,'/spice'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_models.scs /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/monte_carlo_res.scs /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/tech_wrapper.lib /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_HP.pm /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/technology_models/45nm_LP.pm /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/test.scs /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/latch.scs /tmp/',rnddirname,'/spice/'},''));
+        %         system(strjoin({'cp ~/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/inverter.scs /tmp/',rnddirname,'/spice/'},''));
         
         spicepath = strjoin({'../../../../../tmp/',rnddirname,'/spice/'},'');
-        
-        inputfile = 'parameters.m2s';
-        [currentpath,~,~] = fileparts(which(mfilename));
-        mat2spicepath = strcat(currentpath,'/',inputfile);
+        disp('ee')
+%         inputfile = 'parameters.m2s';
+%         [currentpath,~,~] = fileparts(which(mfilename));
+%         mat2spicepath = strcat(currentpath,'/',inputfile);
+        mat2spicepath ='/users/start2012/s0211331/Thesis-Design-of-RRam/Design/LatchAnalysis/BasicLatch/UltimateSweep/parameters.m2s'
         mat2spice2(mat2spicepath,spicepath,sp)
-        
+        disp('aa')
         
         system(strjoin({'source ~/Thesis-Design-of-RRam/Design/bashrc_thesis.rc;spectre ',spicepath,'test.scs'},''));
         clear inputfile currentpath mat2spicepath spicepath
         
-
+        
         sim=[];
         
         tdelayvector=zeros(sp.numruns,1);
@@ -96,7 +119,7 @@ end
             
             [tdel1,correct,tdelindex1]=calcYieldSpeed(v1,t,0);
             [tdel2,correct2,tdelindex2]=calcYieldSpeed(v2,t,1);
-                        
+            
             if correct==1
                 tdelayvector(i)=max(tdel1,tdel2);
                 E=trapz(t(starttransindex:max(tdelindex1,tdelindex2)),-idd(starttransindex:max(tdelindex1,tdelindex2)));
@@ -114,6 +137,6 @@ end
         energy=mean(Evector);
         Pstat=mean(Pstatvector);
         
-        system(strjoin({'rm -rf /tmp/',rnddirname,'/'},''));
+        %         system(strjoin({'rm -rf /tmp/',rnddirname,'/'},''));
     end
 end

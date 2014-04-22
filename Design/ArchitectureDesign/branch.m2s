@@ -22,4 +22,6 @@ xCell$<sp.NoWLpB>$ (BitLine SourceLine WL_$<sp.NoWLpB>$ NBulkLine) cell RMEM=Rre
 cParBLC (BitLine vss) capacitor c=Cpar*$<sp.NoWLpB>$
 cParSLC (SourceLine vss) capacitor c=Cpar*$<sp.NoWLpB>$
 
+ic BitLine = 0
+ic SourceLine = 0
 ends branch

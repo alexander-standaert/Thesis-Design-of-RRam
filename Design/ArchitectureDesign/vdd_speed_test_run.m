@@ -24,13 +24,12 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     end
     
     for s = 1:size(param.simulation_space,1)
-%         param.debugon = 1
+        param.debugon = 1
         vdd = param.simulation_space(s,1)
         t = param.simulation_space(s,2)
-%         pause
         [param] = generate_signals(param,t,vdd);
         
-        param.RMEMvalue = 'RMEMLow';
+        param.RMEMvalue = 'RMEMHigh';
         param = run_simulation(param);
         [param] = evaluate_simulation(param,t,vdd,0);
         

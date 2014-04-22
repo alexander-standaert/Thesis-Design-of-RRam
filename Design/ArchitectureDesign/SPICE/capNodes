@@ -1,0 +1,592 @@
+
+*************************
+Capacitance Table `oper':
+*************************
+Capacitance values computed in DC analysis `dcana' at T = 27 C.
+
+in : in fixed=0           , variable=0           , sum=0           .
+in : 0  fixed=0           , variable=0           , sum=0           .
+
+NBulkLine : NBulkLine   fixed=0           , variable=0           , sum=0       
+        .
+NBulkLine : 0   fixed=0           , variable=0           , sum=0           .
+NBulkLine : xinv.xM2.mnmos:dbnode       fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xinv.xM2.mnmos:int_b        fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xinv.xM2.mnmos:sbnode       fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xinv2.xM2.mnmos:dbnode      fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xinv2.xM2.mnmos:int_b       fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xinv2.xM2.mnmos:sbnode      fixed=-0          , variable=0         
+        , sum=-0          .
+NBulkLine : xM1.m1:dbnode       fixed=-0          , variable=0           ,
+        sum=-0          .
+NBulkLine : xM1.m1:int_b        fixed=-0          , variable=0           ,
+        sum=-0          .
+NBulkLine : xM1.m1:sbnode       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+out : out       fixed=132.662 a   , variable=656.346 a   , sum=789.008 a   .
+out : 0 fixed=0           , variable=0           , sum=0           .
+out : out2      fixed=-0          , variable=0           , sum=-0          .
+out : xinv2.xM1.mpmos:dbnode    fixed=-0          , variable=200 a       ,
+        sum=200 a       .
+out : xinv2.xM1.mpmos:int_b     fixed=-0          , variable=33.3864 a   ,
+        sum=33.3864 a   .
+out : xinv2.xM1.mpmos:int_g     fixed=89.1726 a   , variable=267.97 a    ,
+        sum=357.143 a   .
+out : xinv2.xM1.rg      fixed=-0          , variable=0           , sum=-0      
+        .
+out : xinv2.xM1.rs      fixed=-0          , variable=70.1838 a   , sum=70.1838
+        a   .
+out : xinv2.xM2.mnmos:dbnode    fixed=-0          , variable=79.5537 a   ,
+        sum=79.5537 a   .
+out : xinv2.xM2.mnmos:int_b     fixed=-0          , variable=372.281e-27 ,
+        sum=372.281e-27 .
+out : xinv2.xM2.mnmos:int_g     fixed=43.489 a    , variable=5.25219 a   ,
+        sum=48.7412 a   .
+out : xinv2.xM2.rg      fixed=-0          , variable=0           , sum=-0      
+        .
+out : xinv2.xM2.rs      fixed=-0          , variable=-1.61402e-24 ,
+        sum=-1.61402e-24 .
+
+out2 : out2     fixed=46.08 f     , variable=0           , sum=46.08 f     .
+out2 : 0        fixed=0           , variable=0           , sum=0           .
+out2 : out      fixed=-0          , variable=0           , sum=-0          .
+out2 : vss1     fixed=46.08 f     , variable=0           , sum=46.08 f     .
+
+out3 : out3     fixed=132.662 a   , variable=460.919 a   , sum=593.581 a   .
+out3 : 0        fixed=0           , variable=0           , sum=0           .
+out3 : xinv.xM1.mpmos:dbnode    fixed=-0          , variable=159.107 a   ,
+        sum=159.107 a   .
+out3 : xinv.xM1.mpmos:int_b     fixed=-0          , variable=2.11701e-24 ,
+        sum=2.11701e-24 .
+out3 : xinv.xM1.mpmos:int_g     fixed=89.1726 a   , variable=10.7808 a   ,
+        sum=99.9534 a   .
+out3 : xinv.xM1.rg      fixed=-0          , variable=0           , sum=-0      
+        .
+out3 : xinv.xM1.rs      fixed=-0          , variable=-9.64745e-24 ,
+        sum=-9.64745e-24 .
+out3 : xinv.xM2.mnmos:dbnode    fixed=-0          , variable=100 a       ,
+        sum=100 a       .
+out3 : xinv.xM2.mnmos:int_b     fixed=-0          , variable=17.439 a    ,
+        sum=17.439 a    .
+out3 : xinv.xM2.mnmos:int_g     fixed=43.489 a    , variable=132.598 a   ,
+        sum=176.087 a   .
+out3 : xinv.xM2.rg      fixed=-0          , variable=0           , sum=-0      
+        .
+out3 : xinv.xM2.rs      fixed=-0          , variable=40.9939 a   , sum=40.9939
+        a   .
+
+PBulkLine : PBulkLine   fixed=0           , variable=0           , sum=0       
+        .
+PBulkLine : 0   fixed=0           , variable=0           , sum=0           .
+PBulkLine : xinv.xM1.mpmos:dbnode       fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xinv.xM1.mpmos:int_b        fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xinv.xM1.mpmos:sbnode       fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xinv2.xM1.mpmos:dbnode      fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xinv2.xM1.mpmos:int_b       fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xinv2.xM1.mpmos:sbnode      fixed=-0          , variable=0         
+        , sum=-0          .
+PBulkLine : xM2.m1:dbnode       fixed=-0          , variable=0           ,
+        sum=-0          .
+PBulkLine : xM2.m1:int_b        fixed=-0          , variable=0           ,
+        sum=-0          .
+PBulkLine : xM2.m1:sbnode       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+vdd : vdd       fixed=43.4431 a   , variable=244.206 a   , sum=287.649 a   .
+vdd : 0 fixed=0           , variable=0           , sum=0           .
+vdd : vdd1      fixed=-0          , variable=-62.6082 a  , sum=-62.6082 a  .
+vdd : vss       fixed=-0          , variable=0           , sum=-0          .
+vdd : vss1      fixed=-0          , variable=0           , sum=-0          .
+vdd : xM1.m1:int_b      fixed=-0          , variable=0           , sum=-0      
+        .
+vdd : xM1.m1:int_g      fixed=-0          , variable=0           , sum=-0      
+        .
+vdd : xM2.m1:int_b      fixed=-0          , variable=16.2652 a   , sum=16.2652
+        a   .
+vdd : xM2.m1:int_g      fixed=43.4431 a   , variable=130.55 a    , sum=173.993
+        a   .
+vdd : xM2.m1:sbnode     fixed=-0          , variable=160 a       , sum=160 a   
+        .
+
+vdd1 : vdd1     fixed=43.4431 a   , variable=281.007 a   , sum=324.45 a    .
+vdd1 : 0        fixed=0           , variable=0           , sum=0           .
+vdd1 : vdd      fixed=-0          , variable=34.1921 a   , sum=34.1921 a   .
+vdd1 : vss      fixed=-0          , variable=0           , sum=-0          .
+vdd1 : xM2.m1:dbnode    fixed=-0          , variable=100 a       , sum=100 a   
+        .
+vdd1 : xM2.m1:int_b     fixed=-0          , variable=16.2652 a   , sum=16.2652
+        a   .
+vdd1 : xM2.m1:int_g     fixed=43.4431 a   , variable=130.55 a    , sum=173.993
+        a   .
+
+vss : vss       fixed=20.6001 a   , variable=118.877 a   , sum=139.477 a   .
+vss : 0 fixed=0           , variable=0           , sum=0           .
+vss : vdd       fixed=-0          , variable=0           , sum=-0          .
+vss : vdd1      fixed=-0          , variable=0           , sum=-0          .
+vss : vss1      fixed=-0          , variable=-32.1933 a  , sum=-32.1933 a  .
+vss : xM1.m1:int_b      fixed=-0          , variable=8.26059 a   , sum=8.26059
+        a   .
+vss : xM1.m1:int_g      fixed=20.6001 a   , variable=62.8096 a   , sum=83.4096
+        a   .
+vss : xM1.m1:sbnode     fixed=-0          , variable=80 a        , sum=80 a    
+        .
+vss : xM2.m1:int_b      fixed=-0          , variable=0           , sum=-0      
+        .
+vss : xM2.m1:int_g      fixed=-0          , variable=0           , sum=-0      
+        .
+
+vss1 : vss1     fixed=46.1006 f   , variable=140.488 a   , sum=46.2411 f   .
+vss1 : 0        fixed=0           , variable=0           , sum=0           .
+vss1 : out2     fixed=46.08 f     , variable=0           , sum=46.08 f     .
+vss1 : vdd      fixed=-0          , variable=0           , sum=-0          .
+vss1 : vss      fixed=-0          , variable=19.4182 a   , sum=19.4182 a   .
+vss1 : xM1.m1:dbnode    fixed=-0          , variable=50 a        , sum=50 a    
+        .
+vss1 : xM1.m1:int_b     fixed=-0          , variable=8.26059 a   , sum=8.26059
+        a   .
+vss1 : xM1.m1:int_g     fixed=20.6001 a   , variable=62.8096 a   , sum=83.4096
+        a   .
+
+xinv.xM1.mpmos:dbnode : xinv.xM1.mpmos:dbnode   fixed=0           ,
+        variable=159.107 a   , sum=159.107 a   .
+xinv.xM1.mpmos:dbnode : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM1.mpmos:dbnode : out3    fixed=-0          , variable=159.107 a   ,
+        sum=159.107 a   .
+xinv.xM1.mpmos:dbnode : PBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.mpmos:dbnode : xinv.xM1.mpmos:int_b    fixed=-0          , variable=0 
+        , sum=-0          .
+
+xinv.xM1.mpmos:int_b : xinv.xM1.mpmos:int_b     fixed=1.152 a     ,
+        variable=85.3567 a   , sum=86.5087 a   .
+xinv.xM1.mpmos:int_b : 0        fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM1.mpmos:int_b : out3     fixed=-0          , variable=-352.096e-27 ,
+        sum=-352.096e-27 .
+xinv.xM1.mpmos:int_b : PBulkLine        fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.mpmos:int_b : xinv.xM1.mpmos:dbnode    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM1.mpmos:int_b : xinv.xM1.mpmos:int_g     fixed=1.152 a     ,
+        variable=85.3595 a   , sum=86.5115 a   .
+xinv.xM1.mpmos:int_b : xinv.xM1.mpmos:sbnode    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM1.mpmos:int_b : xinv.xM1.rg      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.mpmos:int_b : xinv.xM1.rs      fixed=-0          ,
+        variable=-2.83853e-21 , sum=-2.83853e-21 .
+
+xinv.xM1.mpmos:int_g : xinv.xM1.mpmos:int_g     fixed=179.497 a   ,
+        variable=162.681 a   , sum=342.178 a   .
+xinv.xM1.mpmos:int_g : 0        fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM1.mpmos:int_g : out3     fixed=89.1726 a   , variable=10.7808 a   ,
+        sum=99.9534 a   .
+xinv.xM1.mpmos:int_g : xinv.xM1.mpmos:int_b     fixed=1.152 a     ,
+        variable=85.3567 a   , sum=86.5087 a   .
+xinv.xM1.mpmos:int_g : xinv.xM1.rg      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.mpmos:int_g : xinv.xM1.rs      fixed=89.1726 a   , variable=66.5437 a 
+        , sum=155.716 a   .
+
+xinv.xM1.mpmos:sbnode : xinv.xM1.mpmos:sbnode   fixed=0           ,
+        variable=320 a       , sum=320 a       .
+xinv.xM1.mpmos:sbnode : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM1.mpmos:sbnode : PBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.mpmos:sbnode : xinv.xM1.mpmos:int_b    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM1.mpmos:sbnode : xinv.xM1.rs     fixed=-0          , variable=320 a     
+        , sum=320 a       .
+
+xinv.xM1.rg : xinv.xM1.rg       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM1.rg : 0 fixed=0           , variable=0           , sum=0           .
+xinv.xM1.rg : out3      fixed=-0          , variable=0           , sum=-0      
+        .
+xinv.xM1.rg : xinv.xM1.mpmos:int_b      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.rg : xinv.xM1.mpmos:int_g      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM1.rg : xinv.xM1.rs       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv.xM1.rs : xinv.xM1.rs       fixed=89.1726 a   , variable=386.541 a   ,
+        sum=475.714 a   .
+xinv.xM1.rs : 0 fixed=0           , variable=0           , sum=0           .
+xinv.xM1.rs : out3      fixed=-0          , variable=759.727e-27 ,
+        sum=759.727e-27 .
+xinv.xM1.rs : xinv.xM1.mpmos:int_b      fixed=-0          ,
+        variable=3.17354e-24 , sum=3.17354e-24 .
+xinv.xM1.rs : xinv.xM1.mpmos:int_g      fixed=89.1726 a   , variable=66.5409 a 
+        , sum=155.714 a   .
+xinv.xM1.rs : xinv.xM1.mpmos:sbnode     fixed=-0          , variable=320 a     
+        , sum=320 a       .
+xinv.xM1.rs : xinv.xM1.rg       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv.xM2.mnmos:dbnode : xinv.xM2.mnmos:dbnode   fixed=0           ,
+        variable=100 a       , sum=100 a       .
+xinv.xM2.mnmos:dbnode : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM2.mnmos:dbnode : NBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.mnmos:dbnode : out3    fixed=-0          , variable=100 a       ,
+        sum=100 a       .
+xinv.xM2.mnmos:dbnode : xinv.xM2.mnmos:int_b    fixed=-0          , variable=0 
+        , sum=-0          .
+
+xinv.xM2.mnmos:int_b : xinv.xM2.mnmos:int_b     fixed=1.152 a     ,
+        variable=35.8373 a   , sum=36.9893 a   .
+xinv.xM2.mnmos:int_b : 0        fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM2.mnmos:int_b : NBulkLine        fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.mnmos:int_b : out3     fixed=-0          , variable=142.76 a    ,
+        sum=142.76 a    .
+xinv.xM2.mnmos:int_b : xinv.xM2.mnmos:dbnode    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM2.mnmos:int_b : xinv.xM2.mnmos:int_g     fixed=1.152 a     ,
+        variable=640.696e-21 , sum=1.7927 a    .
+xinv.xM2.mnmos:int_b : xinv.xM2.mnmos:sbnode    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM2.mnmos:int_b : xinv.xM2.rg      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.mnmos:int_b : xinv.xM2.rs      fixed=-0          , variable=-107.563 a
+        , sum=-107.563 a  .
+
+xinv.xM2.mnmos:int_g : xinv.xM2.mnmos:int_g     fixed=88.13 a     ,
+        variable=265.837 a   , sum=353.967 a   .
+xinv.xM2.mnmos:int_g : 0        fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM2.mnmos:int_g : out3     fixed=43.489 a    , variable=116.235 a   ,
+        sum=159.724 a   .
+xinv.xM2.mnmos:int_g : xinv.xM2.mnmos:int_b     fixed=1.152 a     ,
+        variable=959.258e-21 , sum=2.11126 a   .
+xinv.xM2.mnmos:int_g : xinv.xM2.rg      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.mnmos:int_g : xinv.xM2.rs      fixed=43.489 a    , variable=148.643 a 
+        , sum=192.132 a   .
+
+xinv.xM2.mnmos:sbnode : xinv.xM2.mnmos:sbnode   fixed=0           ,
+        variable=160 a       , sum=160 a       .
+xinv.xM2.mnmos:sbnode : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM2.mnmos:sbnode : NBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.mnmos:sbnode : xinv.xM2.mnmos:int_b    fixed=-0          , variable=0 
+        , sum=-0          .
+xinv.xM2.mnmos:sbnode : xinv.xM2.rs     fixed=-0          , variable=160 a     
+        , sum=160 a       .
+
+xinv.xM2.rg : xinv.xM2.rg       fixed=0           , variable=0           ,
+        sum=0           .
+xinv.xM2.rg : 0 fixed=0           , variable=0           , sum=0           .
+xinv.xM2.rg : out3      fixed=-0          , variable=0           , sum=-0      
+        .
+xinv.xM2.rg : xinv.xM2.mnmos:int_b      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.rg : xinv.xM2.mnmos:int_g      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv.xM2.rg : xinv.xM2.rs       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv.xM2.rs : xinv.xM2.rs       fixed=43.489 a    , variable=242.073 a   ,
+        sum=285.562 a   .
+xinv.xM2.rs : 0 fixed=0           , variable=0           , sum=0           .
+xinv.xM2.rs : out3      fixed=-0          , variable=-67.9635 a  , sum=-67.9635
+        a  .
+xinv.xM2.rs : xinv.xM2.mnmos:int_b      fixed=-0          , variable=17.439 a  
+        , sum=17.439 a    .
+xinv.xM2.rs : xinv.xM2.mnmos:int_g      fixed=43.489 a    , variable=132.598 a 
+        , sum=176.087 a   .
+xinv.xM2.rs : xinv.xM2.mnmos:sbnode     fixed=-0          , variable=160 a     
+        , sum=160 a       .
+xinv.xM2.rs : xinv.xM2.rg       fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv2.xM1.mpmos:dbnode : xinv2.xM1.mpmos:dbnode fixed=0           ,
+        variable=200 a       , sum=200 a       .
+xinv2.xM1.mpmos:dbnode : 0      fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM1.mpmos:dbnode : out    fixed=-0          , variable=200 a       ,
+        sum=200 a       .
+xinv2.xM1.mpmos:dbnode : PBulkLine      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.mpmos:dbnode : xinv2.xM1.mpmos:int_b  fixed=-0          , variable=0 
+        , sum=-0          .
+
+xinv2.xM1.mpmos:int_b : xinv2.xM1.mpmos:int_b   fixed=1.152 a     ,
+        variable=71.6883 a   , sum=72.8403 a   .
+xinv2.xM1.mpmos:int_b : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM1.mpmos:int_b : out     fixed=-0          , variable=272.432 a   ,
+        sum=272.432 a   .
+xinv2.xM1.mpmos:int_b : PBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.mpmos:int_b : xinv2.xM1.mpmos:dbnode  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM1.mpmos:int_b : xinv2.xM1.mpmos:int_g   fixed=1.152 a     ,
+        variable=1.29655 a   , sum=2.44855 a   .
+xinv2.xM1.mpmos:int_b : xinv2.xM1.mpmos:sbnode  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM1.mpmos:int_b : xinv2.xM1.rg    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.mpmos:int_b : xinv2.xM1.rs    fixed=-0          , variable=-202.04 a 
+        , sum=-202.04 a   .
+
+xinv2.xM1.mpmos:int_g : xinv2.xM1.mpmos:int_g   fixed=179.497 a   ,
+        variable=537.237 a   , sum=716.734 a   .
+xinv2.xM1.mpmos:int_g : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM1.mpmos:int_g : out     fixed=89.1726 a   , variable=227.62 a    ,
+        sum=316.792 a   .
+xinv2.xM1.mpmos:int_g : xinv2.xM1.mpmos:int_b   fixed=1.152 a     ,
+        variable=4.91547 a   , sum=6.06747 a   .
+xinv2.xM1.mpmos:int_g : xinv2.xM1.rg    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.mpmos:int_g : xinv2.xM1.rs    fixed=89.1726 a   , variable=304.701 a 
+        , sum=393.874 a   .
+
+xinv2.xM1.mpmos:sbnode : xinv2.xM1.mpmos:sbnode fixed=0           ,
+        variable=320 a       , sum=320 a       .
+xinv2.xM1.mpmos:sbnode : 0      fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM1.mpmos:sbnode : PBulkLine      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.mpmos:sbnode : xinv2.xM1.mpmos:int_b  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM1.mpmos:sbnode : xinv2.xM1.rs   fixed=-0          , variable=320 a     
+        , sum=320 a       .
+
+xinv2.xM1.rg : xinv2.xM1.rg     fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM1.rg : 0        fixed=0           , variable=0           , sum=0       
+        .
+xinv2.xM1.rg : out      fixed=-0          , variable=0           , sum=-0      
+        .
+xinv2.xM1.rg : xinv2.xM1.mpmos:int_b    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.rg : xinv2.xM1.mpmos:int_g    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM1.rg : xinv2.xM1.rs     fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv2.xM1.rs : xinv2.xM1.rs     fixed=89.1726 a   , variable=492.845 a   ,
+        sum=582.017 a   .
+xinv2.xM1.rs : 0        fixed=0           , variable=0           , sum=0       
+        .
+xinv2.xM1.rs : out      fixed=-0          , variable=-128.512 a  , sum=-128.512
+        a  .
+xinv2.xM1.rs : xinv2.xM1.mpmos:int_b    fixed=-0          , variable=33.3864 a 
+        , sum=33.3864 a   .
+xinv2.xM1.rs : xinv2.xM1.mpmos:int_g    fixed=89.1726 a   , variable=267.97 a  
+        , sum=357.143 a   .
+xinv2.xM1.rs : xinv2.xM1.mpmos:sbnode   fixed=-0          , variable=320 a     
+        , sum=320 a       .
+xinv2.xM1.rs : xinv2.xM1.rg     fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv2.xM2.mnmos:dbnode : xinv2.xM2.mnmos:dbnode fixed=0           ,
+        variable=79.5537 a   , sum=79.5537 a   .
+xinv2.xM2.mnmos:dbnode : 0      fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM2.mnmos:dbnode : NBulkLine      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.mnmos:dbnode : out    fixed=-0          , variable=79.5537 a   ,
+        sum=79.5537 a   .
+xinv2.xM2.mnmos:dbnode : xinv2.xM2.mnmos:int_b  fixed=-0          , variable=0 
+        , sum=-0          .
+
+xinv2.xM2.mnmos:int_b : xinv2.xM2.mnmos:int_b   fixed=1.152 a     ,
+        variable=43.3238 a   , sum=44.4758 a   .
+xinv2.xM2.mnmos:int_b : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM2.mnmos:int_b : NBulkLine       fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.mnmos:int_b : out     fixed=-0          , variable=-30.6106e-27 ,
+        sum=-30.6106e-27 .
+xinv2.xM2.mnmos:int_b : xinv2.xM2.mnmos:dbnode  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM2.mnmos:int_b : xinv2.xM2.mnmos:int_g   fixed=1.152 a     ,
+        variable=43.3252 a   , sum=44.4772 a   .
+xinv2.xM2.mnmos:int_b : xinv2.xM2.mnmos:sbnode  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM2.mnmos:int_b : xinv2.xM2.rg    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.mnmos:int_b : xinv2.xM2.rs    fixed=-0          ,
+        variable=-1.44345e-21 , sum=-1.44345e-21 .
+
+xinv2.xM2.mnmos:int_g : xinv2.xM2.mnmos:int_g   fixed=88.13 a     ,
+        variable=80.9948 a   , sum=169.125 a   .
+xinv2.xM2.mnmos:int_g : 0       fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM2.mnmos:int_g : out     fixed=43.489 a    , variable=5.25219 a   ,
+        sum=48.7412 a   .
+xinv2.xM2.mnmos:int_g : xinv2.xM2.mnmos:int_b   fixed=1.152 a     ,
+        variable=43.3238 a   , sum=44.4758 a   .
+xinv2.xM2.mnmos:int_g : xinv2.xM2.rg    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.mnmos:int_g : xinv2.xM2.rs    fixed=43.489 a    , variable=32.4188 a 
+        , sum=75.9078 a   .
+
+xinv2.xM2.mnmos:sbnode : xinv2.xM2.mnmos:sbnode fixed=0           ,
+        variable=160 a       , sum=160 a       .
+xinv2.xM2.mnmos:sbnode : 0      fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM2.mnmos:sbnode : NBulkLine      fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.mnmos:sbnode : xinv2.xM2.mnmos:int_b  fixed=-0          , variable=0 
+        , sum=-0          .
+xinv2.xM2.mnmos:sbnode : xinv2.xM2.rs   fixed=-0          , variable=160 a     
+        , sum=160 a       .
+
+xinv2.xM2.rg : xinv2.xM2.rg     fixed=0           , variable=0           ,
+        sum=0           .
+xinv2.xM2.rg : 0        fixed=0           , variable=0           , sum=0       
+        .
+xinv2.xM2.rg : out      fixed=-0          , variable=0           , sum=-0      
+        .
+xinv2.xM2.rg : xinv2.xM2.mnmos:int_b    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.rg : xinv2.xM2.mnmos:int_g    fixed=-0          , variable=0         
+        , sum=-0          .
+xinv2.xM2.rg : xinv2.xM2.rs     fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xinv2.xM2.rs : xinv2.xM2.rs     fixed=43.489 a    , variable=192.417 a   ,
+        sum=235.906 a   .
+xinv2.xM2.rs : 0        fixed=0           , variable=0           , sum=0       
+        .
+xinv2.xM2.rs : out      fixed=-0          , variable=108.753e-27 ,
+        sum=108.753e-27 .
+xinv2.xM2.rs : xinv2.xM2.mnmos:int_b    fixed=-0          ,
+        variable=558.074e-27 , sum=558.074e-27 .
+xinv2.xM2.rs : xinv2.xM2.mnmos:int_g    fixed=43.489 a    , variable=32.4173 a 
+        , sum=75.9064 a   .
+xinv2.xM2.rs : xinv2.xM2.mnmos:sbnode   fixed=-0          , variable=160 a     
+        , sum=160 a       .
+xinv2.xM2.rs : xinv2.xM2.rg     fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM1.m1:dbnode : xM1.m1:dbnode   fixed=0           , variable=50 a        ,
+        sum=50 a        .
+xM1.m1:dbnode : 0       fixed=0           , variable=0           , sum=0       
+        .
+xM1.m1:dbnode : NBulkLine       fixed=-0          , variable=0           ,
+        sum=-0          .
+xM1.m1:dbnode : vss1    fixed=-0          , variable=50 a        , sum=50 a    
+        .
+xM1.m1:dbnode : xM1.m1:int_b    fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM1.m1:int_b : xM1.m1:int_b     fixed=1.152 a     , variable=16.9756 a   ,
+        sum=18.1276 a   .
+xM1.m1:int_b : 0        fixed=0           , variable=0           , sum=0       
+        .
+xM1.m1:int_b : NBulkLine        fixed=-0          , variable=0           ,
+        sum=-0          .
+xM1.m1:int_b : vdd      fixed=-0          , variable=0           , sum=-0      
+        .
+xM1.m1:int_b : vss      fixed=-0          , variable=-50.9509 a  , sum=-50.9509
+        a  .
+xM1.m1:int_b : vss1     fixed=-0          , variable=67.623 a    , sum=67.623 a
+        .
+xM1.m1:int_b : xM1.m1:dbnode    fixed=-0          , variable=0           ,
+        sum=-0          .
+xM1.m1:int_b : xM1.m1:int_g     fixed=1.152 a     , variable=303.486e-21 ,
+        sum=1.45549 a   .
+xM1.m1:int_b : xM1.m1:sbnode    fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM1.m1:int_g : xM1.m1:int_g     fixed=42.3521 a   , variable=125.923 a   ,
+        sum=168.275 a   .
+xM1.m1:int_g : 0        fixed=0           , variable=0           , sum=0       
+        .
+xM1.m1:int_g : vdd      fixed=-0          , variable=0           , sum=-0      
+        .
+xM1.m1:int_g : vss      fixed=20.6001 a   , variable=70.4096 a   , sum=91.0097
+        a   .
+xM1.m1:int_g : vss1     fixed=20.6001 a   , variable=55.0586 a   , sum=75.6587
+        a   .
+xM1.m1:int_g : xM1.m1:int_b     fixed=1.152 a     , variable=454.384e-21 ,
+        sum=1.60638 a   .
+
+xM1.m1:sbnode : xM1.m1:sbnode   fixed=0           , variable=80 a        ,
+        sum=80 a        .
+xM1.m1:sbnode : 0       fixed=0           , variable=0           , sum=0       
+        .
+xM1.m1:sbnode : NBulkLine       fixed=-0          , variable=0           ,
+        sum=-0          .
+xM1.m1:sbnode : vss     fixed=-0          , variable=80 a        , sum=80 a    
+        .
+xM1.m1:sbnode : xM1.m1:int_b    fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM2.m1:dbnode : xM2.m1:dbnode   fixed=0           , variable=100 a       ,
+        sum=100 a       .
+xM2.m1:dbnode : 0       fixed=0           , variable=0           , sum=0       
+        .
+xM2.m1:dbnode : PBulkLine       fixed=-0          , variable=0           ,
+        sum=-0          .
+xM2.m1:dbnode : vdd1    fixed=-0          , variable=100 a       , sum=100 a   
+        .
+xM2.m1:dbnode : xM2.m1:int_b    fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM2.m1:int_b : xM2.m1:int_b     fixed=1.152 a     , variable=34.925 a    ,
+        sum=36.077 a    .
+xM2.m1:int_b : 0        fixed=0           , variable=0           , sum=0       
+        .
+xM2.m1:int_b : PBulkLine        fixed=-0          , variable=0           ,
+        sum=-0          .
+xM2.m1:int_b : vdd      fixed=-0          , variable=-98.43 a    , sum=-98.43 a
+        .
+xM2.m1:int_b : vdd1     fixed=-0          , variable=132.723 a   , sum=132.723
+        a   .
+xM2.m1:int_b : vss      fixed=-0          , variable=0           , sum=-0      
+        .
+xM2.m1:int_b : xM2.m1:dbnode    fixed=-0          , variable=0           ,
+        sum=-0          .
+xM2.m1:int_b : xM2.m1:int_g     fixed=1.152 a     , variable=631.661e-21 ,
+        sum=1.78366 a   .
+xM2.m1:int_b : xM2.m1:sbnode    fixed=-0          , variable=0           ,
+        sum=-0          .
+
+xM2.m1:int_g : xM2.m1:int_g     fixed=88.0381 a   , variable=261.731 a   ,
+        sum=349.769 a   .
+xM2.m1:int_g : 0        fixed=0           , variable=0           , sum=0       
+        .
+xM2.m1:int_g : vdd      fixed=43.4431 a   , variable=148.444 a   , sum=191.887
+        a   .
+xM2.m1:int_g : vdd1     fixed=43.4431 a   , variable=110.892 a   , sum=154.335
+        a   .
+xM2.m1:int_g : vss      fixed=-0          , variable=0           , sum=-0      
+        .
+xM2.m1:int_g : xM2.m1:int_b     fixed=1.152 a     , variable=2.39472 a   ,
+        sum=3.54672 a   .
+
+xM2.m1:sbnode : xM2.m1:sbnode   fixed=0           , variable=160 a       ,
+        sum=160 a       .
+xM2.m1:sbnode : 0       fixed=0           , variable=0           , sum=0       
+        .
+xM2.m1:sbnode : PBulkLine       fixed=-0          , variable=0           ,
+        sum=-0          .
+xM2.m1:sbnode : vdd     fixed=-0          , variable=160 a       , sum=160 a   
+        .
+xM2.m1:sbnode : xM2.m1:int_b    fixed=-0          , variable=0           ,
+        sum=-0          .
+

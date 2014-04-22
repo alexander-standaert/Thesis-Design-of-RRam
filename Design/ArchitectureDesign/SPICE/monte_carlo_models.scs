@@ -36,14 +36,18 @@ statistics {
 
 subckt mc_nmos_lvt ( d g s b ) 
 parameters
-+ mismatchVt=1 * enableMismatch
-+ mismatchBeta=1 * enableMismatch
-+ shiftVt=0
-+ shiftBeta=0
++ controlledOffset = 0
++ enableVtMismatch = 1
++ enableBetaMismatch = 1
++ sigmamult = 1
++ mismatchVt=1 *enableVtMismatch
++ mismatchBeta=1 * enableBetaMismatch
++ shiftVt= sigma_LVT_Vt_n*controlledOffset
++ shiftBeta= sigma_LVT_I_I0_n*controlledOffset
 + w=100e-9
 + l=45e-9
-+ beta_factor = ( delta_1um_LVT_I_I0_n / sqrt(w*l) ) * mismatchBeta + shiftBeta
-+ vt_factor   = ( delta_1um_LVT_Vt_n   / sqrt(w*l) ) * mismatchVt + shiftVt
++ beta_factor = sigmamult*mismatchBeta*(( delta_1um_LVT_I_I0_n / sqrt(w*l)*enableMismatch ) + shiftBeta/sqrt(w*l))
++ vt_factor   = sigmamult*mismatchVt*(( delta_1um_LVT_Vt_n   / sqrt(w*l) )*enableMismatch + shiftVt/sqrt(w*l))
 
 v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
 i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
@@ -56,14 +60,18 @@ ends mc_nmos_lvt
 
 subckt mc_pmos_lvt ( d g s b ) 
 parameters
-+ mismatchVt=1 * enableMismatch
-+ mismatchBeta=1 * enableMismatch
-+ shiftVt=0
-+ shiftBeta=0
++ controlledOffset = 0
++ enableVtMismatch = 1
++ enableBetaMismatch = 1
++ sigmamult = 1
++ mismatchVt=1 * enableVtMismatch
++ mismatchBeta=1 * enableBetaMismatch
++ shiftVt= sigma_LVT_Vt_p*controlledOffset
++ shiftBeta= sigma_LVT_I_I0_p*controlledOffset
 + w=100e-9
 + l=45e-9
-+ beta_factor = ( delta_1um_LVT_I_I0_p /sqrt(w*l) ) * mismatchBeta + shiftBeta
-+ vt_factor   = ( delta_1um_LVT_Vt_p / sqrt(w*l) ) * mismatchVt + shiftVt
++ beta_factor = sigmamult*mismatchBeta*(( delta_1um_LVT_I_I0_p / sqrt(w*l) )*enableMismatch + shiftBeta/sqrt(w*l))
++ vt_factor   = sigmamult*mismatchVt*(( delta_1um_LVT_Vt_p   / sqrt(w*l) )*enableMismatch + shiftVt/sqrt(w*l))
 
 v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
 i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
@@ -76,14 +84,18 @@ ends mc_pmos_lvt
 
 subckt mc_nmos_hvt ( d g s b ) 
 parameters
-+ mismatchVt=1 * enableMismatch
-+ mismatchBeta=1 * enableMismatch
-+ shiftVt=0
-+ shiftBeta=0
++ controlledOffset = 0
++ enableVtMismatch = 1
++ enableBetaMismatch = 1
++ sigmamult = 1
++ mismatchVt=1 * enableVtMismatch
++ mismatchBeta=1 * enableBetaMismatch
++ shiftVt= sigma_LVT_Vt_n*controlledOffset
++ shiftBeta= sigma_LVT_I_I0_n*controlledOffset
 + w=100e-9
 + l=45e-9
-+ beta_factor = ( delta_1um_LVT_I_I0_n / sqrt(w*l) ) * mismatchBeta + shiftBeta
-+ vt_factor   = ( delta_1um_LVT_Vt_n   / sqrt(w*l) ) * mismatchVt + shiftVt
++ beta_factor = sigmamult*mismatchBeta*(( delta_1um_LVT_I_I0_n / sqrt(w*l) )*enableMismatch + shiftBeta/sqrt(w*l))
++ vt_factor   = sigmamult*mismatchVt*(( delta_1um_LVT_Vt_n   / sqrt(w*l) )*enableMismatch + shiftVt/sqrt(w*l))
 
 v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
 i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
@@ -96,14 +108,18 @@ ends mc_nmos_hvt
 
 subckt mc_pmos_hvt ( d g s b ) 
 parameters
-+ mismatchVt=1 * enableMismatch
-+ mismatchBeta=1 * enableMismatch
-+ shiftVt=0
-+ shiftBeta=0
++ controlledOffset = 0
++ enableVtMismatch = 1
++ enableBetaMismatch = 1
++ sigmamult = 1
++ mismatchVt=1 * enableVtMismatch
++ mismatchBeta=1 * enableBetaMismatch
++ shiftVt= sigma_LVT_Vt_p*controlledOffset
++ shiftBeta= sigma_LVT_I_I0_p*controlledOffset
 + w=100e-9
 + l=45e-9
-+ beta_factor = ( delta_1um_LVT_I_I0_p /sqrt(w*l) ) * mismatchBeta + shiftBeta
-+ vt_factor   = ( delta_1um_LVT_Vt_p / sqrt(w*l) ) * mismatchVt + shiftVt
++ beta_factor = sigmamult*mismatchBeta*(( delta_1um_LVT_I_I0_p / sqrt(w*l) )*enableMismatch + shiftBeta/sqrt(w*l))
++ vt_factor   = sigmamult*mismatchVt*(( delta_1um_LVT_Vt_p   / sqrt(w*l) )*enableMismatch + shiftVt/sqrt(w*l))
 
 v_model_Vth_mismatch ( g rg ) vsource type=dc dc=vt_factor
 i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor

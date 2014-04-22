@@ -40,8 +40,8 @@ function [] = load_analysis()
 %      mc_analize_data()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
-      la_run_length(param,0,1)
-%       mc_run_length(param,0,1)
+%       la_run_length(param,0,1)
+       mc_run_length(param,0,1)
 %     mc_run_tripel(param,1,0)
 % la_run_ref2(element,param,4) 
 end
@@ -800,7 +800,7 @@ function [] = la_run_length(param,simulate,analyse)
           woverl = element(1)/element(2);
             b_diff = b(2)-b(3);
             vcellmax = b(1)-n(1);
-            datamatrix(k,:) = [woverl,b_diff,vcellmax]
+            datamatrix(k,:) = [woverl,b_diff,vcellmax,element(1),element(2)]
 %           if k == 1
 %              best_b = b;
 %              best_element = element;
@@ -1718,15 +1718,12 @@ function [] = mc_run_length(param,simulate,analyse)
     if simulate
         param.VtMismatch = 1;
         param.BMismatch = 0;
-%         param.wswitch = 200e-9;
-%         param.wbias = 500e-9;
-%         param.lswitch = 85e-9;
-%         param.lbias = 85e-9;
-        
-        param.wswitch = 300e-9;
-        param.lswitch = 195e-9;
-        
-        param.mcruns = 500;
+       
+        param.wswitch = 4*100e-9;%300e-9;
+        param.lswitch = 4*195e-9;
+        param.wsl = 1000e-9;
+        param.lsl = 45e-9;
+        param.mcruns = 200;
         
         calcelement();
 
@@ -1739,16 +1736,18 @@ function [] = mc_run_length(param,simulate,analyse)
     end
     
     if analyse
-        data = load('./LoadAnalysis/length3_allmismatch');
+        data = load('./LoadAnalysis/length_100_195_allmismatch');
         b_all = data.b_all;
+        n_all = data.n_all;
         b_memhigh = [b_all(:,1);b_all(:,2)];
+        n_memhigh = [n_all(:,1);n_all(:,2)]
         b_memlow = [b_all(:,3);b_all(:,4)];
         b_refall = data.b_refall;
         b_ref = [b_refall(:,3);b_refall(:,4)];
             
         x = [0:0.001:1];
         p_b_memhigh = fitdist(b_memhigh(:),'Normal');
-        p_b_memlow = fitdist(b_memlow(:),'LogNormal');
+        p_b_memlow = fitdist(b_memlow(:),'Normal');
         p_b_ref = fitdist(b_ref(:),'Normal');
         
         cdf_blow = cdf(p_b_memhigh,x);
@@ -1773,28 +1772,40 @@ function [] = mc_run_length(param,simulate,analyse)
         plot([p_b_ref.mu,p_b_ref.mu],[0,4],'r','LineWidth',3)
         
         % Create textbox
-    annotation(figure1,'textbox',...
-        [0.511416666666667 0.13380788148074 0.028447742733457 0.0400593471810089],...
-        'Interpreter','none',...
-        'String',{num2str(p_b_ref.mu-x(i2))},...
-        'EdgeColor',[1 1 1],...
-        'LineWidth',2);
-    
-    % Create textbox
-    annotation(figure1,'textbox',...
-        [0.555375 0.135936437855871 0.028447742733457 0.0400593471810089],...
-        'Interpreter','none',...
-        'String',{num2str(x(i1)-p_b_ref.mu)},...
-        'EdgeColor',[1 1 1],...
-        'LineWidth',2);
+%     annotation(figure1,'textbox',...
+%         [0.511416666666667 0.13380788148074 0.028447742733457 0.0400593471810089],...
+%         'Interpreter','none',...
+%         'String',{num2str(p_b_ref.mu-x(i2))},...
+%         'EdgeColor',[1 1 1],...
+%         'LineWidth',2);
+%     
+%     % Create textbox
+%     annotation(figure1,'textbox',...
+%         [0.555375 0.135936437855871 0.028447742733457 0.0400593471810089],...
+%         'Interpreter','none',...
+%         'String',{num2str(x(i1)-p_b_ref.mu)},...
+%         'EdgeColor',[1 1 1],...
+%         'LineWidth',2);
         
+%         figure
+%         hold on 
+%         hist(b_memhigh,50)
+%         hist(b_memlow,50)
+%         
+%         figure
+%         hist(b_ref,50)
+
         figure
+        x = [0:0.001:1];
+        norm = normpdf(x,p_b_memhigh.mu-p_b_ref.mu,sqrt(p_b_ref.sigma^2 + p_b_memhigh.sigma^2));
+        plot(x,norm)
+        normc = normcdf(x,p_b_memhigh.mu-p_b_ref.mu,sqrt(p_b_ref.sigma^2 + p_b_memhigh.sigma^2)) 
+        [Y,I]=min(abs(normc-0.001))
         hold on 
-        hist(b_memhigh,50)
-        hist(b_memlow,50)
+        plot([x(I),x(I)],[0,5])
         
         figure
-        hist(b_ref,50)
+        
      end
     
     function [] = calcelement()
@@ -1848,7 +1859,7 @@ function [] = mc_run_length(param,simulate,analyse)
             tr_refall(l,:) = tr;
             n_refall(l,:) = n;
             
-            save(strjoin({'./LoadAnalysis/length3_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
+            save(strjoin({'./LoadAnalysis/length_100_195_allmismatch'},''),'b_all','tr_all','n_all','b_refall','tr_refall','n_refall','element')
             catch
                 disp('boeee')
             end

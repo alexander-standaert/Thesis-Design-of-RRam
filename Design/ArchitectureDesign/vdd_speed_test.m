@@ -15,7 +15,7 @@ function [] = vdd_speed_test()
     
     function_mode = 'simulation';
 %     function_mode = 'simulation';
-    sim_name = 'test128';
+    sim_name = 'mem32_1';
     
     if strcmp(function_mode,'simulation')
         % set parameters and run simulation
@@ -24,7 +24,7 @@ function [] = vdd_speed_test()
         param.debugon = 0;
         param = set_vdd_speed_test_param(param);
         param.sim_name = sim_name;
-        param = split_param(param,1);
+        param = split_param(param,8);
         generate_codor_job_file(param)      
     elseif strcmp(function_mode,'evaluation')
         % read and plot results
@@ -109,7 +109,7 @@ function [param] = set_memory_architecture_param(param)
     
     data = load('./ArchitectureDesign/architecture_param');
     param = data.sp;
-    param.address = 1;
+    param.address = 0;
 end
 
 function [param] = split_param(param,nb_of_blocks)

@@ -1,7 +1,11 @@
+simulator lang=spice
+.lib 'tech_wrapper.lib' tt
+
 simulator lang=spectre
 
+include "monte_carlo_models.scs"
+
 include "CMOSlogic.scs"
-include "transistorsPTM.scs"
 
 parameters PWmin = 100n
 parameters PLmin = 45n
@@ -10,14 +14,22 @@ parameters enableMismatch = 0
 Vvdd     ( vdd     0 ) vsource dc=1
 VvddBulk ( PBulkLine 0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0
+Vvss1     ( vss1     0 ) vsource dc=0
 VvssBulk ( NBulkLine 0 ) vsource dc=0
 
-// Vin (in 0) vsource dc=0.5
+Vin (in 0) vsource type=pwl wave=[0 0 0.70e-9 0 1.5e-9 1]
 
-xinv in out vdd vss PBulkLine NBulkLine inverter
-//xM1 BL gaten vss NBulkLine mc_nmos_lvt w=PWmin l=PLmin
-//xM2 BL gatep vdd PBulkLine mc_pmos_lvt w=PWmin l=PLmin
+xinv out out3 vdd vss PBulkLine NBulkLine inverter mult=2
+xinv2 in out vdd1 vss1 PBulkLine NBulkLine inverter mult=2
+xM1 vss1 vdd vss NBulkLine mosn w=PWmin l=PLmin
+xM2 vdd1 vss vdd PBulkLine mosp w=2*PWmin l=PLmin
+
+Rin out out2 resistor r=40000
+//Rin1 out2 vss resistor r=2000
+Cin out2 vss1 capacitor c=256*0.18e-15
+
 
 dcana dc
-oper info what=captab
+oper info what=captab where=file file="capNodes" detail=nodetonode
 option1 options rawfmt = psfascii
+mytran tran stop=5e-9 method=trap  

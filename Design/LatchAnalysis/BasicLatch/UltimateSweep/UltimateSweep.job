@@ -3,10 +3,14 @@ RequestCpus      = 4
 RequestMemory    = 4G 
 +RequestWalltime = 86400
 Requirements = (machine != "donovan.esat.kuleuven.be") && (machineowner == "PSI/Spraak") && (distribution == "CentOS") 
+Rank = (machine == "idesbald.esat.kuleuven.be") || (machine == "hommage.esat.kuleuven.be") || (machine == "livinus.esat.kuleuven.be") || (machine == "goudenband.esat.kuleuven.be") || (machine == "driefonteinen.esat.kuleuven.be") ||    (machine == "bellegems.esat.kuleuven.be") ||(machine == "bokkereyer.esat.kuleuven.be") ||(machine == "bornem.esat.kuleuven.be") ||(machine == "chapeau.esat.kuleuven.be")
+
+
 Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design 
 Executable = /software/bin/matlab2013b 
 Arguments = " -nodisplay -r 'maxNumCompThreads(4);startup;sweepbin($(Process));exit();' " 
 NiceUser = true 
 Error        = ./LatchAnalysis/BasicLatch/UltimateSweep/log/bestsimever.$(Process).err 
-Queue 50
+
+Queue 20
 

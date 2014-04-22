@@ -1,9 +1,9 @@
 function [] = architecture_analysis()
     %start walltime 9.20
     all_solutions = calc_solutions(4194304);
-    all_solutions = eval_solutions(all_solutions)
+%      all_solutions = eval_solutions(all_solutions)
 %     check_delay(all_solutions)
-%     extract_de(all_solutions)
+    extract_de(all_solutions)
     
     function [solutions] = calc_solutions(memsize)
         maxdecoder = 9;
@@ -29,7 +29,7 @@ function [] = architecture_analysis()
         data = load(strjoin({'./ArchitectureAnalysis/t_sa.mat'},''));
         t_array = data.d;
         
-        for h = 14:length(solutions(:,1));
+        for h = 14%:length(solutions(:,1));
             param = setup_sim(solutions(h,1),solutions(h,2),solutions(h,3),solutions(h,4));
             t = t_array(h)*1e-9+0.2e-9
             param = generate_signals(param,t);
@@ -256,7 +256,8 @@ function [] = architecture_analysis()
             plot(data.sigx2,data.sigy2)
             plot(data.sigx3,data.sigy3)
             plot(data.sigx4,data.sigy4)
-            plot([d(h)+1,d(h)+1],[0,1])
+            plot([d(h)+1,d(h)+1],[-0.1,1.1])
+            plot([1,1],[-0.1,1.1])
             pause
             
         end
@@ -277,9 +278,11 @@ function [] = architecture_analysis()
             
             [Y,I] = min(abs(data.sig_blmem.getXValues-2e-9));
             a= data.sig_blmem.getYValues;
+            [Y,I1] = min(abs(data.sig_blmem.getXValues-1e-9));
+            b= data.sig_blmem.getXValues;
             [Y,I2] = min(abs(a(I:end)-0.01));
             a = data.sig_blmem.getXValues;
-            d(h) = a(I+I2)-1e-9
+            d(h) = a(I+I2)-1e-9;
             
             figure
             hold all
@@ -287,7 +290,8 @@ function [] = architecture_analysis()
             plot(data.sig_inoutbar.getXValues,data.sig_inoutbar.getYValues)
             plot(data.sig_blmem.getXValues,data.sig_blmem.getYValues)
             plot(data.sig_blref.getXValues,data.sig_blref.getYValues)
-            plot([a(I+I2),a(I+I2)],[0,1])
+            plot([a(I+I2),a(I+I2)],[-0.1,1.1])
+            plot([b(I1),b(I1)],[-0.1,1.1])
             
 %             figure
 %             hold all
