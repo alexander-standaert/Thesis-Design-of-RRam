@@ -11,3 +11,9 @@ Design/ArchitectureDesign/vdd_speed_test/log/*
 Thesis/Latex/*.aux
 Thesis/Latex/*.toc
 Thesis/Latex/*.lof
+Thesis/Latex/*.blg
+Thesis/Latex/*.lot
+Thesis/Latex/*.bbl
+Thesis/Latex/*.log
+Thesis/Latex/*.out
+Thesis/Latex/*.pdf
