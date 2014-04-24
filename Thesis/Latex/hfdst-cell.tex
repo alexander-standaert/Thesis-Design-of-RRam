@@ -1,7 +1,7 @@
 \chapter{Geheugencel}
 \label{cell}
-Elk geheugen bestaat uit een verzameling individuele cellen die de informatie bevatten op een manier.
-In dit hoofdstuk wordt eerst wat dieper ingegaan om de manier waarom een R-RAM geheugencel informatie bevat en vervolgens hoe deze informatie elektrisch kan worden gebruikt.
+Elk geheugen bestaat uit een verzameling individuele cellen die op een of andere manier informatie bevatten.
+In dit hoofdstuk wordt eerst dieper ingegaan op de manier waarom een R-RAM geheugencel informatie bevat en vervolgens hoe deze informatie [elektrisch] kan worden uitgelezen.
 
 \section{Memristor}
 Het essentiële element van een R-RAM geheugencel is ontegenspreekbaar de zogenaamde memristor.
@@ -9,7 +9,7 @@ De memristor wordt ook wel gezien als de 4\textsuperscript{e} passieve component
 
 \subsection{Theoretisch principe}
 In 1971 publiceerde Leon Chua een artikel waarin hij opmerkte dat er voor de 4 fundamentele circuitvariabelen (de spanning v, stroom i, lading q en fluxbinding $\lambda$\footnote{$\lambda(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, voor een ideale inductantie is dit hetzelfde als magnetische flux: $\lambda = \phi$ }) van 6 mogelijke onderlinge relaties er slechts 5 gekend waren: $q(t) =  \int^{t}_{-\infty} i(\tau) \, d\tau $, $\lambda(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, $v(t)=R*i(t)$, $q(t)=C*v(t)$ en $\lambda(t) = L*i(t)$ volgen uit de wetten van Maxwell en uit de definities van de weerstand, spoel en condensator, maar er ontbrak een relatie tussen $\lambda$ en q.\cite{Chu71} Hij suggereerde dat er een 4e nog niet ontdekte passieve 2-pool moest bestaan die dit verband herbergde.
-Uit zijn wiskundige berekeningen kwam hij tot de conclusie dat deze component zich ogenblikkelijk als een weerstand zou gedragen, maar dat deze weerstand verandert aan de hand van het verloop van de stroom in de tijd. Gebaseerd op deze conclusie doopte hij deze component de memristor (een contractie van memory en resistor).
+Uit zijn wiskundige berekeningen kwam hij tot de conclusie dat deze component zich ogenblikkelijk als een weerstand zou gedragen, maar dat de weerstandswaarde verandert aan de hand van het verloop van de stroom in de tijd. Gebaseerd op deze conclusie doopte hij deze component de memristor (een contractie van memory en resistor).
 
 \subsection{Fysische werking}
 Chua beëindigde zijn artikel met te erkennen dat er op dat moment nog geen fysische memristor was ontdekt, maar dat dit in de toekomst wel kon gebeuren, al dan niet zelfs per ongeluk. Hij gaf zelfs aan dat er misschien al in die tijd materialen met memristorkarakteristieken gebruikt werden, maar dat men hier over keek. Hij zou gelijk krijgen.
