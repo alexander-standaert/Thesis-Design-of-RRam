@@ -28,7 +28,7 @@ De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een a
 
 \subsection{Vergelijkende studie}
 Eens ontworpen, kunnen de tree en grid decoders met elkaar vergelijken worden. Naast de gebruikelijke oppervlakte, energie en delay worden ook glitches, mismatch en delay verschill tussen verschillende addressen onderzocht. \\
-Zoals in figuur \ref{fig:decoder_a} gezien kan worden, scaalt het oppervlakte van de grid decoder veel minder als die van de tree decoder bij een groter aantal inputs. De plotse stijging in het oppervalke van de tree decoder met 8 inputs kan verklaart worden door het gebruik van een extra laag in de boom structuur.
+
 
 
 \begin{figure}[h!]

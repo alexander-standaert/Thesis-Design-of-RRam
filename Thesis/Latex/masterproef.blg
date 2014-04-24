@@ -8,13 +8,12 @@ A level-1 auxiliary file: hfdst-sensamp.aux
 A level-1 auxiliary file: hfdst-periphery.aux
 A level-1 auxiliary file: hfdst-timing-optimization.aux
 A level-1 auxiliary file: besluit.aux
-A level-1 auxiliary file: app-A.aux
-A level-1 auxiliary file: app-n.aux
+A level-1 auxiliary file: app-chargeinjectie-inputs.aux
 The style file: abbrv.bst
 Database file #1: referenties.bib
 You've used 2 entries,
             2118 wiz_defined-function locations,
-            519 strings with 4092 characters,
+            518 strings with 4103 characters,
 and the built_in function-call counts, 450 in all, are:
 = -- 41
 > -- 14

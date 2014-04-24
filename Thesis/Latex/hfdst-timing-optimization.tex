@@ -81,6 +81,33 @@ De timings voorwaarden voor het selecteren en deselecteren van de referentie cel
 \subsection{Critische timing voor het uitlezen van de cell}
 
 \section{Analyse verschillende geheugenconfiguraties}
+\paragraph{}
+Het finale geheugen zal 4 Mbit groot zijn. Heel wat configuraties zijn mogelijk om deze grote te verwezelijken. Om deze mogelijkheden wat in te perken worden de volgende beperking op gelegt. Het aantal Woordlijnen moet groter of gelijk zijn aan het aantal bitlijnen. Hierdoor zal Het ontladen van de bitlijn sneller verlopen. Dit levert 20 mogelijke configuraties voor aantal bitlijnen,woordlijnen en globalblocks. Deze configuraties worden vergeleken op basis van hun oppervlakte, energie verbruik en leessnelheid. 
 
+\subsection{De evaluatie criteria}
+Het Oppervlakte wordt berekend op basis van de lengtes en breetes van de transistoren. Gardrings en verbindings lijnen worden niet meegerekend in de berekeningen van het oppervlakte van de logica. De lengte van de geheugen cellen wordt 1.5*6F genomen en voor de breete wordt 2*6F genomen (TODO ref naar stefaan zijn ppt). Hoewel deze afmetingen voor een MTJ geheugen cell zijn, geven ze een goedde schatting van het oppervlakte van een Memristor geheugencell. Verder is in dit oppervlakte de grote van bitlijn, woordlijn en selectlijn meegerekend. \\
+Het energie verbruik word berekend door de stroom van de voedingspanning te integreren over de tijd en te vermenigvuldigen met de voedingspanning. De signalen die binnen komen in een global block, komen van ideale spice bronnen. Dit geeft als gevolg dat er een charge injectie is naar de voedingspanning (zie bijlage \ref{app:chargeinj}). Dit heeft een invloed op de energie berekeningen maar er worden geen pogingen gedaan op deze te corrigeren.\\
+De leessnelheid is afhankelijk van de verschillende controle signalen in de lees cyclus en deze gebeurd als volgt. De lees cyclus begint wanneer de signalen binnen komen in de globalblock. De SA wordt aangesloten wanneer het verschil tussen de memory bitlijn en de referentie bitlijn 100mV bedraagd. Hierdoor wordt het tijds verschil tussen geheugens met een klein aantal woordlijnen en geheugens met een groot aantal woordlijnen verkleind, wat een betere concurentie geeft. In het finale geheugen ontwerp zal de leessnelheid verder opgedreven worden door deze 100mV voltage verschil te verkleinen. Verder word er ook altijd een cell met een HRS uitgelezen aangezien deze de bitlijn langer moet opladen om tot aan de 100mV verschil te komen wat een realistischere leessnelheid geeft. De lees cyclus eindigd wanneer het bitlijn voltage terug naar de grond is getrokken. Figure \ref{fig:leescyclus} illustreed de hele leescyclus.
 
-\section{Besluit}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.6]{../fig/hfdstk-timing-leescyclus.png}
+  \caption{Timing controle logica memory array}
+  \label{fig:leescyclus}
+\end{figure} 
+
+\subsection{De resultaten}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.35]{../fig/hfdstk-timing-all-sol1.png}
+  \caption{Timing controle logica memory array}
+  \label{fig:leescyclus}
+\end{figure} 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{../fig/hfdstk-timing-all-sol2.png}
+  \caption{Timing controle logica memory array}
+  \label{fig:leescyclus}
+\end{figure} 
