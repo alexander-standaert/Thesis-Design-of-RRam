@@ -11,11 +11,11 @@ Een decoder is een logische blok dat een uitgang selecteert op basis van een gee
 \centering
 \subfloat[Decoder type 1]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
 \subfloat[Decoder type 2]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
-\caption{Opbouw voor grotere decoders}
+\caption{Opbouw voor grotere decoders}\label{fig:basisdecoders}
 \end{figure}
 
 \subsection{De tree decoder}
-
+De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiered naar de uitgangen. De basis blokken van deze decoder zijn een 2 naar 4 decoder (figuur \ref{fig:decoder2to4}) en een 3 naar 8 decoder (figuur \ref{fig:decoder3to8}). In elke laag in deze structuur komen een aantal ingangen binnen en deze gaan naar de ingang van evenveel decoders als er uitgang zijn in de vorige laag. Elke uitgange van de vorige laag stuurt de enble van een van de decoders van de huidige laag aan. Dit word geillustreed in de vorm van een 5 naar 32 decoder in figuur \ref{fig:decoder1}. 
 \begin{figure}[h!]
 \centering
 \subfloat[2 naar 4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
@@ -24,25 +24,56 @@ Een decoder is een logische blok dat een uitgang selecteert op basis van een gee
 \end{figure}
 
 \subsection{De grid decoder}
-De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een aantal 2 naar 4 en/of 3 naar 8 decoders die in parallel staan. De verschillende uitgangen van deze eerste laag worden dan met AND-gates samen gevoed in een tweede laag. Om glitches te voor komen is het belangrijk dat al de signalen gelijktijdig binnen komen in de AND-gates, vandaar dat de architectuur van 2 naar 4 decoder van figure \ref{fig:decoder2to4} verandered werd tot een AND-OR architectuur zoals de architectuur van de 3 naar 8 decoder. Om de fanout tussen de eerste en tweede laag aan te kunnen, worden de AND-gates van de tweede laag geimplementeerd als OR gates met inverters aan de ingangen. Deze invertors werden dan afhankelijk van de fanout als buffers gesized.
+De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een aantal 2 naar 4 en/of 3 naar 8 decoders die in parallel staan. De verschillende uitgangen van deze eerste laag worden dan met AND-gates samen gevoed in een tweede laag. Om glitches te voor komen is het belangrijk dat al de signalen gelijktijdig binnen komen in de AND-gates, vandaar dat de architectuur van 2 naar 4 decoder van figure \ref{fig:decoder2to4} verandered werd tot een AND-OR architectuur zoals de architectuur van de 3 naar 8 decoder. Om de fanout tussen de eerste en tweede laag aan te kunnen, worden de AND-gates van de tweede laag geimplementeerd als OR gates met inverters aan de ingangen. Deze invertors werden dan afhankelijk van de fanout als buffers gesized. Tabel \ref{tab:griddecoder} geeft tenslotte weer hoe veel basis decoders er in de eerste laag van de grid decoder zitten en hoeveel and gates er in de tweede laag zitten, in functie van het aantal inputs
+
+\begin{center}
+\begin{tabular}{llll}
+\label{tab:griddecoder}
+aantal inputs & aantal 2naar4 decoders & aantal 3naar8 decoders & aantal and gates\\
+1 & - & - & -\\
+2 & - & - & -\\
+3 & - & - & -\\
+4 & - & - & -\\
+5 & - & - & -\\
+6 & - & - & -\\
+7 & - & - & -\\
+8 & - & - & -\\
+9 & - & - & -
+\end{tabular}
+\end{center}
+
+
 
 \subsection{Vergelijkende studie}
 Eens ontworpen, kunnen de tree en grid decoders met elkaar vergelijken worden. Naast de gebruikelijke oppervlakte, energie en delay worden ook glitches, mismatch en delay verschill tussen verschillende addressen onderzocht. \\
-Zoals in figuur \ref{fig:decoder_a} gezien kan worden, scaalt het oppervlakte van de grid decoder veel minder als die van de tree decoder bij een groter aantal inputs. De plotse stijging in het oppervalke van de tree decoder met 8 inputs kan verklaart worden door het gebruik van een extra laag in de boom structuur.
+Zoals in figuur \ref{fig:decoder_a} gezien kan worden, scaalt het oppervlakte van de grid decoder veel minder als die van de tree decoder bij een groter aantal inputs. De plotse stijging in het oppervalke van de tree decoder met 8 inputs kan verklaart worden door het gebruik van een extra laag in de boom structuur. \\
+Het energie verbruik wordt vergeleken in figuur \ref{fig:decoder_ed}. De grid decoder heeft een lichte stijging van het energie verbruik infunctie van het aantal inputs, dit kan verklaart worden door het aantal gates dat geswitched wordt maar licht stijgt met het aantal inputs, daar naast gaat het meerste van de energie naar de buffers die de tweede laag aansturen (zie figuur \ref{fig:decoder_egrid}). De tree decoder aan de andere hand heeft een sterkere stijging van energie verbruik. dit kan verklaart worden door dat alle decoders in de tree architectuur gedeeltelijk switchen. Dit zou vermindered kunnen worden door de architectuur van de basis decoders (figuur \ref{fig:basisdecoders}) te veranderen zodat de enable vooraan komt te staan.\\
+De delay van de decoders kan ook afgelezen worden in figuur \ref{fig:decoder_ed}. Beide decoders hebben ongeveer de zelfde delay. bij grote grid decoders kan de extra delay verklaart worden door het aansturen van een grote fanout.\\
+Verder werden het opduiken van glitches onderzocht. In beide decoders is er de mogelijkheid dat er glitches op duiken. Het probleem bij deze decoders is het gebuik van de NOR-gates, de glitch duikt op als de ingang verandered van een 01 naar een 10 (zie figuur \ref{fig:decoder_glitch}) en er is een vertraging bij een van de twee ingangen. Bij de tree decoder duiken zijn deze glitches ingebaken in de architectuur aangezien de enable van een stage aangestuurt wordt door de vorige stage en hier altijd een zekere vertraging is. Bij de grid decoder daarentegen kan er glitch opduiken als de buffers die de tweede laag aansturen een asymetische delay hebben. Dit kan voor komen bij bv een 5 naar 32 decoder. de uitgangen van de 2naar 4 decoder en de 3 naar 8 decoder die hier in zitten zien een andere last. Deze buffers werden met zorg ontworpen om een asymetrische delay te voor komen.\\
+Na een snelle mismatch analyse bleek dat de grid decoder minder variatie toon in energie verbruik en delay als de tree decoder. Tenslotte heeft de tree decoder grotere verschillen in delay, afhankelijk van welk het vorige en huidige address van de decoder is. Dit ziet men minder in de grid decoder. \\
+Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, delay, glitches, mismatch en delay verschil, Komt de grid decoder er als het beste uit en deze zal dan ook gebruikt worden in het finale ontwerp.
+
+
+\begin{figure}[h!]
+\centering
+\subfloat[oppervlakte]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-a.png} \label{fig:decoder_a}}
+\subfloat[energie en delay]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-ed.png} \label{fig:decoder_ed}}
+\caption{vergelijking van decoder types}
+\end{figure}
 
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-a.png}
+  \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-egrid.png}
   \caption{Timing globalblock}
-  \label{fig:decoder_a}
+  \label{fig:decoder_egrid}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-ed.png}
+  \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-glitch.png}
   \caption{Timing globalblock}
-  \label{fig:decoder_ed}
+  \label{fig:decoder_glitch}
 \end{figure}
 
 
