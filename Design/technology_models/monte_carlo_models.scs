@@ -54,7 +54,6 @@ i_model_beta_mismatch ( d s ) cccs probe=probe1 gain=beta_factor
 
 mnmos ( d rg rs b ) nmos l=l w=w
 probe1 ( rs s ) iprobe
-
 ends mc_nmos_lvt
 
 

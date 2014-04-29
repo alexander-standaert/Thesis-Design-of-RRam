@@ -26,9 +26,9 @@ De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiered
 \subsection{De grid decoder}
 De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een aantal 2 naar 4 en/of 3 naar 8 decoders die in parallel staan. De verschillende uitgangen van deze eerste laag worden dan met AND-gates samen gevoed in een tweede laag. Om glitches te voor komen is het belangrijk dat al de signalen gelijktijdig binnen komen in de AND-gates, vandaar dat de architectuur van 2 naar 4 decoder van figure \ref{fig:decoder2to4} verandered werd tot een AND-OR architectuur zoals de architectuur van de 3 naar 8 decoder. Om de fanout tussen de eerste en tweede laag aan te kunnen, worden de AND-gates van de tweede laag geimplementeerd als OR gates met inverters aan de ingangen. Deze invertors werden dan afhankelijk van de fanout als buffers gesized. Tabel \ref{tab:griddecoder} geeft tenslotte weer hoe veel basis decoders er in de eerste laag van de grid decoder zitten en hoeveel and gates er in de tweede laag zitten, in functie van het aantal inputs
 
+\begin{table}
 \begin{center}
 \begin{tabular}{llll}
-\label{tab:griddecoder}
 aantal inputs & aantal 2naar4 decoders & aantal 3naar8 decoders & aantal and gates\\
 1 & - & - & -\\
 2 & - & - & -\\
@@ -41,8 +41,9 @@ aantal inputs & aantal 2naar4 decoders & aantal 3naar8 decoders & aantal and gat
 9 & - & - & -
 \end{tabular}
 \end{center}
-
-
+\caption{dfs}
+\label{tab:griddecoder}
+\end{table}
 
 \subsection{Vergelijkende studie}
 Eens ontworpen, kunnen de tree en grid decoders met elkaar vergelijken worden. Naast de gebruikelijke oppervlakte, energie en delay worden ook glitches, mismatch en delay verschill tussen verschillende addressen onderzocht. \\
@@ -78,6 +79,34 @@ Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, dela
 
 
 \section{Buffers}
+Een digitale buffer is een logische component dat de uitgang van een andere logische block meer drijf kracht geeft om een grotere last sneller aan te sturen. Buffers worden op drie plaatsen in de geheugen architectuur gebruikt. Ten eerste om de woordlijnen aan te sturen. Ten tweede om de referentie logica aan te sturen en ten slotte  tussen de eerste en tweede laag in de grid decoders. Tabel \ref{tab:buffer} geeft een overzicht van het type last en het aantal lasten dat de verschillende buffers moeten aansturen.\\
+De buffers werden ontworpen met logical effort waarbij het aantal stages en de sizing van elke stage werd bepaalt volgens het volgende stappen plan:
+\begin{enumerate}
+\item Bepaal de Path effort $F = GH$ waarbij $G = 1$ aangezien we enkel met inverters werken en $H = \frac{C_{out}}{C_{in}}$
+\item Het aantal stages wordt bepaalt door $\hat{N} = log_{4}F$. hier bij werd er voor een stage effort van 4 gekozen voor een optimale delay \cite{Sutherland:1999:LED:298513}. \^{N} wordt dan afgerond tot een even getal N voor de woordlijn en referentie buffers, en tot een oneven getal voor de decoder buffers.
+\item N wordt dan gebruikt om een nieuw stage effort \^{f} te berekenenn met de formule $\hat{f} = F^{1/N}$.
+\item Ten slotte kunnen de de grotes van de verschillende invertoren in de chain berekend worden met de nieuw stage effort $\hat{f} = gh$.
+\end{enumerate}
+Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die naar de referentie logica gaan, voor een verschillende aantal paralle geplaatste referentie logic.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lll}
+ & Last & aantal lasten\\
+Woordlijn Buffer & 1 Transistor &  \#BL\\
+Referentie Buffer & 1 Nor + 1 Inv &  \#BL\\
+Decoder buffer & 1 Nor & 4 - 64
+\end{tabular}\label{tab:buffer}
+\end{center}
+\caption{qsdqsdq}
+\end{table}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
+  \caption{Timing globalblock}
+  \label{fig:refbuffer}
+\end{figure}
 
 \section{BL- en WL-drivers}
 

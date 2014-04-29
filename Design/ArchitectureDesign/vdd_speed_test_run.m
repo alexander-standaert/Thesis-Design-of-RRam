@@ -27,6 +27,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         param.debugon = 1
         vdd = param.simulation_space(s,1)
         t = param.simulation_space(s,2)
+        t_checkout = param.simulation_space(s,3)
+        param.t_checkout = t_checkout;
         [param] = generate_signals(param,t,vdd);
         
         param.RMEMvalue = 'RMEMHigh';

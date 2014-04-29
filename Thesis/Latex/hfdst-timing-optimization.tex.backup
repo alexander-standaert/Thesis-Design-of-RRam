@@ -79,14 +79,30 @@ De timings voorwaarden voor het selecteren en deselecteren van de referentie cel
 \end{figure}
 
 \subsection{Critische timing voor het uitlezen van de cell}
+Eens de cell geselecteerd is wordt de bitlijn opgeladen. De volgende stap is dit signaal voeden aan de sense amplifier. Dit signaal wordt eerst door een eerst mux geleid om uit de localblock te geraken. Vervolgens word het signaal door een tweede mux geleidt die als sample en hold dient voor de sense amplifier. Figuren \ref{fig:sa_timing1} en \ref{fig:sa_timing2} illustreren het circuit en timing rond de sense amplifier. Eens de bitlijn is aangesloten wordt de eerste mux automatisch aangesloten zoals uitgelegd in de vorige paragraven. T19 stelt het tijdsstip voor waar de tweede mux aangesloten moet worden. Deze timing is niet crutiaal, de mux mag zowel aangesloten worden voor als na het aansluiten van de bitlijn mux. Het tijdstip van afsluiten van deze mux (T22) is daarentegen wel belangrijk. Dit moet namelijk gebeuren voor de bitlijn mux afgesloten is (T21) anders zullen er 2 charge injections voorkomen ipv een. Om een zo snel mogelijke latching van de sense amplifiers te hebben, is het tijd stip waar de sense amplifier (T20) aangesloten word belangrijk. Wanneer de sense amplifier juist word aangesloten treed er een latching effect plaats waar de sense amplifier zich gedraagd als of er geen last aan hangt dit effect werd beschreven in sectie \ref{TODO}. Eens dit voorbij is zal de sense amplifier latchen aan de snelheid van de RC constante van de bitlijn. Om een snelle latching te hebben moet de tweede mux afgesloten worden voor dit latching effect voorbij is.
+Tenslotte kan de sense amplifier afgesloten worden eens het latchen voorbij is.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.6]{../fig/hfdstk-timing-sa1.png}
+  \caption{logica rond SA}
+  \label{fig:sa_timing1}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.9]{../fig/hfdstk-timing-sa2.png}
+  \caption{Timing logica rond SA}
+  \label{fig:sa_timing2}
+\end{figure}
 
 \section{Analyse verschillende geheugenconfiguraties}
 \paragraph{}
 Het finale geheugen zal 4 Mbit groot zijn. Heel wat configuraties zijn mogelijk om deze grote te verwezelijken. Om deze mogelijkheden wat in te perken worden de volgende beperking op gelegt. Het aantal Woordlijnen moet groter of gelijk zijn aan het aantal bitlijnen. Hierdoor zal Het ontladen van de bitlijn sneller verlopen. Dit levert 20 mogelijke configuraties voor aantal bitlijnen,woordlijnen en globalblocks. Deze configuraties worden vergeleken op basis van hun oppervlakte, energie verbruik en leessnelheid. 
 
-\subsection{De evaluatie criteria}
-Het Oppervlakte wordt berekend op basis van de lengtes en breetes van de transistoren. Gardrings en verbindings lijnen worden niet meegerekend in de berekeningen van het oppervlakte van de logica. De lengte van de geheugen cellen wordt 1.5*6F genomen en voor de breete wordt 2*6F genomen (TODO ref naar stefaan zijn ppt). Hoewel deze afmetingen voor een MTJ geheugen cell zijn, geven ze een goedde schatting van het oppervlakte van een Memristor geheugencell. Verder is in dit oppervlakte de grote van bitlijn, woordlijn en selectlijn meegerekend. \\
-Het energie verbruik word berekend door de stroom van de voedingspanning te integreren over de tijd en te vermenigvuldigen met de voedingspanning. De signalen die binnen komen in een global block, komen van ideale spice bronnen. Dit geeft als gevolg dat er een charge injectie is naar de voedingspanning (zie bijlage \ref{app:chargeinj}). Dit heeft een invloed op de energie berekeningen maar er worden geen pogingen gedaan op deze te corrigeren.\\
+\subsection{Evaluatie criteria voor de geheugenconfiguraties}
+Het Oppervlakte wordt berekend op basis van de lengtes en breetes van de transistoren. Gardrings en verbindings lijnen worden niet meegerekend in de berekeningen van het oppervlakte van de logica. De lengte van de geheugen cellen wordt 1.5*6F genomen en voor de breete wordt 2*6F genomen \cite{ppt:cosemans}. Hoewel deze afmetingen voor een MTJ geheugen cell zijn, geven ze een goedde schatting van het oppervlakte van een Memristor geheugencell. Verder is in dit oppervlakte de grote van bitlijn, woordlijn en selectlijn meegerekend. \\
+Het energie verbruik word berekend door de stroom van de voedingspanning te integreren over de tijd en te vermenigvuldigen met de voedingspanning. De signalen die binnen komen in een global block, komen van ideale spice bronnen. Dit geeft als gevolg dat er een charge injectie is naar de voedingspanning (zie bijlage \ref{app:chargeinj}). Dit heeft een invloed op de energie berekeningen maar er worden geen pogingen gedaan op deze te corrigeren. Verder wordt het aantal referentie cellen ook constant gehouden voor de verschillende configuraties. Dit wordt gedaan om het energie verbruik te verkleinen en omdat men maar een beperkt aantal cellen nodig heeft om een goede referentie te krijgen.\\
 De leessnelheid is afhankelijk van de verschillende controle signalen in de lees cyclus en deze gebeurd als volgt. De lees cyclus begint wanneer de signalen binnen komen in de globalblock. De SA wordt aangesloten wanneer het verschil tussen de memory bitlijn en de referentie bitlijn 100mV bedraagd. Hierdoor wordt het tijds verschil tussen geheugens met een klein aantal woordlijnen en geheugens met een groot aantal woordlijnen verkleind, wat een betere concurentie geeft. In het finale geheugen ontwerp zal de leessnelheid verder opgedreven worden door deze 100mV voltage verschil te verkleinen. Verder word er ook altijd een cell met een HRS uitgelezen aangezien deze de bitlijn langer moet opladen om tot aan de 100mV verschil te komen wat een realistischere leessnelheid geeft. De lees cyclus eindigd wanneer het bitlijn voltage terug naar de grond is getrokken. Figure \ref{fig:leescyclus} illustreed de hele leescyclus.
 
 \begin{figure}[!ht]
@@ -96,18 +112,20 @@ De leessnelheid is afhankelijk van de verschillende controle signalen in de lees
   \label{fig:leescyclus}
 \end{figure} 
 
-\subsection{De resultaten}
+\subsection{Vergelijking van de geheugenconfiguraties}
+Er werden 20 mogelijke geheugenconfiguraties geselecteert als kandidaat voor het finale ontwerp, hun positie in de evaluatie ruimte wordt getoont in figuur \ref{fig:final20all1}. Hierop staat het energie verbruik op de x-as, de delay op de y-as en het oppervlakte gebruik wordt geindiceert door de grote van de punten. Het energie verbruik en delay wordt voornamelijk bepaalt door het aantal woordlijnen en bitlijnen. De delay wordt voornamelijk bepaalt door het opladen van de bitlijnen, wat dan ook de voornamste vorm van energie verbruik is. De snelheid van de bitlijnen wordt dan weer bepaalt door het aantal woordlijnen wat gezien kan worden in figuur \ref{fig:final20all2}. Het aantal bitlijnen beinvloed dan weer meer het energie verbruik. Dit extra energie verbruik gaat teneerste naar de woorlijn buffers, tentweede naar de bitlijn decoders en tenslotte naar de bitlijn zelf. Deze laatste is door dat de bitlijn bij het deselecteren van de cell langer aanblijft dan bij een kleiner aantal bitlijnen. Dit is ook de reden waarom een groter aantal bitlijnen een langere delay heeft.
 
-\begin{figure}[!ht]
+
+\begin{figure}[p]
   \centering
-  \includegraphics[scale=0.4]{../fig/hfdstk-timing-all-sol1.png}
+  \includegraphics[scale=0.5, angle = 90]{../fig/hfdstk-timing-all-sol1.png}
   \caption{Timing controle logica memory array}
-  \label{fig:leescyclus}
+  \label{fig:final20all1}
 \end{figure} 
 
-\begin{figure}[!ht]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=1.2\textwidth]{../fig/hfdstk-timing-all-sol2.png}
+  \includegraphics[scale=0.6]{../fig/hfdstk-timing-all-sol2.png}
   \caption{Timing controle logica memory array}
-  \label{fig:leescyclus}
+  \label{fig:final20all2}
 \end{figure} 
