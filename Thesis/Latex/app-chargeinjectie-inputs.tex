@@ -1,2 +1,13 @@
-\chapter{Charge injectie aan de input}
-\label{app:A}
+\chapter{Charge injectie met ideale spice bronnen.}
+\label{app:chargeinj}
+Bij het berekenen van de energie consumptie van verschillende bouwblokken, valt het op dat de voeding, stroom opneemt ipv afgeeft bij het schakelen van de ideale spice bronnen. Dit komt door een charge injectie van de ideale spice bronnen. Om dit te verifieren, worden de stromen van een simpele inverterschakeling bestudeert. Figuur \ref{} stelt een simple inverterschakeling voor met relevante parasiteire capaciteiten. Bij het plaatsen van een stap functie aan de inverter, zal er een lading door de capaciteiten vloeien. Opdat de positieve stroom die geopserveert word in de voeding afkomstig komt van de ingang, moet de som van de stroom door de ingang, voeding en grond moet nul zijn. De stroom door de ingang kan in spice opgemeten worden door een weerstand met resistieve waarde gelijk aan nul, in serie met de ingang te zetten.\\
+Figure \ref{fig:chargeinj_cur} toont deze drie stromen. In eerste deel van de figuur (tot tijdstip 3*10-11) is de input al aant het stijgen maar de invertor is nog niet aant schakelijk. De voeding en grond stromen komen dan puur van de ingang. Vanaf tijdstip 3*10-11, is de invertor aan het schakelen en is er een aandeel van de stroom in de grond dat uit de voeding komt. De som van alle drie stromen is ten alle tijden gelijk aan nul.
+In conclusie is hier bij aangetoont dat er een charge injectie is van ideale spice bronnen in het circuit. Dit heeft een invloed op de stromen en daardoor ook de energie berekeningen, maar dit verwaarlozen we bij onze berekeningen.
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{../fig/hfdst-chargeinj-currents.png}
+  \caption{Timing globalblock}
+  \label{fig:chargeinj_cur}
+\end{figure}
