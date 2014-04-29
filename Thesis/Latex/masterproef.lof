@@ -1,0 +1,54 @@
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Abrupte overgang van hoge weerstand naar lage weerstand voor NiO\cite {Bae04}}}{4}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Metal-Insulator-Metal structuur\cite {Won12}}}{4}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Model van het Pt-TiO\textsubscript {2}-Pt staal \cite {Str08}}}{5}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Illustratie van forming,resetting en setting \cite {Won12}}}{5}{figure.2.4}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Een geheugencel en een branch}}{8}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Een Local Block}}{9}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Een Global Block}}{9}{figure.3.3}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{13}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{14}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Door $\beta $-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}}{15}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Simulatieopstelling voor het RC-latch-effect}}{16}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}}{16}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}}{17}{figure.5.6}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Timing problemen bij de bitlijn}}{22}{figure.7.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{22}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{22}{subfigure.1.2}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Globalblock logica}}{23}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Timing globalblock}}{23}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Controle logica memory array}}{24}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Timing controle logica memory array}}{24}{figure.7.5}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Delay van woordlijn decoders + buffers ifv bitlijn decoders}}{25}{figure.7.6}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Controle logica memory array}}{25}{figure.7.7}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Timing controle logica memory array}}{26}{figure.7.8}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}

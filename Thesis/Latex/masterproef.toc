@@ -1,0 +1,85 @@
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\contentsline {chapter}{Voorwoord}{i}{chapter*.1}
+\contentsline {chapter}{Samenvatting}{iv}{chapter*.2}
+\contentsline {chapter}{L"yst van figuren en tabellen}{v}{chapter*.3}
+\contentsline {chapter}{Lijst van afkortingen en symbolen}{vi}{chapter*.6}
+\contentsline {chapter}{\chapternumberline {1}Inleiding}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Doel en afbakening van dit werk}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Structuur van de tekst}{2}{section.1.2}
+\contentsline {chapter}{\chapternumberline {2}Geheugencel}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Memristor}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Theoretisch principe}{3}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Fysische memristors}{4}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Toepassingen}{6}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Memristor in een geheugenstructuur}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}1T1R}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}1R}{6}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}1T1D}{6}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Besluit}{6}{section.2.3}
+\contentsline {chapter}{\chapternumberline {3}Geheugenarchitectuur}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Van transistorniveau tot systeemniveau}{7}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Cel}{7}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Branch}{7}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Local Block}{8}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Global Block}{8}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Besluit}{9}{section.3.2}
+\contentsline {chapter}{\chapternumberline {4}Lastimpedantie-analyse}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Impedantiekandidaten}{11}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Schakelaarsbelasting}{11}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Extra MOS-transistor}{11}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Diode-geconnecteerde MOS-transistor}{11}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Bulk-geconnecteerde MOS-transistor}{11}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Nominaal gedrag}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3}Gedrag onder variabiliteit}{11}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Monte Carlo simulaties}{11}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Besluit}{11}{section.4.4}
+\contentsline {chapter}{\chapternumberline {5}Sense Amplifier analyse}{13}{chapter.5}
+\contentsline {section}{\numberline {5.1}Types SA}{13}{section.5.1}
+\contentsline {section}{\numberline {5.2}Offsetspanning}{13}{section.5.2}
+\contentsline {section}{\numberline {5.3}Sensitiviteitsanalyse}{14}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}RC-latch-effect}{15}{subsection.5.3.1}
+\contentsline {section}{\numberline {5.4}Paretosimulatie}{16}{section.5.4}
+\contentsline {section}{\numberline {5.5}Besluit}{16}{section.5.5}
+\contentsline {chapter}{\chapternumberline {6}Omringende logica}{19}{chapter.6}
+\contentsline {section}{\numberline {6.1}Decoders}{19}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Vergelijkende studie}{19}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Buffers}{19}{section.6.2}
+\contentsline {section}{\numberline {6.3}BL- en WL-drivers}{19}{section.6.3}
+\contentsline {section}{\numberline {6.4}Passgates}{19}{section.6.4}
+\contentsline {section}{\numberline {6.5}Besluit}{19}{section.6.5}
+\contentsline {chapter}{\chapternumberline {7}Timing en optimalizatie}{21}{chapter.7}
+\contentsline {section}{\numberline {7.1}Timing}{21}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Critische timing voor het (de)selecteren cell}{21}{subsection.7.1.1}
+\contentsline {paragraph}{}{21}{section*.9}
+\contentsline {paragraph}{}{22}{section*.10}
+\contentsline {paragraph}{}{22}{section*.11}
+\contentsline {paragraph}{}{24}{section*.12}
+\contentsline {subsection}{\numberline {7.1.2}Critische timing voor het uitlezen van de cell}{26}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Analyse verschillende geheugenconfiguraties}{26}{section.7.2}
+\contentsline {section}{\numberline {7.3}Besluit}{26}{section.7.3}
+\contentsline {chapter}{\chapternumberline {8}Besluit}{27}{chapter.8}
+\contentsline {appendix}{\chapternumberline {A}De eerste bijlage}{31}{appendix.A}
+\contentsline {section}{\numberline {A.1}Meer lorem}{31}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Lorem 15--17}{31}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Lorem 18--19}{32}{subsection.A.1.2}
+\contentsline {section}{\numberline {A.2}Lorem 51}{32}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}De laatste bijlage}{33}{appendix.B}
+\contentsline {section}{\numberline {B.1}Lorem 20-24}{33}{section.B.1}
+\contentsline {section}{\numberline {B.2}Lorem 25-27}{34}{section.B.2}
+\contentsline {chapter}{Bibliografie}{35}{section*.14}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}
+\select@language {dutch}

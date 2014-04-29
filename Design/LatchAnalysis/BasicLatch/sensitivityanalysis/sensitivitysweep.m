@@ -12,7 +12,7 @@ sp.PWpassP = PWmin;
 numberofsigma = [-4:1:4];
 whichMismatch = eye(20);
 
-offsets = [-0.3:0.005:0.3];
+offsets = [-0.3:0.001:0.3];
 
 mega=allcomb(numberofsigma,[1:20]);
 
