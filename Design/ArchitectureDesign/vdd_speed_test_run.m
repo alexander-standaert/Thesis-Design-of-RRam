@@ -24,14 +24,14 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     end
     
     for s = 1:size(param.simulation_space,1)
-        param.debugon = 1
+%         param.debugon = 1
         vdd = param.simulation_space(s,1)
         t = param.simulation_space(s,2)
         t_checkout = param.simulation_space(s,3)
         param.t_checkout = t_checkout;
         [param] = generate_signals(param,t,vdd);
         
-        param.RMEMvalue = 'RMEMHigh';
+        param.RMEMvalue = 'RMEMLow';
         param = run_simulation(param);
         [param] = evaluate_simulation(param,t,vdd,0);
         
@@ -248,7 +248,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigx5,sigy5)
                 plot(sigx6,sigy6)
                 plot([1,1],[-0.1,vdd],'r')
-                plot([(1+(t)*1e9-param.thold*1e9),(1+(t)*1e9-param.thold*1e9)],[-0.1,vdd],'r')
+                plot([(1+(t)*1e9-param.thold*1e9),(1+(t)*1e9+param.thold*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t)*1e9),(1+(t)*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t + param.t_checkout)*1e9),(1+(t + param.t_checkout)*1e9)],[-0.1,vdd],'r')
                 legend('out','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')

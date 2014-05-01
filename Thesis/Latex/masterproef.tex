@@ -26,9 +26,10 @@
 % Tenslotte wordt hyperref gebruikt voor pdf bestanden.
 % Dit mag verwijderd worden voor de af te drukken versie.
 \usepackage[pdfusetitle,colorlinks,plainpages=false]{hyperref}
-
+\usepackage{amsmath}
 \usepackage{subfig}
-
+\usepackage{afterpage}
+%\usepackage{showframe}
 %%%%%%%
 % Om wat tekst te genereren wordt hier het lipsum pakket gebruikt.
 % Bij een echte masterproef heb je dit natuurlijk nooit nodig!
@@ -91,11 +92,7 @@
   \renewcommand{\arraystretch}{1.1}
   \begin{tabularx}{\textwidth}{@{}p{12mm}X@{}}
     42    & ``The Answer to the Ultimate Question of Life, the Universe,
-            and Everything'' volgens de \cite{h2g2} \\
-    $c$   & Lichtsnelheid \\
-    $E$   & Energie \\
-    $m$   & Massa \\
-    $\pi$ & Het getal pi \\
+            and Everything''\\
   \end{tabularx}
 \end{flushleft}
 

@@ -1,13 +1,13 @@
 Universe         = vanilla 
-RequestCpus      = 2 
+RequestCpus      = 4 
 RequestMemory    = 4G 
-+RequestWalltime = 7200 
++RequestWalltime = 37200 
 Requirements = (machine != "donovan.esat.kuleuven.be") 
 Requirements = machineowner == "PSI/Spraak" 
 Requirements = distribution == "CentOS" 
 Initialdir       = /users/start2012/s0211331/Thesis-Design-of-RRam/Design 
 Executable = /software/bin/matlab2013b 
-Arguments = " -nodisplay -r 'maxNumCompThreads(2);startup;vdd_speed_test_run($(Process),''mem32_1'');exit();' " 
+Arguments = " -nodisplay -r 'maxNumCompThreads(4);startup;vdd_speed_test_run($(Process),''mem32_0'');exit();' " 
 NiceUser = true 
 Error        = ./ArchitectureDesign/vdd_speed_test/log/mem32_1.$(Process).err 
-Queue 8 
+Queue 3 

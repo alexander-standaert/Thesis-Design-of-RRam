@@ -20,28 +20,65 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Een Local Block}}{9}{figure.3.2}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Een Global Block}}{9}{figure.3.3}
 \addvspace {10pt}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Timing globalblock}}{12}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Test bench voor de last}}{13}{figure.4.2}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Test circuit}}}{13}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Controle signalen 1}}}{13}{subfigure.2.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Controle signalen 2}}}{13}{subfigure.2.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Controle signalen 3}}}{13}{subfigure.2.4}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces De verschillende types last}}{14}{figure.4.3}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {De switch load}}}{14}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {De bias load}}}{14}{subfigure.3.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {De diode load}}}{14}{subfigure.3.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {De bulk load}}}{14}{subfigure.3.4}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Bitlijn voltage distributie voor een biasload}}{16}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Lineaire sweep van switchload}}{17}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Lineaire sweep van biasload}}{17}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Lineaire sweep van diodeload}}{18}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Lineaire sweep van bulkload}}{18}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Lineaire sweep van switchload}}{19}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Verschillende oplossingen voor de switchload met variabele lengtes en breetes}}{20}{figure.4.10}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Bitlijn voltage distributie voor de finale load}}{21}{figure.4.11}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{13}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{14}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Door $\beta $-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}}{15}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Simulatieopstelling voor het RC-latch-effect}}{16}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}}{16}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}}{17}{figure.5.6}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{23}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{24}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Door $\beta $-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}}{25}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Simulatieopstelling voor het RC-latch-effect}}{26}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}}{26}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}}{27}{figure.5.6}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Opbouw voor grotere decoders}}{29}{figure.6.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Decoder type 1}}}{29}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Decoder type 2}}}{29}{subfigure.1.2}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces basis decoders}}{30}{figure.6.2}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {2 naar 4 decoder}}}{30}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {3 naar 8 decoder}}}{30}{subfigure.2.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces vergelijking van decoder types}}{32}{figure.6.3}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {oppervlakte}}}{32}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {energie en delay}}}{32}{subfigure.3.2}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Timing globalblock}}{33}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Timing globalblock}}{33}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Timing globalblock}}{34}{figure.6.6}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Timing problemen bij de bitlijn}}{36}{figure.7.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{36}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{36}{subfigure.1.2}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Globalblock logica}}{37}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Timing globalblock}}{37}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Controle logica memory array}}{38}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Timing controle logica memory array}}{38}{figure.7.5}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Delay van woordlijn decoders + buffers ifv bitlijn decoders}}{39}{figure.7.6}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Controle logica memory array}}{39}{figure.7.7}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Timing controle logica memory array}}{40}{figure.7.8}
+\contentsline {figure}{\numberline {7.9}{\ignorespaces logica rond SA}}{40}{figure.7.9}
+\contentsline {figure}{\numberline {7.10}{\ignorespaces Timing logica rond SA}}{41}{figure.7.10}
+\contentsline {figure}{\numberline {7.11}{\ignorespaces Timing controle logica memory array}}{42}{figure.7.11}
+\contentsline {figure}{\numberline {7.12}{\ignorespaces Timing controle logica memory array}}{43}{figure.7.12}
+\contentsline {figure}{\numberline {7.13}{\ignorespaces Timing controle logica memory array}}{44}{figure.7.13}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Timing problemen bij de bitlijn}}{22}{figure.7.1}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{22}{subfigure.1.1}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{22}{subfigure.1.2}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Globalblock logica}}{23}{figure.7.2}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Timing globalblock}}{23}{figure.7.3}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Controle logica memory array}}{24}{figure.7.4}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Timing controle logica memory array}}{24}{figure.7.5}
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Delay van woordlijn decoders + buffers ifv bitlijn decoders}}{25}{figure.7.6}
-\contentsline {figure}{\numberline {7.7}{\ignorespaces Controle logica memory array}}{25}{figure.7.7}
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Timing controle logica memory array}}{26}{figure.7.8}
-\addvspace {10pt}
-\addvspace {10pt}
-\addvspace {10pt}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Timing globalblock}}{50}{figure.A.1}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Timing globalblock}}{50}{figure.A.2}
 \select@language {dutch}
 \select@language {dutch}
 \select@language {dutch}

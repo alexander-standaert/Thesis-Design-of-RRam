@@ -7,16 +7,16 @@ In dit hoofdstuk worden deze componenten van wat dichterbij onderzocht.
 \section{Decoders}
 Een decoder is een logische blok dat een uitgang selecteert op basis van een geencodeerde bus van ingangen. Aangezien het aantal globalblocks, woordlijnen en bitlijnen nog niet vastgelegd werd, werd er een gamma van decoders ontworpen gaande van een 2 naar 4 decoder tot en met een 9 naar 512 decoder. Voor het ontwerp van de grotere decoders, werd er gebruik gemaakt van de kleinere decoders als bouw blokken. Dit kan gedaan worden op 2 manieren; volgens een tree patroon (\ref{fig:decoder1}) of volgens een grid patroon (\ref{fig:decoder2}). In de volgende secties word het ontwerp van beide manieren toegelicht, en vergeleken.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
-\subfloat[Decoder type 1]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
-\subfloat[Decoder type 2]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
+\subfloat[Decoder type 1]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
+\subfloat[Decoder type 2]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
 \caption{Opbouw voor grotere decoders}\label{fig:basisdecoders}
 \end{figure}
 
 \subsection{De tree decoder}
 De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiered naar de uitgangen. De basis blokken van deze decoder zijn een 2 naar 4 decoder (figuur \ref{fig:decoder2to4}) en een 3 naar 8 decoder (figuur \ref{fig:decoder3to8}). In elke laag in deze structuur komen een aantal ingangen binnen en deze gaan naar de ingang van evenveel decoders als er uitgang zijn in de vorige laag. Elke uitgange van de vorige laag stuurt de enble van een van de decoders van de huidige laag aan. Dit word geillustreed in de vorm van een 5 naar 32 decoder in figuur \ref{fig:decoder1}. 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfloat[2 naar 4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
 \subfloat[3 naar 8 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-3to8.png} \label{fig:decoder3to8}}
@@ -55,7 +55,7 @@ Na een snelle mismatch analyse bleek dat de grid decoder minder variatie toon in
 Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, delay, glitches, mismatch en delay verschil, Komt de grid decoder er als het beste uit en deze zal dan ook gebruikt worden in het finale ontwerp.
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfloat[oppervlakte]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-a.png} \label{fig:decoder_a}}
 \subfloat[energie en delay]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-ed.png} \label{fig:decoder_ed}}
@@ -63,14 +63,14 @@ Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, dela
 \end{figure}
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-egrid.png}
   \caption{Timing globalblock}
   \label{fig:decoder_egrid}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-glitch.png}
   \caption{Timing globalblock}
@@ -101,7 +101,7 @@ Decoder buffer & 1 Nor & 4 - 64
 \caption{qsdqsdq}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
   \caption{Timing globalblock}

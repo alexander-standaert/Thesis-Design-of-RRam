@@ -11,7 +11,7 @@ Het ontwerp van dit geheugen gaat tot het niveau van het globalblock \ref{global
 Timings problemen rond het (de)selecteren van de cell komen door het een verschill in timing voor het (de)selecteren van de load en cell. Indien de load geselecteerd wordt voor de cell zal de bitline vroegtijdig beginnen opladen naar de voedingspanning. Wanneer de cell dan geselecteert is zal de bitline naar een betekenis volle spanning getrokken worden. Afhankelijk van het tijds verschill tussen deze twee evenementen, zal de bitlijn terug omlaag getrokken worden, wat resulteert in een energie verspilling. Dit wordt geillustreerd in figuur \ref{fig:critisch_timing1}. Indien de cell gedeselecteert wordt voordat de load gedeselecteerd is, Zal de bitline ook opladen naar de voedingspanning. Dit heeft als gevolg dat het ontladen van de bitlijn langer zal duren en de overbodige oplading resulteert ook in een energie verspilling. Door de keuze van logica (zie figure TODO) zal afhankelijk van het tijds verschill, de mux te vroeg worden afgeschakelt. Waardoor de knoop achter de mux niet volledig ontladen zal zijn. Dit heeft geen nadelige gevolgen door dat de capaciteit op dit knooppunt heel klein is en er bijgevolge een verwaarloosbare ladings injectie is in de volgende lees cyclus. Al dit word geillustreert in figure \ref{fig:critisch_timing2}.  
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfloat[]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-timing-crit1.png} \label{fig:critisch_timing1}}
 \subfloat[]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-timing-crit2.png} \label{fig:critisch_timing2}}
@@ -79,7 +79,7 @@ De timings voorwaarden voor het selecteren en deselecteren van de referentie cel
 \end{figure}
 
 \subsection{Critische timing voor het uitlezen van de cell}
-Eens de cell geselecteerd is wordt de bitlijn opgeladen. De volgende stap is dit signaal voeden aan de sense amplifier. Dit signaal wordt eerst door een eerst mux geleid om uit de localblock te geraken. Vervolgens word het signaal door een tweede mux geleidt die als sample en hold dient voor de sense amplifier. Figuren \ref{fig:sa_timing1} en \ref{fig:sa_timing2} illustreren het circuit en timing rond de sense amplifier. Eens de bitlijn is aangesloten wordt de eerste mux automatisch aangesloten zoals uitgelegd in de vorige paragraven. T19 stelt het tijdsstip voor waar de tweede mux aangesloten moet worden. Deze timing is niet crutiaal, de mux mag zowel aangesloten worden voor als na het aansluiten van de bitlijn mux. Het tijdstip van afsluiten van deze mux (T22) is daarentegen wel belangrijk. Dit moet namelijk gebeuren voor de bitlijn mux afgesloten is (T21) anders zullen er 2 charge injections voorkomen ipv een. Om een zo snel mogelijke latching van de sense amplifiers te hebben, is het tijd stip waar de sense amplifier (T20) aangesloten word belangrijk. Wanneer de sense amplifier juist word aangesloten treed er een latching effect plaats waar de sense amplifier zich gedraagd als of er geen last aan hangt dit effect werd beschreven in sectie \ref{TODO}. Eens dit voorbij is zal de sense amplifier latchen aan de snelheid van de RC constante van de bitlijn. Om een snelle latching te hebben moet de tweede mux afgesloten worden voor dit latching effect voorbij is.
+Eens de cell geselecteerd is wordt de bitlijn opgeladen. De volgende stap is dit signaal voeden aan de sense amplifier. Dit signaal wordt eerst door een eerst mux geleid om uit de localblock te geraken. Vervolgens word het signaal door een tweede mux geleidt die als sample en hold dient voor de sense amplifier. Figuren \ref{fig:sa_timing1} en \ref{fig:sa_timing2} illustreren het circuit en timing rond de sense amplifier. Eens de bitlijn is aangesloten wordt de eerste mux automatisch aangesloten zoals uitgelegd in de vorige paragraven. T19 stelt het tijdsstip voor waar de tweede mux aangesloten moet worden. Deze timing is niet crutiaal, de mux mag zowel aangesloten worden voor als na het aansluiten van de bitlijn mux. Het tijdstip van afsluiten van deze mux (T22) is daarentegen wel belangrijk. Dit moet namelijk gebeuren voor de bitlijn mux afgesloten is (T21) anders zullen er 2 charge injections voorkomen ipv een. Om een zo snel mogelijke latching van de sense amplifiers te hebben, is het tijd stip waar de sense amplifier (T20) aangesloten word belangrijk. Wanneer de sense amplifier juist word aangesloten treed er een latching effect plaats waar de sense amplifier zich gedraagd als of er geen last aan hangt dit effect werd beschreven in sectie \ref{RC-latch-effect}. Eens dit voorbij is zal de sense amplifier latchen aan de snelheid van de RC constante van de bitlijn. Om een snelle latching te hebben moet de tweede mux afgesloten worden voor dit latching effect voorbij is.
 Tenslotte kan de sense amplifier afgesloten worden eens het latchen voorbij is.
 
 \begin{figure}[!ht]
@@ -116,14 +116,17 @@ De leessnelheid is afhankelijk van de verschillende controle signalen in de lees
 Er werden 20 mogelijke geheugenconfiguraties geselecteert als kandidaat voor het finale ontwerp, hun positie in de evaluatie ruimte wordt getoont in figuur \ref{fig:final20all1}. Hierop staat het energie verbruik op de x-as, de delay op de y-as en het oppervlakte gebruik wordt geindiceert door de grote van de punten. Het energie verbruik en delay wordt voornamelijk bepaalt door het aantal woordlijnen en bitlijnen. De delay wordt voornamelijk bepaalt door het opladen van de bitlijnen, wat dan ook de voornamste vorm van energie verbruik is. De snelheid van de bitlijnen wordt dan weer bepaalt door het aantal woordlijnen wat gezien kan worden in figuur \ref{fig:final20all2}. Het aantal bitlijnen beinvloed dan weer meer het energie verbruik. Dit extra energie verbruik gaat teneerste naar de woorlijn buffers, tentweede naar de bitlijn decoders en tenslotte naar de bitlijn zelf. Deze laatste is door dat de bitlijn bij het deselecteren van de cell langer aanblijft dan bij een kleiner aantal bitlijnen. Dit is ook de reden waarom een groter aantal bitlijnen een langere delay heeft. Bij alle geheugen configuraties gaat het vermogen verbruik eerst naar de geheugecell, vervolgens naar de logica, vervolgens naar de buffers en ten slotte naar de sense amplifiers. Het oppervlakte wordt bepaalt door het aantal globalblocks en de grote van de decoders. Een groot aantal woordlijnen in combinatie met een klein aantal bitlijnen geeft de noodzaak aan een groot aantal globalblocks en dit geeft een groot oppervlak als gevolg.\\
 Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat uit een klein gelijk aantal woordlijn en bitlijnen wat een optimum zal geven voor energie verbruik en delay, en een sub optimum zal geven voor oppervlakte.
 
-\begin{figure}[h!]
+\afterpage{
+\begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.5, angle = 90]{../fig/hfdstk-timing-all-sol1.png}
+  \includegraphics[scale=0.45, angle = 90]{../fig/hfdstk-timing-all-sol1.png}
   \caption{Timing controle logica memory array}
   \label{fig:final20all1}
 \end{figure} 
+\clearpage
+}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-all-sol2.png}
   \caption{Timing controle logica memory array}
