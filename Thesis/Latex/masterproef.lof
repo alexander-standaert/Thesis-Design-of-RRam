@@ -40,6 +40,7 @@
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Verschillende oplossingen voor de switchload met variabele lengtes en breetes}}{20}{figure.4.10}
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Bitlijn voltage distributie voor de finale load}}{21}{figure.4.11}
 \addvspace {10pt}
+<<<<<<< HEAD
 \contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{23}{figure.5.1}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{24}{figure.5.2}
 \contentsline {figure}{\numberline {5.3}{\ignorespaces Door $\beta $-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}}{25}{figure.5.3}
@@ -75,6 +76,47 @@
 \contentsline {figure}{\numberline {7.11}{\ignorespaces Timing controle logica memory array}}{42}{figure.7.11}
 \contentsline {figure}{\numberline {7.12}{\ignorespaces Timing controle logica memory array}}{43}{figure.7.12}
 \contentsline {figure}{\numberline {7.13}{\ignorespaces Timing controle logica memory array}}{44}{figure.7.13}
+=======
+\contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{13}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{14}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Door $\beta $-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}}{16}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Simulatieopstelling voor het RC-latch-effect}}{16}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}}{17}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}}{17}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Circuit voor analyse voorwaarden RC-latch-effect}}{18}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces De pareto-optimale sense amplifiers}}{20}{figure.5.8}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Opbouw voor grotere decoders}}{21}{figure.6.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Decoder type 1}}}{21}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Decoder type 2}}}{21}{subfigure.1.2}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces basis decoders}}{22}{figure.6.2}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {2 naar 4 decoder}}}{22}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {3 naar 8 decoder}}}{22}{subfigure.2.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces vergelijking van decoder types}}{24}{figure.6.3}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {oppervlakte}}}{24}{subfigure.3.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {energie en delay}}}{24}{subfigure.3.2}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Timing globalblock}}{25}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Timing globalblock}}{25}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Timing globalblock}}{26}{figure.6.6}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}}{27}{figure.6.7}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}}{28}{figure.6.8}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Timing problemen bij de bitlijn}}{30}{figure.7.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{30}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{30}{subfigure.1.2}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Globalblock logica}}{31}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Timing globalblock}}{31}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Controle logica memory array}}{32}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Timing controle logica memory array}}{32}{figure.7.5}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Delay van woordlijn decoders + buffers ifv bitlijn decoders}}{33}{figure.7.6}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Controle logica memory array}}{33}{figure.7.7}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Timing controle logica memory array}}{34}{figure.7.8}
+\contentsline {figure}{\numberline {7.9}{\ignorespaces logica rond SA}}{34}{figure.7.9}
+\contentsline {figure}{\numberline {7.10}{\ignorespaces Timing logica rond SA}}{35}{figure.7.10}
+\contentsline {figure}{\numberline {7.11}{\ignorespaces Timing controle logica memory array}}{36}{figure.7.11}
+\contentsline {figure}{\numberline {7.12}{\ignorespaces Timing controle logica memory array}}{38}{figure.7.12}
+\contentsline {figure}{\numberline {7.13}{\ignorespaces Timing controle logica memory array}}{39}{figure.7.13}
+>>>>>>> passgate geschreven, sensitivityanalysis met ovelap gedaan
 \addvspace {10pt}
 \addvspace {10pt}
 \contentsline {figure}{\numberline {A.1}{\ignorespaces Timing globalblock}}{50}{figure.A.1}

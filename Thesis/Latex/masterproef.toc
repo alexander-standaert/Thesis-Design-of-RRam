@@ -30,6 +30,7 @@
 \contentsline {subsection}{\numberline {3.1.4}Global Block}{8}{subsection.3.1.4}
 \contentsline {section}{\numberline {3.2}Besluit}{9}{section.3.2}
 \contentsline {chapter}{\chapternumberline {4}Lastimpedantie-analyse}{11}{chapter.4}
+<<<<<<< HEAD
 \contentsline {section}{\numberline {4.1}algemene last eigenschappen en specificaties}{11}{section.4.1}
 \contentsline {section}{\numberline {4.2}evalueren van de last}{12}{section.4.2}
 \contentsline {section}{\numberline {4.3}vergelijking van verschillende types last}{14}{section.4.3}
@@ -71,6 +72,55 @@
 \contentsline {chapter}{\chapternumberline {8}Besluit}{45}{chapter.8}
 \contentsline {appendix}{\chapternumberline {A}Charge injectie met ideale spice bronnen.}{49}{appendix.A}
 \contentsline {chapter}{Bibliografie}{51}{section*.19}
+=======
+\contentsline {section}{\numberline {4.1}Impedantiekandidaten}{11}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Schakelaarsbelasting}{11}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Extra MOS-transistor}{11}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Diode-geconnecteerde MOS-transistor}{11}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Bulk-geconnecteerde MOS-transistor}{11}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Nominaal gedrag}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3}Gedrag onder variabiliteit}{11}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Monte Carlo simulaties}{11}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Besluit}{11}{section.4.4}
+\contentsline {chapter}{\chapternumberline {5}Sense Amplifier analyse}{13}{chapter.5}
+\contentsline {section}{\numberline {5.1}Types SA}{13}{section.5.1}
+\contentsline {section}{\numberline {5.2}Offsetspanning}{13}{section.5.2}
+\contentsline {section}{\numberline {5.3}Sensitiviteitsanalyse}{14}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Sensitiviteitsanalyse op een minimale SA}{14}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}RC-latch-effect}{16}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Sensitiviteitsanalyse voor minimale SA - vervolg}{18}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Sensitiviteitsanalyse voor gebruikte SA}{18}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}Paretosimulatie}{18}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Opstelling}{19}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Resultaten}{19}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}Besluit}{19}{section.5.5}
+\contentsline {chapter}{\chapternumberline {6}Omringende logica}{21}{chapter.6}
+\contentsline {section}{\numberline {6.1}Decoders}{21}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}De tree decoder}{22}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}De grid decoder}{22}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Vergelijkende studie}{23}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}Buffers}{24}{section.6.2}
+\contentsline {section}{\numberline {6.3}BL- en WL-drivers}{26}{section.6.3}
+\contentsline {section}{\numberline {6.4}Passgates}{26}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}nMOS passgate}{27}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}pMOS passgate}{27}{subsection.6.4.2}
+\contentsline {section}{\numberline {6.5}Besluit}{28}{section.6.5}
+\contentsline {chapter}{\chapternumberline {7}Timing en optimalizatie}{29}{chapter.7}
+\contentsline {section}{\numberline {7.1}Timing}{29}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Critische timing voor het (de)selecteren cell}{29}{subsection.7.1.1}
+\contentsline {paragraph}{}{29}{section*.9}
+\contentsline {paragraph}{}{30}{section*.10}
+\contentsline {paragraph}{}{30}{section*.11}
+\contentsline {paragraph}{}{32}{section*.12}
+\contentsline {subsection}{\numberline {7.1.2}Critische timing voor het uitlezen van de cell}{34}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Analyse verschillende geheugenconfiguraties}{35}{section.7.2}
+\contentsline {paragraph}{}{35}{section*.13}
+\contentsline {subsection}{\numberline {7.2.1}Evaluatie criteria voor de geheugenconfiguraties}{35}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Vergelijking van de geheugenconfiguraties}{36}{subsection.7.2.2}
+\contentsline {chapter}{\chapternumberline {8}Besluit}{41}{chapter.8}
+\contentsline {appendix}{\chapternumberline {A}Charge injectie aan de input}{45}{appendix.A}
+\contentsline {chapter}{Bibliografie}{47}{section*.15}
+>>>>>>> passgate geschreven, sensitivityanalysis met ovelap gedaan
 \select@language {dutch}
 \select@language {dutch}
 \select@language {dutch}

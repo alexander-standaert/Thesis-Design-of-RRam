@@ -1,4 +1,4 @@
-load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata.mat')
+load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata2.mat') %
 figure
 hold all
 cmp=[[1:-1/10:1/10]',zeros(10,1),[1/10:1/10:1]'];
@@ -21,10 +21,10 @@ xlabel('number of \sigma s')
 ylabel('Offset voltage [V]')
 title('\beta-variations')
 
-% sigma_n_vt=((2.82/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9);
-% sigma_p_vt=((2.5/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9);
-% sigma_n_beta=((2/100))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9);
-% sigma_p_beta=((1.2/100))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9);
+sigma_n_vt=1000*((2.82/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
+sigma_p_vt=1000*((2.5/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
+sigma_n_beta=100*((2/100))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
+sigma_p_beta=100*((1.2/100))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
 
 Sens=zeros(20,1);
 for i=1:20

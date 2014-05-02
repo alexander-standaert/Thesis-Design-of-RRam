@@ -111,7 +111,49 @@ Decoder buffer & 1 Nor & 4 - 64
 \section{BL- en WL-drivers}
 
 \section{Passgates}
+Passgates zijn schakelaars die de spanning van een laagimpedant knooppunt doorlaten naar een hoogimpedant knooppunt. Idealiter heeft de passgate geen weerstand wanneer hij aanstaat. In de praktijk zal er altijd een beetje weerstand zijn, dit heeft als gevolg dat er een kleine RC-delay vooraleer het hoogimpedante punt is geladen/ontladen tot de waarde van het laagimpedante punt.
+Een passgate kan gerealiseerd worden met een nMOS transistor, een pMOS of een combinatie van beiden.
+In wat volgt worden de verschillende scenario's besproken die kunnen optreden wanneer de schakelaar aangezet wordt, de passgate zal immers niet altijd stroom kunnen leveren om het hoogimpedante knooppunt te (ont)laden.
 
+\subsection{nMOS passgate}
+De opstelling is het circuit van figuur \ref{fig:passgate1}. Afhankelijk van de (initiële) waardes van Vx en Vs, kunnen volgende situaties optreden.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate1.png}
+  \caption{nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \label{fig:passgate1}
+\end{figure}
+
+\begin{itemize}
+\item Vx > Vs en Vdd - Vs > Vtn: de transistor gaat Vx ontladen tot Vs.
+\item Vx > Vs en Vdd - Vs < Vtn: de transistor staat af, er gebeurt niets.
+\item Vx < Vs en Vs < Vdd - Vtn: de transistor levert stroom tot Vx is opgeladen tot Vs.
+\item Vx < Vs, Vs > Vdd - Vtn en Vx < Vdd - Vtn: de transistor gaat Vx opladen tot Vdd - Vtn.
+\item Vx < Vs, Vs > Vdd - Vtn en Vx > Vdd - Vtn: de transistor staat af, er gebeurt niets.
+\end{itemize}
+
+\subsection{pMOS passgate}
+De opstelling is het circuit van figuur \ref{fig:passgate2}. Er kunnen wederom verschillende situaties optreden.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate2.png}
+  \caption{pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \label{fig:passgate2}
+\end{figure}
+
+\begin{itemize}
+\item Vs > Vx en Vs > |Vtp|: de transistor gaat Vx opladen tot Vs.
+\item Vs > Vx en Vs < |Vtp|: de transistor staat af, er gebeurt niets.
+\item Vs < Vx en Vs > |Vtp|: de transistor levert stroom tot Vx is ontladen tot Vs.
+\item Vs < Vx, Vs < |Vtn| en Vx > |Vtp|: de transistor gaat Vx ontladen tot |Vtp|.
+\item Vs < Vx, Vs < |Vtn| en Vx < |Vtn|: de transistor staat af, er gebeurt niets.
+\end{itemize}
+
+Er zijn dus spanningszones waarvoor de passgate niet functioneert, het is belangrijk te weten wat deze zones zijn, zodat het circuit ontworpen wordt om deze zones te vermijden. 
+Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren.
+Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor performantieredenen is geopteerd voor de LVT transistoren.
 
 \section{Besluit}
 

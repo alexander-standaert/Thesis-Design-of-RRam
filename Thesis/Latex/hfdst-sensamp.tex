@@ -34,8 +34,41 @@ Voor een dergelijke variabele geldt dan: $\sigma_{V_{offset}}=\sqrt{\sum\limits_
 
 Er moet wel geverifieerd worden of de stelling dat er een lineaire afhankelijkheid is tussen $V_{offset}$ en de variatieparameters gegrond is.
 Dit kan gedaan worden aan de hand van een analyse waarbij elke variatieparameter afzonderlijk gesweept wordt. 
+
+\subsection{Sensitiviteitsanalyse op een minimale SA}
 In figuur \ref{fig:min-sensanalysis} wordt het resultaat getoond voor een dergelijke analyse bij een SA met minimale afmetingen, in tabel \ref{tab:min-sensanalysis} worden de resultaten en de resulterende standaardvariatie van de SA getoond.
 Er moet opgemerkt worden dat er bij deze simulatie slechts gesweept werd voor de variatieparameters van -4$\sigma$ tot 4 $\sigma$. Dit is om de reden dat voor de minimale transistoren de standaardvariatie het grootst is. In de Spectre-simulaties zouden transistoren voor te grote negatieve $\beta$-mismatch stroom leveren in de omgekeerde richting. Deze situatie zal fysisch nooit optreden.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
+\hline Mupbar & Vt & 22.733 & 100 & 45 & 37.2678mV \\ 
+\hline Mup & Vt & -22.250 & 100 & 45 & 37.2678mV \\ 
+\hline Mupbar & $\beta$ & 13.583 & 100 & 45 & 17.8885\% \\ 
+\hline Mpassn & $\beta$ & 13.467 & 100 & 45 & 29.8142\% \\ 
+\hline Mpassbarn & $\beta$ & -13.117 & 100 & 45 & 29.8142\% \\ 
+\hline Mup & $\beta$ & -13.033 & 100 & 45 & 17.8885\% \\ 
+\hline Mdownbar & $\beta$ & -9.383 & 100 & 45 & 29.8142\% \\ 
+\hline Mdown & Vt & -9.267 & 100 & 45 & 42.0381mV \\ 
+\hline Mdownbar & Vt & 9.233 & 100 & 45 & 42.0381mV \\ 
+\hline Mdown & $\beta$ & 8.217 & 100 & 45 & 29.8142\% \\ 
+\hline Mpassp & $\beta$ & -4.50 & 100 & 45 & 17.8885\% \\ 
+\hline Mpassbarp & $\beta$ & 4.383 & 100 & 45 & 17.8885\% \\ 
+\hline Mpassbarp & Vt & 0.70 & 100 & 45 & 37.2678mV \\ 
+\hline Mpassp & Vt & -0.70 & 100 & 45 & 37.2678mV \\ 
+\hline Mbottom & $\beta$ & 0.083 & 100 & 45 & 29.8142\% \\ 
+\hline Mbottom & Vt & -0.033 & 100 & 45 & 42.0381mV \\ 
+\hline Mpassbarn & Vt & 0 & 100 & 45 & 42.0381mV \\
+\hline Mpassn & Vt & 0 & 100 & 45 & 42.0381mV \\
+\hline Mtop & Vt & 0 & 100 & 45 & 37.2678mV \\
+\hline Mtop & $\beta$ & 0 & 100 & 45 & 17.8885\% \\
+\hline 
+\hline & $\sigma_{Voffset}$: & 45.6813mV & & & \\
+\hline
+\end{tabular} 
+\caption{Sensitiviteitsanalyse van de minimale SA}
+\label{tab:min-sensanalysis}
+\end{table}
 
 Opmerkelijk bij deze analyse is dat er een significante bijdrage is van de pass-gates door $\beta$-mismatch. Een nadere observatie leert dat deze bijdrage optreedt door ladingsinjectie van de pass-gates die niet meer gematched is (zie figuur \ref{fig:chargeinjectionmismatch}).
 Hierbij moet wel worden opgemerkt dat voor deze simulatie er geen overlap is tussen het controlesignaal op de passgate aan te zetten en het signaal om de SA te activeren.
@@ -50,32 +83,71 @@ Men kan argumenteren dat er een korte overlap zou kunnen toegelaten zijn, waarna
 \end{figure}
 
 \subsection{RC-latch-effect}
+\label{RC-latch-effect}
 De situatie waarbij er volledige overlap is tussen de controle signalen kan vereenvoudigd worden opgesteld met de situatie van figuur \ref{fig:RC-latch}. De pass-gate die aanstaat wordt voorgesteld als een weerstand, de pass-gate in het local block en diens parasitaire capaciteit wordt verwaarloosd. CL bedraagt voor deze simulatie 46 fF, het equivalent voor een BL waaraan 256 cellen hangen. Cint bedraagt voor een SA met minimale transistorafmetingen 161 aF. Wanneer het dynamisch latch-gedrag bekeken wordt voor verschillende waardes van R, treedt er een merkwaardig effect op (zie figuur \ref{fig:RC-latch-sim}): voor voldoende grote waardes van R lijkt het alsof de grote capaciteit ontkoppeld is van de latch tot op een zeker tijdstip, waarna een veel tragere settling optreedt.
-De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortsluiting gedraagt (zie figuur \ref{fig:RC-latch-explain}), een plotse stroom vloeit door de weerstand en hierdoor onstaat er een spanningsval over de weerstand. Hierna gaat er op veel lagere frequenties een spanning beginnen vormen over de capaciteit waardoor de ingangs-uitgansknopen volledig kunnen laden/ontladen tot VDD en VSS.
-
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch.png}
   \caption{Simulatieopstelling voor het RC-latch-effect}
   \label{fig:RC-latch}
 \end{figure}
-
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch-sim.png}
   \caption{Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}
   \label{fig:RC-latch-sim}
 \end{figure}
-
+De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortsluiting gedraagt (zie figuur \ref{fig:RC-latch-explain}), een plotse stroom vloeit door de weerstand en hierdoor onstaat er een spanningsval over de weerstand. Hierna gaat er op veel lagere frequenties een spanning beginnen op te bouwen over de capaciteit waardoor de ingangs-uitgansknopen volledig kunnen laden/ontladen tot VDD en VSS.
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-RC-latch-explain.png}
   \caption{Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}
   \label{fig:RC-latch-explain}
 \end{figure}
+Gevolgen van wanneer dit effect optreedt is dus dat het nuttige signaal zich snel - alsof er helemaal geen last aanhangt - en lineair opbouwt en dat er geen AC-signaal is over de condensator. Een analyse van de respons van een RC-circuit op een lineair stijgende spanningsbron geeft meer duidelijkheid voor de voorwaarden waarop het RC-latch-effect optreedt (zie figuur \ref{fig:RC-latch-maplecircuit}). De respons van de spanning over de capaciteit is $Vcap(t) =  at - aRC(1-e^{-{\frac {t}{CR}}})$. Uit deze uitdrukking blijkt dat het RC-latch-effect optreedt wanneer de latch zonder latch snel is (a<<1) en/of wanneer het RC-product hoog is (RC>>1).
+Wanneer het effect zich voordoet zijn latching en RC-respons onafhankelijke processen. Wanneer de voorwaarden niet meer zo uitgesproken zijn, gaan deze processen met elkaar interfereren en is het moeilijk dit gecombineerde proces wiskundig te beschrijven.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch-maplecircuit.png}
+  \caption{Circuit voor analyse voorwaarden RC-latch-effect}
+  \label{fig:RC-latch-maplecircuit}
+\end{figure}
+
+Conclusie van het RC-latch effect is dat de timing helemaal niet zo kritisch is: in theorie hoeft de overlap slechts even lang te duren als de delay van de SA wanneer er geen last op is aangesloten, maar het is niet erg als de overlap wat langer duurt.
+De pass-gates mogen ook minimaal zijn, om hun aanweerstand te vergroten zodat het effect kan optreden.
+In geval verder zou gewerkt worden met een SA zonder overlap met pass-gate-enable en SA-enable, zouden de pass-gates moeten geschaald worden om de mismatch te minimaliseren. Dit zou wel betekenen dat er per schakeling
+
+
+\subsection{Sensitiviteitsanalyse voor minimale SA - vervolg}
+
+In tabel \ref{tab:min-sensanalysis-overlap} worden de resultaten van een nieuwe sensitiveitsanalyse getoond voor een minimale SA, ditmaal waarbij er dus overlap is tussen pass-gate-enable en SA-enable. In deze situatie dragen de pass-gates amper bij tot de offsetspanning. 
+Vooral de transistors van de differentiele paren zullen opgeschaald moeten worden om de offsetspanning in te perken, de andere transistoren schalen zal invloed hebben op snelheid en energie.
+
+\subsection{Sensitiviteitsanalyse voor gebruikte SA}
+
+In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensitiviteitsanalyse getoond voor de SA die gebruikt wordt in het finale geheugenontwerp. Deze is gekozen aan de hand van de resultaten van de paretosimulatie in de volgende sectie.
+
 
 \section{Paretosimulatie}
+In het beginstadium van het ontwerp is nog niet duidelijk wat de impedantie aan de BL wordt. Het is deze impedantie die bepaalt wat het spanningsverschil is tussen het datasignaal en het referentiesignaal aan de sense amplifier. Bovendien kan het zijn dat er midden in het ontwerp besloten wordt om een andere impedantie te kiezen om alsnog te optimaliseren naar een andere variabele.
+Natuurlijk is het mogelijk om één SA te gebruiken die voor elke impedantie een correcte en snelle werking zou garanderen. Dit zou echter een verspilling zijn van energie. In deze sectie wordt een pareto-oppervlak opgesteld waarbij er voor elk spanningsverschil de snelste en energiezuinigste SA-ontwerpen worden gekozen.
 
+\subsection{Opstelling}
+Uit een verzameling van allerhande SA [dit zijn sense amplifiers waarvan de transistoren verschillend geschaald zijn - differentiele paren hebben zelfde afmetingen] worden enkel de pareto-optimale SA uitgekozen. De pareto-criteria zijn $\Delta V$, snelheid en dynamische energie. 
 
+Voor deze opstelling worden de pass-gates weggelaten van de SA [dit is geoorloofd zoals bleek uit de sensitiviteitsanalyse], de last aan de ingangs-uitgangsknopen is een simpele CMOS inverter. De knopen zijn voorgeladen op 2 spanningen: 0,4V en 0,4V - $\Delta V$. Na 0,5ns wordt de SA aangezet en wordt de tijd gemeten tot wanneer de ingangs-uitgangsknopen geladen of ontladen zijn tot 99,9\% van hun finale waarde (VDD of VSS). Dit is wellicht een te strenge methode om de snelheid van de SA te bepalen aangezien de inverters al eerder zullen schakelen. Indien de snelheid van de 2 knopen verschilt, zal de traagste tijd genomen worden. De dynamische energie wordt opgemeten van het moment dat de SA wordt aangeschakeld tot dit tijdstip. Ook het statisch vermogen van de SA wordt opgemeten wanneer de ingangs-uitgangsknopen VDD en VSS bereikten. Uiteraard wordt ook geverifieerd ofdat de SA wel correct heeft gelatcht.
+
+Per sense amplifier worden er 250 Monte Carlo simulaties gedaan met deze opstelling. Indien de SA niet elke keer correct functioneerde, wordt de SA verworpen. Latchte de SA wel elke keer correct, wordt het gemiddelde van de delay, dynamische energie  en statisch vermogen opgeslagen. 
+
+\subsection{Resultaten}
+Op figuur \ref{fig:pareto} zijn de pareto-optimale resultaten getoond van de groep sense amplifiers. Het doel van deze simulatie is veeleer om de transistorafmetingen te situeren in functie van deze optimalizatievariabelen. Voor deze simulatieopstelling kan men enkel zeggen dat de kans dat de offsetspanning lager is dan $\Delta V$ minstens $1 -\frac{1}{250}$ is. Dit is een veel te kleine garantie voor een sense amplifier die misschien wel miljoenen keren zal gefabriceerd worden. Voor meer informatie over de verdeling van de offsetspanning te krijgen moet de standaardafwijking berekend worden met de sensitiviteitsanalyse.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-pareto.png}
+  \caption{De pareto-optimale sense amplifiers}
+  \label{fig:pareto}
+\end{figure}
 
 \section{Besluit}
+In dit hoofdstuk werd dieper ingegaan op de sense amplifiers, die het kleine spanningsverschil tussen datasignaal en referentiesignaal correct moet versterken tot VDD en VSS. De belangrijkste eigenschap van de SA is de offsetspanning door transistorvariaties. Deze kan voldoende klein gemaakt worden door de transistoren voldoende op te schalen. De offsetspanning kan statistisch beschreven worden met behulp van een sensitiviteitsanalyse. Tenslotte worden er ook uit een grote groep SA de pareto-optimale gekozen. De resultaten geven een idee van de grootteordes van transistorafmetingen voor een bepaalde offetspanning, snelheid en dynamische energie.
