@@ -97,7 +97,7 @@ De bulkload werd voor gestelt in de paper van Ren et al. \cite{bulkload} als een
 \subsection{Het toevoegen van variabiliteit}\label{sec:varload}
 Na een selectie te hebben gemaakt van de oplossingen uit de vorige sectie, worden met deze oplossingen nieuwe simulatie gedaan waarbij er variabiliteit is toegevoegt. Deze variabiliteit is toegevoegd op alle transistoren in het test circuit en op de weerstands waarde van de geheugen cellen. Voor de transistoren word er een Pelgrom constante voor vt van $2.5$ gebruikt en voor $\beta$ van $1.2$ gebruikt \cite{ppt:variatie}. Voor de weerstand waarde van de memristors word er een gausische verdeling gebruikt met nominale waardes 7.5k$\Omega$ en 32.5k$\Omega$ en met $\sigma = 0.833k\Omega$. Er worden telkens 500 monte carlo simulaties gedaan per oplossing. Hierna worden de bitlijn voltages van cellen met een HRS en LRS gefit op een gausische distributie. De oplossing met het grootste bitlijn voltage verschil tussen de extrema van HRS en LRS is een biasload met een switch transitor breete van 100nm, een bias transistor breete van 180nm en een bias voltage van 0V. De bitlijn voltage distributie zijn geillustreed op figuur \ref{fig:distbias}. Het voltage verschill tussen de CDF = $0.1\%$ van HRS en CDF = $99.9\%$ van de LRS is 65mV. Dit is niet veel aangezien de distributie van het bitlijn voltage van de referentie cell hier tussen moet passen en er daarna nog marge over moet zijn voor variabiliteit in de senseamplifier. Het aandeel to variabiliteit van beide transistoren in de last is even groot.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-var1.png}
   \caption{Bitlijn voltage distributie voor een biasload}
@@ -106,7 +106,7 @@ Na een selectie te hebben gemaakt van de oplossingen uit de vorige sectie, worde
 
 Figuur \ref{fig:distref} stelt de distributie van het bitlijn voltage van de referentie cellen voor. Hier bij varieert het aantal referentie cellen van 2 tot 30 en er werd een even groot aantal referentie cell in HRS als LRS gehouden. Zoals gezien kan worden dat met een heel aantal cellen nodig heeft om een distributie breete van 39mV te krijgen. Dit Geeft dan een marge van ongeveer 10mV voor de senseamplifier wat helemaal niet veel is. Daarom word de constraint waarbij de transistor lengte minimaal gehouden word opgeheven in de volgende sectie.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-ref.png}
   \caption{Lineaire sweep van switchload}
@@ -119,16 +119,18 @@ Om de variabiliteit onder controle tehouden moeten de transistoren vergroot word
 Figuur \ref{fig:length} geeft de resultaten weer van een sweep van verschillende lengtes en breetes voor een switchload. De resultaten worden voor gestelt in functie van $W/L$ wat een indicatie is voor de weerstand van de transistor. In de bovenste figuur kan men duidelijk een maximun zien voor het verschil in bitlijn voltage zoals in sectie \ref{sec:simplemodel} werd voorspelt. Verder wordt opgemerkt dat er best \'{e}\'{e}n van de oplossingen aan de linkerkant van het maximum gekozen wordt aangezien de spannings val over de cell van de oplossingen aan de rechterkant van het maximum te hoog zijn.
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.80\textwidth]{../fig/hfdst-last-length.png}
+  \includegraphics[width=0.66\textwidth]{../fig/hfdst-last-length.png}
   \caption{Verschillende oplossingen voor de switchload met variabele lengtes en breetes}
   \label{fig:length}
 \end{figure}
 
 Voor de finale last wordt er geopteert voor een transistor met lengte gelijk aan 198nm en breedte gelijk aan 300nm. Op figuur \ref{fig:length} word deze aangeduid met de rode lijn. Op figuur \ref{fig:distswitch} word de bitlijn voltage distributie van deze last getoont. Het minimale verschil in bitlijn voltage is bijna 200mV. De distributie van bitlijn voltage van de referentie is ook aangegeven op deze figuur. Deze bestaat hier uit 4 referentie cellen waarvan 2 in HRS en 2 in LRS. Opvallend is dat deze referentie niet in het centrum zit tussen de bitlijn voltages van de cellen. Dit kan opgelost worden door een niet gelijk aantal referentie cellen in HRS en LRS te hebben. Aangezien de standaard deviatie op de bitlijn voltages heel wat beter is nu de lengte van de transistoren ook word gesized, kan er gerust gekozen worden voor een last met een kleiner nominaal verschil in bitlijn voltages. Dit kan 2 voordelen met zich mee brengen. Het eerste is dat de spannings val over de cell verlaagt kan worden als met voor een oplossing kiest dan meer links zit van het maximum in figuur \ref{fig:length}. Het Tweede is dat men voor een oplossing kan kiezen waarbij de bitlijn voltages lager zijn wat een energie winst kan opleveren. Ondanks deze voordelen werd er toch geopteert voor de oplossing met het grootste bitlijn voltage verschil.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-var2.png}
   \caption{Bitlijn voltage distributie voor de finale load}
   \label{fig:distswitch}
 \end{figure}
+
+\section{Besluit}

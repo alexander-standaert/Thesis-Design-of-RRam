@@ -77,7 +77,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         
         wavetempgroup=[];
         for k=1
-            wavetemp = makewave('samplehold',[1+t*1e9-0.5,param.thold*1e9+0.4,1.5]*1e-9,[0,1,0]);
+            wavetemp = makewave('samplehold',[1+t*1e9-param.thold*1e9,param.thold*1e9,1.5]*1e-9,[0,1,0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
             wavetempgroups(k) = wavetempgroup;
         end
@@ -231,10 +231,10 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             sigyi3 = -1*sig.getYValues;
             energy3(k) = trapz(sigxi3,sigyi3*vdd);          
             
-            sig = sim.getSignal('InOutbar_0');
-            sigx7 = sig.getXValues*10^9;
-            sigy7 = sig.getYValues;
- 
+            sig_t(k,1:length(sigxi3)) = sigxi3;
+            sig_mem(k,1:length(sigxi3)) = sigy2;
+            sig_ref(k,1:length(sigxi3)) = sigy5;
+            sig_sa(k,1:length(sigxi3)) = sigy1;
 
             if param.debugon
                 sig = sim.getSignal('xGB0.xLB1.BL_1');
@@ -245,7 +245,6 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 figure
                 hold all
                 plot(sigx1,sigy1)
-                plot(sigx7,sigy7)
                 plot(sigx2,sigy2)
                 plot(sigx3,sigy3)
                 plot(sigx4,sigy4)
@@ -255,7 +254,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot([(1+(t)*1e9-param.thold*1e9),(1+(t)*1e9+param.thold*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t)*1e9),(1+(t)*1e9)],[-0.1,vdd],'r')
                 plot([(1+(t + param.t_checkout)*1e9),(1+(t + param.t_checkout)*1e9)],[-0.1,vdd],'r')
-                legend('out','outbar','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')
+                legend('out','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')
                 
                 figure 
                 hold all
@@ -315,6 +314,6 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         energy1 = param.energy1;
         energy2 = param.energy2;
         energy3 = param.energy3;
-        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'memout','membl','memhold','refbl','refhold','cellvalue','energy0','energy1','energy2','energy3')
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'sig_t','sig_mem','sig_ref','sig_sa','membl','memhold','refbl','refhold','cellvalue','energy0','energy1','energy2','energy3')
     end
 end
