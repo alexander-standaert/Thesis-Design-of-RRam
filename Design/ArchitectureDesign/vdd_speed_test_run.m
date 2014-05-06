@@ -24,7 +24,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     end
     
     for s = 1:size(param.simulation_space,1)
-%         param.debugon = 1
+        param.debugon = 1
         vdd = param.simulation_space(s,1)
         t = param.simulation_space(s,2)
         t_checkout = param.simulation_space(s,3)
@@ -214,33 +214,34 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             sig = sim.getSignal('Vvdd_0:p');
             sigxi0 = sig.getXValues;
             sigyi0 = -1*sig.getYValues;
-            energy0(k) = trapz(sigxi0,sigyi0*vdd);
+            energy0(k) = trapz(sigxi0,sigyi0*vdd)
                         
             sig = sim.getSignal('Vvdd_1:p');
             sigxi1 = sig.getXValues;
             sigyi1 = -1*sig.getYValues;
-            energy1(k) = trapz(sigxi1,sigyi1*vdd);
+            energy1(k) = trapz(sigxi1,sigyi1*vdd)
             
             sig = sim.getSignal('Vvdd_2:p');
             sigxi2 = sig.getXValues;
             sigyi2 = -1*sig.getYValues;
-            energy2(k) = trapz(sigxi2,sigyi2*vdd);
+            energy2(k) = trapz(sigxi2,sigyi2*vdd)
             
             sig = sim.getSignal('Vvdd_3:p');
             sigxi3 = sig.getXValues;
             sigyi3 = -1*sig.getYValues;
-            energy3(k) = trapz(sigxi3,sigyi3*vdd);          
+            energy3(k) = trapz(sigxi3,sigyi3*vdd)          
             
             sig_t(k,1:length(sigxi3)) = sigxi3;
             sig_mem(k,1:length(sigxi3)) = sigy2;
             sig_ref(k,1:length(sigxi3)) = sigy5;
             sig_sa(k,1:length(sigxi3)) = sigy1;
 
+                        
             if param.debugon
                 sig = sim.getSignal('xGB0.xLB1.BL_1');
                 sigx6 = sig.getXValues*10^9;
                 sigy6 = sig.getYValues;
-                close all    
+%                 close all    
                 
                 figure
                 hold all
@@ -256,7 +257,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot([(1+(t + param.t_checkout)*1e9),(1+(t + param.t_checkout)*1e9)],[-0.1,vdd],'r')
                 legend('out','membl','memhold','refbl_high','refhold','refbl_low','T:enabledecoder','T:enablehold','T:enableSA','T:checkout')
                 
-                figure 
+                figure
                 hold all
                 plot(sigxi0,sigyi0)
                 plot(sigxi1,sigyi1)
@@ -264,8 +265,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigxi3,sigyi3)
                 legend('Ilogic','ISA','Imemarray','IBuffers')
                 
-                plotTiming(sim)
-                 error('ssdfsdfsd')
+%                 plotTiming(sim)
+                  error('ssdfsdfsd')
             end
             
             if strcmp(param.RMEMvalue,'RMEMHigh')
@@ -287,6 +288,13 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             param.energy1 = [param.energy1;energy1];
             param.energy2 = [param.energy2;energy2];
             param.energy3 = [param.energy3;energy3];
+            
+            signals(1,:,:) = sig_t;
+            signals(2,:,:) = sig_mem;
+            signals(3,:,:) = sig_ref;
+            signals(4,:,:) = sig_sa;
+            
+            param.sig1 = signals;
         else
             param.memout = memout;
             param.membl = membl;
@@ -298,6 +306,13 @@ function [] = vdd_speed_test_run(process_id,sim_name)
             param.energy1 = energy1;
             param.energy2 = energy2;
             param.energy3 = energy3;
+            
+            signals(1,:,:) = sig_t;
+            signals(2,:,:) = sig_mem;
+            signals(3,:,:) = sig_ref;
+            signals(4,:,:) = sig_sa;
+            
+            param.sig2 = signals;
         end
         
         system(strjoin({'rm -rf /tmp/',param.rnddirname,'/'},''));
@@ -314,6 +329,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         energy1 = param.energy1;
         energy2 = param.energy2;
         energy3 = param.energy3;
-        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'sig_t','sig_mem','sig_ref','sig_sa','membl','memhold','refbl','refhold','cellvalue','energy0','energy1','energy2','energy3')
+        sig1 = param.sig1;
+        sig2 = param.sig2;
+        save(strjoin({'./ArchitectureDesign/vdd_speed_test/',param.sim_name,'/vddspeedtest_',num2str(vdd),'_',num2str((t + param.t_checkout)*1e9),'.mat'},''),'sig1','sig2','memout','membl','memhold','refbl','refhold','cellvalue','energy0','energy1','energy2','energy3')
     end
 end

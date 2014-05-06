@@ -29,19 +29,19 @@ De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een a
 \begin{table}
 \begin{center}
 \begin{tabular}{llll}
-aantal inputs & aantal 2naar4 decoders & aantal 3naar8 decoders & aantal and gates\\
-1 & - & - & -\\
-2 & - & - & -\\
-3 & - & - & -\\
-4 & - & - & -\\
-5 & - & - & -\\
-6 & - & - & -\\
-7 & - & - & -\\
-8 & - & - & -\\
-9 & - & - & -
+\hline
+\# inputs decoder & \# 2naar4 decoders & \# 3naar8 decoders & \# AND-gates\\
+\hline
+4 & 2 & 0 & 16\\
+5 & 1 & 1 & 32\\
+6 & 0 & 2 & 64\\
+7 & 2 & 1 & 128\\
+8 & 1 & 2 & 256\\
+9 & 0 & 3 & 512\\
+\hline
 \end{tabular}
 \end{center}
-\caption{dfs}
+\caption{De verschillende aantal gates in de grid decoder}
 \label{tab:griddecoder}
 \end{table}
 
@@ -66,14 +66,14 @@ Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, dela
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-egrid.png}
-  \caption{Timing globalblock}
+  \caption{Energie verbruik in griddecoder}
   \label{fig:decoder_egrid}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-glitch.png}
-  \caption{Timing globalblock}
+  \caption{Glitch in NOR-gate}
   \label{fig:decoder_glitch}
 \end{figure}
 
@@ -91,20 +91,24 @@ Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die
 
 \begin{table}
 \begin{center}
-\begin{tabular}{lll}
- & Last & aantal lasten\\
+\begin{tabular}{ccc}
+\hline
+ & Type Last & \# lasten\\
+\hline
 Woordlijn Buffer & 1 Transistor &  \#BL\\
 Referentie Buffer & 1 Nor + 1 Inv &  \#BL\\
-Decoder buffer & 1 Nor & 4 - 64
-\end{tabular}\label{tab:buffer}
+Decoder buffer & 1 Nor & 4 - 64\\
+\hline
+\end{tabular}
 \end{center}
-\caption{qsdqsdq}
+\caption{Lasten in de verschillende buffers}
+\label{tab:buffer}
 \end{table}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
-  \caption{Timing globalblock}
+  \caption{Gebufferde en ongebufferde signalen naar de referentie logica}
   \label{fig:refbuffer}
 \end{figure}
 

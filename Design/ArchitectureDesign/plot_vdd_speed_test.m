@@ -7,7 +7,7 @@ function [] = plot_vdd_speed_test()
     
     results = add_point(0.80,5.5,vdd_range,t_range,results)
     results = add_point(0.85,4.3,vdd_range,t_range,results)
-    results = add_point(0.90,2.6,vdd_range,t_range,results)
+    results = add_point(0.90,2.9,vdd_range,t_range,results)
     results = add_point(0.95,2.4,vdd_range,t_range,results)
     results = add_point(1,2.3,vdd_range,t_range,results)
     results = add_point(1.05,2.2,vdd_range,t_range,results)
@@ -26,7 +26,15 @@ function [] = plot_vdd_speed_test()
     set(gca,'xtick',[1:length(vdd_range)]+0.5)
     set(gca,'xtickLabel',{vdd_range})
     set(gca,'ytick',[1:length(t_range)]+0.5)
-    set(gca,'ytickLabel',{1e-6./t_range})
+    ttick1 = [1e-6./t_range]
+    for i = 1:length(ttick1)
+       if mod(i-1,5) == 0
+        ttick{i} = num2str(round(ttick1(i)))
+       else
+           ttick{i} = ' '
+       end
+    end
+    set(gca,'ytickLabel',ttick)
     
 end
 

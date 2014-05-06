@@ -1,0 +1,20 @@
+\chapter{Finaal ontwerp}
+\label{final}
+\section{Het finaal ontwerp}
+Het finale ontwerp is een geheugen dat uit 32BL, 32WL en 512GB bestaat. Van de 32 BL worden er 16 gebruikt voor het genereren van het referentie spanning. En van deze 16 worden 6 in RHS en 12 in LRS gehouden. Dit om de referentie spanning beter te centreren tussen de bitlijn spanningen voor cellen in RHS en LRS. De afmetingen van alle transistoren staan in tabel \ref{tab:transsize}. \\
+Op dit geheugen wordt een speed-vdd test uitgevoerd. Dit is een test waarbij de voedings spanning wordt verlaagt en vervolgens gekeken wordt aan welke snelheid de lees cyclus kan uitgevoerd worden. In deze test werden de tijdstippen wanneer de senseamplifier aan gegeschakelt en waneer de dat aan de uitgang na gekeken w	
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.8]{../fig/hfdst-final-vddspeed.png}
+  \caption{Resultaten speed-vdd test}
+  \label{fig:speedvdd}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.8]{../fig/hfdst-final-vddbl.png}
+  \caption{Bl spanningen ifv Vdd}
+  \label{fig:vblvdd}
+\end{figure}
+
+\section{Besluit}
