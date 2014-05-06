@@ -26,7 +26,7 @@ Vvss     ( vss     0 ) vsource dc=0
 Vbp      ( bp      0 ) vsource dc=1
 Vbn      ( bn      0 ) vsource dc=0
 
-Vin     ( in     0 ) vsource dc=0.449
+Vin     ( in     0 ) vsource dc=0.579
 Vinbar  ( inbar     0 ) vsource dc=0.4
 
 Venn (latchenablen 0) vsource type=pwl wave=[0 0 1.1e-09 0 1.2e-09 1 2.1e-09 1 2.15e-09 0 7.6e-09 0]
