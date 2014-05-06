@@ -36,7 +36,7 @@ Er moet wel geverifieerd worden of de stelling dat er een lineaire afhankelijkhe
 Dit kan gedaan worden aan de hand van een analyse waarbij elke variatieparameter afzonderlijk gesweept wordt. 
 
 \subsection{Sensitiviteitsanalyse op een minimale SA}
-In figuur \ref{fig:min-sensanalysis} wordt het resultaat getoond voor een dergelijke analyse bij een SA met minimale afmetingen, in tabel \ref{tab:min-sensanalysis} worden de resultaten en de resulterende standaardvariatie van de SA getoond.
+In figuur \ref{fig:min-sensanalysis} wordt het resultaat getoond voor een dergelijke analyse bij een SA met minimale afmetingen, merk op dat de richtingscoëfficient van deze curves gelijk is aan $a_{i} (\Delta V_{t})_{i}$ en $b_{i} (\frac{\Delta_{\beta}}{\beta})_{i}$.  In tabel \ref{tab:min-sensanalysis} worden de resultaten en de resulterende standaardvariatie van de SA getoond.
 Er moet opgemerkt worden dat er bij deze simulatie slechts gesweept werd voor de variatieparameters van -4$\sigma$ tot 4 $\sigma$. Dit is om de reden dat voor de minimale transistoren de standaardvariatie het grootst is. In de Spectre-simulaties zouden transistoren voor te grote negatieve $\beta$-mismatch stroom leveren in de omgekeerde richting. Deze situatie zal fysisch nooit optreden.
 
 \begin{table}
@@ -104,7 +104,7 @@ De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortslu
   \caption{Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}
   \label{fig:RC-latch-explain}
 \end{figure}
-Gevolgen van wanneer dit effect optreedt is dus dat het nuttige signaal zich snel - alsof er helemaal geen last aanhangt - en lineair opbouwt en dat er geen AC-signaal is over de condensator. Een analyse van de respons van een RC-circuit op een lineair stijgende spanningsbron geeft meer duidelijkheid voor de voorwaarden waarop het RC-latch-effect optreedt (zie figuur \ref{fig:RC-latch-maplecircuit}). De respons van de spanning over de capaciteit is $Vcap(t) =  at - aRC(1-e^{-{\frac {t}{CR}}})$. Uit deze uitdrukking blijkt dat het RC-latch-effect optreedt wanneer de latch zonder latch snel is (a<<1) en/of wanneer het RC-product hoog is (RC>>1).
+Gevolgen van wanneer dit effect optreedt is dus dat het nuttige signaal zich snel - alsof er helemaal geen last aanhangt - en lineair opbouwt en dat er geen AC-signaal is over de condensator. Een analyse van de respons van een RC-circuit op een lineair stijgende spanningsbron geeft meer duidelijkheid voor de voorwaarden waarop het RC-latch-effect optreedt (zie figuur \ref{fig:RC-latch-maplecircuit}). De respons van de spanning over de capaciteit is $Vcap(t) =  at - aRC(1-e^{-{\frac {t}{CR}}})$. Uit deze uitdrukking blijkt dat het RC-latch-effect optreedt wanneer de latch zonder last snel is (a<<1) en/of wanneer het RC-product hoog is (RC>>1).
 Wanneer het effect zich voordoet zijn latching en RC-respons onafhankelijke processen. Wanneer de voorwaarden niet meer zo uitgesproken zijn, gaan deze processen met elkaar interfereren en is het moeilijk dit gecombineerde proces wiskundig te beschrijven.
 \begin{figure}
   \centering
@@ -115,13 +115,13 @@ Wanneer het effect zich voordoet zijn latching en RC-respons onafhankelijke proc
 
 Conclusie van het RC-latch effect is dat de timing helemaal niet zo kritisch is: in theorie hoeft de overlap slechts even lang te duren als de delay van de SA wanneer er geen last op is aangesloten, maar het is niet erg als de overlap wat langer duurt.
 De pass-gates mogen ook minimaal zijn, om hun aanweerstand te vergroten zodat het effect kan optreden.
-In geval verder zou gewerkt worden met een SA zonder overlap met pass-gate-enable en SA-enable, zouden de pass-gates moeten geschaald worden om de mismatch te minimaliseren. Dit zou wel betekenen dat er per schakeling
+In geval verder zou gewerkt worden met een SA zonder overlap met pass-gate-enable en SA-enable, zouden de pass-gates moeten geschaald worden om de mismatch te minimaliseren. Dit zou wel betekenen dat er per schakeling van de passgates een grotere hoeveelheid lading wordt geïnjecteerd.
 
 
 \subsection{Sensitiviteitsanalyse voor minimale SA - vervolg}
 
 In tabel \ref{tab:min-sensanalysis-overlap} worden de resultaten van een nieuwe sensitiveitsanalyse getoond voor een minimale SA, ditmaal waarbij er dus overlap is tussen pass-gate-enable en SA-enable. In deze situatie dragen de pass-gates amper bij tot de offsetspanning. 
-Vooral de transistors van de differentiele paren zullen opgeschaald moeten worden om de offsetspanning in te perken, de andere transistoren schalen zal invloed hebben op snelheid en energie.
+Vooral de transistors van de differentiële paren zullen opgeschaald moeten worden om de offsetspanning in te perken, de andere transistoren schalen zal invloed hebben op snelheid en energie.
 
 \subsection{Sensitiviteitsanalyse voor gebruikte SA}
 

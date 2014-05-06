@@ -16,8 +16,8 @@ offsets = [-0.3:0.001:0.3];
 
 mega=allcomb(numberofsigma,[1:20]);
 
-wavetemp1 = makewave('SAenP',[1.5,1,1]*1e-9,[1,0,1]);
-wavetemp2 = makewave('SAenN',[1.5,1,1]*1e-9,[0,1,0]);
+wavetemp1 = makewave('SAenP',[1.1,1,1]*1e-9,[1,0,1]);
+wavetemp2 = makewave('SAenN',[1.1,1,1]*1e-9,[0,1,0]);
 % wavetemp3 = makewave('PassN',[0.5,0.9,1]*1e-9,[0,1,0]);
 % wavetemp4 = makewave('PassP',[0.5,0.9,1]*1e-9,[1,0,1]);
 wavetemp3 = makewave('PassN',[0.5,1.1,1]*1e-9,[0,1,0]);

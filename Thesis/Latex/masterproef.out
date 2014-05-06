@@ -10,52 +10,30 @@
 \BOOKMARK [1][-]{section.2.2}{Memristor in een geheugenstructuur}{chapter.2}% 10
 \BOOKMARK [1][-]{section.2.3}{Besluit}{chapter.2}% 11
 \BOOKMARK [0][-]{chapter.3}{Geheugenarchitectuur}{}% 12
-\BOOKMARK [1][-]{section.3.1}{Van transistorniveau tot systeemniveau}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.2}{Besluit}{chapter.3}% 14
-\BOOKMARK [0][-]{chapter.4}{Lastimpedantie-analyse}{}% 15
-<<<<<<< HEAD
-\BOOKMARK [1][-]{section.4.1}{algemene last eigenschappen en specificaties}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.2}{evalueren van de last}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.3}{vergelijking van verschillende types last}{chapter.4}% 18
-\BOOKMARK [0][-]{chapter.5}{Sense Amplifier analyse}{}% 19
-\BOOKMARK [1][-]{section.5.1}{Types SA}{chapter.5}% 20
-\BOOKMARK [1][-]{section.5.2}{Offsetspanning}{chapter.5}% 21
-\BOOKMARK [1][-]{section.5.3}{Sensitiviteitsanalyse}{chapter.5}% 22
-\BOOKMARK [1][-]{section.5.4}{Paretosimulatie}{chapter.5}% 23
-\BOOKMARK [1][-]{section.5.5}{Besluit}{chapter.5}% 24
-\BOOKMARK [0][-]{chapter.6}{Omringende logica}{}% 25
-\BOOKMARK [1][-]{section.6.1}{Decoders}{chapter.6}% 26
-\BOOKMARK [1][-]{section.6.2}{Buffers}{chapter.6}% 27
-\BOOKMARK [1][-]{section.6.3}{BL- en WL-drivers}{chapter.6}% 28
-\BOOKMARK [1][-]{section.6.4}{Passgates}{chapter.6}% 29
-\BOOKMARK [1][-]{section.6.5}{Besluit}{chapter.6}% 30
-\BOOKMARK [0][-]{chapter.7}{Timing en optimalizatie}{}% 31
-\BOOKMARK [1][-]{section.7.1}{Timing}{chapter.7}% 32
-\BOOKMARK [1][-]{section.7.2}{Analyse verschillende geheugenconfiguraties}{chapter.7}% 33
-\BOOKMARK [0][-]{chapter.8}{Besluit}{}% 34
-\BOOKMARK [0][-]{appendix.A}{Charge injectie met ideale spice bronnen.}{}% 35
-\BOOKMARK [0][-]{section*.19}{Bibliografie}{}% 36
-=======
-\BOOKMARK [1][-]{section.4.1}{Impedantiekandidaten}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.2}{Nominaal gedrag}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.3}{Gedrag onder variabiliteit}{chapter.4}% 18
-\BOOKMARK [1][-]{section.4.4}{Besluit}{chapter.4}% 19
-\BOOKMARK [0][-]{chapter.5}{Sense Amplifier analyse}{}% 20
-\BOOKMARK [1][-]{section.5.1}{Types SA}{chapter.5}% 21
-\BOOKMARK [1][-]{section.5.2}{Offsetspanning}{chapter.5}% 22
-\BOOKMARK [1][-]{section.5.3}{Sensitiviteitsanalyse}{chapter.5}% 23
-\BOOKMARK [1][-]{section.5.4}{Paretosimulatie}{chapter.5}% 24
-\BOOKMARK [1][-]{section.5.5}{Besluit}{chapter.5}% 25
-\BOOKMARK [0][-]{chapter.6}{Omringende logica}{}% 26
-\BOOKMARK [1][-]{section.6.1}{Decoders}{chapter.6}% 27
-\BOOKMARK [1][-]{section.6.2}{Buffers}{chapter.6}% 28
-\BOOKMARK [1][-]{section.6.3}{BL- en WL-drivers}{chapter.6}% 29
-\BOOKMARK [1][-]{section.6.4}{Passgates}{chapter.6}% 30
-\BOOKMARK [1][-]{section.6.5}{Besluit}{chapter.6}% 31
-\BOOKMARK [0][-]{chapter.7}{Timing en optimalizatie}{}% 32
-\BOOKMARK [1][-]{section.7.1}{Timing}{chapter.7}% 33
-\BOOKMARK [1][-]{section.7.2}{Analyse verschillende geheugenconfiguraties}{chapter.7}% 34
-\BOOKMARK [0][-]{chapter.8}{Besluit}{}% 35
-\BOOKMARK [0][-]{appendix.A}{Charge injectie aan de input}{}% 36
-\BOOKMARK [0][-]{section*.15}{Bibliografie}{}% 37
->>>>>>> passgate geschreven, sensitivityanalysis met ovelap gedaan
+\BOOKMARK [1][-]{section.3.1}{Cel}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{Branch}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.3}{Local Block}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.4}{Global Block}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.5}{Besluit}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter.4}{Lastimpedantie-analyse}{}% 18
+\BOOKMARK [1][-]{section.4.1}{algemene last eigenschappen en specificaties}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.2}{evalueren van de last}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.3}{vergelijking van verschillende types last}{chapter.4}% 21
+\BOOKMARK [0][-]{chapter.5}{Sense Amplifier analyse}{}% 22
+\BOOKMARK [1][-]{section.5.1}{Types SA}{chapter.5}% 23
+\BOOKMARK [1][-]{section.5.2}{Offsetspanning}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.3}{Sensitiviteitsanalyse}{chapter.5}% 25
+\BOOKMARK [1][-]{section.5.4}{Paretosimulatie}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.5}{Besluit}{chapter.5}% 27
+\BOOKMARK [0][-]{chapter.6}{Omringende logica}{}% 28
+\BOOKMARK [1][-]{section.6.1}{Decoders}{chapter.6}% 29
+\BOOKMARK [1][-]{section.6.2}{Buffers}{chapter.6}% 30
+\BOOKMARK [1][-]{section.6.3}{BL- en WL-drivers}{chapter.6}% 31
+\BOOKMARK [1][-]{section.6.4}{Passgates}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.5}{Besluit}{chapter.6}% 33
+\BOOKMARK [0][-]{chapter.7}{Timing en optimalizatie}{}% 34
+\BOOKMARK [1][-]{section.7.1}{Timing}{chapter.7}% 35
+\BOOKMARK [1][-]{section.7.2}{Analyse verschillende geheugenconfiguraties}{chapter.7}% 36
+\BOOKMARK [0][-]{chapter.8}{Besluit}{}% 37
+\BOOKMARK [0][-]{appendix.A}{Charge injectie met ideale spice bronnen.}{}% 38
+\BOOKMARK [0][-]{section*.19}{Bibliografie}{}% 39

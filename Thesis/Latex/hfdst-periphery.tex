@@ -152,8 +152,24 @@ De opstelling is het circuit van figuur \ref{fig:passgate2}. Er kunnen wederom v
 \end{itemize}
 
 Er zijn dus spanningszones waarvoor de passgate niet functioneert, het is belangrijk te weten wat deze zones zijn, zodat het circuit ontworpen wordt om deze zones te vermijden. 
-Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren.
-Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor performantieredenen is geopteerd voor de LVT transistoren.
+Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren. Er dient opgemerkt te worden dat de passgates niet (of slechts even) aanstaan voor sommige zones, maar dat de uiteindelijke fout nog meevalt.
+Als Vs bijvoorbeeld 0,9V bedraagt voor een nMOS passgate en Vx initieel 0,85V (met Vdd 1V), gaat de transistor geen stroom leveren, maar bedraagt de uiteindelijke fout 'slechts' 50mV.
+In deze fout zit nog geen ladingsinjectie inbegrepen, eenmaal de passgate afschakelt is de injectie onvermijdelijk.
+Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor performantieredenen is geopteerd voor de LVT transistoren in het geheugenontwerp.
+
+\begin{figure}[!ht]
+\centering
+\subfloat[CLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-CLVT.png}}
+\subfloat[CHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-CHVT.png}}\\
+\subfloat[NLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NLVT.png}}
+\subfloat[NHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NHVT.png}}\\
+\subfloat[PLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PLVT.png}}
+\subfloat[PHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PHVT.png}}
+\caption{Dode zones voor verschillende types passgates}
+\label{fig:passgate3}
+\end{figure}
+
+
 
 \section{Besluit}
 

@@ -71,36 +71,9 @@ for i=1:length(mega)
     diff6(i)=v6(t)-sp.vin;
     
 end
-
-levels=[1e-10:0.05:0.5];
-% levels=[levels(1) 1e-9 levels(2:end)];
-
-contour(in,outinit,vec2mat(abs(diff1),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error complementary LVT passgates','FontWeight','bold','FontSize',14);
-figure
-contour(in,outinit,vec2mat(abs(diff2),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error complementary HVT passgates','FontWeight','bold','FontSize',14);
-figure
-contour(in,outinit,vec2mat(abs(diff3),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error nMOS LVT passgates','FontWeight','bold','FontSize',14);
-figure
-contour(in,outinit,vec2mat(abs(diff4),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error pMOS LVT passgates','FontWeight','bold','FontSize',14);
-figure
-contour(in,outinit,vec2mat(abs(diff5),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error nMOS HVT passgates','FontWeight','bold','FontSize',14);
-figure
-contour(in,outinit,vec2mat(abs(diff6),21)','LineColor',[0 0 0],'LevelStep',0.02,'LevelList',levels,'Fill','on');
-xlabel('Voltage low impedance node [V]','FontWeight','bold','FontSize',14);
-ylabel('Voltage high impedance node [V]','FontWeight','bold','FontSize',14);
-title('Pedestrian error pMOS HVT passgates','FontWeight','bold','FontSize',14);
+save('./PassGateAnalysis/diff1.mat','diff1')
+save('./PassGateAnalysis/diff2.mat','diff2')
+save('./PassGateAnalysis/diff3.mat','diff3')
+save('./PassGateAnalysis/diff4.mat','diff4')
+save('./PassGateAnalysis/diff5.mat','diff5')
+save('./PassGateAnalysis/diff6.mat','diff6')

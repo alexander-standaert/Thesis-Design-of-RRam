@@ -7,16 +7,16 @@ In dit hoofdstuk worden deze componenten van wat dichterbij onderzocht.
 \section{Decoders}
 Een decoder is een logische blok dat een uitgang selecteert op basis van een geencodeerde bus van ingangen. Aangezien het aantal globalblocks, woordlijnen en bitlijnen nog niet vastgelegd werd, werd er een gamma van decoders ontworpen gaande van een 2 naar 4 decoder tot en met een 9 naar 512 decoder. Voor het ontwerp van de grotere decoders, werd er gebruik gemaakt van de kleinere decoders als bouw blokken. Dit kan gedaan worden op 2 manieren; volgens een tree patroon (\ref{fig:decoder1}) of volgens een grid patroon (\ref{fig:decoder2}). In de volgende secties word het ontwerp van beide manieren toegelicht, en vergeleken.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
-\subfloat[Decoder type 1]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
-\subfloat[Decoder type 2]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
+\subfloat[Decoder type 1]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
+\subfloat[Decoder type 2]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
 \caption{Opbouw voor grotere decoders}\label{fig:basisdecoders}
 \end{figure}
 
 \subsection{De tree decoder}
 De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiered naar de uitgangen. De basis blokken van deze decoder zijn een 2 naar 4 decoder (figuur \ref{fig:decoder2to4}) en een 3 naar 8 decoder (figuur \ref{fig:decoder3to8}). In elke laag in deze structuur komen een aantal ingangen binnen en deze gaan naar de ingang van evenveel decoders als er uitgang zijn in de vorige laag. Elke uitgange van de vorige laag stuurt de enble van een van de decoders van de huidige laag aan. Dit word geillustreed in de vorm van een 5 naar 32 decoder in figuur \ref{fig:decoder1}. 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfloat[2 naar 4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
 \subfloat[3 naar 8 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-3to8.png} \label{fig:decoder3to8}}
@@ -55,7 +55,7 @@ Na een snelle mismatch analyse bleek dat de grid decoder minder variatie toon in
 Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, delay, glitches, mismatch en delay verschil, Komt de grid decoder er als het beste uit en deze zal dan ook gebruikt worden in het finale ontwerp.
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfloat[oppervlakte]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-a.png} \label{fig:decoder_a}}
 \subfloat[energie en delay]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-ed.png} \label{fig:decoder_ed}}
@@ -63,14 +63,14 @@ Na het vergelijken van beide decoders op het vlak van oppervalkte, energie, dela
 \end{figure}
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-egrid.png}
   \caption{Timing globalblock}
   \label{fig:decoder_egrid}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-glitch.png}
   \caption{Timing globalblock}
@@ -87,7 +87,7 @@ De buffers werden ontworpen met logical effort waarbij het aantal stages en de s
 \item N wordt dan gebruikt om een nieuw stage effort \^{f} te berekenenn met de formule $\hat{f} = F^{1/N}$.
 \item Ten slotte kunnen de de grotes van de verschillende invertoren in de chain berekend worden met de nieuw stage effort $\hat{f} = gh$.
 \end{enumerate}
-
+Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die naar de referentie logica gaan, voor een verschillende aantal paralle geplaatste referentie logic.
 
 \begin{table}
 \begin{center}
@@ -101,10 +101,72 @@ Decoder buffer & 1 Nor & 4 - 64
 \caption{qsdqsdq}
 \end{table}
 
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
+  \caption{Timing globalblock}
+  \label{fig:refbuffer}
+\end{figure}
 
 \section{BL- en WL-drivers}
 
 \section{Passgates}
+Passgates zijn schakelaars die de spanning van een laagimpedant knooppunt doorlaten naar een hoogimpedant knooppunt. Idealiter heeft de passgate geen weerstand wanneer hij aanstaat. In de praktijk zal er altijd een beetje weerstand zijn, dit heeft als gevolg dat er een kleine RC-delay vooraleer het hoogimpedante punt is geladen/ontladen tot de waarde van het laagimpedante punt.
+Een passgate kan gerealiseerd worden met een nMOS transistor, een pMOS of een combinatie van beiden.
+In wat volgt worden de verschillende scenario's besproken die kunnen optreden wanneer de schakelaar aangezet wordt, de passgate zal immers niet altijd stroom kunnen leveren om het hoogimpedante knooppunt te (ont)laden.
+
+\subsection{nMOS passgate}
+De opstelling is het circuit van figuur \ref{fig:passgate1}. Afhankelijk van de (initiële) waardes van Vx en Vs, kunnen volgende situaties optreden.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate1.png}
+  \caption{nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \label{fig:passgate1}
+\end{figure}
+
+\begin{itemize}
+\item Vx > Vs en Vdd - Vs > Vtn: de transistor gaat Vx ontladen tot Vs.
+\item Vx > Vs en Vdd - Vs < Vtn: de transistor staat af, er gebeurt niets.
+\item Vx < Vs en Vs < Vdd - Vtn: de transistor levert stroom tot Vx is opgeladen tot Vs.
+\item Vx < Vs, Vs > Vdd - Vtn en Vx < Vdd - Vtn: de transistor gaat Vx opladen tot Vdd - Vtn.
+\item Vx < Vs, Vs > Vdd - Vtn en Vx > Vdd - Vtn: de transistor staat af, er gebeurt niets.
+\end{itemize}
+
+\subsection{pMOS passgate}
+De opstelling is het circuit van figuur \ref{fig:passgate2}. Er kunnen wederom verschillende situaties optreden.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate2.png}
+  \caption{pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \label{fig:passgate2}
+\end{figure}
+
+\begin{itemize}
+\item Vs > Vx en Vs > |Vtp|: de transistor gaat Vx opladen tot Vs.
+\item Vs > Vx en Vs < |Vtp|: de transistor staat af, er gebeurt niets.
+\item Vs < Vx en Vs > |Vtp|: de transistor levert stroom tot Vx is ontladen tot Vs.
+\item Vs < Vx, Vs < |Vtn| en Vx > |Vtp|: de transistor gaat Vx ontladen tot |Vtp|.
+\item Vs < Vx, Vs < |Vtn| en Vx < |Vtn|: de transistor staat af, er gebeurt niets.
+\end{itemize}
+
+Er zijn dus spanningszones waarvoor de passgate niet functioneert, het is belangrijk te weten wat deze zones zijn, zodat het circuit ontworpen wordt om deze zones te vermijden. 
+Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren.
+Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor performantieredenen is geopteerd voor de LVT transistoren.
+
+\begin{figure}[!ht]
+\centering
+\subfloat[CLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-CLVT.png}}
+\subfloat[CHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-CHVT.png}}\\
+\subfloat[NLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NLVT.png}}
+\subfloat[NHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NHVT.png}}\\
+\subfloat[PLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PLVT.png}}
+\subfloat[PHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PHVT.png}}
+\caption{Dode zones voor verschillende types passgates}
+\label{fig:passgate3}
+\end{figure}
+
 
 
 \section{Besluit}

@@ -1,20 +1,17 @@
 \chapter{Geheugenarchitectuur}
 \label{architecture}
-De afzonderlijke geheugencellen zullen uiteindelijk samengebracht moeten worden in een geheel.
-In dit hoofdstuk zal de algemene structuur besproken worden alsook de vrijheidsgraden die in hoofdstuk \ref{timing-optimization} onderzocht worden voor een optimaal werkend systeem. Ten slotte zullen ook nog de bouwblokken aangekaard worden die meer uitvoerig besproken worden in de volgende hoofdstukken. 
+De afzonderlijke geheugencellen zullen samengebracht worden in een geheel.
+Dit hoofdstuk bespreekt de algemene structuur alsook de vrijheidsgraden die in hoofdstuk \ref{timing-optimization} onderzocht worden om tot een optimaal werkend systeem te komen. Ten slotte zullen ook nog de bouwblokken aangekaard worden die meer uitvoerig besproken worden in de volgende hoofdstukken. 
 
-\section{Van transistorniveau tot systeemniveau}
-Hoewel het hele systeem op de chip in weze bestaat uit transistoren en passieve componenten, zal dit nog onmogelijk te begrijpen vallen op zulke grote schaal.
-Het is daarom aangewezen om meer abstractie te maken en de componenten vanop een hoger niveau te bekijken.
 
-\subsection{Cel}
-Zoals besproken in hoofdstuk \ref{cell} zal dit het bouwblok zijn dat het vaakst terug zal te vinden zijn op het geheugensysteem.
-De cel bestaat uit een memristor en een transistor. De geheugencel heeft drie terminals: de gate van de transistor, die zal verbonden worden met een wordline, de source van de transistor, die zal verbonden worden met een sourceline en tenslotte de terminal van de memristor, die zal verbonden worden met een bitline.
-Een cel wiens memristor zich in een willekeurige resistieve staat bevindt is een datacel, terwijl de memristor van referentiecellen in een voorgeprogrammeerde en dus gekende resistieve staat verkeert.
+\section{Cel}
+Zoals besproken in hoofdstuk \ref{cell} is dit het bouwblok dat het vaakst terug te vinden is in het geheugensysteem.
+De cel bestaat uit een memristor en een transistor. De geheugencel heeft drie terminals: de gate van de transistor, die verbonden wordt met een wordline, de source van de transistor, die verbonden wordt met een sourceline en tenslotte de terminal van de memristor, die verbonden wordt met een bitline.
+%Een cel waarvan memristor zich in een willekeurige resistieve staat bevindt is een datacel, terwijl de memristor van referentiecellen in een voorgeprogrammeerde en dus gekende resistieve staat verkeert.
 
-\subsection{Branch}
-In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of Word Lines per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. Naast alle datacellen is er ook nog één referentiecel verbonden aan de BL en SL van de branch.
-Elke BL wordt via een pMOS-transistor verbonden met de voedingspanning Vdd en via een nMOS-transistor aan de grondspanning Vss. In dit werk is er enkel een nMOS-transistor die de SL verbindt met Vss.\footnote{In een volledig geheugensysteem zou de SL via een pMOS ook nog verbonden zijn met een niet onderzochte spanningsknoop Vdd\_write. De pMOS zou dan worden aangezet voor schrijfwerking.} De nMOS-transistoren aan BL en SL fungeren als schakelaars, de pMOS-transistor wordt gebruikt als impedantie voor een resistieve spanningsdeling (zie hoofdstuk \ref{loadanalysis}).
+\section{Branch}
+In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of Word Lines per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. Naast alle datacellen is er ook nog één referentiecel - dit zijn cellen waarvan de resistieve staat voorgeschreven is - verbonden aan de BL en SL van de branch.
+Elke BL wordt via een pMOS-transistor (al dan niet met nog een impedantie tussenin) gekoppeld aan de voedingspanning Vdd en via een nMOS-transistor aan de grondspanning Vss. In dit werk is er enkel een nMOS-transistor die de SL verbindt met Vss.\footnote{In een volledig geheugensysteem zou de SL via een pMOS ook nog verbonden zijn met een niet onderzochte spanningsknoop Vdd\_write. De pMOS zou dan worden aangezet voor schrijfwerking.} De nMOS-transistoren aan BL en SL fungeren als schakelaars, de pMOS-transistor wordt gebruikt als impedantie voor een resistieve spanningsdeling (zie hoofdstuk \ref{loadanalysis}).
 Ter illustratie wordt de samenhang tussen cel en branch getoond in figuur \ref{fig:cellbranch}.
 
 \begin{figure}
@@ -24,10 +21,10 @@ Ter illustratie wordt de samenhang tussen cel en branch getoond in figuur \ref{f
   \label{fig:cellbranch}
 \end{figure}
 
-\subsection{Local Block}
-Verschillende BLs en SLs worden samengebracht in een Local Block, waarvan de vrijheidsgraad \emph{Number of Bit Lines per Local Block} (NoBLpLB) heet. In een LB bevinden er zich dus NoBLpLB x NoWLpB datacellen en NoBLpLB referentiecellen. Ook zitten er in een Local Block zowel BL- als WL-decoders.
+\section{Local Block}
+Verschillende BLs en SLs worden samengebracht in een Local Block, waarvan de vrijheidsgraad \emph{Number of Bit Lines per Local Block} (NoBLpLB) heet. In een LB bevinden er zich dus NoBLpLB x NoWLpB datacellen en NoBLpLB referentiecellen. Ook bevat een Local Block zowel BL- als WL-decoders.
 De structuur van een Local Block is geïllustreerd op figuur \ref{fig:LB}.
-De uitgangen van de WL-decoder zullen (mits wat buffering tussenin) worden aangesloten aan de data-WLs zelf, die van de BL-decoder zullen een spanningsdeling teweeg brengen op de BLs. De referentie-WL zal via een extern signaal verbonden worden.
+De uitgangen van de WL-decoder sturen de data-WLs aan [eventueel met een buffer], de uitgangen van de BL-decoder activeren een spanningsdeling op de BLs.\footnote{Indien schrijfwerking zou toegevoegd worden, zouden de uitgangen van de BL-decoder aan twee AND-poorten worden verbonden; bij leesoperatie brengt de uitgang van de ene AND-poort de resistieve deling op de BL teweeg, bij schrijfoperatie zet de uitgang van de andere AND-poort een pull-up-operatie van de BL naar Vdd\_write op.} De referentie-WL is via een extern signaal verbonden.
 Aangezien een LB zowel data- als referentiecellen bevat, gaat een LB twee werkingsmodes hebben: een mode waarbij er één datacel wordt aangesproken en een mode waarbij er een bepaald aantal referentiecellen in parallel wordt aangesproken.
 
 \begin{figure}
@@ -37,7 +34,21 @@ Aangezien een LB zowel data- als referentiecellen bevat, gaat een LB twee werkin
   \label{fig:LB}
 \end{figure}
 
-\subsection{Global Block}
+\subsection{Data-signaal uitlezen}
+Het data-signaal is de spanning op de BL nadat er een resistieve deling is gebeurd met één cel. 
+
+\subsection{Referentie-signaal uitlezen}
+Het referentiesignaal is een spanning die tussen de spanning van een lage resistieve datacel en een hoge resistieve datacel moet liggen. Een dergelijk signaal kan verkregen worden door twee BLs kort te sluiten zoals op figuur \ref{fig:2cellref}. In dit ontwerp zal de kortsluiting gerealiseerd worden door de BLs via passgates te verbinden met een derde knooppunt. In theorie is het voldoende om 2 BLs [een aangesloten op een hoog resistief geheugenelement en een op een laag resistief geheugenelement] kort te sluiten om het referentiesignaal te verkrijgen. Er zit echter op de resistieve geheugenelementen variabiliteit: er wordt aangenomen dat $R_{H}$ normaal verdeeld is met $\mu = 32500\Omega$ en $\sigma = 833\Omega$. $R_{L}$ is ook normaal verdeeld met $\mu = 7500\Omega$ en $\sigma = 833\Omega$. Dit betekent dat ook de data-signalen en referentie-signalen stochastische variabelen zijn.
+Door echter steeds meer referentie-bitlijnen kort te sluiten gaat de spreiding van het referentiesignaal dalen. Bovendien kan men de verwachtingswaarde verschuiven door meer hoge (lage) resistieve referentiegeheugenelementen te gebruiken dan lage (hoge).
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.3]{../fig/hfdstk-architecture-ref2cell.png}
+  \caption{Topologie om referentiesignaal te verkrijgen}
+  \label{fig:2cellref}
+\end{figure}
+
+\section{Global Block}
 \label{globalblock}
 Een Global Block bestaat uit twee LBs en een sense amplifier (SA). In het ene LB gaat er een datasignaal geproduceerd worden, in het andere een referentiesignaal (zie figuur \ref{fig:GB}. Vervolgens gaat de SA dit kleine signaalverschil versterken tot een zuivere rail-to-rail output.
 Aan de uitgang van het GB verschijnen dan ook de opgevraagde bits.
