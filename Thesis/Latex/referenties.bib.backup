@@ -1,0 +1,161 @@
+@article{Chu71
+, Author = "LEON 0. CHUA" 
+, title = "Memristor-The Missing Circuit Element"
+, journal = "IEEE Transactions of circuit theory"
+, year = "September 1971"
+}
+
+@article{Moo65
+, Author = "GORDON E. MOORE" 
+, title = "Cramming more components onto integrated circuits"
+, journal = "Electronics"
+, year = "April 1965"
+}
+
+@INPROCEEDINGS{Pra10,
+author={Prall, K. and Parat, K.},
+booktitle={Electron Devices Meeting (IEDM), 2010 IEEE International},
+title={25nm 64Gb MLC NAND technology and scaling challenges invited paper},
+year={2010},
+month={Dec},
+pages={5.2.1-5.2.4},
+doi={10.1109/IEDM.2010.5703300},
+ISSN={0163-1918},}
+
+@book{Sutherland:1999:LED:298513,
+ author = {Sutherland, Ivan and Sproull, Bob and Harris, David},
+ title = {Logical Effort: Designing Fast CMOS Circuits},
+ year = {1999},
+ isbn = {1-55860-557-6},
+ publisher = {Morgan Kaufmann Publishers Inc.},
+ address = {San Francisco, CA, USA},
+} 
+
+@misc{ppt:cosemans,
+author = {S. Cosemans},
+title = {Intro regarding Read sensing schemes},
+howpublished = {powerpoint presentation}, 
+year = {2013},
+}
+
+@ARTICLE{Won12,
+author={Wong, H. -S P and Heng-Yuan Lee and Shimeng Yu and Yu-Sheng Chen and Yi Wu and Pang-Shiu Chen and Byoungil Lee and Chen, F.T. and Ming-Jinn Tsai},
+journal={Proceedings of the IEEE},
+title={Metal Oxide RRAM},
+year={2012},
+month={June},
+volume={100},
+number={6},
+pages={1951-1970},
+doi={10.1109/JPROC.2012.2190369},
+ISSN={0018-9219},}
+
+
+@article{Str08,
+  author = {Strukov, D. B. and Snider, G. S. and Stewart, D. R. and Williams, R. S.},
+  citeulike-article-id = {12359534},
+  journal = {Nature},
+  number = 7191,
+  pages = {80--83},
+  posted-at = {2013-05-22 22:48:54},
+  priority = {2},
+  publisher = {Nature Publishing Group},
+  title = {{The missing memristor found}},
+  volume = 453,
+  year = 2008
+}
+
+@INPROCEEDINGS{Bae04,
+author={Baek, I.G. and Lee, M.S. and Seo, S. and Lee, M.-J. and Seo, D.H. and Suh, D. -S and Park, J.C. and Park, S.O. and Kim, T.I. and Yoo, I.K. and Chung, U-in and Moon, J.T.},
+booktitle={Electron Devices Meeting, 2004. IEDM Technical Digest. IEEE International},
+title={Highly scalable nonvolatile resistive memory using simple binary oxide driven by asymmetric unipolar voltage pulses},
+year={2004},
+month={Dec},
+pages={587-590},
+doi={10.1109/IEDM.2004.1419228},}
+
+@INPROCEEDINGS{Che11,
+author={Chen, Y-Y and Goux, L. and Pantisano, L. and Swerts, J. and Adelmann, C. and Mertens, S. and Afanasiev, V.V. and Wang, X.P. and Govoreanu, B. and Degraeve, R. and Kubicek, S. and Paraschiv, V. and Verbrugge, B. and Jossart, N. and Altimime, L. and Jurczak, M. and Kittl, J. and Groeseneken, G. and Wouters, D.J.},
+booktitle={Interconnect Technology Conference and 2011 Materials for Advanced Metallization (IITC/MAM), 2011 IEEE International},
+title={Fully CMOS BEOL compatible HfO2 RRAM cell, with low program current, strong retention and high scalability, using an optimized plasma enhanced atomic layer deposition (PEALD) process for TiN electrode},
+year={2011},
+month={May},
+pages={1-3},
+doi={10.1109/IITC.2011.5940299},
+ISSN={pending},}
+
+@article{Kim06
+,	Author = "Kim, K. M. and Choi, B. J. and Koo, B. W. and Choi, S. and Jeong, D. S. and Hwang, C. S." 
+,	title = "Resistive switching in Pt/Al2O3/TiO2/Ru stacked structures"
+,	journal = "Electrochem. Solid State Lett."
+,	volume = "9G343–G346" 
+,	year = "2006"
+}
+
+@INPROCEEDINGS{bulkload,
+author={Fengbo Ren and Park, H. and Dorrance, R. and Toriyama, Y. and Yang, C.-K.K. and Markovic, D.},
+booktitle={Quality Electronic Design (ISQED), 2012 13th International Symposium on},
+title={A body-voltage-sensing-based short pulse reading circuit for spin-torque transfer RAMs (STT-RAMs)},
+year={2012},
+month={March},
+pages={275-282},
+keywords={CMOS memory circuits;detector circuits;electric sensing devices;magnetic tunnelling;random-access storage;readout electronics;CMOS;Monte-Carlo simulations;RM analysis;STT-RAM;body voltage sensing;magnetic tunnel junction device;process-voltage-temperature variations;sensing circuit;sensing current;short pulse reading circuit;size 65 nm;spin torque transfer RAM;switching current;CMOS integrated circuits;Magnetic tunneling;Noise;Random access memory;Resistance;Sensors;Switches;Emerging memory;STT-RAM;body-voltage sensing;read margin;sensing circuit;short-pulse reading},
+doi={10.1109/ISQED.2012.6187506},
+ISSN={1948-3287},}
+
+@misc{ppt:variatie,
+author = {Kelin J. Kuhn},
+title = {Variation in 45nm and Implications for 32nm and Beyond},
+howpublished = {powerpoint presentation}, 
+year = {2009},
+}
+
+@misc{ppt:model,
+author = {Stefan Cosemans, Robin Degraeve},
+title = {Verilog-A implementation of hourglass model},
+howpublished = {powerpoint presentation}, 
+year = {2012},
+}
+
+@ARTICLE{Ros12,
+author={Rose, G.S. and Rajendran, J. and Manem, H. and Karri, R. and Pino, R.E.},
+journal={Proceedings of the IEEE},
+title={Leveraging Memristive Systems in the Construction of Digital Logic Circuits},
+year={2012},
+month={June},
+volume={100},
+number={6},
+pages={2033-2049},
+doi={10.1109/JPROC.2011.2167489},
+ISSN={0018-9219},}
+
+@INPROCEEDINGS{Raj09,
+author={Raja, T. and Mourad, S.},
+booktitle={Communications, Circuits and Systems, 2009. ICCCAS 2009. International Conference on},
+title={Digital logic implementation in memristor-based crossbars},
+year={2009},
+month={July},
+pages={939-943},
+doi={10.1109/ICCCAS.2009.5250374},}
+
+@INPROCEEDINGS{Liu12,
+author={Liu, L.F. and Hou, Y. and Yu, D. and Chen, B. and Gao, B. and Tian, Y. and Han, D.D. and Wang, Y. and Kang, J.F. and Zhang, X.},
+booktitle={Electron Devices and Solid State Circuit (EDSSC), 2012 IEEE International Conference on},
+title={Multilevel set/reset switching characteristics in Al/CeOx/Pt RRAM devices},
+year={2012},
+month={Dec},
+pages={1-3},
+doi={10.1109/EDSSC.2012.6482850},}
+
+@ARTICLE{Den13,
+author={Yexin Deng and Peng Huang and Bing Chen and Xiaolin Yang and Bin Gao and Juncheng Wang and Lang Zeng and Gang Du and Jinfeng Kang and Xiaoyan Liu},
+journal={Electron Devices, IEEE Transactions on},
+title={RRAM Crossbar Array With Cell Selection Device: A Device and Circuit Interaction Study},
+year={2013},
+month={Feb},
+volume={60},
+number={2},
+pages={719-726},
+doi={10.1109/TED.2012.2231683},
+ISSN={0018-9383},}
+

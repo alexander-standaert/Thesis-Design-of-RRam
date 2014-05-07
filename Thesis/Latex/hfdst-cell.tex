@@ -8,7 +8,7 @@ Het essentiële element van een R-RAM geheugencel is ontegenspreekbaar de zogena
 De memristor wordt ook wel gezien als de 4\textsuperscript{e} passieve component, naast de weerstand, spoel en condensator.
 
 \subsection{Theoretisch principe}
-In 1971 publiceerde Leon Chua, een onderzoeker in o.a. niet-lineaire circuittheorie, een artikel waarin hij opmerkte dat er voor de 4 fundamentele circuitvariabelen (de spanning v, stroom i, lading q en flux $\phi$\footnote{$\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, voor een ideale inductantie is dit hetzelfde als magnetische flux}) van 6 mogelijke onderlinge relaties er slechts 5 gekend waren: $q(t) =  \int^{t}_{-\infty} i(\tau) \, d\tau $, $\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, $v(t)=R*i(t)$, $q(t)=C*v(t)$ en $\phi(t) = L*i(t)$ volgen uit de wetten van Maxwell en uit de definities van de weerstand, spoel en condensator, maar er ontbrak een relatie tussen $\phi$ en q.\cite{Chu71} Hij suggereerde dat er een 4e nog niet ontdekte passieve 2-pool moest bestaan die dit verband herbergde. Hij stelde dat $M(q)= \frac{d\phi(q)}{dq}$ met M de \emph{memristance}.
+In 1971 publiceerde Leon Chua, een onderzoeker in o.a. niet-lineaire circuittheorie, een artikel waarin hij opmerkte dat er voor de 4 fundamentele circuitvariabelen (de spanning v, stroom i, lading q en flux $\phi$\footnote{$\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, voor een ideale inductantie is dit hetzelfde als magnetische flux}) van 6 mogelijke onderlinge relaties er slechts 5 gekend waren: $q(t) =  \int^{t}_{-\infty} i(\tau) \, d\tau $, $\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, $v(t)=R*i(t)$, $q(t)=C*v(t)$ en $\phi(t) = L*i(t)$ volgen uit de wetten van Maxwell en uit de definities van de weerstand, spoel en condensator, maar er ontbrak een relatie tussen $\phi$ en q\cite{Chu71}. Hij suggereerde dat er een 4e nog niet ontdekte passieve 2-pool moest bestaan die dit verband herbergde. Hij stelde dat $M(q)= \frac{d\phi(q)}{dq}$ met M de \emph{memristance}.
 Hieruit volgt dat voor dit element $v(t)=M(q(t)) i(t)$. Indien er een lineair verband bestaat tussen $\phi$ en q, gedraagt dit element zich als een gewone weerstand. Enkel wanneer er een niet-lineair verband bestaat, beginnen er zich interessante karakteristieken voor te doen. Zo gedraagt het element zich ogenblikkelijk als een weerstand, maar gaat deze weerstandswaarde variëren in de tijd aan de hand van de stroom die er doorgelopen heeft.
 Gebaseerd op deze conclusie doopte hij deze component de memristor (een contractie van memory en resistor).
 Chua beëindigde zijn artikel met te erkennen dat er op dat moment nog geen fysische memristor was ontdekt, maar dat dit in de toekomst wel kon gebeuren, al dan niet zelfs per ongeluk. Hij gaf zelfs aan dat er misschien al in die tijd materialen met memristorkarakteristieken gebruikt werden, maar dat men hier over keek. Hij zou gelijk krijgen.
@@ -35,7 +35,7 @@ In 2008 publiceerde een onderzoeksgroep van Hewlett-Packard een artikel waarin z
 \begin{figure}
   \centering
   \includegraphics[scale=0.5]{../fig/hfdstk-cel-HP-model.png}
-  \caption{Model van het Pt-TiO\textsubscript{2}-Pt staal \cite{Str08}}
+  \caption{Model van het Pt-TiO\textsubscript{2}-Pt staal\cite{Str08}}
   \label{fig:HP-model}
 \end{figure}
 
@@ -48,30 +48,27 @@ Deze zachte doorslag van het zuivere oxide wordt \emph{forming} genoemd. Het pro
 \begin{figure}
   \centering
   \includegraphics[scale=0.22]{../fig/hfdstk-cel-forming-reset-set.png}
-  \caption{Illustratie van forming,resetting en setting \cite{Won12}}
+  \caption{Illustratie van forming,resetting en setting\cite{Won12}}
   \label{fig:forming-reset-set}
 \end{figure}
 
 De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet er onderscheid gemaakt worden tussen unipolair schakelen en bipolair. Bij bipolair resistief schakelen zal forming/setting optreden wanneer de aangelegde spanning een bepaalde polariteit heeft en resetting bij de omgekeerde polariteit. Bij unipolair schakelen is de amplitude van de spanning doorslaggevend voor welke van de 3 processen zal optreden, niet de polariteit. 
 
 
-\subsection{Toepassingen}
+\section{Memristortoepassingen}
 
-Naast uiteraard de geheugentoepassing, die in de volgende sectie ingeleid zal worden, hebben resistief schakelende elementen nog andere toepassingen.
-Met de resistief chakelende elementen zou een \emph{crossbar latch} gerealiseerd kunnen worden, 
+Voor dit werk is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Met deze MRS [multiresistive states] kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten.
+Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom dat er in dit werk voor een 1T1R-configuratie geopteerd werd, de gebruikte memristor is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
 
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.22]{../fig/hfdstk-cel-1T1R.png}
+  \caption{Een 1T1R-configuratie\cite{Won12}}
+  \label{fig:forming-reset-set}
+\end{figure}
 
-\section{Memristor in een geheugenstructuur}
-
-In dit werk wordt gebruik gemaakt van een \emph{1 Transistor, 1 Resistor} (maar eigenlijk dus een memristor) architectuur, de combinatie van deze twee vormt de geheugencel, maar er zijn nog een paar andere configuraties die zouden toegepast kunnen worden.
-
-\subsection{1T1R}
-
-\subsection{1R}
-
-\subsection{1T1D}
-
+Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassigen, er wordt zelfs gesproken over een volledige vervanger van de transistor\cite{Kue05}.
 
 
 \section{Besluit}
-
+De memristor is een theoretische passieve component die lading en flux met elkaar verbindt. In de praktijk zijn er MIM-configuraties ontdekt die memristorkarakteristieken vertonen. Deze karakteristieken zijn bijzonder interessant voor geheugens, wat in de volgende hoofdstukken wordt toegepast.

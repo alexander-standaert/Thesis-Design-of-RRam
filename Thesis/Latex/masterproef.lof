@@ -13,15 +13,17 @@
 \addvspace {10pt}
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Abrupte overgang van hoge weerstand naar lage weerstand voor NiO\cite {Bae04}}}{4}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Metal-Insulator-Metal structuur\cite {Won12}}}{4}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Model van het Pt-TiO\textsubscript {2}-Pt staal \cite {Str08}}}{5}{figure.2.3}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Illustratie van forming,resetting en setting \cite {Won12}}}{5}{figure.2.4}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Model van het Pt-TiO\textsubscript {2}-Pt staal\cite {Str08}}}{5}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Illustratie van forming,resetting en setting\cite {Won12}}}{5}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Een 1T1R-configuratie\cite {Won12}}}{6}{figure.2.5}
 \addvspace {10pt}
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Een geheugencel en een branch}}{8}{figure.3.1}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Een Local Block}}{8}{figure.3.2}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Topologie om referentiesignaal te verkrijgen}}{9}{figure.3.3}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Een Global Block}}{10}{figure.3.4}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Timing globalblock}}{12}{figure.4.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {het simpel bitlijn model}}}{12}{subfigure.1.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Verschil in Bitlijnspanning in functie van lastweerstand}}}{12}{subfigure.1.2}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Test bench voor de last}}{13}{figure.4.2}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Test circuit}}}{13}{subfigure.2.1}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Controle signalen 1}}}{13}{subfigure.2.2}
@@ -32,14 +34,14 @@
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {De bias load}}}{14}{subfigure.3.2}
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {De diode load}}}{14}{subfigure.3.3}
 \contentsline {subfigure}{\numberline {(d)}{\ignorespaces {De bulk load}}}{14}{subfigure.3.4}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Bitlijn voltage distributie voor een biasload}}{16}{figure.4.4}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Lineaire sweep van switchload}}{17}{figure.4.5}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Lineaire sweep van biasload}}{17}{figure.4.6}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Lineaire sweep van diodeload}}{18}{figure.4.7}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Lineaire sweep van bulkload}}{18}{figure.4.8}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Lineaire sweep van switchload}}{17}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Lineaire sweep van biasload}}{17}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Lineaire sweep van diodeload}}{18}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Lineaire sweep van bulkload}}{18}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Bitlijn voltage distributie voor een biasload}}{19}{figure.4.8}
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Lineaire sweep van switchload}}{19}{figure.4.9}
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Verschillende oplossingen voor de switchload met variabele lengtes en breetes}}{20}{figure.4.10}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Bitlijn voltage distributie voor de finale load}}{20}{figure.4.11}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Bitlijn voltage distributie voor de finale load}}{21}{figure.4.11}
 \addvspace {10pt}
 \contentsline {figure}{\numberline {5.1}{\ignorespaces een sense amplifier}}{23}{figure.5.1}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Illustratie van offsetspanning}}{24}{figure.5.2}
@@ -59,11 +61,11 @@
 \contentsline {figure}{\numberline {6.3}{\ignorespaces vergelijking van decoder types}}{34}{figure.6.3}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {oppervlakte}}}{34}{subfigure.3.1}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {energie en delay}}}{34}{subfigure.3.2}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Timing globalblock}}{35}{figure.6.4}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Timing globalblock}}{35}{figure.6.5}
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Timing globalblock}}{36}{figure.6.6}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Energie verbruik in griddecoder}}{35}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Glitch in NOR-gate}}{35}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Gebufferde en ongebufferde signalen naar de referentie logica}}{36}{figure.6.6}
 \contentsline {figure}{\numberline {6.7}{\ignorespaces nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}}{37}{figure.6.7}
-\contentsline {figure}{\numberline {6.8}{\ignorespaces pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}}{38}{figure.6.8}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}}{37}{figure.6.8}
 \contentsline {figure}{\numberline {6.9}{\ignorespaces Dode zones voor verschillende types passgates}}{39}{figure.6.9}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {CLVT}}}{39}{subfigure.9.1}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {CHVT}}}{39}{subfigure.9.2}
@@ -84,13 +86,16 @@
 \contentsline {figure}{\numberline {7.8}{\ignorespaces Timing controle logica memory array}}{46}{figure.7.8}
 \contentsline {figure}{\numberline {7.9}{\ignorespaces logica rond SA}}{46}{figure.7.9}
 \contentsline {figure}{\numberline {7.10}{\ignorespaces Timing logica rond SA}}{47}{figure.7.10}
-\contentsline {figure}{\numberline {7.11}{\ignorespaces Timing controle logica memory array}}{48}{figure.7.11}
-\contentsline {figure}{\numberline {7.12}{\ignorespaces Timing controle logica memory array}}{49}{figure.7.12}
-\contentsline {figure}{\numberline {7.13}{\ignorespaces Timing controle logica memory array}}{50}{figure.7.13}
+\contentsline {figure}{\numberline {7.11}{\ignorespaces Lees cyclus}}{48}{figure.7.11}
+\contentsline {figure}{\numberline {7.12}{\ignorespaces Invloed \#BL en \#WL op delay,energie verbruik en oppervlakte}}{49}{figure.7.12}
+\contentsline {figure}{\numberline {7.13}{\ignorespaces Delay,energie verbruik en oppervlakte van alle geheugenconfiguraties}}{50}{figure.7.13}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Resultaten speed-vdd test}}{52}{figure.8.1}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Bl spanningen ifv Vdd}}{53}{figure.8.2}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Timing globalblock}}{56}{figure.A.1}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Timing globalblock}}{56}{figure.A.2}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Testcircuit ladingsinjectie}}{60}{figure.A.1}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Stromen in circuit}}{60}{figure.A.2}
 \select@language {dutch}
 \select@language {dutch}
 \select@language {dutch}
