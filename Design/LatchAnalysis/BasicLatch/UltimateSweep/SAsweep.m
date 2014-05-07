@@ -157,21 +157,18 @@ function [] = sim_evaluate()
 end
 
 function [] = plot_results()
+    close all
     load('./LatchAnalysis/BasicLatch/UltimateSweep/pareto.mat');
     a=min(pareto(:,3));
     b=max(pareto(:,3));
     NoScatters=(b-a)/0.005
     figure
-    hold all
+    c = [[0:0.01:1]',0.1*ones(length(0:0.01:1),1),[1:-0.01:0]']
+    scatter(pareto(:,1),pareto(:,2),ones(length(pareto(:,3)),1)*50,pareto(:,3),'fill')
+    colormap(c)
+    caxis([0.03 .1]); colorbar;
     
-    for i=0:NoScatters
-        DeltaV=a+0.005*i;
-        c=find(pareto(:,3)==DeltaV);
-        x=pareto(c,:);
-        scatter(x(:,1),x(:,2))
-    end
     
-    figure
-    scatter3(pareto(:,1),pareto(:,2),pareto(:,3),pareto(:,end)*50/max(pareto(:,end)))
+
 end
 

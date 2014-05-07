@@ -136,3 +136,4 @@ Voor de finale last wordt er geopteert voor een transistor met lengte gelijk aan
 \end{figure}
 
 \section{Besluit}
+Verschillende kandidaten voor lastimpedanties werden overwogen. Aanvankelijk werd er getracht een last met minimale transistorlengtes te vinden, dit bleek echter niet haalbaar wanneer variabiliteit in rekening wordt genomen. Een enkele transitor met niet-minimale afmetingen bleek optimale resultaten te leveren wat betreft BL-spanningsverschil en spanningsval over geheugenelement.
