@@ -9,7 +9,7 @@ elseif whichdecoder == 2
 end
 
 sp.MismatchOn=1;
-sp.numruns=100;
+sp.numruns=50;
 sp.simlength=3e-9;
 
 
@@ -41,7 +41,7 @@ for i=1:sp.numruns
 end
 
 Emean = mean(E);
-delaymean = mean(delay);
+delaymean = mean(delay)
 
 E_statistics = fitdist(E,'Normal');
 td_statistics = fitdist(delay,'Normal');

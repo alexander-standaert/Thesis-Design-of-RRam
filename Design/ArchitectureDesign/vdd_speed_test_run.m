@@ -77,7 +77,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
         
         wavetempgroup=[];
         for k=1
-            wavetemp = makewave('samplehold',[1+t*1e9-param.thold*1e9,param.thold*1e9,1.5]*1e-9,[0,1,0]);
+            wavetemp = makewave('samplehold',[1+t*1e9-0.2e-9*1e9,0.2e-9*1e9,1.5]*1e-9,[0,1,0]);
             wavetempgroup = makewavegroup('tempgroup',[wavetemp]);
             wavetempgroups(k) = wavetempgroup;
         end
@@ -265,7 +265,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigxi3,sigyi3)
                 legend('Ilogic','ISA','Imemarray','IBuffers')
                 
-%                 plotTiming(sim)
+                 plotTiming(sim)
                   error('ssdfsdfsd')
             end
             

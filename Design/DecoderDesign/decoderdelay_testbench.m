@@ -117,8 +117,9 @@ close all
 f1 = figure
 hold on
 data = load('./DecoderDesign/energy_decoder2.mat')
+data2 = load('./DecoderDesign/comp_e_d.mat')
 plot([4:9],data.energy2b(4:9))
-plot([4:9],data.energy2b(4:9)+data.energy2(4:9),'r')
+plot([4:9],data2.energy2(4:9),'r')
 xlim([3.5,9.5])
 legend('energy buffers inside decoder','total energy decoder')
 ylabel('Energy (J)','FontSize', 12,'FontWeight','bold')
@@ -146,22 +147,26 @@ ylabel(ha(1),'Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold'
 ylabel(ha(2),'Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold')
 xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 set(ha,{'ycolor'},{'k';'k'})
-% 
-% bufferdelay = [0.1,0.1,0.2,0.2,0.2,0.25]*1e-9
-% decoderdelay = data.delay2(4:9)
-% wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
-% 
-% figure
-% hold all
-% cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
-% for i = 1:6
-%     plot([4:9],wldelay(i,:),'Color',cmp(i,:))
-% end
-% plot([4:9],decoderdelay+0.1e-9,'b')
-% xlim([3.5,9.5])
-% legend({'WL decoder 4 delay','WL decoder 5 delay', ...
-%        'WL decoder 6 delay','WL decoder 7 delay', ...
-%        'WL decoder 8 delay','WL decoder 9 delay', ...
-%        'BL decoder delay'},'interpreter','none')
-% ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
-% xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
+
+
+
+
+bufferdelay = [0.08,0.081,0.15,0.16,0.16,0.25]*1e-9
+decoderdelay = data.delay2(4:9);
+wldelay = repmat(decoderdelay',1,6) + repmat(bufferdelay,6,1)
+
+figure
+hold all
+cmp = [ones(7,1)*0.7,zeros(7,1),[0:0.14:0.14*6]']
+for i = 1:6
+    plot([4:9],wldelay(i,:),'Color',cmp(i,:))
+end
+plot([4:9],decoderdelay+0.1e-9,'b')
+xlim([3.5,9.5])
+ylim([0,9]*1e-10)
+legend({'WL decoder 4 delay','WL decoder 5 delay', ...
+       'WL decoder 6 delay','WL decoder 7 delay', ...
+       'WL decoder 8 delay','WL decoder 9 delay', ...
+       'BL decoder delay'},'interpreter','none')
+ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
+xlabel('Number of inputs of BL decoder','interpreter','none','FontSize', 12,'FontWeight','bold')

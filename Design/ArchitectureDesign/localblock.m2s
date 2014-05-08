@@ -14,7 +14,6 @@ $end
 xdecWL ($<bus('WLencoded',[0:log2(sp.NoWLpB)-1])>$ LBenable $<bus('selWL',[0:sp.NoWLpB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoWLpB))>$ //decoders
 xdecBL ($<bus('BLencoded',[0:log2(sp.NoBLpLB)-1])>$ LBenable $<bus('selBL',[0:sp.NoBLpLB-1])>$ vdd_0 vss NBulkLine PBulkLine) decoder$<int2spelledstring(log2(sp.NoBLpLB))>$
 
-
 $for i=0:sp.NoBLpLB-1
 $if i < sp.PercentageUsedRef*sp.NoBLpLB-1
 xnor$<i>$_0 (selBL_$<i>$ SelREF_b SelL_$<i>$ vdd_0 vss PBulkLine NBulkLine) twonor //load logic
