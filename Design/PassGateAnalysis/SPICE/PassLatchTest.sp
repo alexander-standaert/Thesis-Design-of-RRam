@@ -8,28 +8,28 @@ include "../../technology_models/monte_carlo_models.scs"
 parameters enableMismatch=0
 
 
-xMup out outbar n1 bp mc_pmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 10
-xMupbar outbar out n1 bp mc_pmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
-xMdown out outbar n2 bn mc_nmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 10
-xMdownbar outbar out n2 bn mc_nmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
+xMup out outbar n1 bp mc_pmos_hvt w=1.7e-06 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 10
+xMupbar outbar out n1 bp mc_pmos_hvt w=1.7e-06 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
+xMdown out outbar n2 bn mc_nmos_hvt w=1.5e-06 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 10
+xMdownbar outbar out n2 bn mc_nmos_hvt w=1.5e-06 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
 
 //Rtop vdd n1 resistor r=0
 //Rbottom vss n2 resistor r=0
 
-xMtop n1 latchenablep vdd bp mc_pmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
-xMbottom n2 latchenablen vss bn mc_nmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
+xMtop n1 latchenablep vdd bp mc_pmos_hvt w=9e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
+xMbottom n2 latchenablen vss bn mc_nmos_hvt w=5e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
 
-//xMpassn in2 passEnablen out bn mc_nmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 1 sigmamult = -4
-//xMpassp in2 passEnablep out bp mc_pmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 1 sigmamult = 4
-//xMpassbarn inbar2 passEnablen outbar bn mc_nmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
-//xMpassbarp inbar2 passEnablep outbar bp mc_pmos_hvt w=1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 4
+xMpassn in2 passEnablen out bn mc_nmos_hvt w=5e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 1 sigmamult = -4
+xMpassp in2 passEnablep out bp mc_pmos_hvt w=5e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 1 sigmamult = 4
+xMpassbarn inbar2 passEnablen outbar bn mc_nmos_hvt w=5e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
+xMpassbarp inbar2 passEnablep outbar bp mc_pmos_hvt w=5e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 4
 
-Rin in2 out resistor r=10000
-Rinbar inbar2 outbar resistor r=10000
+//Rin in2 out resistor r=10000
+//Rinbar inbar2 outbar resistor r=10000
 
 
-Cin in2 0 capacitor c=256*0.18e-15*0
-Cinbar inbar2 0 capacitor c=256*0.18e-15*0
+Cin in2 0 capacitor c=256*0.18e-15*1
+Cinbar inbar2 0 capacitor c=256*0.18e-15*1
 
 //xMpassn2 in vdd in2 bn mc_nmos_hvt w=.5*1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = -4
 //xMpassp2 in vss in2 bp mc_pmos_hvt w=.5*1e-07 controlledOffset = 1  enableVtMismatch = 0 enableBetaMismatch = 0 sigmamult = 4
@@ -96,8 +96,8 @@ Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 1.7e-09 0 1.
 //Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 2e-09 0 2.1e-09 1 8e-09 1]
 
 
-ic out = 0.38
-ic outbar = 0.4
+ic out = 1
+ic outbar = 0
 ic in2 = 0.38
 ic inbar2 = 0.4
 

@@ -4,6 +4,7 @@ Voor een correcte werking van het geheugen, is het van belang dat de verschillen
 Bovendien is er ruimte voor optimalisatie door al de signalen even snel te maken als het critisch pad. In het eerste deel van dit hoofdstuk zal de invloed van architecture en sizing onderzocht worden op de timing van de signalen. De constraints en vrijheidsgraden die hier uit volgen zullen dan gebruikt worden in het tweede deel van dit hoofdstuk om een optimale architecture te vinden.
 
 \section{Timing}
+\label{timing}
 Het ontwerp van dit geheugen gaat tot het niveau van het globalblock \ref{globalblock}, hierbij wordt de veronderstelling gemaakt dat alle signalen tegelijkertijd binnen komem in het globelblock. Hierna propageren de signalen door logica tot ze verschillende transistoren rond de BL aansturen. De aansturing van deze transistoren omvatten de eerste critische timing constraints. Vervolgens worden de muxen en SA aangesloten, deze zullen de tweede timing constraints bevatten.
 
 \subsection{Critische timing voor het (de)selecteren cell}

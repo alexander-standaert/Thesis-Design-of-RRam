@@ -16,10 +16,10 @@ xMdownbar outbar out n2 bn mc_nmos_hvt w=$<sp.PWn>$ controlledOffset = 1  enable
 xMtop n1 latchenablep vdd bp mc_pmos_hvt w=$<sp.PWpenable>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(9)>$ enableBetaMismatch = $<sp.whichMismatch(10)>$ sigmamult = $<sp.sigmamult>$
 xMbottom n2 latchenablen vss bn mc_nmos_hvt w=$<sp.PWnenable>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(11)>$ enableBetaMismatch = $<sp.whichMismatch(12)>$ sigmamult = $<sp.sigmamult>$
 
-xMpassn in passEnablen out bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(13)>$ enableBetaMismatch = $<sp.whichMismatch(14)>$ sigmamult = $<sp.sigmamult>$
-xMpassp in passEnablep out bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(15)>$ enableBetaMismatch = $<sp.whichMismatch(16)>$ sigmamult = $<sp.sigmamult>$
-xMpassbarn inbar passEnablen outbar bn mc_nmos_hvt w=$<sp.PWpassN>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(17)>$ enableBetaMismatch = $<sp.whichMismatch(18)>$ sigmamult = $<sp.sigmamult>$
-xMpassbarp inbar passEnablep outbar bp mc_pmos_hvt w=$<sp.PWpassP>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(19)>$ enableBetaMismatch = $<sp.whichMismatch(20)>$ sigmamult = $<sp.sigmamult>$
+xMpassn in passEnablen out bn mc_nmos_hvt w=$<sp.PWpassN>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(13)>$ enableBetaMismatch = $<sp.whichMismatch(14)>$ sigmamult = $<sp.sigmamult>$
+xMpassp in passEnablep out bp mc_pmos_hvt w=$<sp.PWpassP>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(15)>$ enableBetaMismatch = $<sp.whichMismatch(16)>$ sigmamult = $<sp.sigmamult>$
+xMpassbarn inbar passEnablen outbar bn mc_nmos_hvt w=$<sp.PWpassN>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(17)>$ enableBetaMismatch = $<sp.whichMismatch(18)>$ sigmamult = $<sp.sigmamult>$
+xMpassbarp inbar passEnablep outbar bp mc_pmos_hvt w=$<sp.PWpassP>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(19)>$ enableBetaMismatch = $<sp.whichMismatch(20)>$ sigmamult = $<sp.sigmamult>$
 
 Vvdd     ( vdd     0 ) vsource dc=1
 Vvss     ( vss     0 ) vsource dc=0

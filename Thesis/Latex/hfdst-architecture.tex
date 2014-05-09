@@ -22,10 +22,11 @@ Ter illustratie wordt de samenhang tussen cel en branch getoond in figuur \ref{f
 \end{figure}
 
 \section{Local Block}
-Verschillende BLs en SLs worden samengebracht in een local block, waarvan de vrijheidsgraad \emph{Number of Bit Lines per Local Block} (NoBLpLB) heet. In een LB bevinden er zich dus NoBLpLB x NoWLpB datacellen en NoBLpLB referentiecellen. Ook bevat een Local Block zowel BL- als WL-decoders.
-De structuur van een Local Block is geïllustreerd op figuur \ref{fig:LB}.
-De uitgangen van de WL-decoder sturen de data-WLs aan [eventueel met een buffer], de uitgangen van de BL-decoder activeren een spanningsdeling op de BLs.\footnote{Indien schrijfwerking zou toegevoegd worden, zouden de uitgangen van de BL-decoder aan twee AND-poorten worden verbonden; bij leesoperatie brengt de uitgang van de ene AND-poort de resistieve deling op de BL teweeg, bij schrijfoperatie zet de uitgang van de andere AND-poort een pull-up-operatie van de BL naar Vdd\_write op.} De referentie-WL is via een extern signaal verbonden.
+Verschillende BLs en SLs worden samengebracht in een local block, waarvan de vrijheidsgraad \emph{Number of Bit Lines per Local Block} (NoBLpLB) heet. In een LB bevinden er zich dus NoBLpLB x NoWLpB datacellen en NoBLpLB referentiecellen. Ook bevat een local block zowel BL- als WL-decoders. De afzonderlijke BLs worden via passgates verbonden tot een uitgangsknooppunt.
+De structuur van een local block is geïllustreerd op figuur \ref{fig:LB}.
+De uitgangen van de WL-decoder sturen de data-WLs aan [eventueel met een buffer], de uitgangen van de BL-decoder activeren een spanningsdeling op de BLs.\footnote{Indien schrijfwerking zou toegevoegd worden, zouden de uitgangen van de BL-decoder aan twee AND-poorten worden verbonden; bij leesoperatie brengt de uitgang van de ene AND-poort de resistieve deling op de BL teweeg, bij schrijfoperatie zet de uitgang van de andere AND-poort een pull-up-operatie van de BL naar Vdd\_write op.} De referentie-WL is via een extern signaal verbonden. Voor een gedetailleerdere beschrijving over hoe de decoderuitgangen gebruikt worden, zie sectie \ref{timing}.
 Aangezien een LB zowel data- als referentiecellen bevat, gaat een LB twee werkingsmodes hebben: een mode waarbij er één datacel wordt aangesproken en een mode waarbij er een bepaald aantal referentiecellen in parallel wordt aangesproken.
+Figuur \ref{fig:LB-details} geeft een meer gedetailleerd beeld van een LB, decoders weggelaten.
 
 \begin{figure}
   \centering
@@ -34,12 +35,26 @@ Aangezien een LB zowel data- als referentiecellen bevat, gaat een LB twee werkin
   \label{fig:LB}
 \end{figure}
 
-\subsection{Data-signaal uitlezen}
-Het data-signaal is de spanning op de BL nadat er een resistieve deling is gebeurd, waarbij er stroom vloeit door één cel. De last die hangt aan de voedingsspanning, op figuur \ref{fig:dataread} voorgesteld als een pMOS-transistor, wordt aangeschakeld, alsook de nMOS-transistoren in de cel en aan de sourceline. Er vloeit een stroom langs dit pad: I=Vdd/Rtot, en de spanning op de BL is V=IReq.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.3]{../fig/hfdstk-architecture-LB-details.png}
+  \caption{Een meer gedetailleerde illustratie van een LB, decoders zijn weggelaten}
+  \label{fig:LB-details}
+\end{figure}
 
-\subsection{Referentie-signaal uitlezen}
-Het referentiesignaal is een spanning die tussen de spanning van een lage resistieve datacel en een hoge resistieve datacel moet liggen. Een dergelijk signaal kan verkregen worden door twee BLs kort te sluiten zoals op figuur \ref{fig:2cellref}. In dit ontwerp zal de kortsluiting gerealiseerd worden door de BLs via passgates te verbinden met een derde knooppunt. In theorie is het voldoende om 2 BLs [een aangesloten op een hoog resistief geheugenelement en een op een laag resistief geheugenelement] kort te sluiten om het referentiesignaal te verkrijgen. Er zit echter op de resistieve geheugenelementen variabiliteit: er wordt aangenomen dat $R_{H}$ normaal verdeeld is met $\mu = 32500\Omega$ en $\sigma = 833\Omega$. $R_{L}$ is ook normaal verdeeld met $\mu = 7500\Omega$ en $\sigma = 833\Omega$. Dit betekent dat ook de data-signalen en referentie-signalen stochastische variabelen zijn.
-Door echter steeds meer referentie-bitlijnen kort te sluiten gaat de spreiding van het referentiesignaal dalen. Bovendien kan men de verwachtingswaarde verschuiven door meer hoge (lage) resistieve referentiegeheugenelementen te gebruiken dan lage (hoge).
+\subsection{Datasignaal uitlezen}
+Het datasignaal is de spanning op de BL nadat er een resistieve deling is gebeurd, waarbij er stroom vloeit door één cel. De last die hangt aan de voedingsspanning, op figuur \ref{fig:dataread} voorgesteld als een pMOS-transistor, wordt aangeschakeld, alsook de nMOS-transistoren in de cel en aan de sourceline. Er vloeit een stroom langs dit pad: I=Vdd/Rtot, en de spanning op de BL is V=IReq. Om dit datasignaal op de uitgangsknoop van het LB te krijgen, wordt de bijhorende passgate van de BL in kwestie geactiveerd.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.3]{../fig/hfdstk-architecture-datasignal.png}
+  \caption{Methodologie om datasignaal te verkrijgen op een BL}
+  \label{fig:dataread}
+\end{figure}
+
+\subsection{Referentiesignaal uitlezen}
+Het referentiesignaal is een spanning die tussen de spanning van een lage resistieve datacel en een hoge resistieve datacel moet liggen. Een dergelijk signaal kan verkregen worden door twee BLs kort te sluiten zoals op figuur \ref{fig:2cellref}. In dit ontwerp zal de kortsluiting gerealiseerd worden door de passgates van de BLs aan te zetten, zo komt het referentiesignaal bovendien ook op de uitgangsknoop te staan. In theorie is het voldoende om 2 BLs [de ene met een HRS cel en de andere met een LRS cel] kort te sluiten om het referentiesignaal te verkrijgen. Er zit echter op de resistieve geheugenelementen variabiliteit: er wordt aangenomen dat $R_{H}$ normaal verdeeld is met $\mu = 32500\Omega$ en $\sigma = 833\Omega$. $R_{L}$ is ook normaal verdeeld met $\mu = 7500\Omega$ en $\sigma = 833\Omega$. Dit betekent dat ook de data-signalen en referentie-signalen stochastische variabelen zijn.
+Door echter steeds meer referentiebitlijnen kort te sluiten gaat de spreiding van het referentiesignaal dalen. Bovendien kan men de verwachtingswaarde verschuiven door meer hoge (lage) resistieve referentiegeheugenelementen te gebruiken dan lage (hoge).
 
 \begin{figure}
   \centering
@@ -50,9 +65,9 @@ Door echter steeds meer referentie-bitlijnen kort te sluiten gaat de spreiding v
 
 \section{Global Block}
 \label{globalblock}
-Een global block bestaat uit twee LBs en een sense amplifier (SA). In het ene LB gaat er een datasignaal geproduceerd worden, in het andere een referentiesignaal (zie figuur \ref{fig:GB}. Vervolgens gaat de SA dit kleine signaalverschil versterken tot een zuivere rail-to-rail output.
+Een global block bestaat uit twee LBs en een sense amplifier (SA) met bijhorende sample-and-hold-schakelaars (S\&H). In het ene LB gaat er een datasignaal geproduceerd worden, in het andere een referentiesignaal (zie figuur \ref{fig:GB}. Vervolgens gaat de SA dit kleine signaalverschil versterken tot een zuivere rail-to-rail output.
 Aan de uitgang van het GB verschijnen dan ook de opgevraagde bits.
-De laatste architectuurvrijheidsgraad is de \emph{Number of Global Blocks} (NoGB), het totale geheugen bevat dus NoGB x 2 x NoBLpLB x NoWLpB geheugencellen.
+De laatste architectuurvrijheidsgraad is de \emph{Number of Global Blocks} (NoGB), het totale geheugen bevat dus NoGB x 2 x NoBLpLB x NoWLpB datageheugencellen.
 
 \begin{figure}
   \centering

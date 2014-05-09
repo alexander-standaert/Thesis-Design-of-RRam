@@ -2,17 +2,18 @@ sp.numruns = 1;
 %sizing parameters
 PWmin = 100e-9;
 
-sp.PWp = PWmin;
-sp.PWn = PWmin;
-sp.PWpenable = PWmin;
-sp.PWnenable = PWmin;
-sp.PWpassN = PWmin;
-sp.PWpassP = PWmin;
+sp.PWp = 1700e-9;
+sp.PWn = 1500e-9;
+sp.PWpenable = 900e-9;
+sp.PWnenable = 500e-9;
+sp.PWpassN = 500e-9;
+sp.PWpassP = 500e-9;
+sp.PLpass = 45e-9;
 
 numberofsigma = [-4:1:4];
 whichMismatch = eye(20);
 
-offsets = [-0.3:0.001:0.3];
+offsets = [-0.15:0.001:0.15];
 
 mega=allcomb(numberofsigma,[1:20]);
 
@@ -62,4 +63,4 @@ for i=1:size(mega,1)
 end
 
 SensitivitySweep = [mega,offset];
-save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata2.mat','SensitivitySweep') %%
+save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata3.mat','SensitivitySweep') %%
