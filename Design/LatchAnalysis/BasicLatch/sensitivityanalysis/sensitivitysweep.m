@@ -17,12 +17,10 @@ offsets = [-0.15:0.001:0.15];
 
 mega=allcomb(numberofsigma,[1:20]);
 
-wavetemp1 = makewave('SAenP',[1.1,1,1]*1e-9,[1,0,1]);
-wavetemp2 = makewave('SAenN',[1.1,1,1]*1e-9,[0,1,0]);
-% wavetemp3 = makewave('PassN',[0.5,0.9,1]*1e-9,[0,1,0]);
-% wavetemp4 = makewave('PassP',[0.5,0.9,1]*1e-9,[1,0,1]);
-wavetemp3 = makewave('PassN',[0.5,1.1,1]*1e-9,[0,1,0]);
-wavetemp4 = makewave('PassP',[0.5,1.1,1]*1e-9,[1,0,1]);
+wavetemp1 = makewave('SAenP',[1.6,1,1]*1e-9,[1,0,1]);
+wavetemp2 = makewave('SAenN',[1.6,1,1]*1e-9,[0,1,0]);
+wavetemp3 = makewave('PassN',[0.5,1,1]*1e-9,[0,1,0]);
+wavetemp4 = makewave('PassP',[0.5,1,1]*1e-9,[1,0,1]);
 wavetempgroup = makewavegroup('tempgroup',[wavetemp1,wavetemp2,wavetemp3,wavetemp4]);
 wave = calcwaves(wavetempgroup);
 sp.enableP = wave.SAenP;
@@ -63,4 +61,4 @@ for i=1:size(mega,1)
 end
 
 SensitivitySweep = [mega,offset];
-save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata3.mat','SensitivitySweep') %%
+save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata4.mat','SensitivitySweep') %%

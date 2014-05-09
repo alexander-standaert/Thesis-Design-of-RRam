@@ -162,6 +162,39 @@ Mbottom & Vt & 0.0333 & 100 & 45 & 42.0381mV \\
 In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensitiviteitsanalyse getoond voor de SA die gebruikt wordt in het finale geheugenontwerp. Deze is gekozen aan de hand van de resultaten van de paretosimulatie in de volgende sectie.
 
 
+\begin{table}
+\begin{tabular}{cccccc}
+\hline 
+Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
+\hline 
+Mup & Vt & -4.283 & 1700 & 45 & 9.0388mV \\ 
+Mupbar & Vt & 4.283 & 1700 & 45 & 9.0388mV \\ 
+Mpassn & Vt & -3.767 & 500 & 45 & 18.8000mV \\
+Mpassbarn & Vt & 3.650 & 500 & 45 & 18.8000mV \\
+Mpassbarn & $\beta$ & -3.000 & 500 & 45 & 13.3333\% \\ 
+Mpassn & $\beta$ & 3.000 & 500 & 45 & 13.3333\% \\ 
+Mup & $\beta$ & -1.767 & 1700 & 45 & 4.3386\% \\ 
+Mupbar & $\beta$ & 1.767 & 1700 & 45 & 4.3386\% \\ 
+Mdown & Vt & -1.100 & 1500 & 45 & 10.8542mV \\ 
+Mdownbar & Vt & 1.100 & 1500 & 45 & 10.8542mV \\
+Mdown & $\beta$ & 0.8333 & 1500 & 45 & 7.6980\% \\
+Mdownbar & $\beta$ & -0.8333 & 1500 & 45 & 7.6980\% \\  
+Mpassp & Vt & 0.1667 & 500 & 45 & 16.6667mV \\ 
+Mpassp & $\beta$ & 0.1667 & 500 & 45 & 8\% \\ 
+Mpassbarp & Vt & -0.1667 & 500 & 45 & 16.6667mV \\
+Mpassbarp & $\beta$ & -0.1667 & 500 & 45 & 8\% \\ 
+Mtop & $\beta$ & 0.1333 & 900 & 45 & 5.9628\% \\ 
+Mtop & Vt & 0.1000 & 900 & 45 & 12.4226mV \\ 
+Mbottom & $\beta$ & -0.06667 & 500 & 45 & 13.3333\% \\ 
+Mbottom & Vt & 0.03333 & 500 & 45 & 18.8000mV \\ 
+\hline 
+\hline & $\sigma_{Voffset}$: & 9.6125mV & & & \\
+\hline
+\end{tabular} 
+\caption{Sensitiviteitsanalyse van de SA in het finale geheugen, er is overlap tussen de controlesignalen}
+\label{tab:ourSA-sensanalysis-overlap}
+\end{table}
+
 \section{Paretosimulatie}
 In het beginstadium van het ontwerp is nog niet duidelijk wat de impedantie aan de BL wordt. Het is deze impedantie die bepaalt wat het spanningsverschil is tussen het datasignaal en het referentiesignaal aan de sense amplifier. Bovendien kan het zijn dat er midden in het ontwerp besloten wordt om een andere impedantie te kiezen om alsnog te optimaliseren naar een andere variabele.
 Natuurlijk is het mogelijk om één SA te gebruiken die voor elke impedantie een correcte en snelle werking zou garanderen. Dit zou echter een verspilling zijn van energie. In deze sectie wordt een pareto-oppervlak opgesteld waarbij er voor elk spanningsverschil de snelste en energiezuinigste SA-ontwerpen worden gekozen.
