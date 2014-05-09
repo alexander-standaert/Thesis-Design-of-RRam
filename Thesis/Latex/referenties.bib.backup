@@ -159,3 +159,22 @@ pages={719-726},
 doi={10.1109/TED.2012.2231683},
 ISSN={0018-9383},}
 
+@misc{Wou09,
+author = {Wouters, D.},
+title = {Oxide Resistive RAM (OxRRAM) for scaled NVM application},
+howpublished = {powerpoint presentation}, 
+year = {2009},
+}
+@article{Kue05,
+   author = "Kuekes, Philip J. and Stewart, Duncan R. and Williams, R. Stanley",
+   title = "The crossbar latch: Logic value storage, restoration, and inversion in crossbar circuits",
+   journal = "Journal of Applied Physics",
+   year = "2005",
+   volume = "97",
+   number = "3", 
+   eid = 034301,
+   pages = "-",
+   url = "http://scitation.aip.org/content/aip/journal/jap/97/3/10.1063/1.1823026",
+   doi = "http://dx.doi.org/10.1063/1.1823026" 
+}
+

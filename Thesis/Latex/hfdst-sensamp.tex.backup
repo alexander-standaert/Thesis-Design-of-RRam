@@ -4,29 +4,30 @@ Een sense amplifier versterkt kleine signaalverschillen tot rail-tot-rail signal
 Het is dus logisch om de sense amplifier wat meer te onderzoeken en zodanig te ontwerpen op een robuuste manier, terwijl er ook rekening gehouden wordt met energie en snelheid.
 
 \section{Types SA}
-Er bestaan heel wat verschillende soorten sense amplifiers, traditioneel kunnen die op twee verschillende manieren geclassificeerd worden. Enerzijds kan men onderscheid maken tussen differentiële en niet-differentiële SA. Anderzijds maakt men onderscheid tussen voltage SA en current SA. Een voorbeeld van een niet-differentiële SA is een inverter. De drempelspanning waarbij de inverter schakelt wordt bepaald door de groottes van de transistoren. Deze architectuur is echter bijzonder susceptibel aan globale variabelen zoals temperatuur en voedingsspanning. Een dergelijk probleem kan opgelost worden door een referentiesignaal dat gelijke variaties ervaart door deze globale schommelingen als het datasignaal. Voor een dergelijke architectuur zijn uiteraard differentiële SA nodig. Current en voltage SA verschillen in ingangsimpedantie: bij een hoge ingangsimpedantie spreekt men van voltage-sensing, bij een lage impedantie spreekt men van current-sensing. Voorbeelden van voltage- en current-mode sense amplifiers zijn geïllustreerd in figuren \ref{fig:voltagemodesa} en \ref{fig:currentmodesa}. Voor de architectuur van dit werk waarbij de data- en referentiesignalen opgewekt worden door een spanningsdeling met eigen gekozen lastimpedantie, is een SA nodig met een grote ingangsimpedantie.
+Er bestaan heel wat verschillende soorten sense amplifiers, traditioneel kunnen die op twee verschillende manieren geclassificeerd worden. Enerzijds kan men onderscheid maken tussen differentiële en niet-differentiële SA. Anderzijds maakt men onderscheid tussen voltage SA en current SA. Difedingspannings- of temperatuursschommelingen dan beter kan volgen. Een voorbeeld van een niet-differentiele sensamplifier is een invertor. Het punt waarbij de schakeling switched  wordt hierbij bepaalt door de grotes van de transistoren. Het gebruik van current- of voltage-mode senseamplifiers hangt af van de ingangs impedantie van de senseamplifier. Bij een hoog impedante
+spreekt men van voltage-sensing, bij een lage impedante spreekt men van current-sensing. Voorbeelden van voltage- en current-mode senseamplifiers zijn geillustreed in figuren \ref{fig:voltagemodesa} en \ref{fig:currentmodesa}. 
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-voltagemode.png}
-  \caption{Voltage mode sense amplifiers}
+  \caption{Voltage mode senseamplifiers}
   \label{fig:voltagemodesa}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-currentmode.png}
-  \caption{Current mode sense amplifiers\cite{5548588}}
+  \caption{Current mode senseamplifiers}
   \label{fig:currentmodesa}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-ourSA.png}
-  \caption{De drain-input latch-type SA}
+  \caption{een sense amplifier}
   \label{fig:ourSA}
 \end{figure}
 
-Omwille van eenvoudigheid en goede performantie\cite{Cos09} wordt er in wat volgt voortgewerkt met de SA van figuur \ref{fig:ourSA}.
+In wat volgt zal er worden voortgewerkt met de SA van figuur \ref{fig:ourSA}.
 
 
 \section{Offsetspanning}
@@ -175,39 +176,6 @@ Mbottom & Vt & 0.0333 & 100 & 45 & 42.0381mV \\
 
 In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensitiviteitsanalyse getoond voor de SA die gebruikt wordt in het finale geheugenontwerp. Deze is gekozen aan de hand van de resultaten van de paretosimulatie in de volgende sectie.
 
-
-\begin{table}
-\begin{tabular}{cccccc}
-\hline 
-Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
-\hline 
-Mup & Vt & -4.283 & 1700 & 45 & 9.0388mV \\ 
-Mupbar & Vt & 4.283 & 1700 & 45 & 9.0388mV \\ 
-Mpassn & Vt & -3.767 & 500 & 45 & 18.8000mV \\
-Mpassbarn & Vt & 3.650 & 500 & 45 & 18.8000mV \\
-Mpassbarn & $\beta$ & -3.000 & 500 & 45 & 13.3333\% \\ 
-Mpassn & $\beta$ & 3.000 & 500 & 45 & 13.3333\% \\ 
-Mup & $\beta$ & -1.767 & 1700 & 45 & 4.3386\% \\ 
-Mupbar & $\beta$ & 1.767 & 1700 & 45 & 4.3386\% \\ 
-Mdown & Vt & -1.100 & 1500 & 45 & 10.8542mV \\ 
-Mdownbar & Vt & 1.100 & 1500 & 45 & 10.8542mV \\
-Mdown & $\beta$ & 0.8333 & 1500 & 45 & 7.6980\% \\
-Mdownbar & $\beta$ & -0.8333 & 1500 & 45 & 7.6980\% \\  
-Mpassp & Vt & 0.1667 & 500 & 45 & 16.6667mV \\ 
-Mpassp & $\beta$ & 0.1667 & 500 & 45 & 8\% \\ 
-Mpassbarp & Vt & -0.1667 & 500 & 45 & 16.6667mV \\
-Mpassbarp & $\beta$ & -0.1667 & 500 & 45 & 8\% \\ 
-Mtop & $\beta$ & 0.1333 & 900 & 45 & 5.9628\% \\ 
-Mtop & Vt & 0.1000 & 900 & 45 & 12.4226mV \\ 
-Mbottom & $\beta$ & -0.06667 & 500 & 45 & 13.3333\% \\ 
-Mbottom & Vt & 0.03333 & 500 & 45 & 18.8000mV \\ 
-\hline 
-\hline & $\sigma_{Voffset}$: & 9.6125mV & & & \\
-\hline
-\end{tabular} 
-\caption{Sensitiviteitsanalyse van de SA in het finale geheugen, er is overlap tussen de controlesignalen}
-\label{tab:ourSA-sensanalysis-overlap}
-\end{table}
 
 \section{Paretosimulatie}
 In het beginstadium van het ontwerp is nog niet duidelijk wat de impedantie aan de BL wordt. Het is deze impedantie die bepaalt wat het spanningsverschil is tussen het datasignaal en het referentiesignaal aan de sense amplifier. Bovendien kan het zijn dat er midden in het ontwerp besloten wordt om een andere impedantie te kiezen om alsnog te optimaliseren naar een andere variabele.
