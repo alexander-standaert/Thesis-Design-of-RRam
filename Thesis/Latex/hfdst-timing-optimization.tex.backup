@@ -4,7 +4,6 @@ Voor een correcte werking van het geheugen, is het van belang dat de verschillen
 Bovendien is er ruimte voor optimalisatie door al de signalen even snel te maken als het critisch pad. In het eerste deel van dit hoofdstuk zal de invloed van architecture en sizing onderzocht worden op de timing van de signalen. De constraints en vrijheidsgraden die hier uit volgen zullen dan gebruikt worden in het tweede deel van dit hoofdstuk om een optimale architecture te vinden.
 
 \section{Timing}
-\label{timing}
 Het ontwerp van dit geheugen gaat tot het niveau van het globalblock \ref{globalblock}, hierbij wordt de veronderstelling gemaakt dat alle signalen tegelijkertijd binnen komem in het globelblock. Hierna propageren de signalen door logica tot ze verschillende transistoren rond de BL aansturen. De aansturing van deze transistoren omvatten de eerste critische timing constraints. Vervolgens worden de muxen en SA aangesloten, deze zullen de tweede timing constraints bevatten.
 
 \subsection{Critische timing voor het (de)selecteren cell}
@@ -115,7 +114,7 @@ De leessnelheid is afhankelijk van de verschillende controle signalen in de lees
 
 \subsection{Vergelijking van de geheugenconfiguraties}
 Er werden 20 mogelijke geheugenconfiguraties geselecteert als kandidaat voor het finale ontwerp, hun positie in de evaluatie ruimte wordt getoont in figuur \ref{fig:final20all1}. Hierop staat het energie verbruik op de x-as, de delay op de y-as en het oppervlakte gebruik wordt geindiceert door de grote van de punten. Het energie verbruik en delay wordt voornamelijk bepaalt door het aantal woordlijnen en bitlijnen. De delay wordt voornamelijk bepaalt door het opladen van de bitlijnen, wat dan ook de voornamste vorm van energie verbruik is. De snelheid van de bitlijnen wordt dan weer bepaalt door het aantal woordlijnen wat gezien kan worden in figuur \ref{fig:final20all2}. Het aantal bitlijnen beinvloed dan weer meer het energie verbruik. Dit extra energie verbruik gaat teneerste naar de woorlijn buffers, tentweede naar de bitlijn decoders en tenslotte naar de bitlijn zelf. Deze laatste is door dat de bitlijn bij het deselecteren van de cell langer aanblijft dan bij een kleiner aantal bitlijnen. Dit is ook de reden waarom een groter aantal bitlijnen een langere delay heeft. Bij alle geheugen configuraties gaat het vermogen verbruik eerst naar de geheugecell, vervolgens naar de logica, vervolgens naar de buffers en ten slotte naar de sense amplifiers. Het oppervlakte wordt bepaalt door het aantal globalblocks en de grote van de decoders. Een groot aantal woordlijnen in combinatie met een klein aantal bitlijnen geeft de noodzaak aan een groot aantal globalblocks en dit geeft een groot oppervlak als gevolg.\\
-Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat uit een klein gelijk aantal woordlijn en bitlijnen wat een optimum zal geven voor energie verbruik en delay, en een suboptimum zal geven voor oppervlakte.
+Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat uit een klein gelijk aantal woordlijn en bitlijnen wat een optimum zal geven voor energie verbruik en delay, en een sub optimum zal geven voor oppervlakte.
 
 \afterpage{
 \begin{figure}[!ht]
@@ -135,4 +134,3 @@ Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat ui
 \end{figure} 
 
 \section{Besluit}
-In dit hoofdstuk werd dat timing van alle logica in de geheugenarchitectuur in kaart gebracht. Hierbij werd er gekeken wat de gewenste opeenvolging van signalen zijn en hoe dit problemen of beperkingen in de architectuur kon brengen. Vervolgens werd met deze kennis een aantal geheugen configuraties ontworpen en vergeleken. De conclusie hiervan is dat een kleiner aantal woordlijnen en bitlijnen een opitimalere snelheid en energieverbruik geven. Op het vlak van oppervlakte zal dit een suboptimum geven.
