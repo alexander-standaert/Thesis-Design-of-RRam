@@ -1,4 +1,4 @@
-load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata.mat') %
+load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata4.mat') %
 figure
 hold all
 cmp=[[1:-1/10:1/10]',zeros(10,1),[1/10:1/10:1]'];

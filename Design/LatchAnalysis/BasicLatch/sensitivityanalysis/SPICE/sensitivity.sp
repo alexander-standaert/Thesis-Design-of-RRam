@@ -29,10 +29,10 @@ Vbn      ( bn      0 ) vsource dc=0
 Vin     ( in     0 ) vsource dc=0.55
 Vinbar  ( inbar     0 ) vsource dc=0.4
 
-Venn (latchenablen 0) vsource type=pwl wave=[0 0 1.1e-09 0 1.2e-09 1 2.1e-09 1 2.15e-09 0 7.6e-09 0]
-Venp (latchenablep 0) vsource type=pwl wave=[0 1 1.1e-09 1 1.15e-09 0 2.1e-09 0 2.2e-09 1 7.6e-09 1]
-Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 6e-10 1 1.6e-09 1 1.65e-09 0 7.1e-09 0]
-Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.5e-10 0 1.6e-09 0 1.7e-09 1 7.1e-09 1]
+Venn (latchenablen 0) vsource type=pwl wave=[0 0 1.6e-09 0 1.7e-09 1 2.6e-09 1 2.65e-09 0 8.1e-09 0]
+Venp (latchenablep 0) vsource type=pwl wave=[0 1 1.6e-09 1 1.65e-09 0 2.6e-09 0 2.7e-09 1 8.1e-09 1]
+Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 6e-10 1 1.5e-09 1 1.55e-09 0 7e-09 0]
+Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.5e-10 0 1.5e-09 0 1.6e-09 1 7e-09 1]
 
 ic out = 0
 ic outbar = 1
