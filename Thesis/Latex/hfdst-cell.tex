@@ -1,20 +1,20 @@
 \chapter{Geheugencel}
 \label{cell}
 Elk geheugen bestaat uit een verzameling individuele cellen die op een of andere manier informatie bevatten.
-In dit hoofdstuk wordt eerst dieper ingegaan op de manier waarom een R-RAM geheugencel informatie bevat en vervolgens hoe deze informatie [elektrisch] kan worden uitgelezen.
+In dit hoofdstuk wordt dieper ingegaan op de manier waarom een RRAM geheugencel informatie bevat.
 
 \section{Memristor}
-Het essentiële element van een R-RAM geheugencel is ontegenspreekbaar de zogenaamde memristor.
+Het essentiële element van een RRAM geheugencel is ontegenspreekbaar de zogenaamde memristor.
 De memristor wordt ook wel gezien als de 4\textsuperscript{e} passieve component, naast de weerstand, spoel en condensator.
 
 \subsection{Theoretisch principe}
 In 1971 publiceerde Leon Chua, een onderzoeker in o.a. niet-lineaire circuittheorie, een artikel waarin hij opmerkte dat er voor de 4 fundamentele circuitvariabelen (de spanning v, stroom i, lading q en flux $\phi$\footnote{$\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, voor een ideale inductantie is dit hetzelfde als magnetische flux}) van 6 mogelijke onderlinge relaties er slechts 5 gekend waren: $q(t) =  \int^{t}_{-\infty} i(\tau) \, d\tau $, $\phi(t) =  \int^{t}_{-\infty} v(\tau) \, d\tau $, $v(t)=R*i(t)$, $q(t)=C*v(t)$ en $\phi(t) = L*i(t)$ volgen uit de wetten van Maxwell en uit de definities van de weerstand, spoel en condensator, maar er ontbrak een relatie tussen $\phi$ en q\cite{Chu71}. Hij suggereerde dat er een 4e nog niet ontdekte passieve 2-pool moest bestaan die dit verband herbergde. Hij stelde dat $M(q)= \frac{d\phi(q)}{dq}$ met M de \emph{memristance}.
 Hieruit volgt dat voor dit element $v(t)=M(q(t)) i(t)$. Indien er een lineair verband bestaat tussen $\phi$ en q, gedraagt dit element zich als een gewone weerstand. Enkel wanneer er een niet-lineair verband bestaat, beginnen er zich interessante karakteristieken voor te doen. Zo gedraagt het element zich ogenblikkelijk als een weerstand, maar gaat deze weerstandswaarde variëren in de tijd aan de hand van de stroom die er doorgelopen heeft.
-Gebaseerd op deze conclusie doopte hij deze component de memristor (een contractie van memory en resistor).
+Gebaseerd op deze conclusie doopte hij deze component de memristor, een contractie van memory en resistor.
 Chua beëindigde zijn artikel met te erkennen dat er op dat moment nog geen fysische memristor was ontdekt, maar dat dit in de toekomst wel kon gebeuren, al dan niet zelfs per ongeluk. Hij gaf zelfs aan dat er misschien al in die tijd materialen met memristorkarakteristieken gebruikt werden, maar dat men hier over keek. Hij zou gelijk krijgen.
 
 \subsection{Fysische memristors}
-Er werd reeds langer (zelfs al sinds de jaren 60) opgemerkt dat sommige metaaloxides, die normaal gezien als elektrisch isolator functioneren, een plotse overgang kunnen ervaren naar een veel geleidendere staat (zie figuur \ref{fig:i-v}). Dit gebeurt veelal in een configuratie waarbij het oxide wordt geplaatst tussen 2 metalen (MIM configuratie).\cite{Won12} (zie ook figuur \ref{fig:mim}) 
+Er werd reeds langer (zelfs al sinds de jaren 60) opgemerkt dat sommige metaaloxides, die normaal gezien als elektrisch isolator functioneren, een plotse overgang kunnen ervaren naar een veel geleidendere staat (zie figuur \ref{fig:i-v}). Dit gebeurt veelal in een configuratie waarbij het oxide wordt geplaatst tussen 2 metalen (MIM configuratie)\cite{Won12} (zie ook figuur \ref{fig:mim}).
 
 \begin{figure}
   \centering
@@ -58,7 +58,7 @@ De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet 
 \section{Memristortoepassingen}
 
 Voor dit werk is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Met deze MRS [multiresistive states] kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten.
-Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom dat er in dit werk voor een 1T1R-configuratie geopteerd werd, de gebruikte memristor is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
+Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom dat er in dit werk voor een 1T1R-configuratie geopteerd werd, de memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
 
 \begin{figure}
   \centering
@@ -71,4 +71,4 @@ Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassige
 
 
 \section{Besluit}
-De memristor is een theoretische passieve component die lading en flux met elkaar verbindt. In de praktijk zijn er MIM-configuraties ontdekt die memristorkarakteristieken vertonen. Deze karakteristieken zijn bijzonder interessant voor geheugens, wat in de volgende hoofdstukken wordt toegepast.
+De memristor is een theoretische passieve component die lading en flux met elkaar verbindt. In de praktijk zijn er MIM-configuraties ontdekt die memristorkarakteristieken vertonen. Deze karakteristieken zijn bijzonder interessant voor geheugens: gecombineerd met een transistor vormt de memristor een 1T1R-geheugencel, die geïmplementeerd wordt in de volgende hoofdstukken.

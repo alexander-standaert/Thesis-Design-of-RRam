@@ -1,25 +1,29 @@
-load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata4.mat') %
+load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata.mat') %
 figure
+axes('Position',[0.128571428571429 0.11 0.485714285714286 0.718571428571429]);
 hold all
 cmp=[[1:-1/10:1/10]',zeros(10,1),[1/10:1/10:1]'];
 for i=1:4:20
     plot(SensitivitySweep([i:20:180],1),SensitivitySweep([i:20:180],3),'o-','Color',cmp((i-1)/2+1,:))
     plot(SensitivitySweep([i+2:20:180],1),SensitivitySweep([i+2:20:180],3),'s-','Color',cmp((i-1)/2+1,:))
 end
-legend('Vt mismatch Mup','Vt mismatch Mupbar','Vt mismatch Mdown','Vt mismatch Mdownbar','Vt mismatch Mtop','Vt mismatch Mbottom','Vt mismatch Mpassn','Vt mismatch Mpassp','Vt mismatch Mpassnbar','Vt mismatch Mpasspbar')
-xlabel('number of \sigma s')
-ylabel('Offset voltage [V]')
-title('Vt-variations')
+leg=legend('Vt mismatch Mup','Vt mismatch Mupbar','Vt mismatch Mdown','Vt mismatch Mdownbar','Vt mismatch Mtop','Vt mismatch Mbottom','Vt mismatch Mpassn','Vt mismatch Mpassp','Vt mismatch Mpassnbar','Vt mismatch Mpasspbar');
+set(leg,'FontWeight','bold','Position',[0.634374999999996 0.40386904761905 0.354464285714286 0.430059523809524]);
+xlabel('number of \sigma s','FontWeight','bold','FontSize',14);
+ylabel('Offset voltage [V]','FontWeight','bold','FontSize',14);
+title('Vt-variations','FontWeight','bold','FontSize',14);
 figure
+axes('Position',[0.128571428571429 0.11 0.485714285714286 0.718571428571429]);
 hold all
 for i=2:4:20
     plot(SensitivitySweep([i:20:180],1),SensitivitySweep([i:20:180],3),'o-','Color',cmp((i-2)/2+1,:))
     plot(SensitivitySweep([i+2:20:180],1),SensitivitySweep([i+2:20:180],3),'s-','Color',cmp((i-2)/2+1,:))
 end
-legend('\beta mismatch Mup','\beta mismatch Mupbar','\beta mismatch Mdown','\beta mismatch Mdownbar','\beta mismatch Mtop','\beta mismatch Mbottom','\beta mismatch Mpassn','\beta mismatch Mpassp','\beta mismatch Mpassnbar','\beta mismatch Mpasspbar')
-xlabel('number of \sigma s')
-ylabel('Offset voltage [V]')
-title('\beta-variations')
+leg=legend('\beta mismatch Mup','\beta mismatch Mupbar','\beta mismatch Mdown','\beta mismatch Mdownbar','\beta mismatch Mtop','\beta mismatch Mbottom','\beta mismatch Mpassn','\beta mismatch Mpassp','\beta mismatch Mpassnbar','\beta mismatch Mpasspbar');
+set(leg,'FontWeight','bold','Position',[0.634374999999996 0.40386904761905 0.354464285714286 0.430059523809524]);
+xlabel('number of \sigma s','FontWeight','bold','FontSize',14);
+ylabel('Offset voltage [V]','FontWeight','bold','FontSize',14);
+title('\beta-variations','FontWeight','bold','FontSize',14);
 
 sigma_n_vt=1000*((2.82/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
 sigma_p_vt=1000*((2.5/1000))*sqrt(1e-6*1e-6)/sqrt(100e-9*45e-9)
