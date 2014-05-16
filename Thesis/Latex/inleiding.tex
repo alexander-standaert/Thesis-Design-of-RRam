@@ -12,15 +12,36 @@ Onderzoek naar nieuwe geheugens is dan ook onontbeerlijk. Zo zijn er al nieuwe n
 Een andere kandidaat is Resistive RAM (RRAM of ReRAM). Daar waar SRAM- en flash-cellen de informatie bevatten via het al dan niet aanwezig zijn van lading, bevat een RRAM-cel informatie door een bepaalde elektrische weerstand aan te nemen. RRAM zou geen problemen hebben om nog even op de klassieke manier mee te schalen en is dus zonder meer een interessante piste om te onderzoeken. Bovendien zou het gefabriceerd kunnen worden met goedkopere processen dan flash-geheugens - bij flash-geheugenfabricatie zijn vaak dure extra maskers vereist terwijl RRAM compatibel is met een standaard CMOS-productieproces.
 
 \section{Doel en afbakening van dit werk}
-Dit werk beschrijft het ontwerp van een 4MBit RRAM-geheugen voor ingebedde toepassingen. De doelstelling is een pareto-optimaal (dynamische energie-snelheid-oppervlakte) werkend circuit te ontwerpen, gewapend tegen variabiliteit - ongecorreleerde gedragsvariaties van componenten. Het ontwerp houdt rekening met data-retentie bij het uitlezen van bits. De analyse focust op de leesbewerking, de schrijfbewerking valt buiten het bereik van dit werk. [Er worden wel mogelijke oplossingen aangereikt, maar deze werden niet uitdrukkelijk onderzocht]
+Dit werk beschrijft het ontwerp van een 4Mbit RRAM-geheugen voor ingebedde toepassingen. De doelstelling is een pareto-optimaal circuit te ontwerpen. De pareto-doelstellingen zijn snelheid, dynamische energie en oppervlakte. Het ontwerp is ook gewapend tegen variabiliteit ontworpen d.w.z. ongecorreleerde gedragsvariaties van componenten. De analyse focust op de leesbewerking, de schrijfbewerking valt buiten het bereik van dit werk. Er worden wel mogelijke oplossingen aangereikt, maar deze werden niet uitdrukkelijk onderzocht. Bij het ontwerp is ook aandacht besteed aan het vermijden van destructieve leescycli.
 
-Voor de leesbewerking wordt het geheugenelement gemodeleerd als een weerstand waarvan de nominale weerstandswaarde afhangt van de celtoestand. Wanneer variabiliteit wordt onderzocht, zal deze weerstandswaarde een stochastische variabele worden met een normale verdeling.
+Voor de leesbewerking wordt het geheugenelement gemodeleerd als een weerstand waarvan de weerstandswaarde afhangt van de celtoestand.Om variabiliteit te onderzoeken, worden Monte Carlo simulaties uitgevoerd waarbij de weerstandswaarde een gaussisch verdeelde variabele is.
 
-Temperatuursvariaties werden niet in rekening genomen, maar aangezien dit een globale variabele is en het systeem differentieel werkt, wordt niet verwacht dat de performantie aanzienlijk zal verminderen.
+Temperatuursvariaties werden niet zorgvuldig onderzocht, maar aangezien dit een globale variabele is en het systeem differentieel werkt, wordt niet verwacht dat de performantie aanzienlijk zal verminderen.
 
-Alle data die worden getoond, komen voort uit Spectre-simulaties met 45nm PTM transistormodellen.
+Alle analyses in dit werk zijn uitgevoerd met Spectre simulaties met 45nm PTM transistormodellen. In tabel \ref{tab:properties} zijn technologieparameters te zien, waarvan meermaals gebruik gemaakt wordt doorheen dit werk.
+
+\begin{table}
+	\begin{tabular}{ccc}
+	\hline
+    $A_{\beta n}$ & 2 $\% \mu m$ & $\beta$-Pelgrom constante voor nMOS-transistoren \\
+    $A_{\beta p}$ & 1,2 $\% \mu m$ & $\beta$-Pelgrom constante voor pMOS-transistoren \\
+    $A_{V_{T} n}$ & 2,82 $mV \mu m$ & VT-Pelgrom constante voor nMOS-transistoren \\
+    $A_{V_{T} n}$ & 2,5 $mV \mu m$ & VT-Pelgrom constante voor pMOS-transistoren \\
+    $C_{WL}$ & 0,18 fF/cel & WL-capaciteit, stijgt lineair met het aantal cellen eraan \\
+    $C_{BL}$ & 0,18 fF/cel & BL-capaciteit, stijgt lineair met het aantal cellen eraan \\
+    $C_{inv}$ & 0,35 fF & intrinsieke capaciteit van een CMOS inverter \\
+    $\mu_{HRS}$ & 32500 $\Omega$ & verwachtingswaarde van een HRS geheugenelement \\
+    $\mu_{LRS}$ & 7500 $\Omega$ & verwachtingswaarde van een LRS geheugenelement \\
+    $\sigma_{HRS}$ & 833 $\Omega$ & standaarddeviatie van een HRS geheugenelement \\
+    $\sigma_{LRS}$ & 833 $\Omega$ & standaarddeviatie van een LRS geheugenelement \\
+    \hline
+  \end{tabular}
+  \caption{numerieke technologieparameters waarvan gebruik gemaakt is in simulaties}
+  \label{tab:properties}
+\end{table}
+
 
 \section{Structuur van de tekst}
-In hoofdstuk \ref{cell} zal de technologie van een RRAM geheugen uiteengezet worden, alsook diens toepassingen. In hoofdstuk \ref{architecture} wordt het geheugensysteem vanuit vogelperspectief besproken. Er wordt hier ook aangehaald wat de tunebare parameters zijn van de architectuur. Voor een robuuste, snelle en laag-energetische leesoperatie uit te voeren is het belangrijk het geheugenelement te combineren met een zorgvuldig gekozen impedantie, dit wordt onderzocht in hoofdstuk \ref{loadanalysis}. Uiteindelijk zal er een bitstream gegenereerd worden aan de uitgang van het systeem, de sense amplifier zorgt hiervoor en wordt besproken in hoofdstuk \ref{sensamp}.
-In de geheugenstructuur zijn ook bepaalde logische (digitale) operaties nodig om op basis van het opgegeven adres de juiste cel aan te spreken, de hiervoor gebruikte blokken worden beschreven en geanalyseerd in hoofdstuk \ref{periphery}.
-Ten slotte zal in hoofdstuk \ref{timing-optimization} de timing van controlesignalen onderzocht worden en hoe het systeem te optimaliseren door middel van de architectuurparameters te tunen.
+In hoofdstuk \ref{cell} wordt de technologie van een RRAM geheugen uiteengezet, alsook diens toepassingen. In hoofdstuk \ref{architecture} wordt het geheugensysteem vanuit vogelperspectief besproken. Er wordt hier ook aangehaald wat de regelbare parameters zijn van de architectuur. Voor een robuuste, snelle en laag-energetische leesoperatie is het belangrijk het geheugenelement te combineren met een zorgvuldig gekozen impedantie, dit wordt onderzocht in hoofdstuk \ref{loadanalysis}. Uiteindelijk worden bits afgeleverd aan de uitgang van het systeem, de sense amplifier zorgt hiervoor en wordt besproken in hoofdstuk \ref{sensamp}.
+In de geheugenstructuur worden ook bouwblokken zoals decoders, buffers en passgates om op basis van het opgegeven adres de juiste cel aan te spreken, deze worden beschreven en geanalyseerd in hoofdstuk \ref{periphery}.
+De timing van controlesignalen en hoe het systeem te optimaliseren door middel van de architectuurparameters te tunen wordt onderzocht in hoofdstuk \ref{timing-optimization}. Tenslotte wordt een overzicht gegeven van de resultaten van het volledige ontwerp in hoofdstuk \ref{final}.
