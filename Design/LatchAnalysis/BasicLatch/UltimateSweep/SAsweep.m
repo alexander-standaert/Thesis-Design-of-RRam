@@ -162,13 +162,22 @@ function [] = plot_results()
     a=min(pareto(:,3));
     b=max(pareto(:,3));
     NoScatters=(b-a)/0.005
-    figure
+    f = figure
     c = [[0:0.01:1]',0.1*ones(length(0:0.01:1),1),[1:-0.01:0]']
     scatter(pareto(:,1),pareto(:,2),ones(length(pareto(:,3)),1)*50,pareto(:,3),'fill')
-    colormap(c)
+    colormap(c);
     caxis([0.03 .1]); colorbar;
-    
-    
+    xlabel('Delay (s)','FontWeight','bold','FontSize',14)
+    ylabel('Energy (J)','FontWeight','bold','FontSize',14)
+    annotation(f,'textbox',...
+        [0.696132596685083 0.473262032085561 0.28508287292818 0.120320855614973],...
+        'String',{'Successfull \DeltaV (V)'},...
+        'FontWeight','bold',...
+        'FontSize',14,...
+        'FitBoxToText','off',...
+        'LineStyle','none','Rotation',90);
+    t=text(0.5,0.5,'Button Label','Rotation',30,'FontSize',14)
+
 
 end
 
