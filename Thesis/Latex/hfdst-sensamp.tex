@@ -1,7 +1,7 @@
 \chapter{Sense Amplifier analyse}
 \label{sensamp}
 Een sense amplifier versterkt kleine signaalverschillen tot rail-tot-rail signalen. Aangezien de uitgangsignalen hiervan ook de uitgelezen bits zijn van het geheugen, is het bovenal belangrijk dat dit op een correcte manier gebeurt, ondanks variabiliteit.
-Het is dus logisch om de sense amplifier wat meer te onderzoeken en zodanig te ontwerpen op een robuuste manier, terwijl er ook rekening gehouden wordt met energie en snelheid.
+In dit hoofdstuk wordt de sense amplifier dus ook wat dieper onderzocht. Uiteindelijk wordt een SA ontwerpen die functioneert op een robuuste manier en die ook voldoende snel en laagenergetisch is.
 
 \section{Types SA}
 Er bestaan heel wat verschillende soorten sense amplifiers, traditioneel kunnen die op twee verschillende manieren geclassificeerd worden. Enerzijds kan men onderscheid maken tussen differentiële en niet-differentiële SA. Anderzijds maakt men onderscheid tussen voltage SA en current SA. Een voorbeeld van een niet-differentiële SA is een inverter. De drempelspanning waarbij de inverter schakelt wordt bepaald door de groottes van de transistoren. Deze architectuur is echter bijzonder susceptibel aan globale variabelen zoals temperatuur en voedingsspanning. Een dergelijk probleem kan opgelost worden door een referentiesignaal dat gelijke variaties ervaart door deze globale schommelingen als het datasignaal. Voor een dergelijke architectuur zijn uiteraard differentiële SA nodig. Current en voltage SA verschillen in ingangsimpedantie: bij een hoge ingangsimpedantie spreekt men van voltage-sensing, bij een lage impedantie spreekt men van current-sensing. Voorbeelden van voltage- en current-mode sense amplifiers zijn geïllustreerd in figuren \ref{fig:voltagemodesa} en \ref{fig:currentmodesa}. Voor de architectuur van dit werk waarbij de data- en referentiesignalen opgewekt worden door een spanningsdeling met eigen gekozen lastimpedantie, is een SA nodig met een grote ingangsimpedantie.
@@ -47,7 +47,7 @@ $a_{i}$ en $b_{i}$ zijn de gevoeligheden van de offset naar de variatieparameter
 Voor een dergelijke variabele geldt dan: $\sigma_{V_{offset}}=\sqrt{\sum\limits_{i=1}^{N} a_{i}^{2} (\sigma_{\Delta V_{t}})_{i}^{2} + b_{i}^{2} (\sigma_{\frac{\Delta_{\beta}}{\beta}})_{i}^{2}}$.
 
 Er moet wel geverifieerd worden of de stelling dat er een lineaire afhankelijkheid is tussen $V_{offset}$ en de variatieparameters gegrond is.
-Dit kan gedaan worden aan de hand van een analyse waarbij elke variatieparameter afzonderlijk gesweept wordt. 
+Dit kan gedaan worden aan de hand van een analyse waarbij elke variatieparameter afzonderlijk gesweept wordt, een noodzakelijke maar niet voloende vereiste.
 
 \subsection{Sensitiviteitsanalyse op een minimale SA}
 In figuur \ref{fig:min-sensanalysis} wordt het resultaat getoond voor een dergelijke analyse bij een SA met minimale afmetingen, merk op dat de richtingscoëfficient van deze curves gelijk is aan $a_{i} (\Delta V_{t})_{i}$ en $b_{i} (\frac{\Delta_{\beta}}{\beta})_{i}$.  In tabel \ref{tab:min-sensanalysis} worden de resultaten en de resulterende standaardvariatie van de SA getoond.
@@ -68,28 +68,28 @@ Er moet opgemerkt worden dat er bij deze simulatie slechts gesweept werd voor de
 \hline 
 Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
 \hline 
-Mupbar & Vt & 22.733 & 100 & 45 & 37.2678mV \\ 
-Mup & Vt & -22.250 & 100 & 45 & 37.2678mV \\ 
-Mupbar & $\beta$ & 13.583 & 100 & 45 & 17.8885\% \\ 
-Mpassn & $\beta$ & 13.467 & 100 & 45 & 29.8142\% \\ 
-Mpassbarn & $\beta$ & -13.117 & 100 & 45 & 29.8142\% \\ 
-Mup & $\beta$ & -13.033 & 100 & 45 & 17.8885\% \\ 
-Mdownbar & $\beta$ & -9.383 & 100 & 45 & 29.8142\% \\ 
-Mdown & Vt & -9.267 & 100 & 45 & 42.0381mV \\ 
-Mdownbar & Vt & 9.233 & 100 & 45 & 42.0381mV \\ 
-Mdown & $\beta$ & 8.217 & 100 & 45 & 29.8142\% \\ 
-Mpassp & $\beta$ & -4.50 & 100 & 45 & 17.8885\% \\ 
-Mpassbarp & $\beta$ & 4.383 & 100 & 45 & 17.8885\% \\ 
-Mpassbarp & Vt & 0.70 & 100 & 45 & 37.2678mV \\ 
-Mpassp & Vt & -0.70 & 100 & 45 & 37.2678mV \\ 
-Mbottom & $\beta$ & 0.083 & 100 & 45 & 29.8142\% \\ 
-Mbottom & Vt & -0.033 & 100 & 45 & 42.0381mV \\ 
-Mpassbarn & Vt & 0 & 100 & 45 & 42.0381mV \\
-Mpassn & Vt & 0 & 100 & 45 & 42.0381mV \\
-Mtop & Vt & 0 & 100 & 45 & 37.2678mV \\
-Mtop & $\beta$ & 0 & 100 & 45 & 17.8885\% \\
+Mupbar & Vt & 22.7 & 100 & 45 & 37.3mV \\ 
+Mup & Vt & -22.3 & 100 & 45 & 37.3mV \\ 
+Mupbar & $\beta$ & 13.6 & 100 & 45 & 17.9\% \\ 
+Mpassn & $\beta$ & 13.5 & 100 & 45 & 29.8\% \\ 
+Mpassbarn & $\beta$ & -13.1 & 100 & 45 & 29.8\% \\ 
+Mup & $\beta$ & -13.0 & 100 & 45 & 17.9\% \\ 
+Mdownbar & $\beta$ & -9.4 & 100 & 45 & 29.8\% \\ 
+Mdown & Vt & -9.3 & 100 & 45 & 42.0mV \\ 
+Mdownbar & Vt & 9.2 & 100 & 45 & 42.0mV \\ 
+Mdown & $\beta$ & 8.2 & 100 & 45 & 29.8\% \\ 
+Mpassp & $\beta$ & -4.5 & 100 & 45 & 17.9\% \\ 
+Mpassbarp & $\beta$ & 4.4 & 100 & 45 & 17.9\% \\ 
+Mpassbarp & Vt & 0.70 & 100 & 45 & 37.3mV \\ 
+Mpassp & Vt & -0.70 & 100 & 45 & 37.3mV \\ 
+Mbottom & $\beta$ & 0.083 & 100 & 45 & 29.8\% \\ 
+Mbottom & Vt & -0.033 & 100 & 45 & 42.0mV \\ 
+Mpassbarn & Vt & 0 & 100 & 45 & 42.0mV \\
+Mpassn & Vt & 0 & 100 & 45 & 42.0mV \\
+Mtop & Vt & 0 & 100 & 45 & 37.3mV \\
+Mtop & $\beta$ & 0 & 100 & 45 & 17.9\% \\
 \hline 
-\hline & $\sigma_{Voffset}$: & 45.6813mV & & & \\
+\hline & $\sigma_{Voffset}$: & 45.7mV & & & \\
 \hline
 \end{tabular} 
 \caption[Sensitiviteitsanalyse van de minimale SA]{Sensitiviteitsanalyse van de minimale SA}
@@ -98,7 +98,7 @@ Mtop & $\beta$ & 0 & 100 & 45 & 17.8885\% \\
 
 Opmerkelijk bij deze analyse is dat er een significante bijdrage is van de pass-gates door $\beta$-mismatch. Een nadere observatie leert dat deze bijdrage optreedt door ladingsinjectie van de pass-gates die niet meer gematched is (zie figuur \ref{fig:chargeinjectionmismatch}).
 Hierbij moet wel worden opgemerkt dat voor deze simulatie er geen overlap is tussen het controlesignaal op de passgate aan te zetten en het signaal om de SA te activeren.
-De reden hierachter is dat als er overlap tussen deze signalen is, de SA ook de BL zou trachten op te laden. Hierbij zou er moeten ingeboet worden aan snelheid en het zou ook extra energie kosten.
+De reden hiervoor is dat als er overlap tussen deze signalen is, de SA ook de BL zou trachten op te laden. Hierbij zou er moeten ingeboet worden aan snelheid en het zou ook extra energie kosten.
 
 Men kan argumenteren dat er een korte overlap zou kunnen toegelaten zijn, waarna er voldoende spanningsverschil tussen de 2 ingangs-uitgangsknopen zou opgebouwd zijn opdat de ladingsinjectie geen effect meer kan hebben op het eindresultaat. Een tegenargument is dat de timing hiervoor te precies moet zijn.
 \begin{figure}
@@ -153,28 +153,28 @@ In tabel \ref{tab:min-sensanalysis-overlap} worden de resultaten van een nieuwe 
 \hline 
 Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
 \hline 
-Mupbar & Vt & 15.250 & 100 & 45 & 37.2678mV \\ 
-Mup & Vt & -14.900 & 100 & 45 & 37.2678mV \\ 
-Mdownbar & Vt & 10.317 & 100 & 45 & 42.0381mV \\ 
-Mdown & Vt & -9.916 & 100 & 45 & 42.0381mV \\
-Mpassn & $\beta$ & 8.433 & 100 & 45 & 29.8142\% \\ 
-Mpassbarn & Vt & 6.833 & 100 & 45 & 42.0381mV \\
-Mpassbarn & $\beta$ & -6.767 & 100 & 45 & 29.8142\% \\
-Mpassn & Vt & -6.733 & 100 & 45 & 42.0381mV \\ 
-Mupbar & $\beta$ & 6.383 & 100 & 45 & 17.8885\% \\ 
-Mup & $\beta$ & -6.133 & 100 & 45 & 17.8885\% \\ 
-Mdownbar & $\beta$ & -5.633 & 100 & 45 & 29.8142\% \\  
-Mdown & $\beta$ & 5.233 & 100 & 45 & 29.8142\% \\ 
-Mpassp & Vt & 0.233 & 100 & 45 & 37.2678mV \\
-Mpassbarp & Vt & -0.233 & 100 & 45 & 37.2678mV \\
-Mtop & Vt & 0.167 & 100 & 45 & 37.2678mV \\  
-Mpassp & $\beta$ & -0.167 & 100 & 45 & 17.8885\% \\ 
-Mpassbarp & $\beta$ & 0.167 & 100 & 45 & 17.8885\% \\ 
-Mtop & $\beta$ & 0.117 & 100 & 45 & 17.8885\% \\
-Mbottom & $\beta$ & 0.050 & 100 & 45 & 29.8142\% \\ 
-Mbottom & Vt & 0.0333 & 100 & 45 & 42.0381mV \\ 
+Mupbar & Vt & 15.3 & 100 & 45 & 37.3mV \\ 
+Mup & Vt & -14.9 & 100 & 45 & 37.3mV \\ 
+Mdownbar & Vt & 10.3 & 100 & 45 & 42.0mV \\ 
+Mdown & Vt & -9.9 & 100 & 45 & 42.0mV \\
+Mpassn & $\beta$ & 8.4 & 100 & 45 & 29.8\% \\ 
+Mpassbarn & Vt & 6.8 & 100 & 45 & 42.0mV \\
+Mpassbarn & $\beta$ & -6.8 & 100 & 45 & 29.8\% \\
+Mpassn & Vt & -6.7 & 100 & 45 & 42.0mV \\ 
+Mupbar & $\beta$ & 6.4 & 100 & 45 & 17.9\% \\ 
+Mup & $\beta$ & -6.1 & 100 & 45 & 17.9\% \\ 
+Mdownbar & $\beta$ & -5.6 & 100 & 45 & 29.8\% \\  
+Mdown & $\beta$ & 5.2 & 100 & 45 & 29.8\% \\ 
+Mpassp & Vt & 0.23 & 100 & 45 & 37.3mV \\
+Mpassbarp & Vt & -0.23 & 100 & 45 & 37.3mV \\
+Mtop & Vt & 0.17 & 100 & 45 & 37.3mV \\  
+Mpassp & $\beta$ & -0.17 & 100 & 45 & 17.9\% \\ 
+Mpassbarp & $\beta$ & 0.17 & 100 & 45 & 17.9\% \\ 
+Mtop & $\beta$ & 0.12 & 100 & 45 & 17.9\% \\
+Mbottom & $\beta$ & 0.050 & 100 & 45 & 29.8\% \\ 
+Mbottom & Vt & 0.033 & 100 & 45 & 42.0mV \\ 
 \hline 
-\hline & $\sigma_{Voffset}$: & 31.7172mV & & & \\
+\hline & $\sigma_{Voffset}$: & 31.7mV & & & \\
 \hline
 \end{tabular} 
 \caption[Sensitiviteitsanalyse van de minimale SA met overlap tussen passenable en latchenable]{Sensitiviteitsanalyse van de minimale SA met overlap tussen passenable en latchenable}
@@ -191,26 +191,26 @@ In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensi
 \hline 
 Transistor & Parameter & Richtingscoëfficiënt [$\frac{mV}{\sigma}$] & W [nm] & L [nm] & $\sigma$ \\ 
 \hline 
-Mup & Vt & -4.283 & 1700 & 45 & 9.0388mV \\ 
-Mupbar & Vt & 4.283 & 1700 & 45 & 9.0388mV \\ 
-Mpassn & Vt & -3.767 & 500 & 45 & 18.8000mV \\
-Mpassbarn & Vt & 3.650 & 500 & 45 & 18.8000mV \\
-Mpassbarn & $\beta$ & -3.000 & 500 & 45 & 13.3333\% \\ 
-Mpassn & $\beta$ & 3.000 & 500 & 45 & 13.3333\% \\ 
-Mup & $\beta$ & -1.767 & 1700 & 45 & 4.3386\% \\ 
-Mupbar & $\beta$ & 1.767 & 1700 & 45 & 4.3386\% \\ 
-Mdown & Vt & -1.100 & 1500 & 45 & 10.8542mV \\ 
-Mdownbar & Vt & 1.100 & 1500 & 45 & 10.8542mV \\
-Mdown & $\beta$ & 0.8333 & 1500 & 45 & 7.6980\% \\
-Mdownbar & $\beta$ & -0.8333 & 1500 & 45 & 7.6980\% \\  
-Mpassp & Vt & 0.1667 & 500 & 45 & 16.6667mV \\ 
-Mpassp & $\beta$ & 0.1667 & 500 & 45 & 8\% \\ 
-Mpassbarp & Vt & -0.1667 & 500 & 45 & 16.6667mV \\
-Mpassbarp & $\beta$ & -0.1667 & 500 & 45 & 8\% \\ 
-Mtop & $\beta$ & 0.1333 & 900 & 45 & 5.9628\% \\ 
-Mtop & Vt & 0.1000 & 900 & 45 & 12.4226mV \\ 
-Mbottom & $\beta$ & -0.06667 & 500 & 45 & 13.3333\% \\ 
-Mbottom & Vt & 0.03333 & 500 & 45 & 18.8000mV \\ 
+Mup & Vt & -4.3 & 1700 & 45 & 9.0mV \\ 
+Mupbar & Vt & 4.3 & 1700 & 45 & 9.0mV \\ 
+Mpassn & Vt & -3.8 & 500 & 45 & 18.8mV \\
+Mpassbarn & Vt & 3.7 & 500 & 45 & 18.8mV \\
+Mpassbarn & $\beta$ & -3.0 & 500 & 45 & 13.3\% \\ 
+Mpassn & $\beta$ & 3.0 & 500 & 45 & 13.3\% \\ 
+Mup & $\beta$ & -1.8 & 1700 & 45 & 4.3\% \\ 
+Mupbar & $\beta$ & 1.8 & 1700 & 45 & 4.3\% \\ 
+Mdown & Vt & -1.1 & 1500 & 45 & 10.9mV \\ 
+Mdownbar & Vt & 1.1 & 1500 & 45 & 10.9mV \\
+Mdown & $\beta$ & 0.83 & 1500 & 45 & 7.7\% \\
+Mdownbar & $\beta$ & -0.83 & 1500 & 45 & 7.7\% \\  
+Mpassp & Vt & 0.17 & 500 & 45 & 16.7mV \\ 
+Mpassp & $\beta$ & 0.17 & 500 & 45 & 8\% \\ 
+Mpassbarp & Vt & -0.17 & 500 & 45 & 16.7mV \\
+Mpassbarp & $\beta$ & -0.17 & 500 & 45 & 8\% \\ 
+Mtop & $\beta$ & 0.13 & 900 & 45 & 6.0\% \\ 
+Mtop & Vt & 0.10 & 900 & 45 & 12.4mV \\ 
+Mbottom & $\beta$ & -0.067 & 500 & 45 & 13.3\% \\ 
+Mbottom & Vt & 0.033 & 500 & 45 & 18.8mV \\ 
 \hline 
 \hline & $\sigma_{Voffset}$: & 9.6125mV & & & \\
 \hline

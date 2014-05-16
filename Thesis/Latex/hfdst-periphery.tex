@@ -1,16 +1,16 @@
 \chapter{Omringende logica}
 \label{periphery}
 
-Een heleboel logische blokken, zoals decoders, drivers, pass-gates en buffers zitten verwerkt in de geheugenstructuur.
+Het geheugensysteem maakt gebruik van bouwblokken zoals decoders, buffers en passgates.
 In dit hoofdstuk worden deze componenten van wat dichterbij onderzocht.
 
 \section{Decoders}
-Een decoder is een logische blok dat een uitgang selecteert op basis van een geëncodeerde bus van ingangen: uit een combinatie van N ingangen, gaat er steeds één van $2^N$ uitgangen actief hoog worden\footnote{Er is nog een enable-controlesignaal, wanneer dit actief laag is, gaan alle uitgangen actief laag zijn.}. Aangezien het aantal global blocks, woordlijnen en bitlijnen nog niet vastgelegd werd, werd er een gamma aan decoders ontworpen gaande van een 2-naar-4 decoder tot en met een 9-naar-512 decoder. Grotere decoders worden opgebouwd uit kleinere decoders. Dit kan gedaan worden op 2 manieren; volgens een tree patroon (\ref{fig:decoder1}) of volgens een grid patroon (\ref{fig:decoder2}). In de volgende secties wordt het ontwerp van beide manieren toegelicht en vergeleken.
+Een decoder is een schakeling die een logisch functie realiseert: op basis van een geëncodeerde bus van ingangen gaat de decoder één uitgang actief hoog brengen: uit een combinatie van N ingangen, gaat er steeds één van $2^N$ uitgangen actief hoog worden\footnote{Er is nog een enable-controlesignaal, wanneer dit actief laag is, gaan alle uitgangen actief laag zijn.}. Om alle mogelijke geheugenconfiguraties (aantal WLs en BLs) te kunnen exploreren in sectie \ref{optimization}, werd er een gamma aan decoders ontworpen gaande van een 2-naar-4 decoder tot en met een 9-naar-512 decoder. Grotere decoders worden opgebouwd uit kleinere decoders. Dit kan gedaan worden op 2 manieren; volgens een boompatroon (\ref{fig:decoder1}) of volgens een gridpatroon (\ref{fig:decoder2}). In de volgende secties wordt het ontwerp van beide manieren toegelicht en vergeleken.
 
 \begin{figure}[!ht]
 \centering
-\subfloat[Decoder type 1]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
-\subfloat[Decoder type 2]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
+\subfloat[Tree decoder]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
+\subfloat[Grid decoder]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
 \caption[Types decoders]{Opbouw voor grotere decoders}\label{fig:basisdecoders}
 \end{figure}
 
@@ -18,8 +18,8 @@ Een decoder is een logische blok dat een uitgang selecteert op basis van een ge�
 De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiert naar de uitgangen. De basisblokken van deze decoder zijn een 2-naar-4 decoder (figuur \ref{fig:decoder2to4}) en een 3-naar-8 decoder (figuur \ref{fig:decoder3to8}). Het principe van de tree decoder is als volgt: met x-naar-$2^x$ en y-naar-$2^y$ decoders kan men een $x+y$-naar-$2^{x+y}$ realiseren door ze te cascaderen. De MSBs worden aangesloten aan de eerste laag. Dit wordt geïllustreerd in de vorm van een 5-naar-32 decoder in figuur \ref{fig:decoder1}. 
 \begin{figure}[!ht]
 \centering
-\subfloat[2 naar 4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
-\subfloat[3 naar 8 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-3to8.png} \label{fig:decoder3to8}}
+\subfloat[2-naar-4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
+\subfloat[3-naar-8 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-3to8.png} \label{fig:decoder3to8}}
 \caption[Basis decoders]{basis decoders}
 \end{figure}
 
@@ -50,7 +50,7 @@ Eens ontworpen, kunnen de tree en grid decoders met elkaar vergeleken worden. Na
 Zoals in figuur \ref{fig:decoder_a} gezien kan worden, schaalt de oppervlakte van de grid decoder veel minder dan die van de tree decoder bij een groot aantal ingangen. De plotse stijging in de oppervlakte van de tree decoder met 8 ingangen kan verklaar worden door het gebruik van een extra laag in de boomstructuur. \\
 Het energieverbruik wordt vergeleken in figuur \ref{fig:decoder_ed}. De grid decoder verbruikt minder energie in functie van het aantal ingangen. Sommige signalen in de tree decoder zullen diep doorrimpelen, waardoor er meer gates zullen schakelen dan in de grid decoder.  Het overbodig schakelgedrag van de tree decoder zou tot zekere mate ingeperkt kunnen worden door de topologie van de basisdecoders (figuur \ref{fig:basisdecoders}) te wijzigen zodat de enable vooraan komt te staan.\\
 De delay van de decoders kan ook afgelezen worden in figuur \ref{fig:decoder_ed}. Beide types decoders hebben ongeveer dezelfde delay. Bij grotere grid decoders kan de extra delay verklaard worden door de extra latency van de buffers.\\
-Verder werden glitches onderzocht. In beide decoders is er de mogelijkheid dat er glitches opduiken. Het probleem bij deze decoders is het gebuik van de NOR-gates. Wanneer de twee ingangs-signalen van de NOR-gate niet gelijktijdig toekomen (zie figuur \ref{fig:decoder_glitch}), kan de uitgang van de gate tijdelijk actief hoog getrokken worden, om vervolgens weer laag getrokken te worden. Bij de tree decoder is het nagenoeg onmogelijk om deze ongelijktijdigheid te overkomen: sommige signalen moeten immers meer lagen doorlopen dan andere vooraleer de NOR-ingang bereikt wordt. Bij de grid decoder daarentegen kan een glitch opduiken als de buffers die de tweede laag aansturen een asymetische delay hebben. Dit kan bijvoorbeeld voorkomen bij een 5-naar-32 decoder. De uitgangen van de 2-naar-4 decoder en de 3-naar 8-decoder in deze decoder hebben een andere last. Sommige buffers kunnen echter suboptimaal ontworpen worden zodat de NOR-ingangssignalen alsnog gelijktijdig toekomen.\\
+Verder werden glitches onderzocht. In beide decoders kunnen er glitches opduiken. Het probleem bij deze decoders is het gebuik van de NOR-gates. Wanneer de twee ingangs-signalen van de NOR-gate niet gelijktijdig toekomen (zie figuur \ref{fig:decoder_glitch}), kan de uitgang van de gate tijdelijk actief hoog getrokken worden, om vervolgens weer laag getrokken te worden. Bij de tree decoder is het nagenoeg onmogelijk om deze ongelijktijdigheid te overkomen: sommige signalen moeten immers meer lagen doorlopen dan andere vooraleer de NOR-ingang bereikt wordt. Bij de grid decoder daarentegen kan een glitch opduiken als de buffers die de tweede laag aansturen een asymetische delay hebben. Dit kan bijvoorbeeld voorkomen bij een 5-naar-32 decoder. De uitgangen van de 2-naar-4 decoder en de 3-naar 8-decoder in deze decoder hebben een andere last. Sommige buffers kunnen echter suboptimaal ontworpen worden zodat de NOR-ingangssignalen alsnog gelijktijdig toekomen.\\
 Na een snelle mismatch-analyse blijkt dat de grid decoder minder variatie toont in dynamisch energieverbruik en delay dan de tree decoder. Tenslotte heeft de tree decoder een grotere spreiding wat delay betreft, afhankelijk van het vorige en huidige addres: wanneer er slechts één adresbit schakelt, kan het voorkomen dat dit signaal slechts kort moet doorrimpelen tot de uitgang. Dit ziet men minder in de grid decoder. \\
 Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches, mismatch en delay betreft, komt de grid decoder er als beste uit en zal deze dan ook gebruikt worden in het finale ontwerp.
 
@@ -120,7 +120,7 @@ De energiewinst hangt natuurlijk samen met de onwerpparameters NoGB, NoBLpLB en 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdstk-periphery-nodrivers.png}
-  \caption[BL- en WL-drivers]{Off-chip driver moet enorme last opladen}
+  \caption[BL- en WL-drivers]{Off-chip driver moet onnodig veel last opladen}
   \label{fig:nodrivers}
 \end{figure}
 \begin{figure}[h!]

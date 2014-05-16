@@ -7,7 +7,8 @@ Bovendien is er ruimte voor optimalisatie door al de signalen even snel te maken
 \label{timing}
 Het ontwerp van dit geheugen gaat tot het niveau van het global block \ref{globalblock}, hierbij wordt de veronderstelling gemaakt dat alle signalen tegelijkertijd binnen komem in het GB. Hierna propageren de signalen door logica tot ze verschillende transistoren rond de BL aansturen. De aansturing van deze transistoren omvatten de eerste kritische timing constraints. Vervolgens worden de passgates en SA aangesloten, deze zullen de tweede timing constraints bevatten.
 
-\subsection{Critische timing voor het (de)selecteren cell}
+\subsection{Kritische timing voor het (de)selecteren cell}
+\label{optimization}
 \paragraph{}
 Timingproblemen rond het (de)selecteren van de cell komen door het een verschill in timing voor het (de)selecteren van de lastimpedantie en cel. Indien de load geselecteerd wordt voor de cel zal de bitline vroegtijdig beginnen opladen naar de voedingspanning. Wanneer de cel dan geselecteerd is zal de bitline naar een betekenisvolle spanning getrokken worden. Afhankelijk van het tijdsverschill tussen deze twee gebeurtenissen, zal de bitline terug omlaag getrokken worden, wat resulteert in een energieverspilling. Dit wordt geïllustreerd in figuur \ref{fig:critisch_timing1}. Indien de cel gedeselecteerd wordt voordat de load gedeselecteerd is, zal de bitline ook opladen naar de voedingspanning. Dit heeft als gevolg dat het ontladen van de bitlijn langer zal duren, het overbodig opladen resulteert tevens ook in een energieverspilling. Door de keuze van logica zal afhankelijk van het tijdsverschill de passgate te vroeg worden afgeschakeld. Hierdoor zal de uitgangsknoop van het LB niet volledig ontladen zijn. Dit heeft geen nadelige gevolgen omdat de capaciteit op dit knooppunt heel klein is en er bijgevolg een verwaarloosbare ladingsherverdeling is in de volgende leescyclus. Dit wordt geïllustreerd in figure \ref{fig:critisch_timing2}.  
 
