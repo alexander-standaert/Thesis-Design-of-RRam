@@ -68,7 +68,7 @@ cbl (bl gnd) capacitor c=1.8e-14
 mpulldown gnd sel_pulldown bl gnd tn 
 
 // sl
-msl gnd sel_sl sl gnd tn w=1e-07
+msl gnd sel_sl sl gnd tn w=5e-07
 csl (sl gnd) capacitor c=1.8e-14
 
 ic bl=0

@@ -37,11 +37,11 @@ function [] = load_analysis()
 %mc_run(element,param,1,1,1,1,1) 
 %   mc_run_ref(element,param,50,20)
 %  mc_analize_ref()
-%      mc_analize_data()
+     la_analize_data()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
 %       la_run_length(param,0,1)
-       mc_run_length(param,0,1)
+%        mc_run_length(param,0,1)
 %     mc_run_tripel(param,1,0)
 % la_run_ref2(element,param,4) 
 end
@@ -1149,30 +1149,30 @@ function [] = la_analize_data()
     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep.png');
     
-    f = plot_data_bytype(data,1,[0 0.2],[0 2.5e-9],[0.46 0.56])
-    r = 150; % pixels per inch
-    set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
-    print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_switch2.png');
-    f = plot_data_bytype(data,2,[0 0.35],[0.5 3]*1e-9,[0.25 0.6])
-    r = 150; % pixels per inch
-    set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
-    print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_bias2.png');
-    f = plot_data_bytype(data,3,[0.05 0.11],[4 11]*1e-10,[0.14 0.26])
-    r = 150; % pixels per inch
-    set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
-    print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_diode2.png');
-    f = plot_data_bytype(data,4,[0 0.3],[0 3]*1e-9,[0.35 0.55])
-    r = 150; % pixels per inch
-    set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
-    print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_bulk2.png');
-    plot_highlight(data(find(data(:,1) == 4),:),2)
-
-    data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
-    data = data.best_elements;
-    f = plot_data(data,[],[],[]);
-    r = 150; % pixels per inch
-    set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
-    print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_pareto.png');
+%     f = plot_data_bytype(data,1,[0 0.2],[0 2.5e-9],[0.46 0.56])
+%     r = 150; % pixels per inch
+%     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_switch2.png');
+%     f = plot_data_bytype(data,2,[0 0.35],[0.5 3]*1e-9,[0.25 0.6])
+%     r = 150; % pixels per inch
+%     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_bias2.png');
+%     f = plot_data_bytype(data,3,[0.05 0.11],[4 11]*1e-10,[0.14 0.26])
+%     r = 150; % pixels per inch
+%     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_diode2.png');
+%     f = plot_data_bytype(data,4,[0 0.3],[0 3]*1e-9,[0.35 0.55])
+%     r = 150; % pixels per inch
+%     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_sweep_bulk2.png');
+%     plot_highlight(data(find(data(:,1) == 4),:),2)
+% 
+%     data = load('./LoadAnalysis/loadanalysis_frontdata.mat');
+%     data = data.best_elements;
+%     f = plot_data(data,[],[],[]);
+%     r = 150; % pixels per inch
+%     set(f, 'PaperUnits', 'inches', 'PaperPosition', [0 0 1080 1080]/r);
+%     print(f,'-dpng',sprintf('-r%d',r), './LoadAnalysis/fig/la_pareto.png');
 
     
 end
@@ -1228,7 +1228,7 @@ function [fig1] = plot_data(elements,xlimits,ylimits1,ylimits2)
     g = scatter(elements(ic,5),elements(ic,7),elements(ic,8)*s,elements(ic,end-2:end));
     h = scatter(elements(id,5),elements(id,7),elements(id,8)*s,elements(id,end-2:end));
     xlabel('BL(hrs) - BL(lrs) (V)','FontSize', 12,'FontWeight','bold')
-    ylabel('CELL VOLTAGE DROP (V)','FontSize', 12,'FontWeight','bold')
+    ylabel('MEMORY ELEMENT VOLTAGE DROP (V)','FontSize', 12,'FontWeight','bold')
     if xlimits
         xlim(xlimits)
     else
