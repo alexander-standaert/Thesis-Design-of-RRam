@@ -16,7 +16,7 @@ Timingproblemen rond het (de)selecteren van de cell komen door het een verschill
 \centering
 \subfloat[]{ \includegraphics[width=0.60\textwidth] {../fig/hfdstk-timing-crit1.png} \label{fig:critisch_timing1}}
 \subfloat[]{ \includegraphics[width=0.40\textwidth] {../fig/hfdstk-timing-crit2.png} \label{fig:critisch_timing2}}
-\caption{Timingproblemen bij de bitline}
+\caption[Timingproblemen bij de bitline]{Timingproblemen bij de bitline}
 \end{figure}
 
 \paragraph{}
@@ -25,14 +25,14 @@ De timingsproblematiek begint in het global block. Het circuit- en timingsdiagra
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-gb1.png}
-  \caption{Global block logica}
+  \caption[Global block:logica]{Global block logica}
   \label{fig:gb_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-gb2.png}
-  \caption{Timing global block}
+  \caption[Global block:timing]{Timing global block}
   \label{fig:gb_timing2}
 \end{figure}
 
@@ -43,21 +43,21 @@ Zoals op figuur \ref{fig:lbcell_timing1} valt te zien zijn de meeste controlesig
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbcell1.png}
-  \caption{Controlelogica data-array}
+  \caption[Data-array:logica]{Controlelogica data-array}
   \label{fig:lbcell_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbcell2.png}
-  \caption{Timing controlelogica data-array}
+  \caption[Data-array:timing]{Timing controlelogica data-array}
   \label{fig:lbcell_timing2}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-decoder-dep.png}
-  \caption{Delay van WL-decoders en -buffers i.f.v. BL-decoders}
+  \caption[Delay van WL-decoders en -buffers i.f.v. BL-decoders]{Delay van WL-decoders en -buffers i.f.v. BL-decoders}
   \label{fig:decoder_dep}
 \end{figure}
 
@@ -68,14 +68,14 @@ De timingvoorwaarden voor het selecteren en deselecteren van de referentiecellen
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbref1.png}
-  \caption{Controlelogica referentie-array}
+  \caption[Referentie-array:logica]{Controlelogica referentie-array}
   \label{fig:lbref_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbref2.png}
-  \caption{Timing controlelogica referentie-array}
+  \caption[Referentie-array:timing]{Timing controlelogica referentie-array}
   \label{fig:lbref_timing2}
 \end{figure}
 
@@ -85,14 +85,14 @@ Eens de cel geselecteerd is wordt de bitline opgeladen. De volgende stap is dit 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-sa1.png}
-  \caption{Logica rond SA}
+  \caption[SA:logica]{Logica rond SA}
   \label{fig:sa_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-sa2.png}
-  \caption{Timing logica rond SA}
+  \caption[SA:timing]{Timing logica rond SA}
   \label{fig:sa_timing2}
 \end{figure}
 
@@ -108,7 +108,7 @@ De leessnelheid is afhankelijk van de verschillende controlesignalen in de leesc
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-leescyclus.png}
-  \caption{Leescyclus}
+  \caption[Leescyclus]{Leescyclus}
   \label{fig:leescyclus}
 \end{figure} 
 
@@ -120,7 +120,7 @@ Als conclusie kan gezegd worden dat de optimale geheugen configuratie bestaat ui
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.45, angle = 90]{../fig/hfdstk-timing-all-sol1.png}
-  \caption{Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties}
+  \caption[Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties]{Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties. Kleinste oppervlakte is $0.009mm^{2}$, grootste oppervlakte is $0.68mm^{2}$}
   \label{fig:final20all1}
 \end{figure} 
 \clearpage
@@ -129,7 +129,7 @@ Als conclusie kan gezegd worden dat de optimale geheugen configuratie bestaat ui
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-all-sol2.png}
-  \caption{Invloed \#BL en \#WL op delay, energieverbruik en oppervlakte}
+  \caption[Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties]{Invloed \#BL en \#WL op delay, energieverbruik en oppervlakte. Kleinste oppervlakte is $0.009mm^{2}$, grootste oppervlakte is $0.68mm^{2}$}
   \label{fig:final20all2}
 \end{figure} 
 

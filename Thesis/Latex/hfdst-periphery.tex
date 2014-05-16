@@ -11,7 +11,7 @@ Een decoder is een logische blok dat een uitgang selecteert op basis van een geÃ
 \centering
 \subfloat[Decoder type 1]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type1.png} \label{fig:decoder1}}
 \subfloat[Decoder type 2]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-decoders-type2.png} \label{fig:decoder2}}
-\caption{Opbouw voor grotere decoders}\label{fig:basisdecoders}
+\caption[Types decoders]{Opbouw voor grotere decoders}\label{fig:basisdecoders}
 \end{figure}
 
 \subsection{De tree decoder}
@@ -20,7 +20,7 @@ De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiert 
 \centering
 \subfloat[2 naar 4 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-2to4.png} \label{fig:decoder2to4}}
 \subfloat[3 naar 8 decoder]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-3to8.png} \label{fig:decoder3to8}}
-\caption{basis decoders}
+\caption[Basis decoders]{basis decoders}
 \end{figure}
 
 \subsection{De grid decoder}
@@ -41,7 +41,7 @@ De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een a
 \hline
 \end{tabular}
 \end{center}
-\caption{Aantal gates in de grid decoder}
+\caption[aantal gates in de grid decoder]{Aantal gates in de grid decoder}
 \label{tab:griddecoder}
 \end{table}
 
@@ -59,7 +59,7 @@ Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches,
 \centering
 \subfloat[Oppervlakte]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-a.png} \label{fig:decoder_a}}
 \subfloat[Energie en delay]{ \includegraphics[width=0.5\textwidth] {../fig/hfdst-decoders-ed.png} \label{fig:decoder_ed}}
-\caption{Vergelijking van decoder types}
+\caption[Vergelijking van decoder types]{Vergelijking van decoder types}
 \end{figure}
 
 
@@ -73,7 +73,7 @@ Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches,
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-decoders-glitch.png}
-  \caption{Glitch in NOR-gate}
+  \caption[Glitch in NOR-gate]{Glitch in NOR-gate}
   \label{fig:decoder_glitch}
 \end{figure}
 
@@ -102,14 +102,14 @@ Decoderbuffer & 1 Nor & (4-64)$*0.58fF$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Lasten in de verschillende buffers}
+\caption[Lasten in de verschillende buffers]{Lasten in de verschillende buffers}
 \label{tab:buffer}
 \end{table}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
-  \caption{Gebufferde en ongebufferde signalen naar de referentie logica}
+  \caption[Gebufferde en ongebufferde signalen naar de referentie logica]{Gebufferde en ongebufferde signalen naar de referentie logica}
   \label{fig:refbuffer}
 \end{figure}
 
@@ -120,13 +120,13 @@ De energiewinst hangt natuurlijk samen met de onwerpparameters NoGB, NoBLpLB en 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdstk-periphery-nodrivers.png}
-  \caption{Off-chip driver moet enorme last opladen}
+  \caption[BL- en WL-drivers]{Off-chip driver moet enorme last opladen}
   \label{fig:nodrivers}
 \end{figure}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdstk-periphery-drivers.png}
-  \caption{Tussenin wordt gebufferd, zodat niet hele lijnen moeten worden opgeladen}
+  \caption[BL- en WL-drivers]{Tussenin wordt gebufferd, zodat niet hele lijnen moeten worden opgeladen}
   \label{fig:drivers}
 \end{figure}
 
@@ -141,7 +141,7 @@ De opstelling is het circuit van figuur \ref{fig:passgate1}. Afhankelijk van de 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate1.png}
-  \caption{nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \caption[nMOS passgate]{nMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
   \label{fig:passgate1}
 \end{figure}
 
@@ -159,7 +159,7 @@ De opstelling is het circuit van figuur \ref{fig:passgate2}. Er kunnen wederom v
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdst-periphery-passgate2.png}
-  \caption{pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
+  \caption[pMOS passgate]{pMOS passgate opstelling. a: Vs > Vx, b: Vs < Vx}
   \label{fig:passgate2}
 \end{figure}
 
@@ -185,7 +185,7 @@ Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor 
 \subfloat[NHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NHVT.png}}\\
 \subfloat[PLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PLVT.png}}
 \subfloat[PHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PHVT.png}}
-\caption{Dode zones voor verschillende types passgates}
+\caption[Dode zones voor verschillende types passgates]{Dode zones voor verschillende types passgates}
 \label{fig:passgate3}
 \end{figure}
 

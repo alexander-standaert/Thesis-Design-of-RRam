@@ -38,15 +38,17 @@
 \begin{document}
 
 \begin{preface}
-  Dit is mijn dankwoord om iedereen te danken die mij bezig gehouden heeft.
-  Hierbij dank ik mijn promotor, mijn begeleider en de voltallige jury.
-  Ook mijn familie heeft mij erg gesteund natuurlijk.
+  Na bijna een jaar aan deze thesis gewerkt te hebben zouden we graag een aantal mensen in het bijzonder willen bedanken voor hun hulp en steun. Ten eerste Prof. Dehaene voor het onderwerp aan te bieden en toe te wijzen aan ons. Ten tweede onze begeleiders Stefan en Burak.\\
+  Stefan, hartelijk dank voor de tijd die je wou vrij maken voor ons, het was heel aangenaam om een begeleider te hebben die zo veel kennis en ervaring heeft van het vakgebied.\\
+  Burak, thanks for always being available for us and for providing us the resources to get our thesis underway.\\
+
+  
 \end{preface}
 
 \tableofcontents*
 
 \begin{abstract}
- Een veelbelovende technologie voor het maken van ingebedde NV geheugens is RRAM. Deze thesis behandelt het ontwerp van het leescircuit van een 4Mbit RRAM geheugen. Eerst wordt er gekeken naar de werking van de memristor, wat de geheugen cel is in het RRAM geheugen. Deze zal later als een weerstand gemodeleerd worden in het ontwerp van de geheugenarchitectuur. De geheugenarchitectuur bestaat naast de cel ook uit branches, local blocks en global blocks. In het ontwerp van het geheugen wordt er een uitgebreide analyse gedaan in de keuze en ontwerp van de lastimpedantie en sense amplifier. Deze zijn de meest critische bouwblokken in de leescyclus. 
+ Een veelbelovende technologie voor het maken van ingebedde NV geheugens is RRAM. Deze thesis behandelt het ontwerp van het leescircuit van een 4Mbit RRAM geheugen. Eerst wordt er gekeken naar de werking van de memristor, wat het belangrijkste element is in de geheugencel van het RRAM geheugen. Deze wordt in simulaties als een weerstand gemodeleerd bij het ontwerp van de geheugenarchitectuur. De geheugenarchitectuur bestaat naast de cel ook uit branches, local blocks en global blocks. In het ontwerp van het geheugen wordt er een uitgebreide analyse gedaan in de keuze en ontwerp van de lastimpedantie en sense amplifier. Deze zijn de meest kritische bouwblokken in de leescyclus. Naast deze bouwblokken worden ook decoders, buffers en controlelogica ontworpen. Om een cel correct uit te lezen is naast logica ook timing belangrijk. Een analyse van de timing van de logica resulteert in een aantal beperkingen op de geheugenarchitectuur. Met deze beperkingen in het achterhoofd, worden verschillende geheugenarchitecturen ontworpen en vergeleken. De optimale architectuur wordt tenslotte onderworpen aan een speed-vdd-test en vergeleken met de literatuur. 
 \end{abstract}
 
 % Een lijst van figuren en tabellen is optioneel

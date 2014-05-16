@@ -9,20 +9,20 @@ Er bestaan heel wat verschillende soorten sense amplifiers, traditioneel kunnen 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-voltagemode.png}
-  \caption{Voltage mode sense amplifiers}
+  \caption[Voltage mode sense amplifiers]{Voltage mode sense amplifiers}
   \label{fig:voltagemodesa}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-currentmode.png}
-  \caption{Current mode sense amplifiers\cite{5548588}}
+  \caption[Current mode sense amplifiers]{Current mode sense amplifiers, reproduced from\cite{5548588}}
   \label{fig:currentmodesa}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-ourSA.png}
-  \caption{De drain-input latch-type SA}
+  \caption[De drain-input latch-type SA]{De drain-input latch-type SA}
   \label{fig:ourSA}
 \end{figure}
 
@@ -37,7 +37,7 @@ Hiervoor is het wel belangrijk te onderzoeken wat de verdeling is van de offsets
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-offset.png}
-  \caption{Illustratie van offsetspanning}
+  \caption[SA offsetspanning]{Illustratie van offsetspanning}
   \label{fig:offset}
 \end{figure}
 
@@ -58,7 +58,7 @@ Er moet opgemerkt worden dat er bij deze simulatie slechts gesweept werd voor de
 \subfloat[Vt-mismatch]{ \includegraphics[width=0.9\textwidth] {../fig/hfdstk-sensamp-vt-sensitivity.png}} \\
 \subfloat[$\beta$-mismatch]{ \includegraphics[width=0.9\textwidth] {../fig/hfdstk-sensamp-b-sensitivity.png}}
 
-\caption{Sensitiviteitsresultaten: offsetspanning i.f.v. mismatchvariabelen}
+\caption[Sensitiviteitsresultaten: offsetspanning i.f.v. mismatchvariabelen]{Sensitiviteitsresultaten: offsetspanning i.f.v. mismatchvariabelen}
 \label{fig:min-sensanalysis}
 \end{figure}
 
@@ -92,7 +92,7 @@ Mtop & $\beta$ & 0 & 100 & 45 & 17.8885\% \\
 \hline & $\sigma_{Voffset}$: & 45.6813mV & & & \\
 \hline
 \end{tabular} 
-\caption{Sensitiviteitsanalyse van de minimale SA}
+\caption[Sensitiviteitsanalyse van de minimale SA]{Sensitiviteitsanalyse van de minimale SA}
 \label{tab:min-sensanalysis}
 \end{table}
 
@@ -104,7 +104,7 @@ Men kan argumenteren dat er een korte overlap zou kunnen toegelaten zijn, waarna
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-chargeinjectionmismatch.png}
-  \caption{Door $\beta$-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}
+  \caption[foutief latchen door $\beta$-mismatch]{Door $\beta$-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}
   \label{fig:chargeinjectionmismatch}
 \end{figure}
 
@@ -114,20 +114,20 @@ De situatie waarbij er volledige overlap is tussen de controle signalen kan vere
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch.png}
-  \caption{Simulatieopstelling voor het RC-latch-effect}
+  \caption[Simulatieopstelling voor het RC-latch-effect]{Simulatieopstelling voor het RC-latch-effect}
   \label{fig:RC-latch}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch-sim.png}
-  \caption{Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}
+  \caption[Simulatieresultaten voor het RC-latch-effect]{Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}
   \label{fig:RC-latch-sim}
 \end{figure}
 De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortsluiting gedraagt (zie figuur \ref{fig:RC-latch-explain}), een plotse stroom vloeit door de weerstand en hierdoor onstaat er een spanningsval over de weerstand. Hierna gaat er op veel lagere frequenties een spanning beginnen op te bouwen over de capaciteit waardoor de ingangs-uitgansknopen volledig kunnen laden/ontladen tot VDD en VSS.
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-RC-latch-explain.png}
-  \caption{Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}
+  \caption[Invloed capaciteit op RC-latch effect]{Vergelijking situatie met voorgeladen (eindige) capaciteit en situatie met spanningsbron (oneindige capaciteit)}
   \label{fig:RC-latch-explain}
 \end{figure}
 Gevolgen van wanneer dit effect optreedt is dus dat het nuttige signaal zich snel - alsof er helemaal geen last aanhangt - en lineair opbouwt en dat er geen AC-signaal is over de condensator. Een analyse van de respons van een RC-circuit op een lineair stijgende spanningsbron geeft meer duidelijkheid voor de voorwaarden waarop het RC-latch-effect optreedt (zie figuur \ref{fig:RC-latch-maplecircuit}). De respons van de spanning over de capaciteit is $Vcap(t) =  at - aRC(1-e^{-{\frac {t}{CR}}})$. Uit deze uitdrukking blijkt dat het RC-latch-effect optreedt wanneer de latch zonder last snel is (a<<1) en/of wanneer het RC-product hoog is (RC>>1).
@@ -135,7 +135,7 @@ Wanneer het effect zich voordoet zijn latching en RC-respons onafhankelijke proc
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch-maplecircuit.png}
-  \caption{Circuit voor analyse voorwaarden RC-latch-effect}
+  \caption[Circuit voor analyse voorwaarden RC-latch-effect]{Circuit voor analyse voorwaarden RC-latch-effect}
   \label{fig:RC-latch-maplecircuit}
 \end{figure}
 
@@ -177,7 +177,7 @@ Mbottom & Vt & 0.0333 & 100 & 45 & 42.0381mV \\
 \hline & $\sigma_{Voffset}$: & 31.7172mV & & & \\
 \hline
 \end{tabular} 
-\caption{Sensitiviteitsanalyse van de minimale SA met overlap tussen passenable en latchenable}
+\caption[Sensitiviteitsanalyse van de minimale SA met overlap tussen passenable en latchenable]{Sensitiviteitsanalyse van de minimale SA met overlap tussen passenable en latchenable}
 \label{tab:min-sensanalysis-overlap}
 \end{table}
 
@@ -215,7 +215,7 @@ Mbottom & Vt & 0.03333 & 500 & 45 & 18.8000mV \\
 \hline & $\sigma_{Voffset}$: & 9.6125mV & & & \\
 \hline
 \end{tabular} 
-\caption{Sensitiviteitsanalyse van de SA in het finale geheugen, er is overlap tussen de controlesignalen}
+\caption[Sensitiviteitsanalyse van de SA in het finale geheugen]{Sensitiviteitsanalyse van de SA in het finale geheugen, er is overlap tussen de controlesignalen}
 \label{tab:ourSA-sensanalysis-overlap}
 \end{table}
 
@@ -236,7 +236,7 @@ Op figuur \ref{fig:pareto} zijn de pareto-optimale resultaten getoond van de gro
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdstk-sensamp-pareto2.png}
-  \caption{De pareto-optimale sense amplifiers}
+  \caption[De pareto-optimale sense amplifiers]{De pareto-optimale sense amplifiers}
   \label{fig:pareto}
 \end{figure}
 

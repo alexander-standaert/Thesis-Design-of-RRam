@@ -21,7 +21,7 @@ Deze delay zal kleiner worden naarmate R kleiner wordt, waarvoor een kleine last
 \begin{figure}[!ht]
 \centering
  \includegraphics[width=0.80\textwidth] {../fig/hfdst-last-rpiek.png} \label{fig:rpiek}
-\caption{Verschil in bitlijnspanning in functie van lastweerstand, $R_{LRS}=7,5 k \Omega$ en $R_{HRS}= 32,5 k \Omega$}
+\caption[Verschil in bitlijnspanning in functie van lastweerstand]{Verschil in bitlijnspanning in functie van lastweerstand, $R_{LRS}=7,5 k \Omega$ en $R_{HRS}= 32,5 k \Omega$}
 \end{figure}
 
 
@@ -29,15 +29,13 @@ Deze delay zal kleiner worden naarmate R kleiner wordt, waarvoor een kleine last
 
 \section{Evalueren van de last}
 Om verschillende lasten met elkaar te kunnen vergelijken, is het belangrijk om hun eigenschappen allemaal op dezelfde manier te bekomen. Figuur \ref{fig:simsetup} geeft de verschillende aspecten van de gebruikte simulatiesetup weer. Het testcircuit (figuur \ref{fig:simcircuit}) stelt een bitlijn voor met een capaciteit van 18fF, wat ruwweg overeenkomt met een bitlijn waaraan 100 cellen hangen. Aan deze bitlijn zijn naast de cel ook een last en een ontladinstransistor aangesloten. De ontladingstransistor is minimaal gehouden. De nominale waardes voor LRS en HRS zijn 7.5k$\Omega$ en 32.5k$\Omega$. Tijdens Monte Carlo simulaties worden deze nominale waardes als verwachtingswaarde genomen van een gaussische distributie met $\sigma = 0.833k\Omega$. Aan deze memristorweerstand hangt een WL-transistor, die ook minimaal gehouden wordt. De combinatie van deze wordt de geheugencel genoemd. De cel hangt aan de BL, WL en SL. Aan de SL is tenslotte nog een ontladingstransistor verbonden. Deze transistor wordt bewust groot gekozen zodat de equivalente weerstand van de onderste tak gedomineerd wordt door de weerstand van de geheugencel. De SL bevat ook een capaciteit van 18fF, al heeft dit geen significante invloed voor de leesbewerking, de ontladingstransistor aan de SL staat immers altijd aan. Tenslotte wordt de voedingsspanning altijd op 1V gehouden.\\\\
-Figuren \ref{fig:simcontr1} tot \ref{fig:simcontr3} stellen de sequentie voor van alle controlesignalen tijdens de simulatie. Eerst wordt de bitlijn volledig ontladen (figuur \ref{fig:simcontr1}). Vervolgens is er een interval waarin niets gebeurt (figuur \ref{fig:simcontr2}) en tenslotte wordt de last aangesloten en de bitlijn opgeladen (figuur \ref{fig:simcontr3}). Op het einde van de simulatie kan men bij benadering stellen dat de BL volledig is opgeladen.\\
+Figuur \ref{fig:simcontr} stelt de sequentie voor van alle controlesignalen tijdens de simulatie. Eerst wordt de bitlijn volledig ontladen. Vervolgens is er een interval waarin niets gebeurt en tenslotte wordt de last aangesloten en de bitlijn opgeladen. Op het einde van de simulatie kan men bij benadering stellen dat de BL volledig is opgeladen.\\
 
 \begin{figure}[!ht]
 \centering
 \subfloat[Test circuit]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-last-simsetup.png} \label{fig:simcircuit}}
-\subfloat[Controle signalen 1]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-last-controlsig1.png} \label{fig:simcontr1}}\\
-\subfloat[Controle signalen 2]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-last-controlsig2.png} \label{fig:simcontr2}}
-\subfloat[Controle signalen 3]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-last-controlsig3.png} \label{fig:simcontr3}}
-\caption{Testbench voor de lastimpedantie}\label{fig:simsetup}
+\subfloat[Controle signalen]{ \includegraphics[width=0.45\textwidth] {../fig/hfdst-last-controlsig.png} \label{fig:simcontr}}\\
+\caption[Testbench voor de lastimpedantie]{Testbench voor de lastimpedantie}\label{fig:simsetup}
 \end{figure}
 
 Eens een simulatie met een bepaalde impedantie uitgevoerd is, wordt deze last beoordeeld op vlak van resulterende oppervlakte, BL-laadsnelheid, nominaal BL-spanningsverschil en spanningsval over het geheugenelement. De oppervlakte wordt berekend op basis van de lengtes en breedtes van de lasttransistoren. De BL-laadsnelheid is de tijd die nodig is om de bitlijn $99\%$ op te laden. Het nominale BL-spanninsverschil is het verschil van de spanning over 2 BLs - aan de ene hangt een cel in HRS, de andere een cel in LRS - wanneer de bitlijn $100\%$ opgeladen is. De bitlijn wordt verondersteld $100\%$ opgeladen te zijn op het einde van de simulatie, de simulatietijd wordt voldoende hoog gehouden om dit te garanderen. De spanningsval over het geheugenelement is belangrijk wat betreft destructieve leesoperaties. Een te grote spanning gedurende een te lange tijd kan een schakeling van resistieve toestand veroorzaken. De numerieke waarde van de maximale spanningsval over de cel is heel erg afhankelijk van het type memristor. In dit onderzoek wordt uitgegaan van een maximum van 0,5V over de cel tijdens de leesbewerking\cite{ppt:model}.
@@ -51,7 +49,7 @@ Voor dit onderzoek worden vier mogelijke kandidaten van lastimpedanties vergelek
   \subfloat[De bias load]{\makebox[.22\textwidth]{ \includegraphics[width=0.12\textwidth] {../fig/hfdst-last-loadtypesbias.png} \label{fig:biasload}}}
   \subfloat[De diode load]{\makebox[.22\textwidth]{ \includegraphics[width=0.12\textwidth] {../fig/hfdst-last-loadtypesdiode.png} \label{fig:diodeload}}}
   \subfloat[De bulk load]{\makebox[.22\textwidth]{ \includegraphics[width=0.12\textwidth] {../fig/hfdst-last-loadtypesbulk.png} \label{fig:bulkload}}}
-  \caption{De verschillende types lastimpedanties}
+  \caption[Types lastimpedanties]{De verschillende types lastimpedanties}
   \label{fig:loads}
 \end{figure}
 
@@ -72,11 +70,11 @@ De bulkload werd voorgesteld in de paper van Ren et al. \cite{bulkload} als een 
 \begin{figure}
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-switchload.png}
-  \caption{Lineaire sweep van switchload}
+  \caption[Lineaire sweep van switchload]{Lineaire sweep van switchload}
   \label{fig:switchloadsim}
  \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-biasload.png}
-  \caption{Lineaire sweep van biasload}
+  \caption[Lineaire sweep van biasload]{Lineaire sweep van biasload}
   \label{fig:biasloadsim}
 \end{figure}
 }
@@ -84,11 +82,11 @@ De bulkload werd voorgesteld in de paper van Ren et al. \cite{bulkload} als een 
 \begin{figure}
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-diodeload.png}
-  \caption{Lineaire sweep van diodeload}
+  \caption[Lineaire sweep van diodeload]{Lineaire sweep van diodeload}
   \label{fig:diodeloadsim}
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-bulkload.png}
-  \caption{Lineaire sweep van bulkload}
+  \caption[Lineaire sweep van bulkload]{Lineaire sweep van bulkload}
   \label{fig:bulkloadsim}
 \end{figure}
 }
@@ -99,7 +97,7 @@ Na een selectie te hebben gemaakt van de oplossingen uit de vorige sectie, worde
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-var1.png}
-  \caption{BL-spanningsverdeling voor een biasload}
+  \caption[BL-spanningsverdeling voor een biasload]{BL-spanningsverdeling voor een biasload}
   \label{fig:distbias}
 \end{figure}
 
@@ -108,7 +106,7 @@ Figuur \ref{fig:distref} stelt de distributie van de referentiespanning voor. De
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-ref.png}
-  \caption{Lineaire sweep van switchload}
+  \caption[Bitlijnspanning referentiecellen]{Bitlijn spanningsdistributies voor een verschillend aantal referentiecellen}
   \label{fig:distref}
 \end{figure}
 
@@ -119,7 +117,7 @@ Figuur \ref{fig:length} geeft de resultaten weer van een sweep van verschillende
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.66\textwidth]{../fig/hfdst-last-length.png}
-  \caption{Verschillende oplossingen voor de switchload met variabele lengtes en breedtes}
+  \caption[Sweep switchload over transistor lengte en breedte]{Verschillende oplossingen voor de switchload met variabele lengtes en breedtes}
   \label{fig:length}
 \end{figure}
 
@@ -128,7 +126,7 @@ Voor de finale last wordt er gekozen voor een transistor met lengte gelijk aan 1
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-var2.png}
-  \caption{BL-spanningsverdeling voor de finale lastimpedantie}
+  \caption[BL-spanningsverdeling voor de finale lastimpedantie]{BL-spanningsverdeling voor de finale lastimpedantie}
   \label{fig:distswitch}
 \end{figure}
 
