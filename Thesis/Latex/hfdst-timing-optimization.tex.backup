@@ -1,63 +1,64 @@
 \chapter{Timing en optimalizatie}
 \label{timing-optimization}
-Voor een correcte werking van het geheugen, is het van belang dat de verschillende controlesignalen in een bepaalde volgorde verwerkt en doorgegeven worden.
-Bovendien is er ruimte voor optimalisatie door al de signalen even snel te maken als het kritisch pad. In het eerste deel van dit hoofdstuk zal de invloed van architectuur en sizing onderzocht worden op de timing van de signalen. De constraints en vrijheidsgraden die hieruit volgen zullen dan gebruikt worden in het tweede deel van dit hoofdstuk om een optimale architectuur te vinden.
+Voor een correcte werking van het geheugen, is het van belang dat de verschillende controlesignalen in een welbepaalde volgorde verwerkt en doorgegeven worden.
+Door al de signalen even snel te maken als het kritisch pad is er ruimte voor optimalisatie. In het eerste deel van dit hoofdstuk zal de invloed van architectuur en sizing onderzocht worden op de timing van de signalen. De constraints en vrijheidsgraden die hieruit volgen zullen dan gebruikt worden in het tweede deel van dit hoofdstuk om een optimale architectuur te vinden.
 
 \section{Timing}
 \label{timing}
-Het ontwerp van dit geheugen gaat tot het niveau van het global block \ref{globalblock}, hierbij wordt de veronderstelling gemaakt dat alle signalen tegelijkertijd binnen komem in het GB. Hierna propageren de signalen door logica tot ze verschillende transistoren rond de BL aansturen. De aansturing van deze transistoren omvatten de eerste kritische timing constraints. Vervolgens worden de passgates en SA aangesloten, deze zullen de tweede timing constraints bevatten.
+Het ontwerp van het geheugen in dit werk gaat tot het niveau van het global block \ref{globalblock}, hierbij wordt de veronderstelling gemaakt dat alle signalen tegelijkertijd binnen komem in het GB. Hierna propageren de signalen door logica tot ze verschillende transistoren rond de BL aansturen. De aansturing van deze transistoren leiden tot de eerste kritische timing constraints. Vervolgens worden de passgates en SA aangesloten, deze zullen de tweede timing constraints bevatten.
 
-\subsection{Critische timing voor het (de)selecteren cell}
+\subsection{Critische timing voor het (de)selecteren cel}
 \paragraph{}
-Timingproblemen rond het (de)selecteren van de cell komen door het een verschill in timing voor het (de)selecteren van de lastimpedantie en cel. Indien de load geselecteerd wordt voor de cel zal de bitline vroegtijdig beginnen opladen naar de voedingspanning. Wanneer de cel dan geselecteerd is zal de bitline naar een betekenisvolle spanning getrokken worden. Afhankelijk van het tijdsverschill tussen deze twee gebeurtenissen, zal de bitline terug omlaag getrokken worden, wat resulteert in een energieverspilling. Dit wordt geïllustreerd in figuur \ref{fig:critisch_timing1}. Indien de cel gedeselecteerd wordt voordat de load gedeselecteerd is, zal de bitline ook opladen naar de voedingspanning. Dit heeft als gevolg dat het ontladen van de bitlijn langer zal duren, het overbodig opladen resulteert tevens ook in een energieverspilling. Door de keuze van logica zal afhankelijk van het tijdsverschill de passgate te vroeg worden afgeschakeld. Hierdoor zal de uitgangsknoop van het LB niet volledig ontladen zijn. Dit heeft geen nadelige gevolgen omdat de capaciteit op dit knooppunt heel klein is en er bijgevolg een verwaarloosbare ladingsherverdeling is in de volgende leescyclus. Dit wordt geïllustreerd in figure \ref{fig:critisch_timing2}.  
+Timingproblemen rond (de)selecteren van de cel komen door een verschil in timing voor (de)selecteren van de lastimpedantie en cel. Indien de load geactiveerd wordt voor de cel geactiveerd is, zal de bitline vroegtijdig beginnen opladen naar de voedingspanning. Wanneer de cel dan geselecteerd is zal de bitline naar een spanning getrokken worden die overeen komt met de referentiespanning of een spanning van een cel in RHS of LRS. Afhankelijk van het tijdsverschill tussen deze twee gebeurtenissen, zal de bitline terug omlaag getrokken worden, wat resulteert in een energieverspilling. Dit wordt geïllustreerd in figuur \ref{fig:critisch_timing1}. Indien de cel gedeselecteerd wordt voordat de load gedeselecteerd is, zal de bitline ook opladen naar de voedingspanning. Dit heeft als gevolg dat het ontladen van de bitlijn langer zal duren of het risico op een lees verstoring vergroot zal worden. Het overbodig opladen resulteert tevens ook in een energieverspilling. De passgate dat aan de BL hangt, wordt aangestuurd door de controlelogica. Door de opbouw van deze logica, heeft de uitgangsknoop achter de passgate één inverterdelay tijd om ontladen te worden. Vaak is dit niet voldoende, en zal de uitgangsknoop van het LB niet volledig ontladen zijn. Dit heeft geen nadelige gevolgen omdat de capaciteit op dit knooppunt heel klein is en er bijgevolg een verwaarloosbare ladingsherverdeling is in de volgende leescyclus. Dit wordt geïllustreerd in figure \ref{fig:critisch_timing2}.  
 
 
 \begin{figure}[!ht]
 \centering
 \subfloat[]{ \includegraphics[width=0.60\textwidth] {../fig/hfdstk-timing-crit1.png} \label{fig:critisch_timing1}}
 \subfloat[]{ \includegraphics[width=0.40\textwidth] {../fig/hfdstk-timing-crit2.png} \label{fig:critisch_timing2}}
-\caption{Timingproblemen bij de bitline}
+\caption[Timingproblemen bij de bitline]{Timingproblemen bij de bitline}
 \end{figure}
 
 \paragraph{}
-De timingsproblematiek begint in het global block. Het circuit- en timingsdiagram worden geïllustreerd in figuren \ref{fig:gb_timing1} en \ref{fig:gb_timing2}. T1 en T2 stellen de momenten voor dat de signalen uit de BL- en WL-decoder komen. T3 stelt het moment voor dat het signaal uit de referentiebuffer komt. T1 en T3 zouden op het zelfde moment moeten aankomen om een optimale timing te hebben. Indien dit niet het geval is, zullen de referentie-BL al geactiveerd zijn voordat de data-BL opgeladen wordt. Indien er een groot aantal referentiebitlijnen zijn, zal dit resulteren in een grote energieverspilling. Om deze timing te verwezenlijken zijn er twee opties. De eerste is het kiezen van een kleine BL-decoder en een grote WL-decoder. Dit zal voor een kleine T1 zorgen door een kleine delay in de bitlijndecoder. Dit zal tevens een grotere T3 geven omdat de referentiebuffer een grotere last heeft om op te laden. Een evenwicht kan zo gevonden worden om T1 en T3 op het zelfde moment te doen verschijnen. Deze eerste optie beperkt de mogelijke architectuur intensief en zal timingconstraints voor T2 teniet doen zoals later zal blijken. De tweede optie voor het matchen van T1 en T3 is het vertragen van T3. Een vertraging kan gerealiseerd worden door het invoeren van delayelementen of door de buffer suboptimaal te ontwerpen. In praktijk is ondervonden dat het invoeren van vertragingselementen meestal een te grote delay introduceert. Vandaar dat in het finale ontwerp een buffer werd ontworpen die niet optimaal is wat snelheid betreft. Om het energieverbruik van de referentiebitlijnen verder in te perken werden niet al de bitlijnen in de array gebruikt voor het genereren van het referentiesignaal.
+De timingsproblematiek begint in het global block. Het circuit- en timingsdiagram worden geïllustreerd in figuren \ref{fig:gb_timing1} en \ref{fig:gb_timing2}. T1 en T2 stellen de momenten voor dat de signalen uit de BL- en WL-decoder komen. T3 stelt het moment voor dat het signaal uit de referentiebuffer komt. T1 en T3 zouden op het zelfde moment moeten aankomen om een optimale timing te hebben. Indien dit niet het geval is, zullen de referentie-BL al geactiveerd zijn voordat de data-BL opgeladen wordt. Indien er een groot aantal referentiebitlijnen zijn, zal dit resulteren in een grote energieverspilling. Er zijn twee optie op de volgorde tussen T1,T2 en T3 te garanderen. De eerste is het kiezen van een kleine BL-decoder en een grote WL-decoder. Dit zal voor een kleine T1 zorgen door een kleine delay in de bitlijndecoder. Dit zal tevens een grotere T3 geven omdat de referentiebuffer een grotere last heeft om op te laden. Een evenwicht kan zo gevonden worden om T1 en T3 op het zelfde moment te doen verschijnen. Deze eerste optie beperkt de mogelijke architectuur aanzienlijk en zal het verwezenlijken van andere timingconstraints voor T2 onmogelijk maken, zoals later zal blijken. De tweede optie voor het matchen van T1 en T3 is het vertragen van T3. Een vertraging kan gerealiseerd worden door het invoeren van delayelementen of door de buffer suboptimaal te ontwerpen. Het invoeren van delay(vertragings)elementen zorgt in de praktijk echter meestal voor een te grote bijkomende delay. Vandaar dat in het finale ontwerp een buffer werd ontworpen die niet optimaal is wat snelheid betreft. Om het energieverbruik van de referentiebitlijnen verder in te perken werden niet al de bitlijnen in de array gebruikt voor het genereren van het referentiesignaal.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-gb1.png}
-  \caption{Global block logica}
+  \caption[Global block:logica]{Global block logica}
   \label{fig:gb_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-gb2.png}
-  \caption{Timing global block}
+  \caption[Global block:timing]{Timing global block}
   \label{fig:gb_timing2}
 \end{figure}
 
 \paragraph{}
-Eens de sigalen uit de decoders komen worden deze gevoed in de controlelogica voor de memory array. Het circuit- en timingdiagram staan geïllustreerd in figuren \ref{fig:lbcell_timing1} en \ref{fig:lbcell_timing2}. De cel zou vroeger of tegelijk met de last moeten aangeschakeld worden. Op het timingdiagram wordt dit geïllustreerd als T4 = T5 = T6. Door de implementatie van de logica is dit niet mogelijk aangezien er altijd een inverterdelay verschil is tussen T4 en T5. Deze vertraging is minimaal en kan getollereerd worden omdat de bitlijn in elk geval moet opgeladen worden tot minimum $V_{LRS}$. Bij lage voedingspanningen komt dit probleem daarentegen terug boven. T6 wordt bepaald door WL-decoder en -buffers. Deze vertraging zou zodanig ontworpen moeten worden dat deze vroeger dan of gelijk met T5 valt. Bij het afschakelijken van de cel zijn de omgekeerde voorwaarden nodig. De last zou namelijk vroeger dan of gelijk met de cel moeten afgeschakeld worden. Deze voorwaarde is voldaan als T7 voor T8 en T9 komt. Door de inverter is T7 altijd voor T8, T9 daarentegen wordt bepaalt door de WL-decoder en -buffer en zou voor T7 moeten komen. \\
-Zoals op figuur \ref{fig:lbcell_timing1} valt te zien zijn de meeste controlesignalen om een datacel uit te lezen niet onafhankelijk, enkel de timing van het WL-signaal kan vrij aangepast worden. Deze moet moet geselecteerd worden voor de sourceline geselecteerd is en moet gedeselecteerd worden na dat de last gedeselecteerd is. De timing van de wordline wordt expliciet bepaald door de grootte van de WL-decoder en impliciet door de grootte van de BL-decoder. De BL-decoder bepaalt namelijk de delay van de WL-buffer. Figure \ref{fig:decoder_dep} geeft de delay van verschillende groottes van WL-decoders en -buffers i.f.v. verschillende groottes van BL-decoders weer.
+Eens de sigalen uit de decoders komen worden deze gevoed in de controlelogica voor de memory array. Het circuit- en timingdiagram staan geïllustreerd in figuren \ref{fig:lbcell_timing1} en \ref{fig:lbcell_timing2}. De cel zou vroeger of tegelijk met de last moeten aangeschakeld worden. Op het timingdiagram wordt dit geïllustreerd als T4 = T5 = T6. Door de implementatie van de logica is dit niet mogelijk aangezien er altijd een inverterdelay verschil is tussen T4 en T5. Deze vertraging is minimaal en kan getolereerd worden omdat de bitlijn in elk geval moet opgeladen worden tot minimum $V_{LRS}$. Bij lage voedingspanningen komt dit probleem daarentegen terug boven. T6 wordt bepaald door WL-decoder en -buffers. Deze vertraging zou zodanig ontworpen moeten worden dat deze vroeger dan of gelijk met T5 valt. Bij het afschakelijken van de cel zijn de omgekeerde voorwaarden nodig. De last zou namelijk vroeger dan of gelijk met de cel moeten afgeschakeld worden. Deze voorwaarde is voldaan als T7 voor T8 en T9 komt. Door de inverter is T7 altijd voor T8. T9 daarentegen wordt bepaalt door de WL-decoder en -buffer en zou voor T7 moeten komen. \\
+Zoals op figuur \ref{fig:lbcell_timing1} valt te zien zijn de meeste controlesignalen om een datacel uit te lezen niet onafhankelijk, enkel de timing van het WL-signaal kan vrij aangepast worden. Deze moet geselecteerd worden vooraleer de sourceline geselecteerd is en mag pas gedeselecteerd worden nadat de last gedeselecteerd is. \\
+De timing van de wordline wordt expliciet bepaald door de grootte van de WL-decoder en impliciet door de grootte van de BL-decoder. De BL-decoder bepaalt namelijk de delay van de WL-buffer. Figure \ref{fig:decoder_dep} geeft de delay van verschillende groottes van WL-decoders en -buffers i.f.v. verschillende groottes van BL-decoders weer.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbcell1.png}
-  \caption{Controlelogica data-array}
+  \caption[Data-array:logica]{Controlelogica data-array}
   \label{fig:lbcell_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbcell2.png}
-  \caption{Timing controlelogica data-array}
+  \caption[Data-array:timing]{Timing controlelogica data-array}
   \label{fig:lbcell_timing2}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-decoder-dep.png}
-  \caption{Delay van WL-decoders en -buffers i.f.v. BL-decoders}
+  \caption[Delay van WL-decoders en -buffers i.f.v. BL-decoders]{Delay van WL-decoders en -buffers i.f.v. BL-decoders}
   \label{fig:decoder_dep}
 \end{figure}
 
@@ -68,14 +69,14 @@ De timingvoorwaarden voor het selecteren en deselecteren van de referentiecellen
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-lbref1.png}
-  \caption{Controlelogica referentie-array}
+  \caption[Referentie-array:logica]{Controlelogica referentie-array}
   \label{fig:lbref_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-lbref2.png}
-  \caption{Timing controlelogica referentie-array}
+  \caption[Referentie-array:timing]{Timing controlelogica referentie-array}
   \label{fig:lbref_timing2}
 \end{figure}
 
@@ -85,42 +86,42 @@ Eens de cel geselecteerd is wordt de bitline opgeladen. De volgende stap is dit 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-sa1.png}
-  \caption{Logica rond SA}
+  \caption[SA:logica]{Logica rond SA}
   \label{fig:sa_timing1}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.9]{../fig/hfdstk-timing-sa2.png}
-  \caption{Timing logica rond SA}
+  \caption[SA:timing]{Timing logica rond SA}
   \label{fig:sa_timing2}
 \end{figure}
 
 \section{Analyse verschillende geheugenconfiguraties}
 \paragraph{}
-Het finale geheugen zal 4 Mbit groot zijn. Heel wat configuraties zijn mogelijk om deze grote te verwezenlijken. Om deze mogelijkheden wat in te perken worden de volgende beperking opgelegd. Het aantal WLs moet groter dan of gelijk zijn aan het aantal BLs. Hierdoor zal het ontladen van de bitlijn sneller verlopen. Dit levert 20 mogelijke configuraties voor NoWLpB, NoBLpLB en NoGB. Deze configuraties worden vergeleken op basis van oppervlakte, energieverbruik en leessnelheid. 
+Het finale geheugen zal 4 Mbit groot zijn. Heel wat configuraties zijn mogelijk om deze grootte te verwezenlijken. Om deze mogelijkheden wat in te perken worden de volgende beperking opgelegd. Het aantal WLs moet groter dan of gelijk zijn aan het aantal BLs. Hierdoor zal het ontladen van de bitlijn sneller verlopen. Dit levert 20 mogelijke configuraties voor NoWLpB, NoBLpLB en NoGB. Deze configuraties worden vergeleken op basis van oppervlakte, energieverbruik en leessnelheid. 
 
 \subsection{Evaluatie criteria voor de geheugenconfiguraties}
-De oppervlakte wordt berekend op basis van de lengtes en breedtes van de transistoren. Guardrings en verbindingslijnen worden niet meegerekend in de berekeningen van de oppervlakte van de logica. Voor de lengte van de geheugencellen wordt 1.5*6F genomen en voor de breedte wordt 2*6F genomen \cite{ppt:cosemans}. Hoewel deze afmetingen voor een MTJ geheugen cell zijn, geven ze een goede schatting van de oppervlakte van een 1T1R-cel. Verder is in deze oppervlakte de grootte van bitline, wordline en sourceline meegerekend. \\
-Het energie erbruik wordt berekend door de stroom van de voedingspanning te integreren over de tijd en te vermenigvuldigen met de voedingspanning. De signalen die binnen komen in een global block komen van ideale spice bronnen. Dit heeft als gevolg dat er een ladingsinjectie optreedt naar de voedingspanningbron (zie bijlage \ref{app:chargeinj}). Dit heeft een invloed op de energie berekeningen, er worden echter geen pogingen gedaan om deze te corrigeren. Verder wordt het aantal referentiecellen ook constant gehouden voor de verschillende configuraties. Dit wordt gedaan om het energieverbruik te verkleinen en omdat men maar een beperkt aantal cellen nodig heeft om een goede referentie te krijgen.\\
-De leessnelheid is afhankelijk van de verschillende controlesignalen in de leescyclus. Deze gebeurt als volgt: de leescyclus begint wanneer de signalen binnen komen in het global block. De SA wordt aangezet wanneer het verschil tussen de data-BL en de referentie-BL 100mV bedraagt. Hierdoor wordt het tijdsverschil tussen geheugens met een klein aantal woordlijnen en geheugens met een groot aantal woordlijnen verkleind, wat een betere concurrentie geeft. In het finale geheugenontwerp zal de leessnelheid verder opgedreven worden door dit 100mV spanningsverschil te verkleinen. Verder wordt er ook altijd een HRS-cel uitgelezen aangezien deze de bitlijn langer moet opladen om tot aan de 100mV verschildrempel te komen wat een realistischere leessnelheid geeft. De leescyclus eindigt wanneer de BL-spanning terug naar de grond is getrokken. Figure \ref{fig:leescyclus} illustreert de hele leescyclus.
+De oppervlakte wordt berekend op basis van de lengtes en breedtes van de transistoren. Verbindingslijnen worden niet meegerekend in de berekeningen van de oppervlakte van de logica. Voor de lengte van de geheugencellen wordt 1.5*6F genomen en voor de breedte wordt 2*6F genomen \cite{ppt:cosemans}. Hoewel deze afmetingen voor een MTJ geheugen cell zijn, geven ze een goede schatting van de oppervlakte van een 1T1R-cel. Deze oppervlakte omvat ook de oppervlakte van bitlijn, woordlijn en sourcelijn meegerekend. \\
+Het energie verbruik wordt berekend door de stroom van de voedingspanning te integreren over de tijd en te vermenigvuldigen met de voedingspanning. De signalen die binnen komen in een global block komen van ideale spice bronnen. Dit heeft als gevolg dat er een ladingsinjectie optreedt naar de voedingspanningbron (zie bijlage \ref{app:chargeinj}). Dit heeft een invloed op de energie berekeningen, er worden echter geen pogingen gedaan om deze te corrigeren. \\
+De leessnelheid is afhankelijk van de verschillende controlesignalen in de leescyclus. De simulatie-opstelling is als volgt: de leescyclus begint wanneer de signalen binnen komen in het global block. De SA wordt aangezet wanneer het verschil tussen de data-BL en de referentie-BL 100mV bedraagt. Omdat er niet gewacht wordt op het tijdstip wanneer de BL volledig opgeladen is, wordt het verschil in leessnelheid tussen geheugens met een klein aantal woordlijnen en geheugens met een groot aantal woordlijnen vergroot. Geheugens met iets meer woordlijnen worden zo in de race gehouden. In het finale geheugenontwerp zal de leessnelheid verder opgedreven worden door dit 100mV spanningsverschil te verkleinen. Verder wordt er ook altijd een HRS-cel uitgelezen aangezien deze de bitlijn langer moet opladen om tot aan de 100mV verschildrempel te komen wat een realistischere leessnelheid geeft. De leescyclus eindigt wanneer de BL-spanning terug naar de grond is getrokken. Figure \ref{fig:leescyclus} illustreert de hele leescyclus.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-leescyclus.png}
-  \caption{Leescyclus}
+  \caption[Leescyclus]{Leescyclus}
   \label{fig:leescyclus}
 \end{figure} 
 
 \subsection{Vergelijking van de geheugenconfiguraties}
-Er werden 20 mogelijke geheugenconfiguraties geselecteerd als kandidaat voor het finale ontwerp, hun positie in de evaluatieruimte wordt getoond in figuur \ref{fig:final20all1}. Hierop staat het energieverbruik op de x-as, delay op de y-as en de oppervlakte wordt geïndiceerd door de grote van de punten. Het energie verbruik en delay wordt voornamelijk bepaalt door het aantal woordlijnen en bitlijnen. De delay wordt voornamelijk bepaalt door het opladen van de bitlijnen, wat dan ook de voornamste vorm van energie verbruik is. De snelheid van de bitlijnen wordt dan weer bepaalt door het aantal woordlijnen wat gezien kan worden in figuur \ref{fig:final20all2}. Het aantal bitlijnen beinvloed dan weer meer het energie verbruik. Dit extra energie verbruik gaat teneerste naar de woorlijn buffers, tentweede naar de bitlijn decoders en tenslotte naar de bitlijn zelf. Deze laatste is door dat de bitlijn bij het deselecteren van de cell langer aanblijft dan bij een kleiner aantal bitlijnen. Dit is ook de reden waarom een groter aantal bitlijnen een langere delay heeft. Bij alle geheugen configuraties gaat het vermogen verbruik eerst naar de geheugecell, vervolgens naar de logica, vervolgens naar de buffers en ten slotte naar de sense amplifiers. Het oppervlakte wordt bepaalt door het aantal globalblocks en de grote van de decoders. Een groot aantal woordlijnen in combinatie met een klein aantal bitlijnen geeft de noodzaak aan een groot aantal globalblocks en dit geeft een groot oppervlak als gevolg.\\
-Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat uit een klein gelijk aantal woordlijn en bitlijnen wat een optimum zal geven voor energie verbruik en delay, en een suboptimum zal geven voor oppervlakte.
+Er werden 20 mogelijke geheugenconfiguraties geselecteerd als kandidaat voor het finale ontwerp, hun positie in de evaluatieruimte wordt getoond in figuur \ref{fig:final20all1}. Hierop staat het energieverbruik op de x-as, delay op de y-as en de oppervlakte wordt weergegeven door de grootte van de bolletjes. Het aantal referentiecellen wordt constant gehouden voor de verschillende configuraties. Dit wordt gedaan om het energieverbruik te verkleinen en omdat men maar een beperkt aantal cellen nodig heeft om een goede referentie te krijgen. De delay wordt voornamelijk bepaald door het opladen van de bitlijnen, wat ook de grootste energieverbruikers zijn. De snelheid van de bitlijnen wordt dan weer bepaald door het aantal woordlijnen, dit kan gezien worden in figuur \ref{fig:final20all2}. Het aantal bitlijnen beinvloedt dan weer meer het energieverbruik. Dit extra energieverbruik gaat in de eerste plaats naar de WL-buffers, in mindere mate naar de bitlijn decoders en nog minder naar de bitlijn zelf. Bij alle geheugenconfiguraties komt het vermogenverbruik voornamelijk van de geheugecel, vervolgens in dalende lijn van de logica, de buffers en de sense amplifiers. De oppervlakte wordt bepaald door het aantal global blocks en de grootte van de decoders. Een groot aantal woordlijnen in combinatie met een klein aantal bitlijnen geeft de noodzaak aan een groot aantal global blocks, dit heeft een groot oppervlak als gevolg.\\
+Als conclusie kan gezegd worden dat de optimale geheugen configuratie bestaat uit een klein aantal woordlijnen en evenveel bitlijnen wat een optimum zal geven voor energieverbruik en delay, maar een suboptimum voor oppervlakte.
 
 \afterpage{
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.45, angle = 90]{../fig/hfdstk-timing-all-sol1.png}
-  \caption{Delay,energie verbruik en oppervlakte van alle geheugenconfiguraties}
+  \caption[Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties]{Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties. Kleinste oppervlakte is $0.009mm^{2}$, grootste oppervlakte is $0.68mm^{2}$}
   \label{fig:final20all1}
 \end{figure} 
 \clearpage
@@ -129,9 +130,9 @@ Als conclusie kan gezegt worden dat de optimale geheugen configuratie bestaat ui
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.6]{../fig/hfdstk-timing-all-sol2.png}
-  \caption{Invloed \#BL en \#WL op delay,energie verbruik en oppervlakte}
+  \caption[Delay,energieverbruik en oppervlakte van alle geheugenconfiguraties]{Invloed \#BL en \#WL op delay, energieverbruik en oppervlakte. Kleinste oppervlakte is $0.009mm^{2}$, grootste oppervlakte is $0.68mm^{2}$}
   \label{fig:final20all2}
 \end{figure} 
 
 \section{Besluit}
-In dit hoofdstuk werd dat timing van alle logica in de geheugenarchitectuur in kaart gebracht. Hierbij werd er gekeken wat de gewenste opeenvolging van signalen zijn en hoe dit problemen of beperkingen in de architectuur kon brengen. Vervolgens werd met deze kennis een aantal geheugen configuraties ontworpen en vergeleken. De conclusie hiervan is dat een kleiner aantal woordlijnen en bitlijnen een opitimalere snelheid en energieverbruik geven. Op het vlak van oppervlakte zal dit een suboptimum geven.
+In dit hoofdstuk werd de timing van alle logica in de geheugenarchitectuur in kaart gebracht. Hierbij werd er gekeken naar wat de gewenste opeenvolging van signalen is en hoe dit problemen of beperkingen in de architectuur kan brengen. Vervolgens werd met deze kennis een aantal geheugenconfiguraties ontworpen en vergeleken. De conclusie hiervan is dat een kleiner aantal woordlijnen en bitlijnen een optimalere snelheid en energieverbruik geven. Op het vlak van oppervlakte zal dit een suboptimum geven.
