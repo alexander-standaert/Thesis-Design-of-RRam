@@ -96,7 +96,7 @@ Mtop & $\beta$ & 0 & 100 & 45 & 17.9\% \\
 \label{tab:min-sensanalysis}
 \end{table}
 
-Opmerkelijk bij deze analyse is dat er een significante bijdrage is van de pass-gates door $\beta$-mismatch. Een nadere observatie leert dat deze bijdrage optreedt door ladingsinjectie van de pass-gates die niet meer gematched is (zie figuur \ref{fig:chargeinjectionmismatch}).
+Opmerkelijk bij deze analyse is dat er een significante bijdrage is van de passgates door $\beta$-mismatch. Een nadere observatie leert dat deze bijdrage optreedt door ladingsinjectie van de passgates die niet meer gematched is (zie figuur \ref{fig:chargeinjectionmismatch}).
 Hierbij moet wel worden opgemerkt dat voor deze simulatie er geen overlap is tussen het controlesignaal op de passgate aan te zetten en het signaal om de SA te activeren.
 De reden hiervoor is dat als er overlap tussen deze signalen is, de SA ook de BL zou trachten op te laden. Hierbij zou er moeten ingeboet worden aan snelheid en het zou ook extra energie kosten.
 
@@ -104,13 +104,13 @@ Men kan argumenteren dat er een korte overlap zou kunnen toegelaten zijn, waarna
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-chargeinjectionmismatch.png}
-  \caption[foutief latchen door $\beta$-mismatch]{Door $\beta$-mismatch is ladingsinjectie van de pass-gates niet meer gematched en gaat de SA foutief latchen}
+  \caption[foutief latchen door $\beta$-mismatch]{Door $\beta$-mismatch is ladingsinjectie van de passgates niet meer gematched en gaat de SA foutief latchen}
   \label{fig:chargeinjectionmismatch}
 \end{figure}
 
 \subsection{RC-latch-effect}
 \label{RC-latch-effect}
-De situatie waarbij er volledige overlap is tussen de controle signalen kan vereenvoudigd worden opgesteld met de situatie van figuur \ref{fig:RC-latch}. De pass-gate die aanstaat wordt voorgesteld als een weerstand, de pass-gate in het local block en diens parasitaire capaciteit wordt verwaarloosd. CL bedraagt voor deze simulatie 46 fF, het equivalent voor een BL waaraan 256 cellen hangen. Cint bedraagt voor een SA met minimale transistorafmetingen 161 aF. Wanneer het dynamisch latch-gedrag bekeken wordt voor verschillende waardes van R, treedt er een merkwaardig effect op (zie figuur \ref{fig:RC-latch-sim}): voor voldoende grote waardes van R lijkt het alsof de grote capaciteit ontkoppeld is van de latch tot op een zeker tijdstip, waarna een veel tragere settling optreedt.
+De situatie waarbij er volledige overlap is tussen de controle signalen kan vereenvoudigd worden opgesteld met de situatie van figuur \ref{fig:RC-latch}. De passgate die aanstaat wordt voorgesteld als een weerstand, de passgate in het local block en diens parasitaire capaciteit wordt verwaarloosd. CL bedraagt voor deze simulatie 46 fF, het equivalent voor een BL waaraan 256 cellen hangen. Cint bedraagt voor een SA met minimale transistorafmetingen 161 aF. Wanneer het dynamisch latch-gedrag bekeken wordt voor verschillende waardes van R, treedt er een merkwaardig effect op (zie figuur \ref{fig:RC-latch-sim}): voor voldoende grote waardes van R lijkt het alsof de grote capaciteit ontkoppeld is van de latch tot op een zeker tijdstip, waarna een veel tragere settling optreedt.
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch.png}
@@ -120,10 +120,10 @@ De situatie waarbij er volledige overlap is tussen de controle signalen kan vere
 \begin{figure}
   \centering
   \includegraphics[scale=0.4]{../fig/hfdstk-sensamp-RC-latch-sim.png}
-  \caption[Simulatieresultaten voor het RC-latch-effect]{Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De SA is ideaal voor deze simulatie.}
+  \caption[Simulatieresultaten voor het RC-latch-effect]{Simulatieresultaten voor het RC-latch-effect:de 2 ingangs-uitgangsknopen zijn voorgeladen op 400mV en 380mV. Na 1,6ns wordt de SA aangezet. De simulatie veronderstelt een SA waarbij er geen variaties zitten op de transistoren.}
   \label{fig:RC-latch-sim}
 \end{figure}
-De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortsluiting gedraagt (zie figuur \ref{fig:RC-latch-explain}), een plotse stroom vloeit door de weerstand en hierdoor onstaat er een spanningsval over de weerstand. Hierna gaat er op veel lagere frequenties een spanning beginnen op te bouwen over de capaciteit waardoor de ingangs-uitgansknopen volledig kunnen laden/ontladen tot VDD en VSS.
+De verklaring ligt in het feit dat CL zich voor hoge frequenties als een kortsluiting gedraagt (zie figuur \ref{fig:RC-latch-explain}), een plotse stroom vloeit door de weerstand en hierdoor onstaat er een spanningsval over de weerstand. Hierna bouwt er zich met een veel grotere tijdsconstante een spanning op over de capaciteit waardoor de ingangs-uitgansknopen volledig kunnen laden/ontladen tot VDD en VSS.
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{../fig/hfdstk-sensamp-RC-latch-explain.png}
@@ -140,13 +140,13 @@ Wanneer het effect zich voordoet zijn latching en RC-respons onafhankelijke proc
 \end{figure}
 
 Conclusie van het RC-latch effect is dat de timing helemaal niet zo kritisch is: in theorie hoeft de overlap slechts even lang te duren als de delay van de SA wanneer er geen last op is aangesloten, maar het is niet erg als de overlap wat langer duurt.
-De pass-gates mogen ook minimaal zijn, om hun aanweerstand te vergroten zodat het effect kan optreden.
-In geval verder zou gewerkt worden met een SA zonder overlap met pass-gate-enable en SA-enable, zouden de pass-gates moeten geschaald worden om de mismatch te minimaliseren. Dit zou wel betekenen dat er per schakeling van de passgates een grotere hoeveelheid lading wordt geïnjecteerd.
+De passgates mogen ook minimaal zijn, om hun aanweerstand te vergroten zodat het effect kan optreden.
+In geval verder zou gewerkt worden met een SA zonder overlap met passgate-enable en SA-enable, zouden de passgates moeten geschaald worden om de mismatch te minimaliseren. Dit zou wel betekenen dat er per schakeling van de passgates een grotere hoeveelheid lading wordt geïnjecteerd.
 
 
 \subsection{Sensitiviteitsanalyse voor minimale SA - vervolg}
 
-In tabel \ref{tab:min-sensanalysis-overlap} worden de resultaten van een nieuwe sensitiveitsanalyse getoond voor een minimale SA, ditmaal waarbij er dus overlap is tussen pass-gate-enable en SA-enable. De spreiding van de offsetspanning is wel degelijk gedaald. Toch heeft de mismatch van de passgates nog steeds een significante bijdrage, dit kan verklaard worden a.d.h. van figuur \ref{fig:RC-latch}: de 2 weerstanden zijn niet gematcht, deze mismatch treedt op door zowel $\beta$- als $V_{T}$-mismatch van de passgates. De bijdrage van de mismatch van de differentiële paren daalt echter door de interactie met de passgates.
+In tabel \ref{tab:min-sensanalysis-overlap} worden de resultaten van een nieuwe sensitiveitsanalyse getoond voor een minimale SA, ditmaal waarbij er dus overlap is tussen passgate-enable en SA-enable. De spreiding van de offsetspanning is wel degelijk gedaald. Toch heeft de mismatch van de passgates nog steeds een significante bijdrage, dit kan verklaard worden a.d.h. van figuur \ref{fig:RC-latch}: de 2 weerstanden zijn niet gematcht, deze mismatch treedt op door zowel $\beta$- als $V_{T}$-mismatch van de passgates. De bijdrage van de mismatch van de differentiële paren daalt echter door de interactie met de passgates.
 
 \begin{table}
 \begin{tabular}{cccccc}
@@ -183,7 +183,7 @@ Mbottom & Vt & 0.033 & 100 & 45 & 42.0mV \\
 
 \subsection{Sensitiviteitsanalyse voor gebruikte SA}
 
-In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensitiviteitsanalyse getoond voor de SA die gebruikt wordt in het finale geheugenontwerp. Deze is gekozen aan de hand van de resultaten van de paretosimulatie in de volgende sectie.
+In tabel \ref{tab:ourSA-sensanalysis-overlap} worden de resultaten van een sensitiviteitsanalyse getoond voor de SA die gebruikt wordt in het finale geheugenontwerp. Deze is gekozen aan de hand van de resultaten van de paretosimulatie in de volgende sectie. De passgates zijn opgeschaald om $V_{T}-$ en $\beta$-mismatch in te perken. Ondanks deze verkleinde weerstand, treedt het RC-latch-effect nog steeds op voor deze SA.
 
 
 \begin{table}
@@ -226,9 +226,9 @@ Natuurlijk is het mogelijk om één SA te gebruiken die voor elke impedantie een
 \subsection{Opstelling}
 Uit een verzameling van allerhande SA [dit zijn sense amplifiers waarvan de transistoren verschillend geschaald zijn - differentiële paren hebben zelfde afmetingen] worden enkel de pareto-optimale SA uitgekozen. De pareto-criteria zijn $\Delta V$, snelheid en dynamische energie. 
 
-Voor deze opstelling worden de pass-gates weggelaten van de SA [dit is geoorloofd zoals bleek uit de sensitiviteitsanalyse], de last aan de ingangs-uitgangsknopen is een simpele CMOS inverter. De knopen zijn voorgeladen op 2 spanningen: 0,4V en 0,4V - $\Delta V$. Na 0,5ns wordt de SA aangezet en wordt de tijd gemeten tot wanneer de ingangs-uitgangsknopen geladen of ontladen zijn tot 99,9\% van hun finale waarde (VDD of VSS). Dit is wellicht een te strenge methode om de snelheid van de SA te bepalen aangezien de inverters al eerder zullen schakelen. Indien de snelheid van de 2 knopen verschilt, zal de traagste tijd genomen worden. De dynamische energie wordt opgemeten van het moment dat de SA wordt aangeschakeld tot dit tijdstip. Ook het statisch vermogen van de SA wordt opgemeten wanneer de ingangs-uitgangsknopen VDD en VSS bereikten. Uiteraard wordt ook geverifieerd ofdat de SA wel correct heeft gelatcht.
+Voor deze opstelling worden de passgates weggelaten van de SA [dit is geoorloofd zoals bleek uit de sensitiviteitsanalyse], de last aan de ingangs-uitgangsknopen is een simpele CMOS inverter. De knopen zijn voorgeladen op 2 spanningen: 0,4V en 0,4V - $\Delta V$. Na 0,5ns wordt de SA aangezet en wordt de tijd gemeten tot wanneer de ingangs-uitgangsknopen geladen of ontladen zijn tot 99,9\% van hun finale waarde (VDD of VSS). Dit is wellicht een te strenge methode om de snelheid van de SA te bepalen aangezien de inverters al eerder zullen schakelen. Indien de snelheid van de 2 knopen verschilt, zal de traagste tijd genomen worden. De dynamische energie wordt opgemeten van het moment dat de SA wordt aangeschakeld tot dit tijdstip. Ook het statisch vermogen van de SA wordt opgemeten wanneer de ingangs-uitgangsknopen VDD en VSS bereikten. Uiteraard wordt ook geverifieerd of de SA wel correct heeft gelatcht.
 
-Per sense amplifier worden er 250 Monte Carlo simulaties gedaan met deze opstelling. Indien de SA niet elke keer correct functioneerde, wordt de SA verworpen. Latchte de SA wel elke keer correct, wordt het gemiddelde van de delay, dynamische energie  en statisch vermogen opgeslagen. 
+Per sense amplifier worden er 250 Monte Carlo simulaties gedaan met deze opstelling. Indien de SA niet elke keer correct functioneerde, wordt de SA verworpen. Latchte de SA wel elke keer correct, wordt het gemiddelde van de delay, dynamische energie  en statisch vermogen opgeslagen. Merk op dat de absolute waardes die opgeslagen worden niet zo nuttig zijn. Voor een praktisch ontwerp is de worst-case delay van de SA belangrijk, niet zozeer de gemiddelde. Deze gemiddelde waardes geven wel een beeld van hoe de SAs zich onderling meten.  
 
 \subsection{Resultaten}
 Op figuur \ref{fig:pareto} zijn de pareto-optimale resultaten getoond van de groep sense amplifiers. Het doel van deze simulatie is veeleer om de transistorafmetingen te situeren in functie van deze optimalizatievariabelen. Voor deze simulatieopstelling kan men enkel zeggen dat de kans dat de offsetspanning lager is dan $\Delta V$ minstens $1 -\frac{1}{250}$ is. Dit is een veel te kleine garantie voor een sense amplifier die misschien wel miljoenen keren zal gefabriceerd worden. Voor meer informatie over de verdeling van de offsetspanning te krijgen moet de standaardafwijking berekend worden met de sensitiviteitsanalyse.

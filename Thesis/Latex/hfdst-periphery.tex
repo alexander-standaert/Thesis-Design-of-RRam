@@ -2,10 +2,10 @@
 \label{periphery}
 
 Het geheugensysteem maakt gebruik van bouwblokken zoals decoders, buffers en passgates.
-In dit hoofdstuk worden deze componenten van wat dichterbij onderzocht.
+In dit hoofdstuk worden deze componenten van dichterbij onderzocht.
 
 \section{Decoders}
-Een decoder is een schakeling die een logisch functie realiseert: op basis van een geëncodeerde bus van ingangen gaat de decoder één uitgang actief hoog brengen: uit een combinatie van N ingangen, gaat er steeds één van $2^N$ uitgangen actief hoog worden\footnote{Er is nog een enable-controlesignaal, wanneer dit actief laag is, gaan alle uitgangen actief laag zijn.}. Om alle mogelijke geheugenconfiguraties (aantal WLs en BLs) te kunnen exploreren in sectie \ref{optimization}, werd er een gamma aan decoders ontworpen gaande van een 2-naar-4 decoder tot en met een 9-naar-512 decoder. Grotere decoders worden opgebouwd uit kleinere decoders. Dit kan gedaan worden op 2 manieren; volgens een boompatroon (\ref{fig:decoder1}) of volgens een gridpatroon (\ref{fig:decoder2}). In de volgende secties wordt het ontwerp van beide manieren toegelicht en vergeleken.
+Een decoder is een schakeling die een logisch functie realiseert: op basis van een geëncodeerde bus van ingangen brengt de decoder één uitgang actief hoog: uit een combinatie van N ingangen, gaat er steeds één van $2^N$ uitgangen actief hoog worden\footnote{Er is nog een enable-controlesignaal, wanneer dit actief laag is, worden alle uitgangen laag.}. Om alle mogelijke geheugenconfiguraties (aantal WLs en BLs) te kunnen exploreren in sectie \ref{optimization}, werd er een gamma aan decoders ontworpen gaande van een 2-naar-4 decoder tot en met een 9-naar-512 decoder. Grotere decoders worden opgebouwd uit kleinere decoders. Dit kan gedaan worden op 2 manieren; volgens een boompatroon (\ref{fig:decoder1}) of volgens een gridpatroon (\ref{fig:decoder2}). In de volgende secties wordt het ontwerp van beide manieren toegelicht en vergeleken.
 
 \begin{figure}[!ht]
 \centering
@@ -24,7 +24,7 @@ De tree decoder is een decoder met een meerlaagse structuur dat zich uitwaaiert 
 \end{figure}
 
 \subsection{De grid decoder}
-De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een aantal 2-naar-4 en/of 3-naar-8 decoders die in parallel staan. De verschillende uitgangen van deze eerste laag worden dan met AND-gates samen gevoegd in een tweede laag. Om glitches te voorkomen is het belangrijk dat al de signalen gelijktijdig binnen komen in de AND-gates, daarom werd de topologie van de 2-naar-4 decoder van figure \ref{fig:decoder2to4} veranderd tot een NAND-NOR topologie zoals die van de 3-naar-8 decoder in figuur \ref{fig:decoder3to8}. Bij grotere decoders worden de uitgangen van de eerste laag aangesloten aan groot aantal AND-gates. Omwille van deze grote fan-out moeten de uitgangen van de eerste laag gebufferd worden met overeenkomstig geschaalde inverters. Omdat er dus toch al minstens 2 inverters voor de AND-gates worden geplaatst, worden deze geïmplementeerd als NOT-gate + NOR-poort i.p.v. NAND-poort + NOT-poort. Tabel \ref{tab:griddecoder} geeft de hoeveelheid basisdecoders weer in de eerste laag van de grid decoder en het aantal AND-gates de tweede laag, in functie van het aantal inputs.
+De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een aantal 2-naar-4 en/of 3-naar-8 decoders die in parallel staan. De verschillende uitgangen van deze eerste laag worden dan met AND-gates samen gevoegd in een tweede laag. Om glitches te voorkomen is het belangrijk dat al de signalen gelijktijdig binnen komen in de AND-gates, daarom werd de topologie van de 2-naar-4 decoder van figure \ref{fig:decoder2to4} veranderd tot een NAND-NOR topologie zoals die van de 3-naar-8 decoder in figuur \ref{fig:decoder3to8}. Bij grotere decoders worden de uitgangen van de eerste laag aangesloten aan een groot aantal AND-gates. Omwille van deze grote fan-out moeten de uitgangen van de eerste laag gebufferd worden met overeenkomstig geschaalde inverters. Omdat er dus toch al minstens 2 inverters voor de AND-gates worden geplaatst, worden deze geïmplementeerd als NOT-gate + NOR-poort i.p.v. NAND-poort + NOT-poort. Op deze manier wordt er één inverter uitgespaard. Tabel \ref{tab:griddecoder} geeft de hoeveelheid basisdecoders weer in de eerste laag van de grid decoder en het aantal AND-gates de tweede laag, in functie van het aantal inputs.
 
 \begin{table}
 \begin{center}
@@ -48,9 +48,9 @@ De grid decoder heeft een tweelaagse structuur. De eerste laag bestaat uit een a
 \subsection{Vergelijkende studie}
 Eens ontworpen, kunnen de tree en grid decoders met elkaar vergeleken worden. Naast de gebruikelijke oppervlakte, energie en delay worden ook glitches, mismatch en delay tussen verschillende addressen onderzocht. \\
 Zoals in figuur \ref{fig:decoder_a} gezien kan worden, schaalt de oppervlakte van de grid decoder veel minder dan die van de tree decoder bij een groot aantal ingangen. De plotse stijging in de oppervlakte van de tree decoder met 8 ingangen kan verklaar worden door het gebruik van een extra laag in de boomstructuur. \\
-Het energieverbruik wordt vergeleken in figuur \ref{fig:decoder_ed}. De grid decoder verbruikt minder energie in functie van het aantal ingangen. Sommige signalen in de tree decoder zullen diep doorrimpelen, waardoor er meer gates zullen schakelen dan in de grid decoder.  Het overbodig schakelgedrag van de tree decoder zou tot zekere mate ingeperkt kunnen worden door de topologie van de basisdecoders (figuur \ref{fig:basisdecoders}) te wijzigen zodat de enable vooraan komt te staan.\\
+Het energieverbruik wordt vergeleken in figuur \ref{fig:decoder_ed}. De grid decoder verbruikt minder energie in functie van het aantal ingangen. Sommige signalen in de tree decoder zullen diep doorrimpelen, waardoor er meer gates zullen schakelen dan in de grid decoder.  Het overbodig schakelgedrag van de tree decoder zou tot op zekere hoogte ingeperkt kunnen worden door de topologie van de basisdecoders (figuur \ref{fig:basisdecoders}) te wijzigen zodat de enable vooraan komt te staan.\\
 De delay van de decoders kan ook afgelezen worden in figuur \ref{fig:decoder_ed}. Beide types decoders hebben ongeveer dezelfde delay. Bij grotere grid decoders kan de extra delay verklaard worden door de extra latency van de buffers.\\
-Verder werden glitches onderzocht. In beide decoders kunnen er glitches opduiken. Het probleem bij deze decoders is het gebuik van de NOR-gates. Wanneer de twee ingangs-signalen van de NOR-gate niet gelijktijdig toekomen (zie figuur \ref{fig:decoder_glitch}), kan de uitgang van de gate tijdelijk actief hoog getrokken worden, om vervolgens weer laag getrokken te worden. Bij de tree decoder is het nagenoeg onmogelijk om deze ongelijktijdigheid te overkomen: sommige signalen moeten immers meer lagen doorlopen dan andere vooraleer de NOR-ingang bereikt wordt. Bij de grid decoder daarentegen kan een glitch opduiken als de buffers die de tweede laag aansturen een asymetische delay hebben. Dit kan bijvoorbeeld voorkomen bij een 5-naar-32 decoder. De uitgangen van de 2-naar-4 decoder en de 3-naar 8-decoder in deze decoder hebben een andere last. Sommige buffers kunnen echter suboptimaal ontworpen worden zodat de NOR-ingangssignalen alsnog gelijktijdig toekomen.\\
+Verder werden glitches onderzocht. In beide decoders kunnen er glitches opduiken. Het probleem bij deze decoders is het gebuik van de NOR-gates. Wanneer de twee ingangs-signalen van de NOR-gate niet gelijktijdig toekomen (zie figuur \ref{fig:decoder_glitch}), kan de uitgang van de gate tijdelijk actief hoog getrokken worden, om vervolgens weer laag getrokken te worden. Bij de tree decoder is het nagenoeg onmogelijk om deze ongelijktijdigheid te overkomen: sommige signalen moeten immers meer lagen doorlopen dan andere vooraleer de NOR-ingang bereikt wordt. Bij de grid decoder kan een glitch opduiken als de buffers die de tweede laag aansturen een asymmetische delay hebben. Dit kan bijvoorbeeld voorkomen bij een 5-naar-32 decoder. De uitgangen van de 2-naar-4 decoder en de 3-naar 8-decoder in deze decoder hebben een andere last. Sommige buffers kunnen echter suboptimaal ontworpen worden zodat de NOR-ingangssignalen alsnog ongeveer gelijktijdig toekomen.\\
 Na een snelle mismatch-analyse blijkt dat de grid decoder minder variatie toont in dynamisch energieverbruik en delay dan de tree decoder. Tenslotte heeft de tree decoder een grotere spreiding wat delay betreft, afhankelijk van het vorige en huidige addres: wanneer er slechts één adresbit schakelt, kan het voorkomen dat dit signaal slechts kort moet doorrimpelen tot de uitgang. Dit ziet men minder in de grid decoder. \\
 Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches, mismatch en delay betreft, komt de grid decoder er als beste uit en zal deze dan ook gebruikt worden in het finale ontwerp.
 
@@ -81,41 +81,41 @@ Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches,
 \section{Buffers}
 Kleine CMOS gates kunnen slechts een beperkte hoeveelheid stroom leveren. Wanneer de uitgang van deze gates aangesloten wordt op een grote capacitieve last, duurt het lang voordat deze last is op- of ontladen. Soms is het niet aangewezen om deze gate zelf op te schalen, hierdoor neemt de intrinsieke last immers toe en gaan de gates van de vorige trap mogelijk niet meer genoeg stroom kunnen leveren om de ingang van de gate snel te sturen. In dit geval is het aangewezen om de uitgang van de gate te bufferen. Een ideale buffer heeft geen ingangscapaciteit en kan oneindig veel stroom leveren om eender welke last onmiddelijk te sturen. In de praktijk worden buffers geïmplementeerd door een even aantal invertoren te cascaderen. De eerste inverter in de ketting is klein genoeg zodat de gebufferde gate hier geen last van ondervindt, de volgende inverters in de ketting worden systematisch opgeschaald zodat de laatste inverter in de ketting voldoende stroom kan leveren om de last te sturen. 
 Buffers worden op drie plaatsen in de geheugen architectuur gebruikt. Ten eerste om de woordlijnen aan te sturen. Ten tweede om de referentielogica aan te sturen en tenslotte  tussen de eerste en tweede laag in de grid decoders. Tabel \ref{tab:buffer} geeft een overzicht van de oorsprong van de last en de waarde van de last die de verschillende buffers moeten aansturen.\\
-De buffers werden ontworpen met de methode van logical effort waarbij het aantal stages en de sizing van elke stage werd bepaald volgens het volgende stappenplan:
+De buffers werden ontworpen met de methode van logical effort\cite{Sutherland:1999:LED:298513} waarbij het aantal stages en de sizing van elke stage werd bepaald volgens het volgende stappenplan:
 \begin{enumerate}
 \item Bepaal de path effort $F = GH$ waarbij $G = 1$ aangezien we enkel met inverters werken en $H = \frac{C_{out}}{C_{in}}$
-\item Het aantal stages wordt bepaald door $\hat{N} = log_{4}F$. Hierbij werd er voor een stage effort van 4 gekozen voor een optimale delay\cite{Sutherland:1999:LED:298513}. \^{N} wordt dan afgerond tot een even getal N voor de woordlijn- en referentiebuffers en tot een oneven getal voor de decoderbuffers.
+\item Het aantal stages wordt bepaald door $\hat{N} = log_{4}F$. Hierbij werd er voor een stage effort van 4 gekozen voor een optimale delay. \^{N} wordt dan afgerond tot een even getal N voor de woordlijn- en referentiebuffers en tot een oneven getal voor de decoderbuffers.
 \item N wordt dan gebruikt om een nieuwe stage effort \^{f} te berekenen met de formule $\hat{f} = F^{1/N}$.
-\item Tenslotte kunnen de de groottes van de verschillende invertoren in de chain berekend worden met de nieuwe stage effort $\hat{f} = gh$.
+\item Tenslotte kunnen de groottes van de verschillende invertoren in de chain berekend worden met de nieuwe stage effort $\hat{f} = gh$.
 \end{enumerate}
-Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die naar de referentielogica gaan, voor verschillende groottes van last.
+Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die naar de referentielogica gaan, voor verschillende veelvouden van elementaire last (een NOR-gate en een NOT-gate).
 
 \begin{table}
 \begin{center}
 \begin{tabular}{ccc}
 \hline
- & Type Last & \# Capaciteit\\
+ &  Last & \ Capaciteit\\
 \hline
 Woordlijnbuffer & 1 Transistorgate &  $\#BL*0,18fF$\\
 Referentiebuffer & 1 Nor + 1 Inv &  $\#BL*0,93fF$\\
-Decoderbuffer & 1 Nor & (4-64)$*0.58fF$\\
+Decoderbuffer & 1 Nor & (4-64)\footnote{varieert met machten van 2, hangt af van hoeveel uitgangen de decoder bevat}$*0.58fF$\\
 \hline
 \end{tabular}
 \end{center}
-\caption[Lasten in de verschillende buffers]{Lasten in de verschillende buffers}
+\caption[Lasten aangedreven door de verschillende buffers]{Lasten aangedreven door de verschillende buffers}
 \label{tab:buffer}
 \end{table}
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.8\textwidth]{../fig/hfdst-buffers-refbuffer.png}
-  \caption[Gebufferde en ongebufferde signalen naar de referentie logica]{Gebufferde en ongebufferde signalen naar de referentie logica}
+  \caption[Gebufferde en ongebufferde signalen naar de referentie logica]{Gebufferde en ongebufferde signalen naar de referentie logica - ongebufferde signalen ontladen traag door de zware last, buffers kunnen snel deze last ontladen/opladen, er zit vertaging op het signaal op heel zware lasten omdat de buffer bestaat uit een groot aantal inverters}
   \label{fig:refbuffer}
 \end{figure}
 
-\section{BL- en WL-drivers}
-Elk global block heeft ingangslijnen voor geëncodeerde BL- en WL-signalen. Het zou energieverspilling zijn om deze signalen naar alle GB te laten propageren, terwijl er slechts 1 GB in werking zal treden omdat het bijhorende $GB\_{Enable}$-controlesignaal actief hoog is. Deze vertakte lijnen, die over heel de chip lopen zouden immers een aanzienlijke capacitieve last bevatten (zie figuur \ref{fig:nodrivers}). Het is beter om deze BL- en WL-signalen tussenin nog laten gebufferd worden zoals op figuur \ref{fig:drivers}. Deze drivers kunnen eenvoudig gerealiseerd worden met AND-gates in een NAND-gate + NOT-gate implementatie.
-De energiewinst hangt natuurlijk samen met de onwerpparameters NoGB, NoBLpLB en NoWLpB: er zijn NoGB $GB\_{Enable}$ signalen, die elk $\log_2 NoBLpLB +\log_2 NoWLpB$ drivers moeten aansturen. Deze extra benodigde energie moet natuurlijk kleiner zijn dan de energie die wordt gewonnen door een groot deel capaciteit van de lijnen te vermijden. Om exact deze cijfers te weten is een parasitaire layout extraction nodig, wat in dit werk niet is uitgevoerd.
+\section{BL en WL drivers}
+Elk global block (GB) heeft ingangslijnen voor geëncodeerde BL- en WL-signalen. Het zou energieverspilling zijn om deze signalen naar alle GB te laten propageren, terwijl er slechts 1 GB in werking zal treden omdat het bijhorende $GB\_{Enable}$-controlesignaal actief hoog is. Deze vertakte lijnen, die over heel de chip lopen zouden immers onnodig een aanzienlijke capaciteit opladen (zie figuur \ref{fig:nodrivers}). Het is beter om deze BL- en WL-signalen tussenin nog te laten bufferen zoals op figuur \ref{fig:drivers}. Deze drivers kunnen eenvoudig gerealiseerd worden met AND-gates in een NAND-gate + NOT-gate implementatie.
+De energiewinst hangt natuurlijk samen met de onwerpparameters NoGB, NoBLpLB en NoWLpB: er zijn NoGB $GB\_{Enable}$ signalen, die elk $\log_2 NoBLpLB +\log_2 NoWLpB$ drivers moeten aansturen. Deze extra benodigde energie moet kleiner zijn dan de energie die wordt gewonnen door een groot deel capaciteit van de lijnen te vermijden. Exacte waardes voor deze capaciteiten kunnen maar worden bepaald door parasitaire layout extraction, wat in dit werk niet is uitgevoerd.
 
 \begin{figure}[h!]
   \centering
@@ -146,7 +146,7 @@ De opstelling is het circuit van figuur \ref{fig:passgate1}. Afhankelijk van de 
 \end{figure}
 
 \begin{itemize}
-\item Vx > Vs en Vdd - Vs > Vtn: de transistor gaat Vx ontladen tot Vs.
+\item Vx > Vs en Vdd - Vs > Vtn: de transistor ontlaadt Vx tot Vs.
 \item Vx > Vs en Vdd - Vs < Vtn: de transistor staat af, er gebeurt niets.
 \item Vx < Vs en Vs < Vdd - Vtn: de transistor levert stroom tot Vx is opgeladen tot Vs.
 \item Vx < Vs, Vs > Vdd - Vtn en Vx < Vdd - Vtn: de transistor gaat Vx opladen tot Vdd - Vtn.
@@ -164,16 +164,16 @@ De opstelling is het circuit van figuur \ref{fig:passgate2}. Er kunnen wederom v
 \end{figure}
 
 \begin{itemize}
-\item Vs > Vx en Vs > |Vtp|: de transistor gaat Vx opladen tot Vs.
+\item Vs > Vx en Vs > |Vtp|: de transistor laadt Vx op tot Vs.
 \item Vs > Vx en Vs < |Vtp|: de transistor staat af, er gebeurt niets.
 \item Vs < Vx en Vs > |Vtp|: de transistor levert stroom tot Vx is ontladen tot Vs.
 \item Vs < Vx, Vs < |Vtn| en Vx > |Vtp|: de transistor gaat Vx ontladen tot |Vtp|.
 \item Vs < Vx, Vs < |Vtn| en Vx < |Vtn|: de transistor staat af, er gebeurt niets.
 \end{itemize}
 
-Er zijn dus spanningszones waarvoor de passgate niet functioneert, het is belangrijk te weten wat deze zones zijn, zodat het circuit ontworpen wordt om deze zones te vermijden. 
-Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren. Er dient opgemerkt te worden dat de passgates niet (of slechts even) aanstaan voor sommige zones, maar dat de uiteindelijke fout nog meevalt.
-Als Vs bijvoorbeeld 0,9V bedraagt voor een nMOS passgate en Vx initieel 0,85V (met Vdd 1V), gaat de transistor geen stroom leveren, maar bedraagt de uiteindelijke fout 'slechts' 50mV.
+Er zijn dus spanningszones waarvoor de passgate niet functioneert. Het is belangrijk te weten wat deze zones zijn, zodat het circuit ontworpen wordt om deze zones te vermijden. 
+Op figuur \ref{fig:passgate3} worden deze zones in kaart gebracht voor een nMOS, een pMOS en een complementaire passgate, zowel voor LVT als HVT transistoren. De resultaten komen voort uit een transiënte simulatie van 1 ns, de bijdrage van lekstromen is op deze korte tijd verwaarloosbaar. Er dient opgemerkt te worden dat de passgates niet (of slechts even) aanstaan voor sommige zones, maar dat de uiteindelijke fout nog meevalt.
+Als Vs bijvoorbeeld 0,9V bedraagt voor een nMOS passgate en Vx initieel 0,85V (met Vdd 1V), levert de transistor geen stroom, maar bedraagt de uiteindelijke fout 'slechts' 50mV.
 In deze fout zit nog geen ladingsinjectie inbegrepen, eenmaal de passgate afschakelt is de injectie onvermijdelijk.
 Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor performantieredenen is geopteerd voor de LVT transistoren in het geheugenontwerp.
 
@@ -185,7 +185,7 @@ Zowel de LVT als de HVT complementaire passgates vertonen geen dode zones. Voor 
 \subfloat[NHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-NHVT.png}}\\
 \subfloat[PLVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PLVT.png}}
 \subfloat[PHVT]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-periphery-PHVT.png}}
-\caption[Dode zones voor verschillende types passgates]{Dode zones voor verschillende types passgates}
+\caption[Dode zones voor verschillende types passgates]{Dode zones voor verschillende types passgates - de contouren stellen het verschil voor tussen Vs en Vx na 1 ns}
 \label{fig:passgate3}
 \end{figure}
 

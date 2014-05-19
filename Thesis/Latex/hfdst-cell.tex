@@ -1,10 +1,10 @@
 \chapter{Geheugencel}
 \label{cell}
-Elk geheugen bestaat uit een verzameling individuele cellen die op een of andere manier informatie bevatten.
-In dit hoofdstuk wordt dieper ingegaan op de manier waarom een RRAM geheugencel informatie bevat.
+De meeste geheugens bestaan uit een verzameling individuele cellen die op een manier informatie bevatten.
+In dit hoofdstuk wordt dieper ingegaan op de manier waarop een RRAM geheugencel informatie bevat.
 
 \section{Memristor}
-Het essentiële element van een RRAM geheugencel is ontegenspreekbaar de zogenaamde memristor.
+Het essentiële element van de RRAM geheugencel in dit werk is de zogenaamde memristor.
 De memristor wordt ook wel gezien als de 4\textsuperscript{e} passieve component, naast de weerstand, spoel en condensator.
 
 \subsection{Theoretisch principe}
@@ -43,7 +43,7 @@ Voor deze opstelling geldt dan dat $M(q)=R\textsubscript{off}(1-\frac{\mu\textsu
 
 Naast titaniumoxide zijn er nog andere materialen die schakelend weerstandsverdrag vertonen zoals nikkeloxide\cite{Bae04}, hafniumoxide\cite{Che11}, aluminiumoxide\cite{Kim06},... Niet altijd kunnen de resultaten gemodelleerd worden volgens de originele memristortheorie, maar desalnietemin zullen deze materiaalconfiguraties bruikbaar zijn in toepassingen.
 Bij al deze MIM-configuraties blijft het mechanisme wel hetzelfde: na fabricatie is het oxidekristal intrinsiek zuiver, maar onder druk van een voldoende groot elektrisch veld zullen de zuurstofatomen losgerukt worden uit het rooster naar de anode. Het gebrek aan zuurstofatomen zorgt voor conductieve filamenten. Het element bereikt dan een laagresistieve staat (LRS).
-Deze zachte doorslag van het zuivere oxide wordt \emph{forming} genoemd. Het proces is tot zekere hoogte omkeerbaar (\emph{reset}), maar er zullen altijd meer defecten in het kristal zijn dan na fabricatie. Dit betekent dus ook dat nadat de memristor één keer een forming- en resetproces is ondergaan en zich terug in een hoogresistieve staat (HRS) bevindt, er hierna een minder groot elektrisch veld nodig is om terug tot een LRS te komen. Dit proces heet \emph{setting}. Deze drie processen zijn geïllustreerd op figuur \ref{fig:forming-reset-set}.
+Deze zachte doorslag van het zuivere oxide wordt \emph{forming} genoemd. Het proces is tot zekere hoogte omkeerbaar (\emph{reset}), maar er zullen altijd meer defecten in het kristal zijn dan voor de forming. Dit betekent dus ook dat nadat de memristor één keer een forming- en resetproces is ondergaan en zich terug in een hoogresistieve staat (HRS) bevindt, er hierna een minder groot elektrisch veld nodig is om terug tot een LRS te komen. Dit proces heet \emph{setting}. Deze drie processen zijn geïllustreerd op figuur \ref{fig:forming-reset-set}.
 
 \begin{figure}
   \centering
@@ -52,13 +52,13 @@ Deze zachte doorslag van het zuivere oxide wordt \emph{forming} genoemd. Het pro
   \label{fig:forming-reset-set}
 \end{figure}
 
-De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet er onderscheid gemaakt worden tussen unipolair schakelen en bipolair. Bij bipolair resistief schakelen zal forming/setting optreden wanneer de aangelegde spanning een bepaalde polariteit heeft en resetting bij de omgekeerde polariteit. Bij unipolair schakelen is de amplitude van de spanning doorslaggevend voor welke van de 3 processen zal optreden, niet de polariteit. 
+De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet er onderscheid gemaakt worden tussen unipolair schakelen en bipolair. Bij bipolair resistief schakelen zal forming/setting optreden wanneer de aangelegde spanning een bepaalde polariteit heeft en resetting bij de omgekeerde polariteit. Bij unipolair schakelen is de amplitude of de duur van de spanning doorslaggevend voor welke van de 3 processen zal optreden, niet de polariteit. 
 
 
 \section{Memristortoepassingen}
 \label{1T1R}
 
-Voor dit werk is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Met deze MRS [multiresistive states] kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten.
+Voor dit werk is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Als deze multiresistive states onder controle gehouden kunnen worden, kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten (multi-level cells).
 Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom dat er in dit werk voor een 1T1R-configuratie geopteerd werd, de memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
 
 \begin{figure}
@@ -69,6 +69,8 @@ Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\ci
 \end{figure}
 
 Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassigen, er wordt zelfs gesproken over een volledige vervanger van de transistor\cite{Kue05}.
+
+\subsection{1T1R-cel}
 
 
 \section{Besluit}
