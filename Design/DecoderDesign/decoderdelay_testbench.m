@@ -148,8 +148,23 @@ ylabel(ha(2),'Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold
 xlabel(ha(1),'Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 set(ha,{'ycolor'},{'k';'k'})
 
+figure
+data = load('./DecoderDesign/comp_e_d.mat')
+plot([4:9],data.delay1(4:9),'r')
+hold on
+plot([4:9],data.delay2(4:9),'b')
+xlim([3.5,9.5])
+ylabel('Delay (s)','interpreter','none','FontSize', 12,'FontWeight','bold')
+xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 
-
+figure
+data = load('./DecoderDesign/comp_e_d.mat')
+plot([4:9],data.energy1(4:9),'r')
+hold on
+plot([4:9],data.energy2(4:9),'b')
+xlim([3.5,9.5])
+ylabel('Energy (J)','interpreter','none','FontSize', 12,'FontWeight','bold')
+xlabel('Number of inputs of decoder','interpreter','none','FontSize', 12,'FontWeight','bold')
 
 bufferdelay = [0.08,0.081,0.15,0.16,0.16,0.25]*1e-9
 decoderdelay = data.delay2(4:9);
