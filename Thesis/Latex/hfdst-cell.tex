@@ -55,11 +55,11 @@ Deze zachte doorslag van het zuivere oxide wordt \emph{forming} genoemd. Het pro
 De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet er onderscheid gemaakt worden tussen unipolair schakelen en bipolair. Bij bipolair resistief schakelen zal forming/setting optreden wanneer de aangelegde spanning een bepaalde polariteit heeft en resetting bij de omgekeerde polariteit. Bij unipolair schakelen is de amplitude of de duur van de spanning doorslaggevend voor welke van de 3 processen zal optreden, niet de polariteit. 
 
 
-\section{Memristortoepassingen}
-\label{1T1R}
+\section{Memristorconfiguraties}
 
-Voor dit werk is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Als deze multiresistive states onder controle gehouden kunnen worden, kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten (multi-level cells).
-Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom dat er in dit werk voor een 1T1R-configuratie geopteerd werd, de memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
+\subsection{Algemene configuraties}
+Met de context van dit werk in het achterhoofd is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Als deze multiresistive states onder controle gehouden kunnen worden, kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten (multi-level cells).
+Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die maar half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom is er in dit werk voor een 1T1R-configuratie geopteerd. De memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
 
 \begin{figure}
   \centering
@@ -71,7 +71,7 @@ Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\ci
 Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassigen, er wordt zelfs gesproken over een volledige vervanger van de transistor\cite{Kue05}.
 
 \subsection{1T1R-cel}
-De 1T1R-celarchitectuur is niet alleen van toepassing bij RRAM, ook bij STT-MRAM wordt deze celstructuur gebruikt.
-
+\label{1T1R}
+De 1T1R-configuratie bestaat uit 1 CMOS-transistor en 1 memristor in serie geschakeld. De cel kan als volgt worden verbonden aan een architectuur; een woordlijn wordt verbonden aan de gate van de transistor. De source van de transistor wordt verbonden aan een sourcelijn en tenslotte wordt een bitlijn gehangen aan de vrije terminal van de memristor. Bij een leesoperatie staat er over de WL de voedingspanning VDD. De SL wordt kortgesloten aan de grondspanning VSS en 
 \section{Besluit}
 De memristor is een theoretische passieve component die lading en flux met elkaar verbindt. In de praktijk zijn er MIM-configuraties ontdekt die memristorkarakteristieken vertonen. Deze karakteristieken zijn bijzonder interessant voor geheugens: gecombineerd met een transistor vormt de memristor een 1T1R-geheugencel, die geïmplementeerd wordt in de volgende hoofdstukken.

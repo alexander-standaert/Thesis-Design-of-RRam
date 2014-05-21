@@ -372,7 +372,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multi-layer solar cells: State of the art and future perspectives}
+\title{Design of 1Mbit RRAM memory for NV applications}
 %
 %
 % author names and IEEE memberships
@@ -413,7 +413,7 @@
 
 
 % The paper headers
-\markboth{Materials in Engineering: Multi-layer solar cells, May 2014}%
+\markboth{KULeuven Master Thesis, May 2014}%
 {Evaluation paper}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
@@ -447,6 +447,7 @@
 % in the abstract or keywords.
 \begin{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Write abstract
+A 1Mbit RRAM memory is presented. The focus lies on read operation, write operation has not been included in the design. Reference signal distribution can be modified by connecting reference cells in parallel. Sense amplifier performance has been improved by allowing overlap between passgate-enable and latch-enable signals, this overlap gives rise to a nonlinear phenomenon, christened the RC-latch-effect. All Spectre simulations have been performed with 45nm PTM transistor models.
 
 \end{abstract}
 \hfill May 20, 2014
@@ -488,46 +489,36 @@
 % 
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{his} paper...
- 
+\IEEEPARstart{N}{on} volatile memories such as flash are widely used for mass storage devices, but are also steadily finding their way into the embedded domain. However, as discussed in \cite{Pra10}, it is getting difficult to fabricate reliable flash memories in DSM. It is argued that the scaling of flash-memories will not last for more than a few technology nodes. RRAM memories, in which information is stored in the resistive state of a memristor, would be able to scale indefinitely for now. Furthermore, the memristor fabrication can easily be integrated in a standard CMOS fabrication process. In this work, a RRAM memory has been designed, armed against intra-die variations which could degrade performance. 
+First the general architecture, the way the 1T1R cells are put together, will be described. In the following section, load analysis results will be presented, in which an optimal load impedance is chosen for sufficiently large voltage differences for the sense amplifier and sufficiently low voltage drops over the memristor. Afterwards, the tuning of the reference voltage will be explained. Finally, some techniques for decreasing the offset voltage of the sense amplifier will be explained.
 
 
+\section{General architecture}
+The general architecture can be seen in figure \ref{fig:architecture}. The memory consist of 512 global blocks (GB). Each GB consists of two local blocks (LB), in which 32 bitlines (BL) and sourcelines (SL) and 32 wordlines (WL) are embedded.
 
-\section{State of the art: Multi-layer solar cells}
-Multi-layer solar cells can be monolithically, mechanically stacked or a combination of the two. This choice has some implications in the design of the solar cells. 
-
-\subsection{Monolithically stacked}
-Monolithically stacked solar cells are in fact several layers (individual solar cells) that are mechanically and electrically connected. The photocurrent of the different cells needs to be carefully matched to prevent absorption between the layers. In order to obtain a optimal growth with high quality materials the subsequent layers must be lattice matched. Small mismatches cause growth imperfections, crystal defects and undesirable recombination centers. Due to the abrupt interface between the different cells, tunnel junctions are required. 
-
-Due to these restrictions growth is limited to lattice matched materials. The bandgaps of the different layers also have to fit some conditions for optimal efficiency. Also technological limitations in the growth procedures and the behavior of materials during growth must be take into account in the trade-off.
-
-\paragraph{}
-The first attempts were two layer tandem solar cells based on GaAs, the best available material for single junction solar cells. A heterojunction could be made via the addition of an AlAs or combinations with In and P in a top layer. However GaAs substrates were very expensive, limiting the concept to high efficiency space applications because materials as InGaP turned out to be radiation resistant. Cheaper substrates such as Ge could be used for the growth of GaAs layers because of the small lattice mismatch.
+\subsection{Branch}
+In a branch 32 WLs are connected to as many 1T1R cells through the transistorgates. The memristors can be either HRS or LRS. The remaining memristor terminal is connected to a BL and the source of the transistor is connected to a SL. Besides these 32 data cells connected to 32 WL, there is also one reference cell in the branch, its gate is connected to the reference WL. At the top of the BL, the drain of a pMOS transistor is connected, its source is connected to the supply voltage. This transistor serves as a switchable load impedance. At the bottom of the BL, an nMOS transistor serves as switch to the ground voltage. An nMOS switch is also placed between the SL and the ground voltage. 
 
 
+\subsection{Local block}
+A local block (LB) consists of 32 branches combined as well as a BL \& WL decoder and passgates on the BL of each branch. The passgates are connected to the output node of the LB. To read out a data cell in a LB, the appropriate WL is brought to the supply voltage and the cell's BL-load/switch and SL-switch are turned on. A current will flow from the supply voltage through the load and cell (and SL-switch) to the ground voltage and a voltage will appear on the BL node. This voltage is passed to the output of the LB by turning on the passgate of that BL. Reference signals are generated by bringing the reference WL to the supply voltage and turning certain BL-load/switches and SL-switches on. The BLs are then shorted by turning on all the appropriate passgates.
+
+\subsection{Global block} 
+Two local blocks are brought together with a sense amplifier and its sample-and-hold switch in a global block (GB). If one LB produces a data signal at its output, the other will produce a reference signal and vice versa. 
+
+\section{Tuning the reference signal distribution}
+It is assumed that certain elementary variables of components in the circuit have a normal distribution due to intra-die variations. These variables include the $\Delta_{V_{T}}$ and $\Delta_{\beta}$ parameters of transistors and the $\Delta_{R}$ parameter for the memristor. Due to these elementary variations, signals such as the data and reference signal also have a distribution. The distribution of the reference signal however, can be tuned. Recall that the reference signal is generated by shorting active BLs using passgates. Shorting a BL with an addressed HRS reference cell with a BL with a LRS reference cell would suffice for producing a voltage lying between a HRS data voltage and a LS data voltage. By using this shorting technique however the mean of the reference signal PDF would not lie exactly between the means of the HRS data PDF and LRS data PDF. By implementing more than 2 reference cells for the reference signal, and having more HRS (LRS) cells than LRS (HRS) cells, the mean of the reference signal PDF can be shifted. Furthermore, the distribution will have a smaller spread by implementing a bigger amount of reference cells. One should not implement too many reference cells however, since energy consumption (for each active reference cell, current flows through its corresponding bitline) increases drastically. In this design 16 reference cells in a LB are addressed for generating the reference signal, the remaining 16 serve as dummies. Of the 16 active reference cells, 6 are HRS and 10 are LRS.
+
+\section{Load analysis}
+Due to the aforementioned variations in the circuit, the data and reference signals should be designed as such that they are sufficiently far apart. After all the sense amplifier will have an offset voltage because of these same variations and the difference of its inputs must be larger than this offset in order for the SA to latch correctly. Besides designing the SA to have a small offset spread to realize this, the difference of its inputs can be widened by choosing a good load impedance. The load impedance not only influences the value of the data and reference voltages, it also determines the settling time of the charging of the BL and the voltage drop over the memristor. This drop can not be too high, destructive reads might occur because of this. As it turns out, fast settling is not compatible with low memristor voltage drop and large voltage difference. Because the latter are imperative for a functional memory and the former is not, settling time had no bearing on the final choice of load impedance.
 
 
-\subsection{Mechanically stacked}
-In mechanically stacked cells the different solar cells are externally connected. Due to the electrical connections, optical losses occur between the cells. Lattice matching is not necessary, so all existing materials that can be grown in thin layers can be used in principle. Current matching can be done outside the device or via the thickness of the layers.
+\section{Sense amplifier overlap techniques}
+The sense amplifier used in this design is the drain-input latch-type SA (see figure \ref{ourSA}). Its input/output nodes are connected to the output nodes of the local block through complementary passgates. There are two ways to implement the latch timing cycle: one could seperate the pass operation from the latch operation or could allow overlap between these two operations.
 
-\subsection{Combinations} %4 p426
+\subsection{No overlap}
+Using this control scheme, the SA would be separated from the local block when enabled. Offset voltage spread is mainly determined by the $\Delta_{V_{T}}$ and $\Delta_{beta}$ variations of the differential pairs of the SA. These contributions can be decreased by increasing the sizes of the differential pair transistors. Sizing up the top and bottom transistor has not more influence on the latching speed rather than the offset voltage. There is also a maybe slightly surprising contribution on the offset voltage by the passgates. This can be explained by the charge injection of the passgates: when the passgates are turned on, the output voltage of the local block is passed on through the input/output node of the SA almost perfectly - whether there are variations on the transistors or not. When the passgates are turned off, a charge injection occurs on the SA input/output node - distorting the original voltage. 
 
-
-
-
-\section{Production techniques}
-The growth of high quality thin layers on substrates is essential for the production of multi-junction solar cells. In order to limit the defect concentration epitaxial growth is required, which means that the growth orientation of the substrate (seed) crystal is continued in the new layers. The first simple deposition method used liquid precursors as source material and was called Liquid Phase Epitaxy (LPE). It suffered from non-uniformity and inflexibility. A second popular method was the Molecular Beam Epitaxy (MBE) capable of producing perfect interfaces under ultra-high vacuum conditions. Suffering from high cost and low throughput, it vanished in the multi-layer solar cell industry after the optimization of a superior method. The Metal-Organic Chemical Vapor Deposition (MOCVD) method is the most versatile and controllable method for the growth of III-V semiconductors. The procedure will be explained first with the used carrier and precursor materials. Additional production steps and methods are summarized in the second part.
-
-
-\subsection{Epitaxial MOCVD technique}
-For multilayer solar panels a MOCVD process is used in which a halogen metalorganic compound elimination reaction occurs.
-
-
-\subsection{Additional procedures}
-
-
-
-\section{Next generation multi-layer solar cells}
 
 
 
