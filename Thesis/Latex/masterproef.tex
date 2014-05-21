@@ -8,7 +8,7 @@
 \setup{filingcard,
   translatedtitle={Design of a RRAM memory for embedded NV applications},
   udc=621.3,
-  shortabstract={RRAM is een veelbelovende technologie voor het maken van embedded NV geheugens. Deze thesis behandelt het ontwerp van het leescircuit van een 4Mbit RRAM geheugen. Er wordt een geheugenarchitectuur ontworpen dat opgebouwt is uit cellen, branches, local blocks en global blocks. Hierin wordt er een uitgebreide analyse gedaan op het ontwerp en keuze van componenten zoals lastimpedantie en sense amplifier. Nadat omringende logica zoals buffers en decoders ontworpen zijn, wordt er onderzocht wat de optimale geheugenconfiguratie is. Deze optimale configuratie wordt dan onderworpen aan een speed-vdd-test en vergeleken met schakelingen in de literatuur.}}
+  shortabstract={RRAM is een veelbelovende technologie voor het maken van embedded NV geheugens. Deze thesis behandelt het ontwerp van het leescircuit van een 1Mbit RRAM geheugen. Er wordt een geheugenarchitectuur ontworpen dat opgebouwt is uit cellen, branches, local blocks en global blocks. Hierin wordt er een uitgebreide analyse gedaan op het ontwerp en keuze van componenten zoals lastimpedantie en sense amplifier. Nadat omringende logica zoals buffers en decoders ontworpen zijn, wordt er onderzocht wat de optimale geheugenconfiguratie is. Deze optimale configuratie wordt dan onderworpen aan een speed-vdd-test en vergeleken met schakelingen in de literatuur.}}
 % Verwijder de "%" op de volgende lijn als je de kaft wil afdrukken
 %\setup{coverpageonly}
 % Verwijder de "%" op de volgende lijn als je enkel de eerste pagina's wil
@@ -48,9 +48,9 @@
 
 \begin{abstract}
  Nu het schalen van flash-geheugens op zijn limieten begint te stoten, is er nood aan een alternatief. Met eigenschappen zoals lage voedingsspanning, kleine geheugencel en snelle leessnelheid is RRAM één van de meest belovende kandidaten.\\\\
- Deze thesis behandelt het ontwerp van het leescircuit van een 4Mbit RRAM geheugen. De grootste uitdagingen in het ontwerp van dit resistief geheugen is variabiliteit. Deze variabiliteit is kritisch op twee plaatsen. Ten eerste bij de resistieve deling tussen de geheugencel en een last. Ten tweede bij het latchen van de sense amplifier.\\\\
+ Deze thesis behandelt het ontwerp van het leescircuit van een 1Mbit RRAM geheugen. De grootste uitdagingen in het ontwerp van dit resistief geheugen is variabiliteit. Deze variabiliteit is kritisch op twee plaatsen. Ten eerste bij de resistieve deling tussen de geheugencel en een last. Ten tweede bij het latchen van de sense amplifier.\\\\
  Dit werk introduceert verschillende innovaties. Ten eerste een uitgebreide analyse op de keuze van lastimpedantie. Ten tweede het vormen van de referentiespanningsdistributie door middel van parallelle geheugencellen. En tenslotte een analyse over de invloed van een overlappende werking van pass-gates en sense amplifier onder variabiliteit. Verder wordt ook het ontwerp van alle andere belangrijke bouwblokken zoals decoders en buffers besproken.\\\\
- Deze kennis wordt dan gebruikt in het ontwerp van een 4Mbit geheugen in 45nm PTM technologie. Het geheugen maakt gebruik van 512 sense ampliers die telkens gekoppeld zijn aan 2 geheugenmatrices met 32WL en 32BL. Op een voedingspanning van 1V heeft het geheugen een random-access-leessnelheid van 435MHz. Het energieverbruik per leesoperatie is bij deze voedingspanning 0.51pJ. Binnen de afbakening van dit werk presteert de ontworpen schakeling beter dan flash-geheugens gevonden in de literatuur.
+ Deze kennis wordt dan gebruikt in het ontwerp van een 1Mbit geheugen in 45nm PTM technologie. Het geheugen maakt gebruik van 512 sense ampliers die telkens gekoppeld zijn aan 2 geheugenmatrices met 32WL en 32BL. Op een voedingspanning van 1V heeft het geheugen een random-access-leessnelheid van 435MHz. Het energieverbruik per leesoperatie is bij deze voedingspanning 0.51pJ. Binnen de afbakening van dit werk presteert de ontworpen schakeling beter dan flash-geheugens gevonden in de literatuur.
 \end{abstract}
 
 % Een lijst van figuren en tabellen is optioneel
