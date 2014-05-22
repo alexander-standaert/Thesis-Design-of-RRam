@@ -576,12 +576,12 @@ A read access time test was performed on the finished circuit (Figure \ref{fig:s
   \label{fig:speedvdd}
 \end{figure}
 
-On figure \ref{fig:speedvdd} it can clearly be seen that the circuit can only operate upto a operating voltage of $0.8V$. An explaination for this is given in figure \ref{fig:vblvdd}. As the vdd decreases, the bitline voltage distributions for the reference cells, the cells in HRS and the cells in LRS also decrease. Eventually the bitline voltage distribution overlap and the circuit fails.
+On figure \ref{fig:speedvdd} it can be clearly seen that the circuit can only operate upto a operating voltage of $0.8V$
 
 \begin{figure}[h!t]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdst-final-vddbl.png}
-  \caption{BL voltage distribution for ref cells, cells in RHS and LRS in function of the vdd}
+  \caption{BL voltage distribution for ref cells, cells in RHS en LRS in function of the vdd}
   \label{fig:vblvdd}
 \end{figure}
 % An example of a floating figure using the graphicx package.
