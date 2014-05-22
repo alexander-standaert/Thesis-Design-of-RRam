@@ -87,16 +87,16 @@ Venp (latchenablep 0) vsource type=pwl wave=[0 1 1.55e-09 1 1.6e-09 0]
 
 // kleine overlap passenable en latchenable
 
-Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 5.2e-10 1 1.7e-09 1 1.8e-09 0 8e-09 0]
-Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 1.7e-09 0 1.8e-09 1 8e-09 1]
+//Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 5.2e-10 1 1.7e-09 1 1.8e-09 0 8e-09 0]
+//Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 1.7e-09 0 1.8e-09 1 8e-09 1]
 
 // grote overlap passenable en latchenable
 
-//Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 5.2e-10 1 2e-09 1 2.1e-09 0 8e-09 0]
-//Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 2e-09 0 2.1e-09 1 8e-09 1]
+Vpassn (passEnablen 0) vsource type=pwl wave=[0 0 5e-10 0 5.2e-10 1 2e-09 1 2.1e-09 0 8e-09 0]
+Vpassp (passEnablep 0) vsource type=pwl wave=[0 1 5e-10 1 5.2e-10 0 2e-09 0 2.1e-09 1 8e-09 1]
 
 
-ic out = 1
+ic out = 0
 ic outbar = 0
 ic in2 = 0.38
 ic inbar2 = 0.4

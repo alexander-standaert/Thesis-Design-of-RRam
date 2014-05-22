@@ -61,4 +61,4 @@ for i=1:size(mega,1)
 end
 
 SensitivitySweep = [mega,offset];
-save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata4.mat','SensitivitySweep') %%
+save('./LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata5.mat','SensitivitySweep') %%
