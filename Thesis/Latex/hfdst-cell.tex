@@ -72,6 +72,17 @@ Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassige
 
 \subsection{1T1R-cel}
 \label{1T1R}
-De 1T1R-configuratie bestaat uit 1 CMOS-transistor en 1 memristor in serie geschakeld. De cel kan als volgt worden verbonden aan een architectuur; een woordlijn wordt verbonden aan de gate van de transistor. De source van de transistor wordt verbonden aan een sourcelijn en tenslotte wordt een bitlijn gehangen aan de vrije terminal van de memristor. Bij een leesoperatie staat er over de WL de voedingspanning VDD. De SL wordt kortgesloten aan de grondspanning VSS en 
+De 1T1R-configuratie bestaat uit 1 CMOS-transistor en 1 memristor in serie geschakeld. De cel kan  worden verbonden in een matrix als in figuur \ref{fig:1T1R-schematic}. Een woordlijn wordt verbonden aan de gate van de transistor, de source van de transistor wordt verbonden aan een sourcelijn en tenslotte wordt een bitlijn gehangen aan de vrije terminal van de memristor. Ook lees- en schrijfoperaties worden geïllustreerd op figuur \ref{fig:1T1R-schematic}. De leesoperatie is in wezen een spanningsdeling tussen de impedantie van de cel en een andere lastimpedantie die de BL verbindt met de voedingspanning. Voor een logische 1 te schrijven kan de BL rechtstreeks worden aangesloten aan de voedingspanning, de stroom door de memristor is groter dan bij leesoperatie en de memristor (indien die zich nog niet in de gewenste resistieve staat bevond) gaat schakelen naar de gewenste resistieve staat. Voor een logische 0 te schrijven staat er op de BL de grondspanning en op de SL de voedingspanning. De stroom vloeit nu in de omgekeerde richting.
+
+\begin{figure}[!ht]
+\centering
+\subfloat[Algemeen schema]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-cel-1T1R-schematic.png}}
+\subfloat[Leesoperatie]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-cel-1T1R-read.png}}\\
+\subfloat[Schrijfoperatie voor een 1]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-cel-1T1R-write1.png}}
+\subfloat[Schrijfoperatie voor een 0]{ \includegraphics[width=0.5\textwidth] {../fig/hfdstk-cel-1T1R-write0.png}}\\
+\caption[1T1R matrix]{1T1R matrix met verschillende operaties}
+\label{fig:1T1R-schematic}
+\end{figure}
+
 \section{Besluit}
 De memristor is een theoretische passieve component die lading en flux met elkaar verbindt. In de praktijk zijn er MIM-configuraties ontdekt die memristorkarakteristieken vertonen. Deze karakteristieken zijn bijzonder interessant voor geheugens: gecombineerd met een transistor vormt de memristor een 1T1R-geheugencel, die geïmplementeerd wordt in de volgende hoofdstukken.
