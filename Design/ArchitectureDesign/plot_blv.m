@@ -45,3 +45,4 @@ h = findobj(gca,'Tag','Box');
  for j=1:length(h)
     patch(get(h(j),'XData'),get(h(j),'YData'),'y','FaceColor','b');
  end
+

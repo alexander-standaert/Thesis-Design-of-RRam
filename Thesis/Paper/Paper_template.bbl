@@ -21,8 +21,9 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{h2g2}
-D.~Adams, \emph{The Hitchhiker's Guide to the Galaxy}.\hskip 1em plus 0.5em
-  minus 0.4em\relax Del Rey (reprint), 1995, iSBN-13: 978-0345391803.
+\bibitem{Pra10}
+K.~Prall and K.~Parat, ``25nm 64gb mlc nand technology and scaling challenges
+  invited paper,'' in \emph{Electron Devices Meeting (IEDM), 2010 IEEE
+  International}, Dec 2010, pp. 5.2.1--5.2.4.
 
 \end{thebibliography}

@@ -24,7 +24,7 @@ function [] = vdd_speed_test_run(process_id,sim_name)
     end
     
     for s = 1:size(param.simulation_space,1)
-        param.debugon = 1
+%         param.debugon = 1
         vdd = param.simulation_space(s,1)
         t = param.simulation_space(s,2)
         t_checkout = param.simulation_space(s,3)
@@ -265,8 +265,8 @@ function [] = vdd_speed_test_run(process_id,sim_name)
                 plot(sigxi3,sigyi3)
                 legend('Ilogic','ISA','Imemarray','IBuffers')
                 
-                 plotTiming(sim)
-                  error('ssdfsdfsd')
+%                  plotTiming(sim)
+%                   error('ssdfsdfsd')
             end
             
             if strcmp(param.RMEMvalue,'RMEMHigh')

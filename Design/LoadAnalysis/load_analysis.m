@@ -37,11 +37,12 @@ function [] = load_analysis()
 %mc_run(element,param,1,1,1,1,1) 
 %   mc_run_ref(element,param,50,20)
 %  mc_analize_ref()
-     la_analize_data()
+%      la_analize_data()
 %    mc_finalload(param)
 %     la_run_trippel(param,0,1)
 %       la_run_length(param,0,1)
-%        mc_run_length(param,0,1)
+
+mc_run_length(param,0,1)
 %     mc_run_tripel(param,1,0)
 % la_run_ref2(element,param,4) 
 end
@@ -1719,7 +1720,7 @@ function [] = mc_run_length(param,simulate,analyse)
         param.VtMismatch = 1;
         param.BMismatch = 0;
        
-        param.wswitch = 4*100e-9;%300e-9;
+        param.wswitch = 4*300e-9;
         param.lswitch = 4*195e-9;
         param.wsl = 1000e-9;
         param.lsl = 45e-9;

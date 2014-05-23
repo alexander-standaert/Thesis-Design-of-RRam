@@ -567,7 +567,7 @@ The overlap between the enabling of the passgates and the SA thus needn't be thi
 
 
 \section{Read Throughput Results}
-A read access time test was performed on the finished circuit (Figure \ref{fig:speedvdd}). In this test the vdd voltage was decrease and the maximum read throughput was measured. The test was performed at a (SPICE) temperature of $30^{\circ}\mathrm{C}$. At each point in the shmoo plot, 100 MonteCarlo simulations were performed. The circuit has a read access time of 2.3ns at a vdd of 1V. during the read cycle, its energy consumption is 0.51pJ. Most of the energy (65\%) is consumed by the bitlines. 25\% of the energy consumption is used by the logic and the buffers en SA take the remaining 10\%. As the vdd voltage go's down, the read throughput also go's down. This is caused by a combination of phenomina. First of all the logic go's slower. This causes a timing issue where the bitline load is selected before the the cell is selected. The timing issue results in a rapid increase in bitline voltage which causes a longer setteling time of the bitline where the cell is eventually selected. A second reason for the decrease in read throughput at lower vdd, is the slower latching of the SA.
+A read access time simulation test was performed on the finished circuit (Figure \ref{fig:speedvdd}). In this test the supply voltage was decreased and the maximum read throughput was measured. The test was performed at a (SPICE) temperature of $30^{\circ}\mathrm{C}$. At each point in the shmoo plot, 100 MonteCarlo simulations were performed. The circuit has a read access time of 2.3ns at a supply voltage of 1V. during the read cycle, its energy consumption is 0.51pJ. Most of the energy (65\%) is consumed by the bitlines. 25\% of the energy consumption is used by the logic, the buffers and SA take the remaining 10\%. As the supply voltage go's down, the read throughput also go's down. This is caused by a combination of phenomina. First of all the logic go's slower. This causes a timing issue where the bitline load is selected before the the cell is selected. The timing issue results in a rapid increase in bitline voltage which causes a longer setteling time of the bitline when the cell is eventually selected. A second reason for the decrease in read throughput at a lower supply voltage, is the slower latching of the SA.
 
 \begin{figure}[h!t]
   \centering
@@ -576,12 +576,12 @@ A read access time test was performed on the finished circuit (Figure \ref{fig:s
   \label{fig:speedvdd}
 \end{figure}
 
-On figure \ref{fig:speedvdd} it can be clearly seen that the circuit can only operate upto a operating voltage of $0.8V$
+On figure \ref{fig:speedvdd} it can clearly be seen that the circuit can only operate upto a supply voltage of $0.8V$. An explaination for this is given in figure \ref{fig:vblvdd}. As the vdd decreases, the bitline voltage distributions of the reference cells, the cells in HRS and the cells in LRS also decrease. Eventually the bitline voltage distribution overlap and the circuit fails.
 
 \begin{figure}[h!t]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdst-final-vddbl.png}
-  \caption{BL voltage distribution for ref cells, cells in RHS en LRS in function of the vdd}
+  \caption{BL voltage distribution for ref cells, cells in RHS and LRS in function of the vdd}
   \label{fig:vblvdd}
 \end{figure}
 % An example of a floating figure using the graphicx package.

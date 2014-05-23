@@ -41,7 +41,7 @@ parameters
 + enableBetaMismatch = 1
 + sigmamult = 1
 + mismatchVt=1 *enableVtMismatch
-+ mismatchBeta=1 * enableBetaMismatch
++ mismatchBeta=0 * enableBetaMismatch
 + shiftVt= sigma_LVT_Vt_n*controlledOffset
 + shiftBeta= sigma_LVT_I_I0_n*controlledOffset
 + w=100e-9
@@ -65,7 +65,7 @@ parameters
 + enableBetaMismatch = 1
 + sigmamult = 1
 + mismatchVt=1 * enableVtMismatch
-+ mismatchBeta=1 * enableBetaMismatch
++ mismatchBeta=0 * enableBetaMismatch
 + shiftVt= sigma_LVT_Vt_p*controlledOffset
 + shiftBeta= sigma_LVT_I_I0_p*controlledOffset
 + w=100e-9
@@ -89,7 +89,7 @@ parameters
 + enableBetaMismatch = 1
 + sigmamult = 1
 + mismatchVt=1 * enableVtMismatch
-+ mismatchBeta=1 * enableBetaMismatch
++ mismatchBeta=0 * enableBetaMismatch
 + shiftVt= sigma_LVT_Vt_n*controlledOffset
 + shiftBeta= sigma_LVT_I_I0_n*controlledOffset
 + w=100e-9
@@ -113,7 +113,7 @@ parameters
 + enableBetaMismatch = 1
 + sigmamult = 1
 + mismatchVt=1 * enableVtMismatch
-+ mismatchBeta=1 * enableBetaMismatch
++ mismatchBeta=0 * enableBetaMismatch
 + shiftVt= sigma_LVT_Vt_p*controlledOffset
 + shiftBeta= sigma_LVT_I_I0_p*controlledOffset
 + w=100e-9

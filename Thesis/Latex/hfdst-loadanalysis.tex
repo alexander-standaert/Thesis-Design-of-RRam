@@ -116,19 +116,19 @@ Om de variabiliteit onder controle te houden moeten de transistoren vergroot wor
 Figuur \ref{fig:length} geeft de resultaten weer van een sweep van verschillende lengtes en breedtes voor een switchload. De resultaten worden voorgesteld in functie van $\frac{W}{L}$ wat een indicatie is voor de weerstand van de transistor. In de bovenste figuur kan men duidelijk een maximum zien voor het verschil in BL-spanning zoals in sectie \ref{sec:simplemodel} werd voorspeld. Verder dient worden opgemerkt dat er een oplossing aan de linkerkant van het maximum gekozen moet worden aangezien de spanningsval over het geheugenelement van de oplossingen aan de rechterkant van het maximum te hoog zijn.
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.66\textwidth]{../fig/hfdst-last-length.png}
+  \includegraphics[width=0.65\textwidth]{../fig/hfdst-last-length.png}
   \caption[Sweep switchload over transistor lengte en breedte]{Verschillende oplossingen voor de switchload met variabele lengtes en breedtes}
   \label{fig:length}
 \end{figure}
 
-Voor de finale last wordt er gekozen voor een transistor met lengte 198nm en breedte 300nm. Op figuur \ref{fig:length} wordt deze aangeduid met de rode lijn. Op figuur \ref{fig:distswitch} wordt de BL-spanningsdistributie van deze last getoond. Het minimale verschil in BL-spanning is bijna 200mV. De distributie van het referentiesignaal is ook aangegeven op deze figuur. De referentie bestaat uit 4 referentie cellen waarvan 2 in HRS en 2 in LRS. Opvallend is dat deze referentie niet in het centrum zit tussen de BL-spanningen. Dit kan opgelost worden door een niet gelijk aantal referentiecellen in HRS en LRS voor het referentiesignaal te gebruiken. Aangezien de standaarddeviatie op de BL-spanningen heel wat beter is, kan er gerust gekozen worden voor een last met een kleiner nominaal BL-spanningsverschil \label{anderelast}. Dit kan 2 voordelen met zich mee brengen. Zo is de spanningsval van de memristor lager wanneer men een last kiest links van het maximum in figuur \ref{fig:length}. Voor dergelijke lastimpedanties moeten de BLs bovendien tot een lagere spanning opladen wat een energie winst oplevert. Ondanks deze voordelen werd er toch geopteerd voor de oplossing met het grootste BL-spanningsverschil.
-
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.67\textwidth]{../fig/hfdst-last-var2.png}
+  \includegraphics[width=0.65\textwidth]{../fig/hfdst-last-var2.png}
   \caption[BL-spanningsverdeling voor de finale lastimpedantie]{BL-spanningsverdeling voor de finale lastimpedantie}
   \label{fig:distswitch}
 \end{figure}
+
+Voor de finale last wordt er gekozen voor een transistor met lengte 198nm en breedte 300nm. Op figuur \ref{fig:length} wordt deze aangeduid met de rode lijn. Op figuur \ref{fig:distswitch} wordt de BL-spanningsdistributie van deze last getoond. Het minimale verschil in BL-spanning is bijna 200mV. De distributie van het referentiesignaal is ook aangegeven op deze figuur. De referentie bestaat uit 16 referentie cellen waarvan 6 in HRS en 10 in LRS. Het aantal cellen in RHS en LRS is zo gekozen dat de referentie distributie in het midden ligt tussen de distributies van de data signalen. Aangezien de standaarddeviatie op de BL-spanningen heel wat beter is, kan er gerust gekozen worden voor een last met een kleiner nominaal BL-spanningsverschil \label{anderelast}. Dit kan 2 voordelen met zich mee brengen. Zo is de spanningsval van de memristor lager wanneer men een last kiest links van het maximum in figuur \ref{fig:length}. Voor dergelijke lastimpedanties moeten de BLs bovendien tot een lagere spanning opladen wat een energie winst oplevert. Ondanks deze voordelen werd er toch geopteerd voor de oplossing met het grootste BL-spanningsverschil.
 
 \section{Besluit}
 Verschillende kandidaten voor lastimpedanties werden overwogen. Aanvankelijk werd er getracht een last met minimale transistorlengtes te vinden, dit bleek echter niet haalbaar wanneer variabiliteit in rekening wordt genomen. Een enkele transitor met niet-minimale afmetingen bleek de beste resultaten te leveren wat betreft BL-spanningsverschil en spanningsval over geheugenelement. Deze voorwaarden stroken echter met settling tijd minimaliseren. Het BL-spanningsverschil en de spanningsval van het gehegeugenelement zijn wel prioritair, dus werd er niet geoptimaliseerd voor delay.
