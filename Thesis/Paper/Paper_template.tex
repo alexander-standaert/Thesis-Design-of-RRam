@@ -518,6 +518,16 @@ It is assumed that certain elementary variables of components in the circuit hav
 
 \section{Load analysis}
 Due to the aforementioned variations in the circuit, the data and reference signals should be designed as such that they are sufficiently far apart. After all the sense amplifier will have an offset voltage because of these same variations and the difference of its inputs must be larger than this offset in order for the SA to latch correctly. Besides designing the SA to have a small offset spread to realize this, the difference of its inputs can be widened by choosing a good load impedance. The load impedance not only influences the value of the data and reference voltages, it also determines the settling time of the charging of the BL and the voltage drop over the memristor. This drop can not be too high, destructive reads might occur because of this. As it turns out, fast settling is not compatible with low memristor voltage drop and large voltage difference. Because the latter are imperative for a functional memory and the former is not, settling time had no bearing on the final choice of load impedance.
+Any type of load consisting of minimal length transistors could not produce an equivalent resistance large enough to separate the HRS \& LRS voltage distributions sufficiently. Figure \ref{fig:switchloadresults} shows nominal HRS/LRS voltage differences and memristor voltage drop for several pMOS transistor loads with different sizes. 
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdst-last-length.png}
+  \caption{HRS/LRS voltage difference and memristor voltage drop for pMOS transistor loads}
+  \label{fig:switchloadresults}
+\end{figure}
+
+In the end a transistor with a width of 300nm and a length of 198nm was chosen. In figure \ref{fig:distributions} the distributions of the data and reference voltages are displayed for this load.
 
 
 \section{Sense amplifier overlap techniques}
@@ -670,7 +680,7 @@ On figure \ref{fig:speedvdd} it can clearly be seen that the circuit can only op
 
 
 \section{Conclusion}
-\cite{h2g2}
+A 1Mb RRAM memory has been designed and presented. During the design of this memory, certain techniques were applied to improve performance and reliability. Tuning of the reference voltage distribution was achieved by connecting multiple cells in various states in parallel. A load impedance was carefully chosen to maximize HRS \& LRS voltage differences while keeping the memristor voltage drop sufficiently low. Overlap between passgates and sense amplifier operation reduces offset voltage spread. During this overlap, an RC-latch effect can occur, which decouples the bitline capacitance from the latch for a short time.
 
 
 % if have a single appendix:

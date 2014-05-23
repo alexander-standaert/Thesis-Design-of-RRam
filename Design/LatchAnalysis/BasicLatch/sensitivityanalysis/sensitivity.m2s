@@ -21,9 +21,9 @@ xMpassp in passEnablep out bp mc_pmos_hvt w=$<sp.PWpassP>$ l=$<sp.PLpass>$ contr
 xMpassbarn inbar passEnablen outbar bn mc_nmos_hvt w=$<sp.PWpassN>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(17)>$ enableBetaMismatch = $<sp.whichMismatch(18)>$ sigmamult = $<sp.sigmamult>$
 xMpassbarp inbar passEnablep outbar bp mc_pmos_hvt w=$<sp.PWpassP>$ l=$<sp.PLpass>$ controlledOffset = 1  enableVtMismatch = $<sp.whichMismatch(19)>$ enableBetaMismatch = $<sp.whichMismatch(20)>$ sigmamult = $<sp.sigmamult>$
 
-Vvdd     ( vdd     0 ) vsource dc=1
+Vvdd     ( vdd     0 ) vsource dc=0.8
 Vvss     ( vss     0 ) vsource dc=0
-Vbp      ( bp      0 ) vsource dc=1
+Vbp      ( bp      0 ) vsource dc=0.8
 Vbn      ( bn      0 ) vsource dc=0
 
 Vin     ( in     0 ) vsource dc=$<sp.highlow>$
