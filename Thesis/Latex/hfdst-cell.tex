@@ -59,7 +59,7 @@ De verschillende MIM-structuren hebben ook verschillende eigenschappen. Zo moet 
 
 \subsection{Algemene configuraties}
 Met de context van dit werk in het achterhoofd is het voor de hand liggend dat de memristor gebruikt kan worden als geheugenelement: de MIM-configuraties hebben op z'n minst 2 resistieve toestanden, al zijn er artikels gepubliceerd waarbij de memristor nog meer resistieve toestanden bevat\cite{Liu12}. Als deze multiresistive states onder controle gehouden kunnen worden, kan een nog hogere densiteit aan informatie gerealiseerd worden aangezien elke memristor meer dan 1 bit informatie zou bevatten (multi-level cells).
-Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die half geselecteerd worden. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom is er in dit werk voor een 1T1R-configuratie geopteerd. De memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
+Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\cite{ros12}\cite{raj09}. In geheugentoepassingen kan men onderscheid maken tussen 1T1R-,1R- en 1D1R-configuraties\cite{Den13}. Met een 1R-configuratie kan men de grootste densiteit van geheugen bereiken, alsook een betere schaling, maar deze configuratie heeft te kampen met cellen die half geselecteerd worden en lekstroom. Dit kan opgelost worden door een selectie-element aan de configuratie toe te voegen, zoals een diode of een transistor. De 1D1R configuratie kan echter enkel geïmplementeerd worden met unipolaire memristors\cite{Wou09}. Daarom is er in dit werk voor een 1T1R-configuratie geopteerd. De memristor waarop dit werk bebaseerd is, is immers een bipolaire hafniumoxide-memristor (zie figuur \ref{fig:1T1R}).
 
 \begin{figure}
   \centering
@@ -69,6 +69,25 @@ Deze 2 toestanden kunnen gebruikt worden voor geheugen- en logicatoepassingen\ci
 \end{figure}
 
 Naast geheugentoepassingen heeft de memristor ook potentieel in logicatoepassigen, er wordt zelfs gesproken over een volledige vervanger van de transistor\cite{Kue05}.
+\subsection{1R-cel}
+\label{1R}
+The 1R-configuratie bestaat uit 1 memristor. Deze cel kan dan verbonden worden aan een WL en BL. Deze structuur die beter bekend is als een \textit{crossbar array} kan een geheugenmatrix vormen met een heel hoge densiteit. Een van de problemen waarmee deze configuratie te kampen heeft bij de leesoperatie is de \textit{read sneak leakage path}\cite{leakpath}(figuur \ref{fig:leak}). Bij de leesoperatie wordt er een spanningsdeling uitgevoerd tussen de memristor en een lastimpedantie. Bij een \textit{crossbar array} gaan er echter lekstromen gevormd worden die door andere cellen vloeien. Dit zorgt voor een parallelle weerstand die heel afhankelijk is van de resistieve staat van de cellen in de geheugenmatrix. Volgens \cite{5763125} kan dit probleem opgelost worden door de resterende WL te biasen of de leescyclus in twee stappen te doen. Bij deze laatste oplossing gaat men eerst de lekstroom van het circuit opmeten en deze vervolgens aftrekken van de totale leesstroom.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{../fig/hfdstk-cel-1Rleak.png}
+  \caption[Read sneak leakage path]{Read sneak leakage path, reproduced from\cite{leakpath}}
+  \label{fig:leak}
+\end{figure}
+
+De schrijfoperatie heeft dan weer te kampen met een probleem dat het \textit{write half-select problem} heet (figuur \ref{fig:halfselct}). Hierbij gaan cellen die op de zelfde BL of WL liggen als de geselecteerde cel, half geselecteerd zijn. De uitdaging hierbij is om te garanderen dat de cellen niet van resistieve staat veranderen. Er bestaan verschillende biasing methodes \cite{1269425} om dit probleem te overkomen. Bij het schrijven van meerderen cellen tegelijkertijd, kunnen methodes zoals \textit{SET-before-RESET} of \textit{ERASE-before-RESET}\cite{5763125} gebruikt worden.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{../fig/hfdstk-cel-halfselect.png}
+  \caption[Half select problem]{Half select probleem, zwarte cellen zijn volledig geselecteerd, witte cellen zijn half geselecteed, reproduced from\cite{leakpath}}
+  \label{fig:halfselct}
+\end{figure}
 
 \subsection{1T1R-cel}
 \label{1T1R}
