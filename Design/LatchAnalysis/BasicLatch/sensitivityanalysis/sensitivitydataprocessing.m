@@ -1,4 +1,4 @@
-load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata.mat') %
+load('LatchAnalysis/BasicLatch/sensitivityanalysis/sensitivitydata5.mat') %
 figure
 axes('Position',[0.128571428571429 0.11 0.485714285714286 0.718571428571429]);
 hold all
