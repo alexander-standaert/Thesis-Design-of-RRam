@@ -1,56 +1,48 @@
 \relax 
 \citation{Pra10}
+\citation{rramscaling}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}General architecture}{1}}
+\newlabel{Genach}{{II}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-A}}Branch}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-B}}Local block}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Global block}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Tuning the reference signal distribution}{1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview architecture}}{2}}
-\newlabel{fig:architecture}{{1}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview architecture}}{1}}
+\newlabel{fig:architecture}{{1}{1}}
+\citation{bulkload}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Global block}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Tuning the reference signal distribution}{2}}
+\newlabel{ref}{{III}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Load analysis}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces HRS/LRS voltage difference and memristor voltage drop for pMOS transistor loads}}{2}}
+\newlabel{load}{{IV}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Nominal HRS/LRS BL voltage difference and voltage drop over memristor for pMOS transistor loads}}{2}}
 \newlabel{fig:switchloadresults}{{2}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Distributions of the reference signal and HRS \& LRS data signals }}{2}}
+\newlabel{fig:distributions}{{3}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {V}Sense amplifier overlap techniques}{2}}
-<<<<<<< HEAD
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Drain-input latch-type sense amplifier used in this design}}{2}}
-\newlabel{fig:ourSA}{{2}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}No overlap}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Charge injection mismatch due to $\beta $ variations of passgate transistors}}{2}}
-\newlabel{fig:chargeinjection}{{3}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}Overlap}{2}}
-\citation{h2g2}
+\newlabel{sens}{{V}{2}}
+\citation{Cos09}
+\citation{Cos09}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Drain-input latch-type sense amplifier\cite  {Cos09} used in this design}}{3}}
+\newlabel{fig:ourSA}{{4}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}No overlap: disconnect inputs before activating current source}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}Overlap: inputs are connected when current source is activated}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Charge injection mismatch due to $\beta $ variations of passgate transistors}}{3}}
+\newlabel{fig:chargeinjection}{{5}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Simplified circuit when overlap between pass enable and latch enable is applied}}{3}}
+\newlabel{fig:RC-latch}{{6}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Transient simulation for the schematic of figure 6\hbox {} for different values of R, CL = 46fF, SA is minimal, no variations are included in simulation}}{3}}
+\newlabel{fig:RC-latch-sim}{{7}{3}}
 \bibdata{references}
 \bibcite{Pra10}{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Simplified circuit when overlap between pass enable and latch enable is applied}}{3}}
-\newlabel{fig:RC-latch}{{4}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Transient simulation for the schematic of figure 4\hbox {} for different values of R, CL = 46fF, SA is minimal, no variations are included in simulation}}{3}}
-\newlabel{fig:RC-latch-sim}{{5}{3}}
-=======
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Drain-input latch-type sense amplifier used in this design}}{2}}
-\newlabel{fig:ourSA}{{3}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}No overlap}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Charge injection mismatch due to $\beta $ variations of passgate transistors}}{3}}
-\newlabel{fig:chargeinjection}{{4}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-B}}Overlap}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Simplified circuit when overlap between pass enable and latch enable is applied}}{3}}
-\newlabel{fig:RC-latch}{{5}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Transient simulation for the schematic of figure 5\hbox {} for different values of R, CL = 46fF, SA is minimal, no variations are included in simulation}}{3}}
-\newlabel{fig:RC-latch-sim}{{6}{3}}
->>>>>>> sensitivity lower Vdd
-\@writefile{toc}{\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {V-B}0a}}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Read Throughput Results}{3}}
-\bibdata{references}
-\bibcite{h2g2}{1}
+\bibcite{rramscaling}{2}
+\bibcite{bulkload}{3}
+\bibcite{Cos09}{4}
 \bibstyle{IEEEtran}
-<<<<<<< HEAD
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces BL voltage distribution for reference signal and HRS \& LRS signals in function of vdd}}{4}}
-\newlabel{fig:vblvdd}{{7}{4}}
-=======
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Results read access time test}}{4}}
-\newlabel{fig:speedvdd}{{7}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Read Throughput Results}{4}}
+\newlabel{final}{{VI}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Results read access time test. Green succesful simulation. Red unsuccesful simulation}}{4}}
+\newlabel{fig:speedvdd}{{8}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces BL voltage distribution for reference signal and HRS \& LRS signals in function of vdd}}{4}}
+\newlabel{fig:vblvdd}{{9}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{4}}
->>>>>>> sensitivity lower Vdd
 \@writefile{toc}{\contentsline {section}{References}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces BL voltage distribution for ref cells, cells in RHS and LRS in function of the vdd}}{4}}
-\newlabel{fig:vblvdd}{{8}{4}}

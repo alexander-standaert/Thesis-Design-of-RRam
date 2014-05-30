@@ -3,51 +3,49 @@ The top-level auxiliary file: Paper_template.aux
 The style file: IEEEtran.bst
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: references.bib
-Warning--I didn't find a database entry for "h2g2"
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 1 entry,
+You've used 4 entries,
             4024 wiz_defined-function locations,
-            817 strings with 7406 characters,
-and the built_in function-call counts, 1130 in all, are:
-= -- 78
-> -- 20
-< -- 12
-+ -- 10
-- -- 2
-* -- 66
-:= -- 160
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 1
-chr.to.int$ -- 33
-cite$ -- 1
-duplicate$ -- 69
-empty$ -- 90
-format.name$ -- 3
-if$ -- 251
+            833 strings with 7884 characters,
+and the built_in function-call counts, 2804 in all, are:
+= -- 211
+> -- 60
+< -- 20
++ -- 32
+- -- 10
+* -- 138
+:= -- 432
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 4
+chr.to.int$ -- 54
+cite$ -- 4
+duplicate$ -- 197
+empty$ -- 239
+format.name$ -- 12
+if$ -- 634
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 10
-newline$ -- 26
-num.names$ -- 1
-pop$ -- 26
+int.to.str$ -- 4
+missing$ -- 35
+newline$ -- 35
+num.names$ -- 4
+pop$ -- 88
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 81
+skip$ -- 212
 stack$ -- 0
-substring$ -- 78
-swap$ -- 61
-text.length$ -- 1
+substring$ -- 130
+swap$ -- 151
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 1
+type$ -- 4
 warning$ -- 0
-while$ -- 4
-width$ -- 2
-write$ -- 31
-(There was 1 warning)
+while$ -- 10
+width$ -- 5
+write$ -- 57

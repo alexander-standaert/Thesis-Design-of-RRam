@@ -26,4 +26,18 @@ K.~Prall and K.~Parat, ``25nm 64gb mlc nand technology and scaling challenges
   invited paper,'' in \emph{Electron Devices Meeting (IEDM), 2010 IEEE
   International}, Dec 2010, pp. 5.2.1--5.2.4.
 
+\bibitem{rramscaling}
+H.~Nazarian, ``Crossbar resistive memory: The future technology for nand
+  flash,'' \emph{white paper from crossbar}, 2013.
+
+\bibitem{bulkload}
+F.~Ren, H.~Park, R.~Dorrance, Y.~Toriyama, C.-K. Yang, and D.~Markovic, ``A
+  body-voltage-sensing-based short pulse reading circuit for spin-torque
+  transfer rams (stt-rams),'' in \emph{Quality Electronic Design (ISQED), 2012
+  13th International Symposium on}, March 2012, pp. 275--282.
+
+\bibitem{Cos09}
+S.~Cosemans, ``Variability-aware design of low power sram memories,'' Ph.D.
+  dissertation, KULeuven, 2010.
+
 \end{thebibliography}
