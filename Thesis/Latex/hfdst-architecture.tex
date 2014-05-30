@@ -1,17 +1,17 @@
 \chapter{Geheugenarchitectuur}
 \label{architecture}
-Voor overzicht te houden op de geheugenarchitectuur, zijn bepaalde bouwblokken gedefineerd. Het grootste bouwblok is de global block, dit bestaat uit twee local blocks en een sense amplifier. Local blocks zijn geheugencelmatrices met decoders en passgates er rond.
-Dit hoofdstuk bespreekt de algemene structuur alsook de vrijheidsgraden die in hoofdstuk \ref{timing-optimization} onderzocht worden om tot een optimaal werkend systeem te komen. Ten slotte zullen ook nog de bouwblokken aangekaart worden die meer uitvoerig besproken worden in de volgende hoofdstukken. 
+Om overzicht te houden op de geheugenarchitectuur, zijn bepaalde bouwblokken gedefinieerd. Het grootste bouwblok is de global block, dit bestaat uit twee local blocks en een sense amplifier. Local blocks zijn geheugencelmatrices met decoders en passgates er rond.
+Dit hoofdstuk bespreekt de algemene structuur alsook de vrijheidsgraden die in hoofdstuk \ref{timing-optimization} onderzocht worden om tot een optimaal werkend systeem te komen. Ten slotte zullen ook nog de bouwblokken vermeld worden die meer uitvoerig besproken worden in de volgende hoofdstukken. 
 
 
 \section{Cel}
-Dit elementaire bouwblok is besproken in sectie \ref{1T1R} en is het vaakst terug te vinden in het geheugensysteem.
+Dit elementaire bouwblok is besproken in sectie \ref{1T1R} en vormt de kern van het geheugensysteem.
 De cel bestaat uit een memristor en een transistor (1T1R-cel). De geheugencel heeft drie terminals: de gate van de transistor, die verbonden wordt met een wordline, de source van de transistor, die verbonden wordt met een sourceline en tenslotte de terminal van de memristor, die verbonden wordt met een bitline.
 %Een cel waarvan memristor zich in een willekeurige resistieve staat bevindt is een datacel, terwijl de memristor van referentiecellen in een voorgeprogrammeerde en dus gekende resistieve staat verkeert.
 
 \section{Branch}
-De branch en cel worden getoond in figuur \ref{fig:cellbranch}. In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of Word Lines per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van de geheugenarchitectuur. Naast alle datacellen is er ook nog één referentiecel - dit is een cel waarvan de resistieve staat voorgeschreven is - verbonden aan de BL en SL van de branch.
-Elke BL wordt via een pMOS-transistor (al dan niet met nog een impedantie tussenin) gekoppeld aan de voedingspanning Vdd en via een nMOS-transistor aan de grondspanning Vss. In dit werk is er enkel een nMOS-transistor die de SL verbindt met Vss.\footnote{In een volledig geheugensysteem zou de SL via een pMOS ook nog verbonden zijn met een niet onderzochte spanningsknoop Vdd\_write. De pMOS zou dan worden aangezet voor schrijfwerking.} De nMOS-transistoren aan BL en SL fungeren als schakelaars, de pMOS-transistor wordt daarenboven ook gebruikt als impedantie voor een resistieve spanningsdeling (zie hoofdstuk \ref{loadanalysis}).
+De branch en cel worden getoond in figuur \ref{fig:cellbranch}. In een branch worden er een bepaald aantal datacellen verbonden aan één BL en één SL. Dit aantal wordt \emph{Number of Word Lines per Branch} (NoWLpB) genoemd en is een van de vrijheidsgraden van deze geheugenarchitectuur. Naast alle datacellen is er ook nog één referentiecel - dit is een cel waarvan de resistieve staat voorgeschreven is - verbonden aan de BL en SL van de branch.
+Elke BL wordt via een pMOS-transistor (al dan niet met nog een impedantie tussenin) gekoppeld aan de voedingsspanning Vdd en via een nMOS-transistor aan de grondspanning Vss. In dit werk is er enkel een nMOS-transistor die de SL verbindt met Vss.\footnote{In een volledig geheugensysteem zou de SL via een pMOS ook nog verbonden zijn met een niet onderzochte spanningsknoop Vdd\_write. De pMOS zou dan worden aangezet voor schrijfwerking.} De nMOS-transistoren aan BL en SL fungeren als schakelaars, de pMOS-transistor wordt daarenboven ook gebruikt als impedantie voor een resistieve spanningsdeling (zie hoofdstuk \ref{loadanalysis}).
 
 \begin{figure}
   \centering
@@ -69,6 +69,8 @@ Een global block bestaat uit twee LBs en een sense amplifier (SA) met bijhorende
 Aan de uitgang van het GB verschijnen dan ook de opgevraagde bits.
 De laatste architectuurvrijheidsgraad is de \emph{Number of Global Blocks} (NoGB), het totale geheugen bevat NoGB x 2 x NoBLpLB x NoWLpB datageheugencellen.
 
+
+
 \begin{figure}
   \centering
   \includegraphics[scale=0.3]{../fig/hfdstk-architecture-globalblock.png}
@@ -77,5 +79,5 @@ De laatste architectuurvrijheidsgraad is de \emph{Number of Global Blocks} (NoGB
 \end{figure}
 
 \section{Besluit}
-De geheugenarchitectuur werd in vogelvlucht overlopen. De kleinste bouwblok is de cel, deze wordt geplaatst in een branch, d.i. een combinatie van cellen aan een BL en SL, verbonden met schakelaars en impedanties aan VDD en VSS. Verschillende branches vormen samen met decoders en passgates een local block. Twee local blocks en een sense amplifier met bijhorende passgates worden gegroepeerd tot een global block. Het totale geheugen bestaat tenslotte uit een verzameling global blocks.
+De geheugenarchitectuur werd in vogelvlucht overlopen. Het kleinste bouwblok is de cel, deze wordt geplaatst in een branch, d.i. een combinatie van cellen aan een BL en SL, verbonden met schakelaars en impedanties aan VDD en VSS. Verschillende branches vormen samen met decoders en passgates een local block. Twee local blocks en een sense amplifier met bijhorende passgates worden gegroepeerd tot een global block. Het totale geheugen bestaat tenslotte uit een verzameling global blocks.
 

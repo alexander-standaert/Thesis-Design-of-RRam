@@ -39,18 +39,18 @@
 
 \begin{preface}
   Na bijna een jaar aan deze thesis gewerkt te hebben zouden we graag een aantal mensen in het bijzonder willen bedanken voor hun hulp en steun. Ten eerste prof. Dehaene voor het onderwerp aan te bieden en toe te wijzen aan ons. Ten tweede onze begeleiders Stefan en Burak.\\
-  Stefan, hartelijk dank voor de tijd die je wou vrij maken voor ons, het was heel aangenaam om een begeleider te hebben die zo veel kennis en ervaring heeft van het vakgebied.\\
+  Stefan, hartelijk dank voor de tijd die je wou vrij maken voor ons, het was heel aangenaam om een begeleider te hebben die zoveel kennis en ervaring heeft van het vakgebied.\\
   Burak, thanks for always being available for us and for providing us the resources to get our thesis underway.\\
-  Verder zouden we graag Bert DeKnuydt willen bedanken voor zijn hulp met het Condor systeem. Tenslotte zouden we ook elkaar willen bedanken, we waren een goed complemenair team. 
+  Verder zouden we graag Bert DeKnuydt willen bedanken voor zijn hulp met het Condor systeem. Tenslotte zouden we ook elkaar willen bedanken, we waren een goed complementair team. 
 \end{preface}
 
 \tableofcontents*
 
 \begin{abstract}
- Nu het schalen van flash-geheugens op zijn limieten begint te stoten, is er nood aan een alternatief. Met eigenschappen zoals lage voedingspanning, kleine geheugencel en hoge leessnelheid is RRAM één van de meest belovende kandidaten.\\\\
+ Nu het schalen van flash-geheugens op zijn limieten begint te stoten, is er nood aan een alternatief. Met eigenschappen zoals lage voedingsspanning, kleine geheugencel en hoge leessnelheid is RRAM één van de meest belovende kandidaten.\\\\
  Deze thesis behandelt het ontwerp van het leescircuit van een 1Mbit RRAM geheugen. De grootste uitdaging in het ontwerp van dit resistief geheugen is variabiliteit. Deze variabiliteit is kritisch op twee plaatsen: ten eerste bij de resistieve deling tussen de geheugencel en een lastimpedantie. Ten tweede bij het latchen van de sense amplifier.\\\\
  Dit werk introduceert verschillende innovaties. Zo werd er een uitgebreide analyse uitgevoerd voor de keuze van lastimpedantie. Het vormen van de referentiespanningsdistributie door middel van parallelle geheugencellen is ook een toegepaste techniek. Tenslotte wordt een analyse over de invloed van een overlappende werking van pass-gates en sense amplifier onder variabiliteit aangebracht. Verder wordt ook het ontwerp van alle andere belangrijke bouwblokken zoals decoders en buffers besproken.\\\\
- Deze kennis wordt dan gebruikt in het ontwerp van een 1Mbit geheugen in 45nm PTM technologie. Het geheugen maakt gebruik van 512 sense amplifiers die telkens gekoppeld zijn aan 2 geheugenmatrices met 32WL en 32BL. Op een voedingspanning van 1V heeft het geheugen een random-access-leessnelheid van 435MHz. Het energieverbruik per leesoperatie is bij deze voedingspanning 0.51pJ. Binnen de afbakening van dit werk presteert de ontworpen schakeling beter dan flash-geheugens gevonden in de literatuur.
+ Deze kennis wordt dan gebruikt in het ontwerp van een 1Mbit geheugen in 45nm PTM technologie. Het geheugen maakt gebruik van 512 sense amplifiers die telkens gekoppeld zijn aan 2 geheugenmatrices met 32WL en 32BL. Op een voedingsspanning van 1V heeft het geheugen een random-access-leessnelheid van 435MHz. Het energieverbruik per leesoperatie bedraagt bij deze voedingsspanning 0.51pJ. Binnen de afbakening van dit werk presteert de ontworpen schakeling beter dan flash-geheugens gevonden in de literatuur.
 \end{abstract}
 
 % Een lijst van figuren en tabellen is optioneel
@@ -102,6 +102,7 @@
 % Indien er bijlagen zijn:
 \appendixpage*          % indien gewenst
 \appendix
+\include{app-memristortheory}
 \include{app-chargeinjectie-inputs}
 
 \backmatter
