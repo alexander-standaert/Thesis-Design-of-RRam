@@ -119,9 +119,6 @@ One could suspect that a large BL capacitance would significantly increase the l
 This RC-latch effect arises when the RC-product of the pass-gate resistance and the BL capacitance is large. When it occurs, the capacitance behaves as a short-circuit and current flows through the resistor and a corresponding voltage drop over the resistor builds up. Afterwards the load capacitance charges itself at a much lower time constant.\\\\
 The overlap between the enabling of the passgates and the SA thus needn't be this great: a load-less SA latching delay suffices. For this situation $V_{T}$ and $\beta$ mismatch of the passgate transistors results in mismatch of the resistors. The interaction between these resistors and the SA is strongly non-linear. Depending on the precharged values of the load capacitances, this R mismatch can result in incorrect latching. There is thus still a contribution of the passgates to the offset voltage spread. The interaction between R and the SA reduces the contributions of the differential pair mismatch however. For a minimal SA, the offset voltage spread is smaller with overlap than without. By sizing all the transistors, this spread can be reduced to the desired level. Speed can be improved by using the RC-latch effect which implies using small pass-gate transistors, or by sizing the rest of the SA. This allows the SA to deliver a large current to charge the BL capacitance.
 
-\section{Read Throughput Results}\label{final}
-A read access time simulation test was performed on the complete circuit (Figure \ref{fig:speedvdd}). In this test the supply voltage was decreased and the maximum read throughput was determined. The test was performed at a (SPICE environment) temperature of $30^{\circ}\mathrm{C}$. At each point in the shmoo plot, 100 Monte Carlo simulations were performed. At 1V Vdd, the circuit achieves a read access time of 2.3ns. during the read cycle, its energy consumption is 0.51pJ. Most of the energy (65\%) is consumed by the bitlines. 25\% of the energy consumption is due to the logic, while the buffers and SA together take the remaining 10\%. As the supply voltage goes down, the read throughput also goes down. This is caused by a combination of phenomena. First of all the logic operates slower. This causes a timing issue in which the bitline load transistor is activated before the cell. This timing issue results in a rapid increase in bitline voltage which causes a longer settling time of the bitline when the cell is eventually selected. A second reason for the decrease in read throughput at a lower supply voltage, is the slower latching of the SA.
-
 \begin{figure}[h!t]
   \centering
   \includegraphics[width=0.5\textwidth]{../fig/hfdst-final-vddspeed.png}
@@ -137,6 +134,11 @@ On figure \ref{fig:speedvdd} it can clearly be seen that the circuit can only op
   \caption{BL voltage distribution for reference signal and HRS \& LRS signals in function of vdd}
   \label{fig:vblvdd}
 \end{figure}
+
+\section{Read Throughput Results}\label{final}
+A read access time simulation test was performed on the complete circuit (Figure \ref{fig:speedvdd}). In this test the supply voltage was decreased and the maximum read throughput was determined. The test was performed at a (SPICE environment) temperature of $30^{\circ}\mathrm{C}$. At each point in the shmoo plot, 100 Monte Carlo simulations were performed. At 1V Vdd, the circuit achieves a read access time of 2.3ns. during the read cycle, its energy consumption is 0.51pJ. Most of the energy (65\%) is consumed by the bitlines. 25\% of the energy consumption is due to the logic, while the buffers and SA together take the remaining 10\%. As the supply voltage goes down, the read throughput also goes down. This is caused by a combination of phenomena. First of all the logic operates slower. This causes a timing issue in which the bitline load transistor is activated before the cell. This timing issue results in a rapid increase in bitline voltage which causes a longer settling time of the bitline when the cell is eventually selected. A second reason for the decrease in read throughput at a lower supply voltage, is the slower latching of the SA.
+
+
 
 
 

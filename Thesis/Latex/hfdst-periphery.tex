@@ -81,11 +81,11 @@ Na het vergelijken van beide decoders wat oppervlakte, energie, delay, glitches,
 
 \section{Buffers}
 Kleine CMOS gates kunnen slechts een beperkte hoeveelheid stroom leveren. Wanneer de uitgang van deze gates aangesloten wordt op een grote capacitieve last, duurt het lang voordat deze last op- of ontladen is. Soms is het niet aangewezen om deze gate zelf te vergroten, hierdoor neemt de intrinsieke last immers toe en gaan de gates van de vorige trap mogelijk niet meer genoeg stroom kunnen leveren om de ingang van de gate snel te sturen. In dit geval is het aangewezen om de uitgang van de gate te bufferen. Een ideale buffer heeft geen ingangscapaciteit en kan oneindig veel stroom leveren om eender welke last onmiddelijk te sturen. In de praktijk worden buffers geïmplementeerd door een even aantal invertoren te cascaderen. De eerste inverter in de ketting is klein genoeg zodat de gebufferde gate hier geen last van ondervindt, de volgende inverters in de ketting worden systematisch opgeschaald zodat de laatste inverter in de ketting voldoende stroom kan leveren om de last te sturen. 
-Buffers worden op drie plaatsen in de geheugen architectuur gebruikt. Ten eerste om de woordlijnen aan te sturen. Ten tweede om de referentielogica aan te sturen en tenslotte  tussen de eerste en tweede laag in de grid decoders. Tabel \ref{tab:buffer} geeft een overzicht van de oorsprong van de last en de waarde van de last die de verschillende buffers moeten aansturen.\\
+Buffers worden op drie plaatsen in de geheugen architectuur gebruikt. Ten eerste om de wordlines aan te sturen. Ten tweede om de referentielogica aan te sturen en tenslotte  tussen de eerste en tweede laag in de grid decoders. Tabel \ref{tab:buffer} geeft een overzicht van de oorsprong van de last en de waarde van de last die de verschillende buffers moeten aansturen.\\
 De buffers werden ontworpen met de methode van logical effort\cite{Sutherland:1999:LED:298513} waarbij het aantal stages en de sizing van elke stage werd bepaald volgens het volgende stappenplan:
 \begin{enumerate}
 \item Bepaal de path effort $F = GH$ waarbij $G = 1$ aangezien we enkel met inverters werken en $H = \frac{C_{out}}{C_{in}}$
-\item Het aantal stages wordt bepaald door $\hat{N} = log_{4}F$. Hierbij werd er voor een stage effort van 4 gekozen voor een optimale delay. \^{N} wordt dan afgerond tot een even getal N voor de woordlijn- en referentiebuffers en tot een oneven getal voor de decoderbuffers.
+\item Het aantal stages wordt bepaald door $\hat{N} = log_{4}F$. Hierbij werd er voor een stage effort van 4 gekozen voor een optimale delay. \^{N} wordt dan afgerond tot een even getal N voor de wordline- en referentiebuffers en tot een oneven getal voor de decoderbuffers.
 \item N wordt dan gebruikt om een nieuwe stage effort \^{f} te berekenen met de formule $\hat{f} = F^{1/N}$.
 \item Tenslotte kunnen de groottes van de verschillende invertoren in de chain berekend worden met de nieuwe stage effort $\hat{f} = gh$.
 \end{enumerate}
@@ -97,7 +97,7 @@ Figuur \ref{fig:refbuffer} illusteert de ongebufferde en gebufferde signalen die
 \hline
  &  Last & \ Capaciteit\\
 \hline
-Woordlijnbuffer & 1 Transistorgate &  $\#BL*0,18fF$\\
+Wordlinebuffer & 1 Transistorgate &  $\#BL*0,18fF$\\
 Referentiebuffer & 1 Nor + 1 Inv &  $\#BL*0,93fF$\\
 Decoderbuffer & 1 Nor & (4-64)\footnote{varieert met machten van 2, hangt af van hoeveel uitgangen de decoder bevat}$*0.58fF$\\
 \hline

@@ -54,7 +54,7 @@ Het datasignaal is de spanning op de BL wanneer er een resistieve deling aan de 
 \subsection{Referentiespanning genereren uit referentiecellen}
 \label{refread}
 Het referentiesignaal is een spanning die tussen de spanning van een LRS datasignaal en een HRS datasignaal moet liggen. Een dergelijk signaal kan verkregen worden door twee BLs kort te sluiten zoals op figuur \ref{fig:2cellref}. In dit ontwerp zal de kortsluiting gerealiseerd worden door de passgates van de BLs aan te zetten, zo komt het referentiesignaal bovendien ook op de uitgangsknoop te staan. In theorie is het voldoende om 2 BLs [de ene met een HRS cel en de andere met een LRS cel] kort te sluiten om het referentiesignaal te verkrijgen. Er zit echter op de resistieve geheugenelementen variabiliteit: er wordt aangenomen dat $R_{H}$ normaal verdeeld is met $\mu = 32500\Omega$ en $\sigma = 833\Omega$. $R_{L}$ is ook normaal verdeeld met $\mu = 7500\Omega$ en $\sigma = 833\Omega$. Dit betekent dat ook de data-signalen en referentie-signalen stochastische variabelen zijn.
-Door meerdere referentiebitlijnen kort te sluiten gaat de spreiding van het referentiesignaal dalen [maar het energieverbruik stijgen]. Bovendien kan men de verwachtingswaarde verschuiven door meer HRS (LRS) referentiegeheugenelementen te gebruiken dan LRS (HRS).
+Door meerdere referentiebitlines kort te sluiten gaat de spreiding van het referentiesignaal dalen [maar het energieverbruik stijgen]. Bovendien kan men de verwachtingswaarde verschuiven door meer HRS (LRS) referentiegeheugenelementen te gebruiken dan LRS (HRS).
 
 \begin{figure}
   \centering
